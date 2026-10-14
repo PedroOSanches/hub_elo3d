@@ -1,6 +1,9 @@
 import uuid
-from pydantic import BaseModel, EmailStr, Field, ConfigDict
+from pydantic import BaseModel, EmailStr, Field, ConfigDict, ValidationError
 from pydantic_extra_types.phone_numbers import PhoneNumber
+
+from .endereco import Endereco
+from src.shared.errors.domain_error import EntitieError
 
 class User(BaseModel):
     id: uuid.UUID = Field(
@@ -19,17 +22,17 @@ class User(BaseModel):
         examples=["user@example.com", "user@aacd.com"]
     )
 
-
-    instituicao: uuid.UUID | None = Field(
-        ...,
+    institution_id: uuid.UUID | None = Field(
+        default=None,
         description="Identificador da instituição que o usuário pertence."
     )
-    telefone: PhoneNumber | None = Field(
+
+    phone: PhoneNumber | None = Field(
         ...,
         description="Número de telefone do usuário"
     )
-    _password_hash: str = Field(
-        ...,
+    password_hash: str = Field(
+        default=None,
         description="Hash da senha do usuário",
         min_length=2,
         repr=False,
@@ -40,3 +43,10 @@ class User(BaseModel):
         extra='forbid',
         populate_by_name=True
     )
+
+    def __init__(self, **data):
+        try:
+            super().__init__(**data)
+        except ValidationError as err:
+            raise EntitieError(str(err.errors()[0]["loc"][0])) from err
+    

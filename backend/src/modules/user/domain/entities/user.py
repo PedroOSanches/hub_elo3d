@@ -35,7 +35,7 @@ class User(BaseModel):
         default=None,
         description="Hash da senha do usuário",
         min_length=2,
-        repr=False,
+        exclude=True,
     )
 
     model_config = ConfigDict(

@@ -1,5 +1,7 @@
 pydantic==2.14.1 
 pydantic-extra-types==2.11.1
 phonenumbers==9.0.41
+dnspython==2.9.0
+email-validator==2.3.0
 fastapi==0.143.1
 

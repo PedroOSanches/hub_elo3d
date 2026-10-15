@@ -1,4 +1,4 @@
-from src.shared.errors.base_error import BaseError
+from src.shared.errors.usecase_error import BaseError
 
 class NoUsersFound(BaseError):
     def __init__(self, message: str):

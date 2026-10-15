@@ -27,7 +27,7 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #b3264c;
+  background-color: #B92C51;
   height: 100%;
   padding: 0 35px;
   border-top-right-radius: 0px;
@@ -58,7 +58,7 @@ html, body {
 }
 
 .nav-item.dark-first {
-  background-color: #8b0029;
+  background-color: #A10029;
   margin-left: -35px;
   padding-left: 45px;
   border-top-right-radius: 0px;
@@ -67,7 +67,7 @@ html, body {
 }
 
 .nav-item.light {
-  background-color: #b3264c;
+  background-color: #B92C51;
   margin-left: -35px;
   padding-left: 45px;
   border-top-right-radius: 0px;
@@ -76,7 +76,7 @@ html, body {
 }
 
 .nav-item.dark {
-  background-color: #8b0029;
+  background-color: #A10029;
   margin-left: -35px;
   padding-left: 45px;
   border-top-right-radius: 0px;
@@ -88,7 +88,7 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #b3264c;
+  background-color: #B92C51;
   height: 100%;
   padding: 0 35px;
   margin-left: -35px;

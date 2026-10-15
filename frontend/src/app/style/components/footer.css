@@ -8,7 +8,7 @@ html, body {
 
 .footer {
   width: 100%;
-  background-color: #f7f3eb; 
+  background-color: #f4f0e5; 
   padding: 45px 4%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #1a1a1a;
@@ -32,7 +32,7 @@ html, body {
 }
 
 .footer-logo {
-  height: 70px;
+  height: 100px;
   object-fit: contain;
 }
 
@@ -44,7 +44,7 @@ html, body {
 }
 
 .footer-slogan .highlight {
-  color: #a30036;
+  color: #A10029;
 }
 
 .footer-sub {
@@ -83,7 +83,7 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #a30036;
+  color: #A10029;
   font-size: 28px;
   flex-shrink: 0;
 }

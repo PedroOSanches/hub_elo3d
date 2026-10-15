@@ -5,12 +5,10 @@ from abc import abstractmethod
 from ..entities.user import User
 
 class IUserRepository(abc.ABC):
-
     @abstractmethod
     def get_user(self, id: str) -> User:
         """
         Retorna um objeto "User" a partir do seu ID
-
 
         Em caso não encontrado retorna NoUsersFound
         """
@@ -18,7 +16,7 @@ class IUserRepository(abc.ABC):
         pass
 
     @abstractmethod
-    def get_all_users(self):
+    def get_all_users(self) -> list[User]:
         """
         Retorna todos os usuários
 
@@ -42,10 +40,7 @@ class IUserRepository(abc.ABC):
     def update_user(
             self, 
             id: str, 
-            new_name: str,
-            new_email: str,
-            new_phone: str,
-            new_password_hash: str
+            updated_user: User
             ) -> User:
         """
         Atualiza os campos de um usuário de acordo com o id

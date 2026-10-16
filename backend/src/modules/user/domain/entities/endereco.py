@@ -47,7 +47,7 @@ class Address(BaseModel):
 
     @model_validator(mode='wrap')
     @classmethod
-    def validar_modelo(cls, data: Any, handler: ModelWrapValidatorHandler) -> "address":
+    def validar_modelo(cls, data: Any, handler: ModelWrapValidatorHandler) -> "Address":
         try:
             return handler(data)
         except ValidationError as err:

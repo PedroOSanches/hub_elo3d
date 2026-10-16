@@ -13,7 +13,7 @@ class Impressora(BaseModel):
     modelo: str = Field(min_length=1)
     tecnologia_impressao: str = Field(min_length=1)
     usuario_id: UUID 
-    filamentos_aceitos: list[int] = Field(default_factory=list)
+    filamentos_aceitos: list[UUID] = Field(default_factory=list)
     status: StatusImpressora = StatusImpressora.DISPONIVEL
 
     @field_validator("filamentos_aceitos")

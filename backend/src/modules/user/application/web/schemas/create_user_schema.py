@@ -1,7 +1,7 @@
 import uuid
 from typing import Any
 
-from pydantic import BaseModel, Field, EmailStr, ValidationError, ModelWrapValidatorHandler, model_validator
+from pydantic import BaseModel, Field, EmailStr, ValidationError, ModelWrapValidatorHandler, model_validator, ConfigDict
 from pydantic_extra_types.phone_numbers import PhoneNumber
 from src.shared.errors.controller_error import MissingParameters, WrongTypeParameter
 from src.modules.user.domain.entities.endereco import Address
@@ -54,10 +54,13 @@ class CreateUserRequestSchema(BaseModel):
 
 
 class CreateUserResponseSchema(BaseModel):
+
+    model_config = ConfigDict(from_attributes=True)
+    
     id: uuid.UUID
     name: str
     email: EmailStr
     phone: PhoneNumber
     address: Address
-    institution: uuid.UUID | None
+    institution_id: uuid.UUID | None
 

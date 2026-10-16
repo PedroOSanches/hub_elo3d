@@ -15,8 +15,8 @@ def get_create_user_dependecies() -> CreateUserController:
     return controller
 
 
-@create_router.post("/create")
-def create_user(
+@create_router.post("/create", status_code=status.HTTP_201_CREATED)
+async def create_user(
     request: CreateUserRequestSchema,
     controller: CreateUserController = Depends(get_create_user_dependecies),
 ):

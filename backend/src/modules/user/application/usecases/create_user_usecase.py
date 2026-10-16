@@ -19,7 +19,7 @@ class CreateUserUsecase:
             phone: PhoneNumber, 
             institution_id: UUID | None,
             address: Address,
-            password: str):
+            password: str) -> User:
 
         user = User(
             name=name,

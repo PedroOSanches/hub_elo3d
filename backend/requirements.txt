@@ -4,4 +4,4 @@ phonenumbers==9.0.41
 dnspython==2.9.0
 email-validator==2.3.0
 fastapi==0.143.1
-
+bcrypt==5.0.0

@@ -51,9 +51,9 @@
 @media (max-width: 768px) {
     .quem-somos{
         flex-direction: column-reverse;
-        justify-content: center; /* centraliza o conjunto na tela */
-        padding: 40px 20px;
-        gap: 30px;
+        justify-content: center; 
+        padding: 80px 200px;
+        gap: 20px;
         text-align: center;
     }
 

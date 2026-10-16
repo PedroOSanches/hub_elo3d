@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from .create_user import create_router
+from src.modules.user.application.web.routes.create_user_route import create_router
 
 router = APIRouter()
 

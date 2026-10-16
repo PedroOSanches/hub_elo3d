@@ -1,14 +1,54 @@
 from ...domain.repositories.user_repository_interface import IUserRepository 
 from ...domain.entities.user import User
+from ...domain.entities.endereco import Address
 from ...domain.errors.user_usecase_errors import NoUsersFound, DuplicatedUser
 
 
 class UserRepositoryMock(IUserRepository):
     def __init__(self):
         self.users = [
-            User(),
-            User(),
-            User()
+            User(
+                id = "b189d11a-25d1-430e-b5a1-c53db528337e",
+                name="User",
+                email="user@example.com",
+                phone="+5511999999999",
+                address=Address(
+                    logradouro="Rua Teste",
+                    bairro="Teste",
+                    cep="00000-000",
+                    numero="S/N",
+                    complemento="Casa",
+                    estado="SP"
+                )
+                ),
+                User(
+                    id = "b189d11a-25d1-430e-b5a1-c53db528337e",
+                    name="User AACD",
+                    email="user@aacd.com",
+                    phone="+5511999999999",
+                    address=Address(
+                        logradouro="Rua Teste",
+                        bairro="Teste",
+                        cep="00000-000",
+                        numero="S/N",
+                        complemento="Casa",
+                        estado="SP"
+                    )
+                    ),
+                    User(
+                        id = "b189d11a-25d1-430e-b5a1-c53db528337e",
+                        name="User Maua",
+                        email="user@maua.br",
+                        phone="+5511999999999",
+                        address=Address(
+                            logradouro="Rua Teste",
+                            bairro="Teste",
+                            cep="00000-000",
+                            numero="S/N",
+                            complemento="Casa",
+                            estado="SP"
+                        )
+                        ),
         ]
 
     def get_user(self, id: str) -> User:
@@ -30,9 +70,9 @@ class UserRepositoryMock(IUserRepository):
 
         return user
     
-    def update_user(self, id: str, updated_user: User) -> User:
+    def update_user(self,  updated_user: User) -> User:
         for i, user in enumerate(self.users):
-            if id == str(user.id):
+            if updated_user.id == user.id:
                 self.users[i] = updated_user
                 return self.users[i]
 
@@ -41,6 +81,8 @@ class UserRepositoryMock(IUserRepository):
     def delete_user(self, id: str) -> User:
         for i, user in enumerate(self.users):
             if id == str(user.id):
-                self.users.pop(i)
+                return self.users.pop(i)
+
+        raise NoUsersFound(f"id: {id}")
 
     

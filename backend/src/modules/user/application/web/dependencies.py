@@ -5,4 +5,6 @@ from src.shared.environments import Environments, STAGE
 
 def get_repo_user() -> IUserRepository:
     if Environments.get_envs().stage == STAGE.TEST.value:
-        return UserRepositoryMock
+        return UserRepositoryMock()
+    else:
+        return UserRepositoryMock()

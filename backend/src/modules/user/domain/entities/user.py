@@ -1,8 +1,18 @@
 import uuid
-from pydantic import BaseModel, EmailStr, Field, ConfigDict, ValidationError
+from typing import Any
+from pydantic import (
+    BaseModel, 
+    EmailStr, 
+    Field, 
+    ConfigDict, 
+    ValidationError, 
+    model_validator, 
+    ModelWrapValidatorHandler
+    )
+
 from pydantic_extra_types.phone_numbers import PhoneNumber
 
-from .endereco import Endereco
+from .endereco import Address
 from src.shared.errors.domain_error import EntitieError
 
 class User(BaseModel):
@@ -27,11 +37,16 @@ class User(BaseModel):
         description="Identificador da instituição que o usuário pertence."
     )
 
+    address: Address = Field(
+        ...,
+        description="Endereço do usuário"
+    )
+
     phone: PhoneNumber | None = Field(
         ...,
         description="Número de telefone do usuário"
     )
-    password_hash: str = Field(
+    password_hash: str | None = Field(
         default=None,
         description="Hash da senha do usuário",
         min_length=2,
@@ -44,9 +59,11 @@ class User(BaseModel):
         populate_by_name=True
     )
 
-    def __init__(self, **data):
+    @model_validator(mode='wrap')
+    @classmethod
+    def validar_modelo(cls, data: Any, handler: ModelWrapValidatorHandler) -> "User":
         try:
-            super().__init__(**data)
+            return handler(data)
         except ValidationError as err:
             raise EntitieError(str(err.errors()[0]["loc"][0])) from err
     

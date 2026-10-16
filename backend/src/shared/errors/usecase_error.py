@@ -1,24 +1,10 @@
 from .base_error import BaseError
 
-class NoItemsFound(BaseError):
-    def __init__(self, message: str):
-        super().__init__(f'No items found for {message}')
+class NotFoundError(BaseError):
+    pass
 
-class DuplicatedItem(BaseError):
-    def __init__(self, message: str):
-        super().__init__(f'The item alredy exists for this {message}')
-
-class NoUsersFound(BaseError):
-    def __init__(self, message: str):
-        super().__init__(f'No users found for {message}')
-
-class DuplicatedUser(BaseError):
-    def __init__(self, message: str):
-        super().__init__(f'The user already exists for this {message}')
-
-class DuplicatedMember(BaseError):
-    def __init__(self, message: str):
-        super().__init__(f'The member already exists for this {message}')
+class DuplicatedError(BaseError):
+    pass
 
 class ForbiddenAction(BaseError):
     def __init__(self, message: str):

@@ -55,13 +55,10 @@ class IUserRepository(abc.ABC):
         pass
     
     @abstractmethod
-    def delete_user(self, id: str) -> dict:
+    def delete_user(self, id: str) -> User:
         """
-        Deleta um usuário retorna
-        ```
-        {
-            status: "ok"
-        }
-        ```
+        Deleta um usuário retorna o User deletado
+
+        Caso o ID não for encontrado retorna NoUsersFound
         """
         pass

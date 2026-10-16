@@ -1,7 +1,9 @@
+from typing import Any
 import uuid
-from pydantic import BaseModel, Field
+from src.shared.errors.domain_error import EntitieError
+from pydantic import BaseModel, Field, ConfigDict, model_validator, ModelWrapValidatorHandler, ValidationError
 
-class Endereco(BaseModel):
+class Address(BaseModel):
 
     logradouro: str = Field(
         ...,
@@ -36,3 +38,17 @@ class Endereco(BaseModel):
         ...,
         examples=["Apto. 51", "Casa"]
     )
+
+    model_config = ConfigDict(
+        use_enum_values=True,
+        extra="forbid",
+        populate_by_name=True
+    )
+
+    @model_validator(mode='wrap')
+    @classmethod
+    def validar_modelo(cls, data: Any, handler: ModelWrapValidatorHandler) -> "address":
+        try:
+            return handler(data)
+        except ValidationError as err:
+            raise EntitieError(str(err.errors()[0]["loc"][0])) from err

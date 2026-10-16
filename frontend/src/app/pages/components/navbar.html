@@ -4,29 +4,28 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Navbar Elo3D Hub</title>
-  <link rel="stylesheet" href="../../style/components/navbar.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="../../js/components/custom_navbar.js" defer></script>
+  <style>
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
 
-  <nav class="navbar">
-    <a href="#" class="nav-logo">
-        <img src="../../assets/Group 3.png" alt="HUB Elo3D Logo" />
-    </a>
-    <a href="#como-funciona" class="nav-item dark-first">Como funciona</a>
-    <a href="#rede" class="nav-item light">Rede</a>
-    <a href="#sobre" class="nav-item dark">Sobre</a>
-
-    <div class="nav-user">
-      <a href="#perfil" class="user-icon" title="Perfil">
-        <div class="nav-user">
-            <a href="#perfil" class="user-btn" title="Perfil">
-                <i class="fa-solid fa-user"></i>
-            </a>
-        </div>
-      </a>
-    </div>
-  </nav>
+  <app-navbar
+    logo="../../assets/Group 3.png"
+    css="../../style/components/navbar.css"
+    icon="../../assets/account-circle-fill.png"
+    first-text="Como funciona"
+    first-href="#como-funciona"
+    second-text="Rede"
+    second-href="#rede"
+    third-text="Sobre"
+    third-href="#sobre">
+  </app-navbar>
 
 </body>
 </html>

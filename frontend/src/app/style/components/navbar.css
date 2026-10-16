@@ -1,3 +1,8 @@
+ :host {
+  display: block;
+  width: 100%;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -105,4 +110,13 @@ html, body {
   align-items: center;
   justify-content: center;
   text-decoration: none;
+}
+
+.user-btn .icon-image {
+  display: block;
+  width: 32px;
+  height: 32px;
+  background-color: #ffffff;
+  -webkit-mask: var(--icon-image) center / contain no-repeat;
+  mask: var(--icon-image) center / contain no-repeat;
 }

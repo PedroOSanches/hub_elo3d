@@ -1,0 +1,36 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Sora', sans-serif;
+}
+
+.quem-somos{
+    background-color: #F7E7D3;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 100vh;
+    padding: 80px;
+    gap: 50px;
+}
+
+.texto{
+    max-width: 500px;
+}
+
+.texto h2{
+    font-size: 48px;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+.texto h2 span{
+    color: #A10029;
+}
+
+.texto p{
+    font-size: 20px;
+    color: #000000;
+}

@@ -34,3 +34,46 @@
     font-size: 20px;
     color: #000000;
 }
+
+.logo{
+    display: flex;
+    flex-direction: row; 
+    align-items: center;
+    gap: 20px;
+}
+
+.logo img{
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+}
+
+@media (max-width: 768px) {
+    .quem-somos{
+        flex-direction: column-reverse;
+        justify-content: center; /* centraliza o conjunto na tela */
+        padding: 40px 20px;
+        gap: 30px;
+        text-align: center;
+    }
+
+    .texto{
+        max-width: 100%;
+    }
+
+    .texto h2{
+        font-size: 32px;
+    }
+
+    .texto p{
+        font-size: 16px;
+    }
+
+    .logo{
+        justify-content: center;
+    }
+
+    .logo img{
+        max-width: 280px;
+    }
+}

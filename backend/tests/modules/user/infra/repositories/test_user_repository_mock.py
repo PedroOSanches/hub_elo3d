@@ -17,11 +17,13 @@ class Test_UserRepositoryMock:
                 logradouro="teste",
                 numero="564",
                 bairro="Novo Teste",
+                cidade="Bragança Teste",
                 cep="00000-000",
                 estado="SP",
                 complemento="Apto. 13"
             ),
-            phone="+5511999999999"
+            phone="+5511999999999",
+            role="admin"
         )
 
         repo.create_user(user=user)
@@ -65,12 +67,14 @@ class Test_UserRepositoryMock:
             address=Address(
                     logradouro="Rua Teste",
                     bairro="Teste",
+                    cidade="Joateste",
                     cep="00000-000",
                     numero="S/N",
                     complemento="Casa",
                     estado="SP"
                 ),
-            phone="+5511999999999"
+            phone="+5511999999999",
+            role="admin"
         )
 
         repo_users = repo.users
@@ -97,12 +101,14 @@ class Test_UserRepositoryMock:
                         address=Address(
                             logradouro="Rua Teste",
                             bairro="Teste",
+                            cidade="Joateste",
                             cep="00000-000",
                             numero="S/N",
                             complemento="Casa",
                             estado="SP"
                             ),
-                        phone="+5511999999999"
+                        phone="+5511999999999",
+                        role="admin"
         )
                 )
 
@@ -123,11 +129,13 @@ class Test_UserRepositoryMock:
                     address=Address(
                         logradouro="Rua Teste",
                         bairro="Teste",
+                        cidade="Joateste",
                         cep="00000-000",
                         numero="S/N",
                         complemento="Casa",
                         estado="SP"
                         ),
-                    phone="+5511999999999"
+                    phone="+5511999999999",
+                    role="admin"
                 )
             )

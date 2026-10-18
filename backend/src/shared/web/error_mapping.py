@@ -5,8 +5,8 @@ from src.shared.errors.usecase_error import NotFoundError, DuplicatedError, Forb
 
 
 ERROR_STATUS_CODES = {
-    WrongTypeParameter: 422,
-    MissingParameters: 422,
+    WrongTypeParameter: 400,
+    MissingParameters: 400,
     NotFoundError: 404,
     EntitieError: 406,
     DuplicatedError: 409,

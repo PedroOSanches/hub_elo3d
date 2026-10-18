@@ -14,6 +14,7 @@ from pydantic_extra_types.phone_numbers import PhoneNumber
 
 from .endereco import Address
 from src.shared.errors.domain_error import EntitieError
+from src.modules.user.domain.enums.role_enum import ROLE
 
 class User(BaseModel):
     id: uuid.UUID = Field(
@@ -52,6 +53,12 @@ class User(BaseModel):
         min_length=2,
         exclude=True,
     )
+
+    role: ROLE = Field(
+        ...,
+        description="As funções que o usuário tem no sistema"
+    )
+
 
     model_config = ConfigDict(
         use_enum_values=True,

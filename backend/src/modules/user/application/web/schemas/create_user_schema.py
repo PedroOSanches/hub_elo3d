@@ -57,6 +57,11 @@ class CreateUserRequestSchema(BaseModel):
 
         return password
 
+    role: ROLE = Field(
+        ...,
+        examples=['hospital', 'user_hospital', 'admin', ]
+    )
+
     @model_validator(mode='wrap')
     @classmethod
     def validar_modelo(cls, value: Any, handler: Any) -> "CreateUserRequestSchema":

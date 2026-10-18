@@ -26,12 +26,6 @@ class Institution(BaseModel):
         examples=["Instituto Mauá de Tecnologia", "AACD"]
     )
 
-    description: str | None = Field(
-        default=None,
-        description="Descrição da instituição",
-        examples=["O IMT é parceiro da AACD, disponibilizando seu FabLab para fabricação de Proteses e Órteses produzidas a partir de impressão 3D"]
-    )
-
     model_config = ConfigDict(
         use_enum_values=True,
         extra='forbid',

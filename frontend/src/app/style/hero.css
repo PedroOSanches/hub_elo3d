@@ -1,0 +1,160 @@
+
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    min-height: 600px;
+
+    padding: 60px 8%;
+    box-sizing: border-box;
+
+    background-color: #F4F0E5;
+
+    font-family: 'Sora', sans-serif;
+}
+
+.hero__content {
+    width: 44%;
+}
+
+.hero__image {
+    width: 52%;
+    flex-shrink: 0;
+}
+
+.hero__image img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+
+.hero__title {
+    font-family: 'Sora', sans-serif;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 1.2;
+    color: #000000;
+    margin: 0 0 20px;
+}
+
+.hero__highlight {
+    color: #8D1D32;
+}
+
+
+.hero__button {
+    display: inline-block;
+    background-color: #8D1D32;
+    color: #FFFFFF;
+
+    font-family: 'Sora', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+
+    padding: 14px 32px;
+    border-radius: 30px;
+
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.hero__button:hover {
+    background-color: #701528;
+}
+
+
+.hero__description {
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #1A1A1A;
+
+    max-width: 440px;
+    margin: 0 0 22px;
+}
+
+
+@media (max-width: 768px) {
+    .hero {
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+
+        min-height: auto;
+        padding: 45px 6% 35px;
+        gap: 24px;
+    }
+
+    .hero__content {
+        width: 100%;
+    }
+
+    .hero__title {
+        font-size: clamp(20px, 5.5vw, 32px);
+        line-height: 1.25;
+        margin-bottom: 18px;
+    }
+
+    .hero__image {
+        width: 100%;
+        max-width: 480px;
+        flex-shrink: 1;
+    }
+
+    .hero__description {
+        max-width: 100%;
+        font-size: 14px;
+        line-height: 1.5;
+        margin-bottom: 20px;
+    }
+
+    .hero__button {
+        font-size: 14px;
+        padding: 12px 24px;
+    }
+
+    .hero__image {
+        width: 100%;
+        max-width: 420px;
+        flex-shrink: 1;
+    }
+}
+
+
+
+@media (min-width: 769px) and (max-width: 1199px) {
+    .hero {
+        padding: 50px 5%;
+        gap: 24px;
+    }
+
+    .hero__content {
+        width: 48%;
+        min-width: 0;
+    }
+
+    .hero__image {
+        width: 50%;
+        flex-shrink: 0;
+    }
+
+    .hero__title {
+        font-size: clamp(24px, 3.2vw, 38px);
+        line-height: 1.2;
+    }
+
+    .hero__description {
+        font-size: 14px;
+    }
+
+    .hero__button {
+        font-size: 14px;
+        padding: 12px 24px;
+    }
+}

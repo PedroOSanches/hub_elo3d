@@ -1,7 +1,7 @@
-from ...domain.repositories.user_repository_interface import IUserRepository 
-from ...domain.entities.user import User
-from ...domain.entities.endereco import Address
-from ...domain.errors.user_usecase_errors import NoUsersFound, DuplicatedUser
+from src.modules.user.domain.repositories.user_repository_interface import IUserRepository 
+from  src.modules.user.domain.entities.user import User
+from  src.modules.user.domain.entities.endereco import Address
+from  src.modules.user.domain.errors.user_usecase_errors import NoUsersFound, DuplicatedUser
 
 
 class UserRepositoryMock(IUserRepository):
@@ -16,10 +16,12 @@ class UserRepositoryMock(IUserRepository):
                     logradouro="Rua Teste",
                     bairro="Teste",
                     cep="00000-000",
+                    cidade="São Teste do Sul",
                     numero="S/N",
                     complemento="Casa",
                     estado="SP"
-                )
+                ),
+                role="user"
                 ),
                 User(
                     id = "b189d11a-25d1-430e-b5a1-c53db528337e",
@@ -30,10 +32,12 @@ class UserRepositoryMock(IUserRepository):
                         logradouro="Rua Teste",
                         bairro="Teste",
                         cep="00000-000",
+                        cidade="São Teste do Sul",
                         numero="S/N",
                         complemento="Casa",
                         estado="SP"
-                    )
+                    ),
+                    role="hospital"
                     ),
                     User(
                         id = "b189d11a-25d1-430e-b5a1-c53db528337e",
@@ -44,10 +48,12 @@ class UserRepositoryMock(IUserRepository):
                             logradouro="Rua Teste",
                             bairro="Teste",
                             cep="00000-000",
+                            cidade="São Teste do Sul",
                             numero="S/N",
                             complemento="Casa",
                             estado="SP"
-                        )
+                        ),
+                        role="admin"
                         ),
         ]
 

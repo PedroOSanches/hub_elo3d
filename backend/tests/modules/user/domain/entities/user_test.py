@@ -9,6 +9,7 @@ class TestUser:
             name="User",
             email="user@example.com",
             phone="+5511999999999",
+            role="user",
             password_hash="5156BECBC019E3F0F9520B143435427E",
             address=Address(
                     logradouro="Rua Teste",
@@ -16,6 +17,7 @@ class TestUser:
                     cep="00000-000",
                     numero="S/N",
                     complemento="Casa",
+                    cidade="Teste",
                     estado="SP"
                 )
             
@@ -27,6 +29,7 @@ class TestUser:
             email="user@institution.com",
             institution_id=UUID("bd6987dc-8298-4c03-9ccd-91f2ebdbe28a"),
             phone="+5599999999999",
+            role="user",
             password_hash="5156BECBC019E3F0F9520B143435427E",
             address=Address(
                     logradouro="Rua Teste",
@@ -34,6 +37,7 @@ class TestUser:
                     cep="00000-000",
                     numero="S/N",
                     complemento="Casa",
+                    cidade="Teste",
                     estado="SP"
                 )
         )
@@ -45,6 +49,7 @@ class TestUser:
                 email="userinstitution.com",
                 institution_id="bd6987dc-8298-4c03-9ccd-91f2ebdbe28a",
                 phone="+5599999999999",
+                role="user",
                 password_hash="5156BECBC019E3F0F9520B143435427E",
                 address=Address(
                     logradouro="Rua Teste",
@@ -52,6 +57,7 @@ class TestUser:
                     cep="00000-000",
                     numero="S/N",
                     complemento="Casa",
+                    cidade="Teste",
                     estado="SP"
                 )
             )
@@ -62,6 +68,7 @@ class TestUser:
                 email="user@institution.com",
                 institution_id="bd6987dc-8298-4c03-9ccd-91f2ebdbe28a",
                 phone="11999999999",
+                role="user",
                 password_hash="5156BECBC019E3F0F9520B143435427E",
                 address=Address(
                     logradouro="Rua Teste",
@@ -69,6 +76,7 @@ class TestUser:
                     cep="00000-000",
                     numero="S/N",
                     complemento="Casa",
+                    cidade="Teste",
                     estado="SP"
                 )
             )
@@ -80,6 +88,7 @@ class TestUser:
                 email="user@institution.com",
                 institution_id=UUID("bd6987dc-8298-4c03-9ccd-91f2ebdbe28a"),
                 phone="+5511999999999",
+                role="user",
                 password_hash="5156BECBC019E3F0F9520B143435427E",
                 address=Address(
                     logradouro="Rua Teste",
@@ -87,6 +96,7 @@ class TestUser:
                     cep="00000-000",
                     numero="S/N",
                     complemento="Casa",
+                    cidade="Teste",
                     estado="SP"
                 )
             )
@@ -97,6 +107,7 @@ class TestUser:
                 email="user@institution.com",
                 institution_id="bd6987dc-8298-4c03-9ccd-91f2ebdbe28a",
                 phone="+5511999999999",
+                role="admin",
                 password_hash="5",
                 address=Address(
                     logradouro="Rua Teste",
@@ -104,6 +115,7 @@ class TestUser:
                     cep="00000-000",
                     numero="S/N",
                     complemento="Casa",
+                    cidade="Teste",
                     estado="SP"
                 )
             )
@@ -114,6 +126,7 @@ class TestUser:
                 email="user@institution.com",
                 institution_id="b",
                 phone="+5511999999999",
+                role="user",
                 password_hash="5156BECBC019E3F0F9520B143435427E",
                 address=Address(
                     logradouro="Rua Teste",
@@ -121,6 +134,7 @@ class TestUser:
                     cep="00000-000",
                     numero="S/N",
                     complemento="Casa",
+                    cidade="Teste",
                     estado="SP"
                 )
             )
@@ -134,12 +148,35 @@ class TestUser:
                     institution_id="bd6987dc-8298-4c03-9ccd-91f2ebdbe28a",
                     phone="+5511999999999",
                     password_hash="5156BECBC019E3F0F9520B143435427E",
+                    role="admin",
                     address=Address(
                     logradouro="Rua Teste",
                     bairro="Teste",
                     cep="00000-000",
                     numero="S/N",
                     complemento="Casa",
+                    cidade="Teste",
+                    estado="SP"
+                )
+                )
+
+    def test_role_invalid(self):
+            with pytest.raises(EntitieError):
+                user = User(
+                    id="u",
+                    name="User",
+                    email="user@institution.com",
+                    institution_id="bd6987dc-8298-4c03-9ccd-91f2ebdbe28a",
+                    phone="+5511999999999",
+                    password_hash="5156BECBC019E3F0F9520B143435427E",
+                    role="a",
+                    address=Address(
+                    logradouro="Rua Teste",
+                    bairro="Teste",
+                    cep="00000-000",
+                    numero="S/N",
+                    complemento="Casa",
+                    cidade="Teste",
                     estado="SP"
                 )
                 )

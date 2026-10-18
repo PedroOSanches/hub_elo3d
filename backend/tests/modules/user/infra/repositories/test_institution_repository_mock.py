@@ -16,7 +16,6 @@ class Test_InstitutionRepositoryMock:
         institution = Institution(
             id="0334c795-5e71-4c1e-8a0e-ab21a4fcdecf",
             name = "Teste ABC",
-            description="Teste teste"
         )
 
         repo.create_institution(institution=institution)
@@ -56,7 +55,6 @@ class Test_InstitutionRepositoryMock:
         institution = Institution(
             id="f65e238b-f673-499d-b48c-e65e9b8dfa82",
             name = "UTeste",
-            description="Testes"
             )
 
         repo_institutions = repo.institutions
@@ -79,8 +77,7 @@ class Test_InstitutionRepositoryMock:
                     Institution(
                         id="0334c795-5e71-4c1e-8a0e-ab21a4fcdecf",
                         name = "Teste",
-                        description="Teste teste teste"
-        )
+                        )
                 )
 
     def test_notfound_delete_institution(self):
@@ -96,6 +93,6 @@ class Test_InstitutionRepositoryMock:
             repo.create_institution(
                 Institution(
                     name = "Instituto teste de Tecnologia",
-                    description="Teste"
                 )
+    
             )

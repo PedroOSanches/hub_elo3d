@@ -1,4 +1,6 @@
 from fastapi import FastAPI
+from starlette.types import ExceptionHandler
+from typing import cast
 
 
 from src.shared.errors.base_error import BaseError

@@ -10,12 +10,10 @@ class InstitutionRepositoryMock(IInstitutionRepository):
             Institution(
                 id = UUID("f65e238b-f673-499d-b48c-e65e9b8dfa82"),
                 name="Instituto teste de Tecnologia",
-                description="Teste teste"
             ),
             Institution(
                 id = UUID("7ed02789-516b-4a03-99b9-cbebaca72686"),
                 name="Hospital teste",
-                description="Teste teste"
             ),
         ]
 

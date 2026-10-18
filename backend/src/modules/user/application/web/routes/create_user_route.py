@@ -7,10 +7,9 @@ from src.modules.user.application.usecases.create_user_usecase import CreateUser
 
 create_router = APIRouter()
 
-    
 def get_create_user_dependecies() -> CreateUserController:
     repo = get_repo_user()
-    usecase = CreateUserUsecase(repo)
+    usecase = CreateUserUsecase(repo_user=repo)
     controller = CreateUserController(usecase)
     return controller
 

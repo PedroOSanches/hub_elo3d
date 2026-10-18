@@ -7,6 +7,6 @@ class MissingParameters(BaseError):
 class WrongTypeParameter(BaseError):
     def __init__(self, field_name: str, field_type_received: str, field_type_expected: str) -> None:
         super().__init__(
-            f"The field '{field_name}' has the wrong type. Received: {field_type_received}."
+            f"The field '{field_name}' has the wrong type. Received: {field_type_received}. "
             f"Expected: {field_type_expected}"
         )

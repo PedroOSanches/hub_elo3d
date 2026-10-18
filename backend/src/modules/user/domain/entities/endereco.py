@@ -20,6 +20,10 @@ class Address(BaseModel):
         ...,
         examples=["Sé", "Jardim Bela Vista"]
     )
+    cidade: str = Field(
+        ...,
+        examples=['São Bernardo do Campo', 'São Paulo', 'Teresina']
+    )
     estado: str = Field(
         ...,
         min_length=2,
@@ -34,8 +38,8 @@ class Address(BaseModel):
         examples=["12980-000", "09572-550"]
     )
 
-    complemento: str = Field(
-        ...,
+    complemento: str | None = Field(
+        default=None,
         examples=["Apto. 51", "Casa"]
     )
 

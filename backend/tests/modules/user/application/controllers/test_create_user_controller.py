@@ -21,11 +21,13 @@ class Test_CreateUserController():
                 'numero': "564",
                 "bairro": "Novo Teste",
                 "complemento": "",
+                'cidade': 'São Paulo',
                 'estado': "SP",
                 'cep': '00000-000'
             },
             'institution_id': "1cee6fe5-1fd5-4131-b054-4ec03358583a",
-            'password': 'teste123@#$'
+            'password': 'teste123@#$',
+            'role': 'hospital'
         }
 
         user = controller(request=CreateUserRequestSchema(**request))

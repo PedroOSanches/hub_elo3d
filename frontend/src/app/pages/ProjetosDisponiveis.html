@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projetos Disponíveis</title>
+    <link rel="stylesheet" href="../style/ProjetosDisponiveis.css">
+</head>
+<body>
+    <main class="projetos">
+        <header class="projetos_cabecalho">
+            <h1>Projetos <span>Disponíveis</span></h1>
+            <p>Veja os projetos disponíveis</p>
+        </header>
+
+
+        <div class="projetos_conteudo">
+            <aside class="filtros">
+                <div class="filtros_topo">
+                    <h2>Filtros</h2>
+                    <button type="button" class="filtros_limpar">Limpar Filtros</button>
+                </div>
+
+
+                <div class="busca">
+                    <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+                        <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2.5"/>
+                        <line x1="16.5" y1="16.5" x2="22" y2="22" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                    </svg>
+                    <input type="text" placeholder="Buscar por palavra-chave" aria-label="Buscar por palavra-chave">
+                </div>
+                <small class="filtros_exemplo">Ex: órtese, prótese, punho, pé...</small>
+
+
+                <fieldset class="grupo">
+                    <legend>Tipo de dispositivo</legend>
+                    <div class="grupo_opcoes">
+                        <label class="check"><input type="checkbox" checked> <span>Órtese</span></label>
+                        <label class="check"><input type="checkbox"> <span>Prótese</span></label>
+                        <label class="check"><input type="checkbox"> <span>Adaptação</span></label>
+                        <label class="check"><input type="checkbox"> <span>Acessório</span></label>
+                    </div>
+                </fieldset>
+
+
+                <fieldset class="grupo">
+                    <legend>Tecnologia de impressão</legend>
+                    <div class="grupo_opcoes">
+                        <label class="check"><input type="checkbox" checked> <span>FDM</span></label>
+                        <label class="check"><input type="checkbox"> <span>DLP</span></label>
+                        <label class="check"><input type="checkbox"> <span>SLA</span></label>
+                        <label class="check"><input type="checkbox"> <span>Outro</span></label>
+                    </div>
+                </fieldset>
+
+
+                <div class="grupo">
+                    <label for="material">Material</label>
+                    <select id="material">
+                        <option value="">Selecione um material</option>
+                        <option>PLA</option>
+                        <option>PETG</option>
+                        <option>ABS</option>
+                        <option>TPU</option>
+                        <option>Resina</option>
+                    </select>
+                </div>
+
+
+                <fieldset class="grupo">
+                    <legend>Urgência</legend>
+                    <div class="grupo_opcoes grupo_opcoes--linha">
+                        <label class="check"><input type="checkbox"> <span>Baixa</span></label>
+                        <label class="check"><input type="checkbox"> <span>Média</span></label>
+                        <label class="check"><input type="checkbox"> <span>Alta</span></label>
+                    </div>
+                </fieldset>
+ 
+                <button type="button" class="filtros_aplicar">Aplicar Filtros</button>
+            </aside>
+
+
+            <section class="lista" aria-label="Lista de projetos">
+                <div class="lista_tabela">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Projeto</th>
+                                <th>Urgência</th>
+                                <th>Filamento</th>
+                                <th>Prazo</th>
+                                <th><span class="sr-only">Ver projeto</span></th>
+                            </tr>
+                        </thead>
+
+
+                        <tbody>
+                            <tr>
+                                <td>Órtese de punho</td>
+                                <td><span class="urgencia urgencia--baixa">Baixa</span></td>
+                                <td>PLA</td>
+                                <td>03/10/2026</td>
+                                <td><button type="button" class="seta" aria-label="Ver detalhes de Órtese de punho" data-abrir-modal data-titulo="Órtese de punho" data-prazo="03/10" data-material="PLA" data-processo="FDM" data-tipo="Órtese" data-equipamento="Prusa i3 MK3S+ (FDM, 250x210x10mm)" data-arquivo="ortese_punho_v3.stl (12MB)" data-arquivo-url="#">
+                                        <svg viewBox="0 0 12 20" width="12" height="20" aria-hidden="true">
+                                            <polyline points="2,2 10,10 2,18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </button>
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td>Órtese de punho</td>
+                                <td><span class="urgencia urgencia--media">Média</span></td>
+                                <td>PLA</td>
+                                <td>03/10/2026</td>
+                                <td><button type="button" class="seta" aria-label="Ver detalhes de Órtese de punho" data-abrir-modal data-titulo="Órtese de punho" data-prazo="03/10" data-material="PLA" data-processo="FDM" data-tipo="Órtese" data-equipamento="Prusa i3 MK3S+ (FDM, 250x210x10mm)" data-arquivo="ortese_punho_v3.stl (12MB)" data-arquivo-url="#">
+                                        <svg viewBox="0 0 12 20" width="12" height="20" aria-hidden="true">
+                                            <polyline points="2,2 10,10 2,18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </button>
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td>Órtese de punho</td>
+                                <td><span class="urgencia urgencia--alta">Alta</span></td>
+                                <td>PLA</td>
+                                <td>03/10/2026</td>
+                                <td><button type="button" class="seta" aria-label="Ver detalhes de Órtese de punho" data-abrir-modal data-titulo="Órtese de punho" data-prazo="03/10" data-material="PLA" data-processo="FDM" data-tipo="Órtese" data-equipamento="Prusa i3 MK3S+ (FDM, 250x210x10mm)" data-arquivo="ortese_punho_v3.stl (12MB)" data-arquivo-url="#">
+                                        <svg viewBox="0 0 12 20" width="12" height="20" aria-hidden="true">
+                                            <polyline points="2,2 10,10 2,18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+
+
+    <dialog class="modal" id="modal-projeto" aria-labelledby="modal-titulo">
+        <button type="button" class="modal_fechar" data-fechar-modal aria-label="Fechar">
+            <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+                <line x1="3" y1="3" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <line x1="21" y1="3" x2="3" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </button>
+ 
+        <div class="modal_topo">
+            <h2 id="modal-titulo">Órtese de punho</h2>
+            <p class="modal_prazo">Prazo <span id="modal-prazo">03/10</span></p>
+        </div>
+ 
+        <ul class="modal_tags">
+            <li>Material: <span id="modal-material">PLA</span></li>
+            <li>Processo: <span id="modal-processo">FDM</span></li>
+            <li>Tipo: <span id="modal-tipo">Órtese</span></li>
+        </ul>
+ 
+        <section class="modal_dados">
+            <h3>Dados e arquivos</h3>
+            <h4>Impressora e configurações</h4>
+            <p>Equipamento: <span id="modal-equipamento">Prusa i3 MK3S+ (FDM, 250x210x10mm)</span></p>
+ 
+            <h4 class="modal_arquivos-titulo">Arquivos do Projeto</h4>
+            <a class="modal_download" id="modal-arquivo" href="#">
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                    <path d="M12 3v12m0 0l-5-5m5 5l5-5M4 17v3h16v-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span id="modal-arquivo-nome">ortese_punho_v3.stl (12MB)</span>
+            </a>
+        </section>
+ 
+        <div class="modal_acoes">
+            <button type="button" class="modal_aceitar">Aceitar Projeto</button>
+        </div>
+    </dialog>
+ 
+    <script src="./js/ProjetosDisponiveis.js"></script>
+
+
+</body>
+</html>

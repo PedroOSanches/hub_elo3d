@@ -65,21 +65,6 @@ class CreateUserRequestSchema(BaseModel):
             ) from err
 
 
-class CreateUserResponseSchema(BaseModel):
-
-    model_config = ConfigDict(
-        use_enum_values=True,
-        from_attributes=True
-        )
-    
-    id: uuid.UUID
-    name: str
-    email: EmailStr
-    phone: PhoneNumber
-    address: Address
-    institution_id: uuid.UUID | None
-    role: ROLE
-
 
 class CreateUserAddressSchema(BaseModel):
 

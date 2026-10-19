@@ -2,9 +2,10 @@ import abc
 from abc import abstractmethod
 
 
-from ..entities.user import User
+from src.modules.user.domain.entities.user import User
 
 class IUserRepository(abc.ABC):
+    
     @abstractmethod
     def get_user(self, id: str) -> User:
         """

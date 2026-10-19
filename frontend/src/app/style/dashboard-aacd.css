@@ -8,7 +8,7 @@
 }
 
 .aacd-dashboard__welcome {
-    margin-bottom: 32px;
+    margin-bottom: 24px;
 }
 
 .aacd-dashboard__welcome p {
@@ -163,6 +163,19 @@
 
     padding: 16px;
     flex-shrink: 0;
+    position:relative;
+    
+}
+
+.aacd-dashboard__project-id::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 22px;
+    bottom: 22px;
+    width: 3px;
+    background-color: #A00032;
+    border-radius: 2px;
 }
 
 
@@ -201,7 +214,7 @@
 
 
 
-/* Barra de progresso dos projetos */
+
 .aacd-dashboard__progress {
     display: flex;
     justify-content: space-between;
@@ -212,7 +225,8 @@
     margin: 16px 0 0;
 }
 
-/* Linha de conexão */
+
+
 .aacd-dashboard__progress::before {
     content: "";
     position: absolute;
@@ -221,10 +235,32 @@
     right: 12.5%;
 
     height: 2px;
-    background-color: #A0A0A0;
+
+    background: linear-gradient(
+        to right,
+        #A00032 0%,
+        #A00032 33.33%,
+        #A0A0A0 33.33%,
+        #A0A0A0 100%
+    );
 }
 
-/* Cada etapa */
+
+.aacd-dashboard__progress li.completed::after {
+    content: "✓";
+    position: absolute;
+
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+
+    color: #FFFFFF;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 12px;
+}
+
+
 .aacd-dashboard__progress li {
     position: relative;
     flex: 1;
@@ -238,7 +274,7 @@
     text-align: center;
 }
 
-/* Círculos das etapas */
+
 .aacd-dashboard__progress li::before {
     content: "";
     width: 12px;
@@ -250,9 +286,344 @@
     box-sizing: border-box;
 }
 
-/* Etapas concluídas e atual */
+
 .aacd-dashboard__progress li.completed::before,
 .aacd-dashboard__progress li.current::before {
     background-color: #A00032;
     border-color: #A00032;
 }
+
+
+.aacd-dashboard__section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.aacd-dashboard__see-all {
+    color: #A00032;
+    font-size: 12px;
+    font-weight: 400;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.aacd-dashboard__see-all:hover {
+    text-decoration: underline;
+}
+
+
+.aacd-dashboard__printer-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 24px;
+}
+
+
+.aacd-dashboard__printer-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    padding: 8px 12px;
+    min-width: 0;
+}
+
+
+.aacd-dashboard__printer-stat:not(:last-child) {
+    border-right: 1px solid #999999;
+}
+
+
+.aacd-dashboard__printer-stat strong {
+    font-size: 28px;
+    font-weight: 600;
+    color: #000000;
+}
+
+
+.aacd-dashboard__printer-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    font-size: 13px;
+    color: #111111;
+}
+
+
+.aacd-dashboard__status-dot {
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+
+.aacd-dashboard__status-dot.available {
+    background-color: #1AAD32;
+}
+
+.aacd-dashboard__status-dot.in-use {
+    background-color: #FF2222;
+}
+
+.aacd-dashboard__status-dot.unavailable {
+    background-color: #BEB4B4;
+}
+
+
+
+.aacd-dashboard__activity-list {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0 0;
+}
+
+
+.aacd-dashboard__activity-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 10px 4px;
+}
+
+
+.aacd-dashboard__activity-item:not(:last-child) {
+    border-bottom: 1px solid #B8B8B8;
+}
+
+
+.aacd-dashboard__activity-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+
+    background-color: #F5E2E5;
+    border-radius: 50%;
+}
+
+
+.aacd-dashboard__activity-icon img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+
+.aacd-dashboard__activity-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.aacd-dashboard__activity-info strong {
+    font-size: 13px;
+    font-weight: 500;
+    color: #111111;
+}
+
+.aacd-dashboard__activity-info span {
+    font-size: 11px;
+    font-weight: 400;
+    color: #777777;
+}
+
+
+
+@media (min-width: 769px) and (max-width: 1100px) {
+
+    .aacd-dashboard {
+        padding: 36px 4%;
+    }
+
+    .aacd-dashboard__indicators {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        row-gap: 16px;
+    }
+
+    .aacd-dashboard__indicator:nth-child(2) {
+        border-right: none;
+    }
+
+    .aacd-dashboard__overview {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+}
+
+
+
+@media (max-width: 768px) {
+
+    .aacd-dashboard {
+        padding: 24px 5%;
+    }
+
+    .aacd-dashboard__welcome p {
+        font-size: 18px;
+    }
+
+    .aacd-dashboard__welcome h1 {
+        font-size: 28px;
+    }
+
+    .aacd-dashboard__indicators {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px 0;
+    }
+
+    .aacd-dashboard__indicator:nth-child(2) {
+        border-right: none;
+    }
+
+    .aacd-dashboard__overview {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .aacd-dashboard__projects,
+    .aacd-dashboard__printers,
+    .aacd-dashboard__activity {
+        padding: 16px;
+    }
+
+    
+
+    .aacd-dashboard__project-card {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 12px;
+
+       padding: 12px;
+    }
+
+
+    .aacd-dashboard__project-id {
+       grid-column: 1;
+       grid-row: 1;
+
+       justify-self: start;
+       min-width: 0;
+       min-height: 0;
+
+       padding: 8px 18px;
+       border-radius: 8px;
+    }
+
+    .aacd-dashboard__project-id::before {
+        display: none;
+    }
+
+
+    .aacd-dashboard__project-info {
+        grid-column: 1 / -1;
+        grid-row: 2;
+
+        padding: 0;
+        min-width: 0;
+    }
+
+
+    .aacd-dashboard__project-link {
+        grid-column: 2;
+        grid-row: 1;
+
+        margin: 0;
+    }
+
+
+
+    .aacd-dashboard__printer-stats {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin-top: 18px;
+    }
+
+    .aacd-dashboard__printer-stat {
+       padding: 8px 4px;
+       gap: 8px;
+    }
+
+    .aacd-dashboard__printer-stat strong {
+        font-size: 22px;
+    }
+
+    .aacd-dashboard__printer-label {
+        font-size: 11px;
+        gap: 5px;
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .aacd-dashboard__status-dot {
+        width: 9px;
+        height: 9px;
+    }
+
+
+}
+
+
+
+@media (max-width: 360px) {
+
+    .aacd-dashboard__indicators {
+        grid-template-columns: 1fr;
+        row-gap: 0;
+    }
+
+    .aacd-dashboard__indicator {
+        justify-content: flex-start;
+        padding: 12px;
+        border-right: none !important;
+    }
+
+    .aacd-dashboard__indicator:not(:last-child) {
+        border-bottom: 1px solid #D5CCCC;
+    }
+
+    .aacd-dashboard__indicator-info span {
+        font-size: 12px;
+        overflow-wrap: anywhere;
+    }
+    
+
+    .aacd-dashboard__printer-stats {
+        grid-template-columns: 1fr;
+        margin-top: 16px;
+    }
+
+    .aacd-dashboard__printer-stat {
+       flex-direction: row;
+       justify-content: space-between;
+       padding: 12px 8px;
+       gap: 12px;
+    }
+
+    .aacd-dashboard__printer-stat:not(:last-child) {
+        border-right: none;
+        border-bottom: 1px solid #D5CCCC;
+    }
+
+    .aacd-dashboard__printer-label {
+        flex-wrap: nowrap;
+        font-size: 12px;
+        text-align: right;
+    }
+
+    .aacd-dashboard__printer-stat strong {
+        font-size: 22px;
+    }
+
+}
+

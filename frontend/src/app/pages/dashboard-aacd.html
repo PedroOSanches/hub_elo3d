@@ -64,8 +64,15 @@
          aria-label="Visão geral dos projetos e recursos">
 
        <div class="aacd-dashboard__projects">
-          <h2>Projetos em andamento</h2>
-          <article class="aacd-dashboard__project-card">
+           <div class="aacd-dashboard__section-header">
+              <h2>Projetos em andamento</h2>
+
+              <a href="#" class="aacd-dashboard__see-all">
+                Ver todos &rarr;
+              </a>
+            </div>
+
+           <article class="aacd-dashboard__project-card">
 
             <div class ="aacd-dashboard__project-id">
                 <span>#016</span>
@@ -91,16 +98,149 @@
             </a>
 
           </article>
-       </div>
+
+          
+          <article class="aacd-dashboard__project-card">
+
+            <div class="aacd-dashboard__project-id">
+               <span>#017</span>
+            </div>
+
+            <div class="aacd-dashboard__project-info">
+              <h3>Órtese de punho</h3>
+
+             <ol class="aacd-dashboard__progress"
+                aria-label="Etapas do projeto 017">
+
+                 <li class="completed">Recebido</li>
+                 <li class="current" aria-current="step">Produção</li>
+                 <li>Finalização</li>
+                 <li>Entrega</li>
+
+             </ol>
+            </div>
+
+           <a class="aacd-dashboard__project-link"
+               href="#"
+               aria-label="Ver detalhes do projeto 017">
+               &rarr;
+           </a>
+
+           </article>
+
+
+           
+          <article class="aacd-dashboard__project-card">
+
+            <div class="aacd-dashboard__project-id">
+              <span>#018</span>
+            </div>
+
+            <div class="aacd-dashboard__project-info">
+              <h3>Órtese de punho</h3>
+
+             <ol class="aacd-dashboard__progress"
+                aria-label="Etapas do projeto 018">
+
+                 <li class="completed">Recebido</li>
+                 <li class="current" aria-current="step">Produção</li>
+                 <li>Finalização</li>
+                 <li>Entrega</li>
+
+              </ol>
+            </div>
+
+            <a class="aacd-dashboard__project-link"
+              href="#"
+              aria-label="Ver detalhes do projeto 018">
+              &rarr;
+            </a>
+
+            </article>
+
+
+        </div>
 
        <div class="aacd-dashboard__sidebar">
 
          <section class="aacd-dashboard__printers">
-             <h2>Impressoras na rede</h2>
+             
+
+           <div class="aacd-dashboard__section-header">
+              <h2>Impressoras na rede</h2>
+
+              <a href="#" class="aacd-dashboard__see-all">
+                  Ver todas &rarr;
+              </a>
+            </div>
+
+           <div class="aacd-dashboard__printer-stats">
+
+             <div class="aacd-dashboard__printer-stat">
+                  <strong>10</strong>
+                  <span class="aacd-dashboard__printer-label">
+                     <span class="aacd-dashboard__status-dot available"></span>
+                         Disponíveis
+                     </span>
+                </div>
+
+              <div class="aacd-dashboard__printer-stat">
+                   <strong>08</strong>
+                   <span class="aacd-dashboard__printer-label">
+                       <span class="aacd-dashboard__status-dot in-use"></span>
+                         Em uso
+                   </span>
+                </div>
+
+                <div class="aacd-dashboard__printer-stat">
+                  <strong>01</strong>
+                  <span class="aacd-dashboard__printer-label">
+                     <span class="aacd-dashboard__status-dot unavailable"></span>
+                         Indisponíveis
+                     </span>
+                </div>
+
+            </div>
+
          </section>
+
 
          <section class="aacd-dashboard__activity">
              <h2>Atividade recente</h2>
+             <ul class="aacd-dashboard__activity-list">
+                 <li class="aacd-dashboard__activity-item">
+                     <span class="aacd-dashboard__activity-icon">
+                        <img src="../assets/icons/atividade-producao.svg" alt="">
+                     </span>
+
+                     <div class="aacd-dashboard__activity-info">
+                        <strong> Órtese de punho #017 </strong>
+                        <span> Entrou em produção </span>
+                     </div>
+                  </li>
+                   <li class="aacd-dashboard__activity-item">
+                       <span class="aacd-dashboard__activity-icon">
+                          <img src="../assets/icons/atividade-concluido.svg" alt="">
+                       </span>
+
+                       <div class="aacd-dashboard__activity-info">
+                          <strong>Adaptador de colher #012</strong>
+                          <span>Projeto concluído</span>
+                       </div>
+                   </li>
+
+                   <li class="aacd-dashboard__activity-item">
+                      <span class="aacd-dashboard__activity-icon">
+                         <img src="../assets/icons/atividade-aguardando.svg" alt="">
+                      </span>
+
+                      <div class="aacd-dashboard__activity-info">
+                          <strong>Prótese transtibial #014</strong>
+                          <span>Aguardando parceiro</span>
+                      </div>
+                   </li>
+             </ul>
+            
          </section>
 
         </div>

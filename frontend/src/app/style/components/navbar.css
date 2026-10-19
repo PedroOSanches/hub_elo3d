@@ -1,0 +1,122 @@
+ :host {
+  display: block;
+  width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+  background-color: #ffffff; 
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 65px;
+  background-color: #fef9fb;
+  border-radius: 0 0 25px 0;
+  overflow: hidden;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #B92C51;
+  height: 100%;
+  padding: 0 35px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 35px;
+  z-index: 5;
+}
+
+.nav-logo img {
+  height: 35px;
+  object-fit: contain;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  height: 100%;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  transition: opacity 0.2s ease;
+}
+
+.nav-item:hover {
+  opacity: 0.9;
+}
+
+.nav-item.dark-first {
+  background-color: #A10029;
+  margin-left: -35px;
+  padding-left: 45px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 35px;
+  z-index: 4;
+}
+
+.nav-item.light {
+  background-color: #B92C51;
+  margin-left: -35px;
+  padding-left: 45px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 35px;
+  z-index: 3;
+}
+
+.nav-item.dark {
+  background-color: #A10029;
+  margin-left: -35px;
+  padding-left: 45px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 35px;
+  z-index: 2;
+}
+
+.nav-user {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #B92C51;
+  height: 100%;
+  padding: 0 35px;
+  margin-left: -35px;
+  padding-left: 60px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 35px;
+  z-index: 1;
+}
+
+.user-btn {
+  color: #ffffff;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.user-btn .icon-image {
+  display: block;
+  width: 32px;
+  height: 32px;
+  background-color: #ffffff;
+  -webkit-mask: var(--icon-image) center / contain no-repeat;
+  mask: var(--icon-image) center / contain no-repeat;
+}

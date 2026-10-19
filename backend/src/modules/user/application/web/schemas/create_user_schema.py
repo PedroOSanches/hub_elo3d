@@ -67,7 +67,10 @@ class CreateUserRequestSchema(BaseModel):
 
 class CreateUserResponseSchema(BaseModel):
 
-    model_config = ConfigDict(from_attributes=True)
+    model_config = ConfigDict(
+        use_enum_values=True,
+        from_attributes=True
+        )
     
     id: uuid.UUID
     name: str
@@ -75,6 +78,7 @@ class CreateUserResponseSchema(BaseModel):
     phone: PhoneNumber
     address: Address
     institution_id: uuid.UUID | None
+    role: ROLE
 
 
 class CreateUserAddressSchema(BaseModel):

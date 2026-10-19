@@ -131,5 +131,46 @@
             </section>
         </div>
     </main>
+
+    <dialog class="modal" id="modal-projeto" aria-labelledby="modal-titulo">
+        <button type="button" class="modal_fechar" data-fechar-modal aria-label="Fechar">
+            <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+                <line x1="3" y1="3" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <line x1="21" y1="3" x2="3" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </button>
+ 
+        <div class="modal_topo">
+            <h2 id="modal-titulo">Órtese de punho</h2>
+            <p class="modal_prazo">Prazo <span id="modal-prazo">03/10</span></p>
+        </div>
+ 
+        <ul class="modal_tags">
+            <li>Material: <span id="modal-material">PLA</span></li>
+            <li>Processo: <span id="modal-processo">FDM</span></li>
+            <li>Tipo: <span id="modal-tipo">Órtese</span></li>
+        </ul>
+ 
+        <section class="modal_dados">
+            <h3>Dados e arquivos</h3>
+            <h4>Impressora e configurações</h4>
+            <p>Equipamento: <span id="modal-equipamento">Prusa i3 MK3S+ (FDM, 250x210x10mm)</span></p>
+ 
+            <h4 class="modal_arquivos-titulo">Arquivos do Projeto</h4>
+            <a class="modal_download" id="modal-arquivo" href="#">
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                    <path d="M12 3v12m0 0l-5-5m5 5l5-5M4 17v3h16v-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span id="modal-arquivo-nome">ortese_punho_v3.stl (12MB)</span>
+            </a>
+        </section>
+ 
+        <div class="modal_acoes">
+            <button type="button" class="modal_aceitar">Aceitar Projeto</button>
+        </div>
+    </dialog>
+ 
+    <script src="./js/ProjetosDisponiveis.js"></script>
+
 </body>
 </html>

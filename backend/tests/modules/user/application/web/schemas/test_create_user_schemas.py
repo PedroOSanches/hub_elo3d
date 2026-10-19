@@ -252,5 +252,6 @@ class Test_CreateUserResponse:
                 estado="TO",
                 cep="00000-000"
             ),
-            institution_id='02271956-3d88-45a5-a511-d943ef9ddeb6'
+            institution_id='02271956-3d88-45a5-a511-d943ef9ddeb6',
+            role="hospital"
         )

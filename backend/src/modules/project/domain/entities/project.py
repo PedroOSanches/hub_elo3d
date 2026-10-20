@@ -25,6 +25,30 @@ class Project(BaseModel):
         description = "Prazo estimado para término do projeto"
     )
 
+    pieces_quantity: int = Field(
+        ...,
+        gt = 0,
+        description = "Quantidade de peças necessárias para o projeto"
+    )
+
+    category: str = Field(
+        ...,
+        min_length = 1,
+        description = "Categoria do projeto"
+    )
+
+    description: str = Field(
+        ...,
+        min_length = 1,
+        max_length = 280,
+        description = "Descrição do projeto"
+    )
+
+    technical_info: str | None = Field(
+        default = None,
+        description = "Informações técnicas adicionais do projeto"
+    )
+
     urgency: Urgency = Field(
         ...,
         description = "Nível de prioridade do projeto"

@@ -14,4 +14,4 @@ app.add_exception_handler(
     cast(ExceptionHandler, base_error_handler),
 )
 
-app.include_router(user_router, prefix='/user')
+app.include_router(user_router)

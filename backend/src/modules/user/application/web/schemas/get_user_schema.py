@@ -27,18 +27,3 @@ class GetUserRequestSchema(BaseModel):
                 field_type_received=type(err.errors()[0]["input"]).__name__,
                 field_type_expected=str(cls.model_fields[str(err.errors()[0]["loc"][0])].annotation.__name__)
             ) from err
-
-class GetUserResponseSchema(BaseModel):
-    id: UUID
-    name: str
-    email: str
-    phone: str
-    address: Address
-    institution_id: UUID
-    role: ROLE
-
-    model_config = ConfigDict(
-        populate_by_name=True,
-        from_attributes=True,
-        use_enum_values=True
-    )

@@ -9,117 +9,134 @@ from src.modules.project.domain.enums.order_status_enum import OrderStatus
 from src.modules.project.domain.enums.production_status_enum import ProductionStatus
 from src.modules.project.domain.enums.urgency_enum import Urgency
 
+def valid_project_data(**overrides):
+    data = {
+        "title": "Prótese de mão",
+        "date_end": date(2026, 11, 15),
+        "urgency": Urgency.HIGH,
+        "pieces_quantity": 2,
+        "category": "Ortopedia",
+        "description": "Prótese de mão para paciente em recuperação"
+    }
+    data.update(overrides)
+    return data
+
 class TestProject:
 
     def test_create_project(self):
-        project = Project(
-            title = "Prótese de mão",
-            date_end = date(2026, 11, 15),
-            urgency = Urgency.HIGH
-        )
+        project = Project(**valid_project_data())
 
         assert isinstance(project.id, UUID)
         assert project.title == "Prótese de mão"
-        assert project.date_end == date(2026, 11, 15)
-        assert project.urgency == Urgency.HIGH
+        assert project.pieces_quantity == 2
+        assert project.category == "Ortopedia"
+        assert project.technical_info is None
         assert project.order_status == OrderStatus.WAITING_FOR_PARTNER
-        assert project.production_status is None
 
     def test_different_ids(self):
-        project1 = Project(
-            title = "Prótese de mão",
-            date_end = date(2026, 11, 15),
-            urgency = Urgency.HIGH
-        )
+        project1 = Project(**valid_project_data())
 
-        project2 = Project(
-            title = "Suporte de braço",
-            date_end = date(2026, 11, 15),
-            urgency = Urgency.LOW
-        )
+        project2 = Project(**valid_project_data())
 
         assert project1.id != project2.id
 
     def test_required_title(self):
+        data = valid_project_data()
+        data.pop("title")
+
         with pytest.raises(ValidationError):
-            Project(
-                date_end = date(2026, 11, 15),
-                urgency = Urgency.HIGH
-            )
+            Project(**data)
 
     def test_short_title(self):
         with pytest.raises(ValidationError):
-            Project(
-                title = "AB",
-                date_end = date(2026, 11, 15),
-                urgency = Urgency.MEDIUM
-            )
+            Project(**valid_project_data(title = "AB"))
 
     def test_required_date_end(self):
+        data = valid_project_data()
+        data.pop("date_end")
+
         with pytest.raises(ValidationError):
-            Project(
-                title = "Prótese de mão",
-                urgency = Urgency.HIGH
-            )
+            Project(**data)
 
     def test_unknown_field(self):
+        data = valid_project_data()
+        data["unknown_field"] = "Teste"
+
         with pytest.raises(ValidationError):
-            Project(
-                title = "Prótese de mão",
-                date_end = date(2026, 11, 15),
-                urgency = Urgency.HIGH,
-                unknown_field = "Teste"
-            )
+            Project(**data)
 
     def test_required_urgency(self):
+        data = valid_project_data()
+        data.pop("urgency")
+
         with pytest.raises(ValidationError):
-            Project(
-                title = "Prótese de mão",
-                date_end = date(2026, 11, 15)
-            )
+            Project(**data)
 
     def test_production_status(self):
-        project = Project(
-            title = "Prótese de mão",
-            date_end = date(2026, 11, 15),
-            urgency = Urgency.MEDIUM,
-            production_status = ProductionStatus.IN_PRODUCTION
-        )
+        project = Project(**valid_project_data(production_status = ProductionStatus.IN_PRODUCTION))
 
         assert project.production_status == ProductionStatus.IN_PRODUCTION
 
     def test_custom_order_status(self):
-        project = Project(
-            title = "Prótese de mão",
-            date_end = date(2026, 11, 15),
-            urgency = Urgency.LOW,
-            order_status = OrderStatus.IN_PROGRESS
-        )
+        project = Project(**valid_project_data(order_status = OrderStatus.IN_PROGRESS))
 
         assert project.order_status == OrderStatus.IN_PROGRESS
 
     def test_invalid_urgency(self):
         with pytest.raises(ValidationError):
-            Project(
-                title = "Prótese de mão",
-                date_end = date(2026, 11, 15),
-                urgency = "critical"
-            )
+            Project(**valid_project_data(urgency = "critical"))
 
     def test_invalid_order_status(self):
         with pytest.raises(ValidationError):
-            Project(
-                title = "Prótese de mão",
-                date_end = date(2026, 11, 15),
-                urgency = Urgency.HIGH,
-                order_status = "canceled"
-            )
+            Project(**valid_project_data(order_status = "canceled"))
 
     def test_invalid_production_status(self):
         with pytest.raises(ValidationError):
-            Project(
-                title = "Prótese de mão",
-                date_end = date(2026, 11, 15),
-                urgency = Urgency.HIGH,
-                production_status = "printing_error"
-            )
+            Project(**valid_project_data(production_status = "printing_error"))
+
+    def test_required_pieces_quantity(self):
+        data = valid_project_data()
+        data.pop("pieces_quantity")
+
+        with pytest.raises(ValidationError):
+            Project(**data)
+
+    def test_invalid_pieces_quantity(self):
+        with pytest.raises(ValidationError):
+            Project(**valid_project_data(pieces_quantity = 0))
+
+    def test_negative_pieces_quantity(self):
+        with pytest.raises(ValidationError):
+            Project(**valid_project_data(pieces_quantity = -5))
+
+    def test_required_category(self):
+        data = valid_project_data()
+        data.pop("category")
+
+        with pytest.raises(ValidationError):
+            Project(**data)
+
+    def test_empty_category(self):
+        with pytest.raises(ValidationError):
+            Project(**valid_project_data(category = ""))
+
+    def test_required_description(self):
+        data = valid_project_data()
+        data.pop("description")
+
+        with pytest.raises(ValidationError):
+            Project(**data)
+
+    def test_description_max_length(self):
+        with pytest.raises(ValidationError):
+            Project(**valid_project_data(description = "A" * 281))
+
+    def test_optional_technical_info(self):
+        project = Project(**valid_project_data())
+
+        assert project.technical_info is None
+
+    def test_with_technical_info(self):
+        project = Project(**valid_project_data(technical_info = "Impressão com 30% de preenchimento"))
+
+        assert project.technical_info == "Impressão com 30% de preenchimento"

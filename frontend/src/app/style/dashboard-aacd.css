@@ -223,6 +223,7 @@
     list-style: none;
     padding: 0;
     margin: 16px 0 0;
+    --progresso: 33.33%;
 }
 
 
@@ -239,8 +240,8 @@
     background: linear-gradient(
         to right,
         #A00032 0%,
-        #A00032 33.33%,
-        #A0A0A0 33.33%,
+        #A00032 var(--progresso, 0%),
+        #A0A0A0 var(--progresso, 0%),
         #A0A0A0 100%
     );
 }

@@ -36,9 +36,16 @@
             })
             .then(html => {
                 document.getElementById('dashboard-container').innerHTML = html;
+
+                const script = document.createElement('script');
+                script.src = '../js/dashboard-aacd.js';
+                document.body.appendChild(script);
+                
             })
             .catch(error => console.error(error));
     </script>
+
+
 
 </body>
 </html>

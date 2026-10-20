@@ -14,9 +14,9 @@ class Project(BaseModel):
         description = "Título do projeto"
     )
 
-    date_end: date | None = Field(
-        default = None,
-        description = "Data de término do projeto"
+    date_end: date = Field(
+        ...,
+        description = "Prazo estimado para término do projeto"
     )
 
     model_config = ConfigDict(

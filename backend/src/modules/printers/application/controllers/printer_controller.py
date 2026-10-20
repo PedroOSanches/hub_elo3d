@@ -1,61 +1,61 @@
 from uuid import UUID
 
-from src.modules.impressoras.application.viewmodels.impressora_viewmodel import (
-    ImpressoraViewModel,
+from src.modules.printers.application.viewmodels.printer_viewmodel import (
+    PrinterViewModel,
 )
-from src.modules.impressoras.application.web.schemas.impressora_schemas import (
-    AtualizarImpressoraRequest,
-    CriarImpressoraRequest,
-    ImpressoraResponse,
+from src.modules.printers.application.web.schemas.printer_schema import (
+    CreatePrinterRequestSchema,
+    PrinterResponseSchema,
+    UpdatePrinterRequestSchema,
 )
-from src.modules.impressoras.domain.entities.impressora import Impressora
-from src.modules.impressoras.domain.errors.impressora_errors import (
-    ImpressoraNotFoundError,
-    UsuarioNotFoundError,
+from src.modules.printers.domain.entities.printer import Printer
+from src.modules.printers.domain.errors.printer_errors import (
+    PrinterNotFoundError,
+    UserNotFoundError,
 )
-from src.modules.impressoras.domain.gateways.i_usuario_gateway import IUsuarioGateway
-from src.modules.impressoras.domain.repositories.i_impressora_repository import (
-    IImpressoraRepository,
+from src.modules.printers.domain.gateways.i_user_gateway import IUserGateway
+from src.modules.printers.domain.repositories.i_printer_repository import (
+    IPrinterRepository,
 )
 
 
-class ImpressoraController:
+class PrinterController:
     
     def __init__(
         self,
-        repository: IImpressoraRepository,
-        usuario_gateway: IUsuarioGateway,
+        repository: IPrinterRepository,
+        user_gateway: IUserGateway,
     ) -> None:
         self._repository = repository
-        self._usuario_gateway = usuario_gateway
+        self._user_gateway = user_gateway
 
-    def criar(self, request: CriarImpressoraRequest) -> ImpressoraResponse:
-        if not self._usuario_gateway.exists(request.usuario_id):
-            raise UsuarioNotFoundError(request.usuario_id)
-        impressora = Impressora(**request.model_dump())
-        self._repository.criar(impressora)
-        return ImpressoraViewModel.from_entity(impressora)
+    def criar(self, request: CreatePrinterRequestSchema) -> PrinterResponseSchema:
+        if not self._user_gateway.exists(request.usuario_id):
+            raise UserNotFoundError(request.usuario_id)
+        printer = Printer(**request.model_dump())
+        self._repository.criar(printer)
+        return PrinterViewModel.from_entity(printer)
 
-    def obter(self, impressora_id: UUID) -> ImpressoraResponse:
-        return ImpressoraViewModel.from_entity(self._buscar_ou_falhar(impressora_id))
+    def obter(self, printer_id: UUID) -> PrinterResponseSchema:
+        return PrinterViewModel.from_entity(self._buscar_ou_falhar(printer_id))
 
-    def listar(self, usuario_id: UUID | None = None) -> list[ImpressoraResponse]:
-        return ImpressoraViewModel.from_entities(self._repository.listar(usuario_id))
+    def listar(self, usuario_id: UUID | None = None) -> list[PrinterResponseSchema]:
+        return PrinterViewModel.from_entities(self._repository.listar(usuario_id))
 
     def atualizar(
-        self, impressora_id: UUID, request: AtualizarImpressoraRequest) -> ImpressoraResponse:
-        atual = self._buscar_ou_falhar(impressora_id)
+        self, printer_id: UUID, request: UpdatePrinterRequestSchema) -> PrinterResponseSchema:
+        atual = self._buscar_ou_falhar(printer_id)
         dados = {**atual.model_dump(), **request.model_dump(exclude_none=True)}
-        atualizada = Impressora(**dados)
-        self._repository.atualizar(atualizada)
-        return ImpressoraViewModel.from_entity(atualizada)
+        updated = Printer(**dados)
+        self._repository.atualizar(updated)
+        return PrinterViewModel.from_entity(updated)
 
-    def deletar(self, impressora_id: UUID) -> None:
-        self._buscar_ou_falhar(impressora_id)
-        self._repository.deletar(impressora_id)
+    def deletar(self, printer_id: UUID) -> None:
+        self._buscar_ou_falhar(printer_id)
+        self._repository.deletar(printer_id)
 
-    def _buscar_ou_falhar(self, impressora_id: UUID) -> Impressora:
-        impressora = self._repository.buscar_por_id(impressora_id)
-        if impressora is None:
-            raise ImpressoraNotFoundError(impressora_id)
-        return impressora
+    def _buscar_ou_falhar(self, printer_id: UUID) -> Printer:
+        printer = self._repository.buscar_por_id(printer_id)
+        if printer is None:
+            raise PrinterNotFoundError(printer_id)
+        return printer

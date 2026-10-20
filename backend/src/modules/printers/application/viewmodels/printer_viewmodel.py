@@ -1,13 +1,15 @@
-from src.modules.impressoras.application.web.schemas.impressora_schemas import (
-    ImpressoraResponse,)
-from src.modules.impressoras.domain.entities.impressora import Impressora
+from src.modules.printers.application.web.schemas.printer_schema import (
+    PrinterResponseSchema,
+)
+from src.modules.printers.domain.entities.printer import Printer
 
 
-class ImpressoraViewModel:
+class PrinterViewModel:
+    #entidade pra response, a rota nunca devolve a entidade direto
 
     @staticmethod
-    def from_entity(entity: Impressora) -> ImpressoraResponse:
-        return ImpressoraResponse(
+    def from_entity(entity: Printer) -> PrinterResponseSchema:
+        return PrinterResponseSchema(
             id=entity.id,
             apelido=entity.apelido,
             modelo=entity.modelo,
@@ -18,5 +20,5 @@ class ImpressoraViewModel:
         )
 
     @staticmethod
-    def from_entities(entities: list[Impressora]) -> list[ImpressoraResponse]:
-        return [ImpressoraViewModel.from_entity(e) for e in entities]
+    def from_entities(entities: list[Printer]) -> list[PrinterResponseSchema]:
+        return [PrinterViewModel.from_entity(e) for e in entities]

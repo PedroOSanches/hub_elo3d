@@ -131,6 +131,19 @@ class TestProject:
         with pytest.raises(ValidationError):
             Project(**valid_project_data(description = "A" * 281))
 
+    def test_description_only_spaces(self):
+        with pytest.raises(ValidationError):
+            Project(**valid_project_data(description = "   "))
+
+    def test_description_removes_spaces(self):
+        project = Project(**valid_project_data(description = "   Projeto de teste   "))
+
+        assert project.description == "Projeto de teste"
+
+    def test_description_only_line_breaks(self):
+        with pytest.raises(ValidationError):
+            Project(**valid_project_data(description = "\n\t  "))
+
     def test_optional_technical_info(self):
         project = Project(**valid_project_data())
 

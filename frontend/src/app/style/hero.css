@@ -1,0 +1,68 @@
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 600px;
+    padding: 60px 8%;
+    box-sizing: border-box;
+    background-color: #F4F0E5;
+    font-family: 'Sora', sans-serif;
+}
+
+.hero__content {
+    width: 44%;
+}
+
+.hero__image {
+    width: 52%;
+    flex-shrink: 0;
+}
+
+.hero__image img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.hero__title {
+    font-family: 'Sora', sans-serif;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 1.2;
+    color: #000000;
+    margin: 0 0 20px;
+}
+
+.hero__highlight {
+    color: #8D1D32;
+}
+
+.hero__button {
+    display: inline-block;
+    background-color: #8D1D32;
+    color: #FFFFFF;
+    font-family: 'Sora', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 14px 32px;
+    border-radius: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.hero__button:hover {
+    background-color: #701528;
+}
+
+.hero__description {
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #1A1A1A;
+    max-width: 440px;
+    margin: 0 0 22px;
+}

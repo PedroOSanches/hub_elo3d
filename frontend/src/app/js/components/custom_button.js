@@ -30,7 +30,7 @@ class CustomButton extends HTMLElement {
           height: 55px;
           background-color: #A10029;
           color: #ffffff;
-          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          font-family: 'Sora', sans-serif;
           font-size: 18px;
           font-weight: 600;
           text-decoration: none;

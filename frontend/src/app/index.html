@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elo3D Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style/hero.css">
+  <link rel="stylesheet" href="style/como-funciona.css">
+  <link rel="stylesheet" href="style/rede.css">
+  <link rel="stylesheet" href="style/QuemSomos.css">
+  <link rel="stylesheet" href="style/components/footer.css">
+  <link rel="stylesheet" href="style/home.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css">
+  <script src="js/components/custom_navbar.js" defer></script>
+  <script src="js/components/custom_card_rede.js" defer></script>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      display: block;
+      min-height: 0;
+      background-color: #F6E8DA;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <app-navbar logo="assets/Group 3.png" icon="assets/account-circle-fill.png"
+      css="style/components/navbar.css" first-text="Como funciona"
+      first-href="#como-funciona" second-text="Rede" second-href="#rede"
+      third-text="Sobre" third-href="#quem-somos"></app-navbar>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero__content">
+        <h1 class="hero__title">CONECTANDO<br>TECNOLOGIA <span class="hero__highlight">A</span><br><span class="hero__highlight">MAIS AUTONOMIA</span></h1>
+        <p class="hero__description">Unimos a AACD a uma rede de laboratórios e parceiros de impressão 3D para transformar tecnologia em soluções que promovem autonomia.</p>
+        <a href="#como-funciona" class="hero__button">Conheça o projeto</a>
+      </div>
+      <div class="hero__image"><img src="assets/mapa-brasil.png" alt="Mapa do Brasil representando a conexão entre a AACD e os laboratórios parceiros"></div>
+    </section>
+
+    <section class="how-it-works-section" id="como-funciona">
+      <div class="how-it-works-container">
+        <header class="brand-header">
+          <h2 class="brand-title"><span class="title-black">COMO</span><span class="title-wine">FUNCIONA</span></h2>
+          <p class="brand-subtitle">Do projeto à transformação</p>
+        </header>
+        <div class="steps-wrapper">
+          <div class="step-item"><div class="step-icon-circle"><i class="fa-regular fa-paste"></i></div><p class="step-text">A AACD cadastra<br>a demanda</p></div>
+          <div class="step-connector"></div>
+          <div class="step-item"><div class="step-icon-circle"><i class="fa-solid fa-user-group"></i></div><p class="step-text">A rede encontra<br>o projeto</p></div>
+          <div class="step-connector"></div>
+          <div class="step-item"><div class="step-icon-circle"><i class="fa-solid fa-cube"></i></div><p class="step-text">Produção<br>Colaborativa</p></div>
+          <div class="step-connector"></div>
+          <div class="step-item"><div class="step-icon-circle"><i class="fa-regular fa-heart"></i></div><p class="step-text">Mais autonomia<br>para quem precisa</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="network-section" id="rede">
+      <div class="container">
+        <header class="section-header">
+          <h2 class="title">Uma rede<br><span class="highlight">mais forte</span></h2>
+          <p class="description">Conheça os laboratórios, instituições e voluntários que fazem parte do Elo3D Hub.</p>
+        </header>
+        <div class="cards-grid">
+          <lab-card title="FabLab Mauá" location="São Caetano do Sul" image="assets/images (2) 1.png" materials="PLA, PETG, ABS, TPU" css="style/components/card_rede.css" href="#"></lab-card>
+          <lab-card title="FabLab Mauá" location="São Caetano do Sul" image="assets/images (2) 1.png" materials="PLA, PETG, ABS, TPU" css="style/components/card_rede.css" href="#"></lab-card>
+          <lab-card title="FabLab Mauá" location="São Caetano do Sul" image="assets/images (2) 1.png" materials="PLA, PETG, ABS, TPU" css="style/components/card_rede.css" href="#"></lab-card>
+          <lab-card title="FabLab Mauá" location="São Caetano do Sul" image="assets/images (2) 1.png" materials="PLA, PETG, ABS, TPU" css="style/components/card_rede.css" href="#"></lab-card>
+        </div>
+      </div>
+    </section>
+
+    <section class="quem-somos" id="quem-somos">
+      <div class="texto">
+        <h2>Quem <span>Somos</span></h2>
+        <p>O Elo3D Hub é uma iniciativa que conecta a AACD a uma rede de laboratórios, instituições e voluntários de impressão 3D. Acreditamos que a tecnologia, quando compartilhada, pode gerar mais autonomia, inclusão e qualidade de vida.</p>
+      </div>
+      <div class="logo"><img src="assets/LOGOAmareloVermelho.png" alt="Logo do Elo3D Hub"></div>
+    </section>
+  </main>
+
+  <footer class="footer" id="contato">
+    <div class="footer-container">
+      <div class="footer-brand"><img src="assets/aacd-seeklogo 1.png" alt="Logo AACD" class="footer-logo"><div class="footer-slogan"><p>Vida é <span class="highlight">movimento</span></p><p class="footer-sub">Há mais de 70 anos<br>promovendo inclusão<br>e qualidade de vida</p></div></div>
+      <div class="footer-item"><div class="footer-icon"><i class="ri-map-pin-line"></i></div><div class="footer-text"><h4>Endereço</h4><p>Rua Borges Lagoa, 1505 –<br>Ibirapuera, São Paulo – SP</p></div></div>
+      <div class="footer-item"><div class="footer-icon"><i class="ri-phone-line"></i></div><div class="footer-text"><h4>Telefone</h4><p>(11) 5576-0777</p></div></div>
+      <div class="footer-item"><div class="footer-icon"><i class="ri-mail-line"></i></div><div class="footer-text"><h4>E-mail</h4><p>aacd@aacd.com.br</p></div></div>
+    </div>
+  </footer>
+</body>
+</html>

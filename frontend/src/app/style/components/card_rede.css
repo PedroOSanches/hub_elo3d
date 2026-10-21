@@ -1,0 +1,106 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 14px;
+  width: 100%;
+  min-height: 260px;
+  background-color: #f9e9d6;
+  border: 2px solid #ad002c;
+  border-radius: 28px;
+  padding: 16px;
+  text-decoration: none;
+  color: inherit;
+  box-sizing: border-box;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: 100%;
+  font-family: 'Sora', sans-serif;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(150, 21, 40, 0.12);
+}
+
+.card-image-wrapper {
+  width: 100%;
+  height: 120px;
+  flex-shrink: 0;
+  border-radius: 22px;
+  overflow: hidden;
+  background-color: #ead2c2;
+}
+
+.card-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.card-title {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(18px, 1.8vw, 26px);
+  font-weight: 400;
+  color: #090909;
+  margin: 0 0 6px;
+}
+
+.card-location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(13px, 1.1vw, 16px);
+  color: #090909;
+  margin: 0 0 12px;
+}
+
+.card-location i {
+  font-size: 1.1em;
+  color: #090909;
+}
+
+.materials-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.material-tag {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(11px, 0.9vw, 14px);
+  font-weight: 400;
+  color: #090909;
+  border: 2px solid #ad002c;
+  border-radius: 999px;
+  padding: 5px 10px;
+  line-height: 1;
+}
+
+@media (max-width: 700px) {
+  .card {
+    gap: 22px;
+    border-radius: 32px;
+    padding: 22px;
+  }
+
+  .card-image-wrapper {
+    width: 100%;
+    height: 190px;
+    border-radius: 32px;
+  }
+}

@@ -1,7 +1,7 @@
 from uuid import uuid4, UUID
 from datetime import date
 
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict, field_validator
 
 from src.modules.project.domain.enums.order_status_enum import OrderStatus
 from src.modules.project.domain.enums.production_status_enum import ProductionStatus
@@ -63,6 +63,13 @@ class Project(BaseModel):
         default = None,
         description = "Status da produção do projeto"
     )
+
+    @field_validator("description", mode = "before")
+    @classmethod
+    def strip_description(cls, value: object) -> object:
+        if isinstance(value, str):
+            return value.strip()
+        return value
 
     model_config = ConfigDict(
         extra = "forbid",

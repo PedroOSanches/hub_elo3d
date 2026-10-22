@@ -2,7 +2,7 @@ from src.modules.user.domain.repositories.user_repository_interface import IUser
 from  src.modules.user.domain.entities.user import User
 from  src.modules.user.domain.entities.endereco import Address
 from  src.modules.user.domain.errors.user_usecase_errors import NoUsersFound, DuplicatedUser
-
+from uuid import UUID
 
 class UserRepositoryMock(IUserRepository):
     def __init__(self):
@@ -57,12 +57,15 @@ class UserRepositoryMock(IUserRepository):
                         ),
         ]
 
-    def get_user(self, id: str) -> User:
-        for user in self.users:
-            if str(user.id) == id:
-                return user
+    def get_user(self, id: UUID) -> User:
+        if isinstance(id, str):
+            id = UUID(id)
 
-        raise NoUsersFound(f"id: {id}")
+        for user in self.users:
+            if user.id == id:
+                return user
+            
+        raise NoUsersFound(f"id: '{str(id)}'")
 
     def get_all_users(self) -> list[User]:
         return self.users

@@ -1,44 +1,85 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - Hub Elo3D</title>
-  <script src="../js/components/custom_button.js" defer></script>
-  <link rel="stylesheet" href="../../app/style/login.css">
+  <title>Document</title>
 </head>
 <body>
-
-  <div class="login-container">
-    <div class="logo-box">
-      <img src="../assets/LOGO.png" alt="HUB Elo3D Logo" />
-    </div>
-
-    <div class="login-header">
-      <h1>Bem-vindo(a) ao Elo3D!</h1>
-      <p>Parceiros e profissionais da AACD acessam por aqui.</p>
-    </div>
-
-    <form class="login-form">
-      <div class="input-group">
-        <label for="email">E-mail</label>
-        <input type="email" id="email" placeholder="seuemail@exemplo.com" required>
+    <main class="login-container">
+    <section class="view" id="view-login" aria-labelledby="t-login">
+      <div class="logo-box">
+        <img src="assets/LOGO.png" alt="HUB Elo3D Logo">
       </div>
 
-      <div class="input-group">
-        <label for="senha">Senha</label>
-        <input type="password" id="senha" placeholder="Digite sua senha" required>
+      <div class="login-header">
+        <h1 id="t-login">Bem-vindo(a) ao Elo3D!</h1>
+        <p>Parceiros e profissionais da AACD acessam por aqui.</p>
       </div>
 
-      <app-button text="Entrar →" href="home.html"></app-button>
-    </form>
+      <form class="login-form" id="form-login" novalidate>
+        <div class="input-group">
+          <label for="login-email">E-mail</label>
+          <input type="email" id="login-email" name="email" placeholder="seuemail@exemplo.com" autocomplete="email" required>
+        </div>
+        <div class="input-group input-group--last">
+          <label for="login-senha">Senha</label>
+          <input type="password" id="login-senha" name="senha" placeholder="Digite sua senha" autocomplete="current-password" required>
+          <a href="/" class="link-small">Esqueci minha senha</a>
+        </div>
+        <button type="submit" class="btn-primary">Entrar →</button>
+        <p class="form-msg" role="alert" aria-live="polite"></p>
+      </form>
 
-    <div class="divider">
-      <span>ou</span>
-    </div>
+      <div class="divider"><span>ou</span></div>
+      <a href="/cadastro" class="btn-secondary">Criar conta</a>
+    </section>
 
-    <a href="cadastro.html" class="btn-secondary">Criar conta</a>
-  </div>
+    <section class="view" id="view-parceiro" aria-labelledby="t-parceiro" hidden>
+      <div class="logo-box">
+        <img src="assets/LOGO.png" alt="HUB Elo3D Logo">
+      </div>
+      <div class="login-header">
+        <h1>Bem-vindo(a) ao Elo3D!</h1>
+        <p>Parceiros e profissionais da AACD acessam por aqui.</p>
+      </div>
+      <h2 class="section-title" id="t-parceiro">Informações do parceiro</h2>
+      <form class="login-form" id="form-parceiro" novalidate>
+        <div class="input-group">
+          <label for="cad-email">E-mail</label>
+          <input type="email" id="cad-email" name="email" placeholder="seuemail@exemplo.com" autocomplete="email" required>
+        </div>
+        <div class="input-group">
+          <label for="cad-senha">Senha</label>
+          <input type="password" id="cad-senha" name="senha" placeholder="Digite sua senha" autocomplete="new-password" required>
+        </div>
+        <div class="input-group input-group--last">
+          <label for="cad-confirma">Confirma senha</label>
+          <input type="password" id="cad-confirma" name="confirma" placeholder="Confirme sua senha" autocomplete="new-password" required>
+        </div>
+        <button type="submit" class="btn-primary">Próximo →</button>
+        <p class="form-msg" role="alert" aria-live="polite"></p>
+      </form>
+      <div class="divider"><span>ou</span></div>
+      <p class="inst-box">Profissional da AACD?<br><a href="/cadastro">Use seu e-mail institucional</a></p>
+    </section>
+
+    <section class="view" id="view-instituicao" aria-labelledby="t-instituicao" hidden>
+      <h2 class="section-title" id="t-instituicao">Informações da Instituição</h2>
+      <form class="login-form" id="form-instituicao" novalidate>
+        <div class="input-group"><label for="inst-nome">Nome da Instituição</label><input type="text" id="inst-nome" name="instituicao" placeholder="Digite o nome da sua instituição" autocomplete="organization" required></div>
+        <div class="input-group"><label for="inst-cep">CEP</label><input type="text" id="inst-cep" name="cep" inputmode="numeric" maxlength="9" autocomplete="postal-code" required></div>
+        <div class="input-group"><label for="inst-endereco">Endereço</label><input type="text" id="inst-endereco" name="endereco" autocomplete="street-address" required></div>
+        <div class="input-group"><label for="inst-bairro">Bairro</label><input type="text" id="inst-bairro" name="bairro" required></div>
+        <div class="input-group"><label for="inst-cidade">Cidade/Estado</label><input type="text" id="inst-cidade" name="cidade_estado" autocomplete="address-level2" required></div>
+        <div class="input-group input-group--last"><label for="inst-telefone">Telefone</label><input type="tel" id="inst-telefone" name="telefone" inputmode="tel" maxlength="15" autocomplete="tel" required></div>
+        <button type="submit" class="btn-primary">Entrar →</button>
+        <p class="form-msg" role="alert" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <a href="/login" class="login-tab">Já possui login? <strong>LOGIN</strong></a>
 
 </body>
 </html>

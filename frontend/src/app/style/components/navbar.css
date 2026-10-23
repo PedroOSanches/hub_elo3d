@@ -122,7 +122,6 @@ html, body {
   display: block;
   width: 32px;
   height: 32px;
-  background-color: #ffffff;
-  -webkit-mask: var(--icon-image) center / contain no-repeat;
-  mask: var(--icon-image) center / contain no-repeat;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
 }

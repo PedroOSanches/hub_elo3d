@@ -129,3 +129,10 @@
         max-width: 100%;
     }
 }
+
+.section-header {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible;
+}

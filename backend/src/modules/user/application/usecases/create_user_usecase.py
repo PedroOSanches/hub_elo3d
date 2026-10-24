@@ -30,7 +30,7 @@ class CreateUserUsecase:
             email=email,
             phone=phone,
             institution_id=institution_id,
-            address=address.model_dump(),
+            address=Address.model_validate(address),
             role=role,
             password_hash = gerar_hash_senha(password)
             )

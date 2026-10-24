@@ -2,7 +2,6 @@ import pytest
 
 from fastapi.testclient import TestClient
 from src.app.app import app
-from src.modules.user.application.web.routes.create_user_route import create_router
 
 
 def test_create_user():

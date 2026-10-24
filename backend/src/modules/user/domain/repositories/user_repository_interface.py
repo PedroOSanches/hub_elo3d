@@ -56,7 +56,7 @@ class IUserRepository(abc.ABC):
         pass
     
     @abstractmethod
-    def delete_user(self, id: str) -> User:
+    def delete_user(self, id: UUID) -> User:
         """
         Deleta um usuário retorna o User deletado
 

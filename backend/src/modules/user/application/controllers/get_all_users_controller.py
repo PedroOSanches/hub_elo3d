@@ -1,5 +1,3 @@
-from typing import Any
-
 from src.modules.user.application.usecases.get_all_users_usecase import GetAllUsersUsecase
 from src.modules.user.application.web.schemas.user_response_schema import UserResponseSchema
 

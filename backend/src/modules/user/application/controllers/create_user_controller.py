@@ -1,4 +1,3 @@
-from src.modules.user.domain.repositories.user_repository_interface import IUserRepository
 from src.modules.user.application.web.schemas.create_user_schema import CreateUserRequestSchema
 from src.modules.user.application.web.schemas.user_response_schema import UserResponseSchema
 from src.modules.user.application.usecases.create_user_usecase import CreateUserUsecase

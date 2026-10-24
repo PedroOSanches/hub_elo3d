@@ -1,5 +1,6 @@
 from uuid import UUID
 from pydantic import BaseModel, Field, ValidationError, model_validator, ConfigDict
+from pydantic_extra_types.phone_numbers import PhoneNumber
 from src.shared.errors.controller_error import MissingParameters, WrongTypeParameter
 
 
@@ -18,7 +19,7 @@ class UpdateUserRequestSchema(BaseModel):
     address: UpdateAddressRequestSchema | None = Field(
         default=None
     )
-    new_phone: str | None = Field(
+    new_phone: PhoneNumber | None = Field(
         default=None
     )
 

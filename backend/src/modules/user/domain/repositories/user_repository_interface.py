@@ -39,8 +39,7 @@ class IUserRepository(abc.ABC):
 
     @abstractmethod
     def update_user(
-            self, 
-            id: str, 
+            self,  
             updated_user: User
             ) -> User:
         """

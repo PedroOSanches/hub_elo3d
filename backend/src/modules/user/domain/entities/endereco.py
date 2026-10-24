@@ -44,6 +44,7 @@ class Address(BaseModel):
     )
 
     model_config = ConfigDict(
+        from_attributes=True,
         use_enum_values=True,
         extra="forbid",
         populate_by_name=True

@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from src.modules.user.domain.repositories.user_repository_interface import IUserRepository 
 from  src.modules.user.domain.entities.user import User
 from  src.modules.user.domain.entities.endereco import Address
@@ -57,12 +59,14 @@ class UserRepositoryMock(IUserRepository):
                         ),
         ]
 
-    def get_user(self, id: str) -> User:
+    def get_user(self, id: UUID) -> User:
         for user in self.users:
-            if str(user.id) == id:
+            if user.id == id:
                 return user
 
         raise NoUsersFound(f"id: {id}")
+
+    
 
     def get_all_users(self) -> list[User]:
         return self.users
@@ -76,7 +80,7 @@ class UserRepositoryMock(IUserRepository):
 
         return user
     
-    def update_user(self,  updated_user: User) -> User:
+    def update_user(self, updated_user: User) -> User:
         for i, user in enumerate(self.users):
             if updated_user.id == user.id:
                 self.users[i] = updated_user

@@ -36,7 +36,7 @@ class Test_UserRepositoryMock:
 
         users = repo.users
 
-        user = repo.get_user("b189d11a-25d1-430e-b5a1-c53db528337e")
+        user = repo.get_user(UUID("b189d11a-25d1-430e-b5a1-c53db528337e"))
 
         assert users[0] == user
     

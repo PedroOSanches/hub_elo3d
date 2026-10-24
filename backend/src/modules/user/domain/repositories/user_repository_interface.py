@@ -1,12 +1,12 @@
 import abc
 from abc import abstractmethod
-
+from uuid import UUID
 
 from ..entities.user import User
 
 class IUserRepository(abc.ABC):
     @abstractmethod
-    def get_user(self, id: str) -> User:
+    def get_user(self, id: UUID) -> User:
         """
         Retorna um objeto "User" a partir do seu ID
 
@@ -38,8 +38,7 @@ class IUserRepository(abc.ABC):
 
     @abstractmethod
     def update_user(
-            self, 
-            id: str, 
+            self,  
             updated_user: User
             ) -> User:
         """

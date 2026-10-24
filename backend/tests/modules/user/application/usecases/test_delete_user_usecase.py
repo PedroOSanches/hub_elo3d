@@ -10,6 +10,6 @@ class Test_DeleteUserUsecase:
         repo = UserRepositoryMock()
         usecase = DeleteUserUsecase(repo)
 
-        user = usecase(id=UUID('0334c795-5e71-4c1e-8a0e-ab21a4fcdecf'))
+        user = usecase(id=UUID('b189d11a-25d1-430e-b5a1-c53db528337e'))
 
         assert repo.users[0] != user

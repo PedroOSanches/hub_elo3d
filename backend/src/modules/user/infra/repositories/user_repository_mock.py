@@ -87,9 +87,9 @@ class UserRepositoryMock(IUserRepository):
 
         raise NoUsersFound(f'id: {id}')
 
-    def delete_user(self, id: str) -> User:
+    def delete_user(self, id: UUID) -> User:
         for i, user in enumerate(self.users):
-            if id == str(user.id):
+            if id == user.id:
                 return self.users.pop(i)
 
         raise NoUsersFound(f"id: {id}")

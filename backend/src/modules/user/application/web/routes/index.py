@@ -2,6 +2,7 @@ from fastapi import APIRouter
 from src.modules.user.application.web.routes.create_user_route import create_router
 from src.modules.user.application.web.routes.get_user_route import get_user_router
 from src.modules.user.application.web.routes.get_all_users_route import get_all_users_router
+from src.modules.user.application.web.routes.delete_user_route import delete_user_router
 
 user_router = APIRouter(prefix='/user')
 
@@ -10,3 +11,4 @@ user_router = APIRouter(prefix='/user')
 user_router.include_router(router=create_router)
 user_router.include_router(router=get_user_router)
 user_router.include_router(router=get_all_users_router)
+user_router.include_router(router=delete_user_router)

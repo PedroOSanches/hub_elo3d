@@ -9,7 +9,7 @@ class Test_UpdateUserRoute:
         client = TestClient(app=app)
 
         response = client.post(
-            'user/update_user',
+            'api/user/update_user',
             json={
                 "id": "b189d11a-25d1-430e-b5a1-c53db528337e",
                 "new_name": "Luiza"
@@ -38,7 +38,7 @@ class Test_UpdateUserRoute:
         client = TestClient(app=app)
         
         response = client.post(
-            'user/update_user',
+            'api/user/update_user',
             json={
                 "id": "b189d12a-25d1-430e-b5a1-c53db528337e",
                 "new_name": "Luiza"
@@ -48,3 +48,4 @@ class Test_UpdateUserRoute:
         print(response.json())
 
         assert response.status_code == 404
+        assert response.json()['message'] == 'No users found for id: b189d12a-25d1-430e-b5a1-c53db528337e'

@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, APIRouter
 from starlette.types import ExceptionHandler
 from typing import cast
 

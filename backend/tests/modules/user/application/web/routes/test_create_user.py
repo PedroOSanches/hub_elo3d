@@ -10,7 +10,7 @@ def test_create_user():
     client = TestClient(app=app)
 
     created_user = client.post(
-        'user/create',
+        'api/user/create',
         json={
             "name": "Pedro",
             "email":"pedro@aacd.com",
@@ -37,7 +37,7 @@ def test_missing_parameter_user():
     client = TestClient(app=app)
 
     created_user = client.post(
-        'user/create',
+        'api/user/create',
         json={
             "name": "Pedro",
             "email":"pedro@aacd.com",
@@ -63,7 +63,7 @@ def test_missing_parameter_address():
     client = TestClient(app=app)
 
     created_user = client.post(
-        'user/create',
+        'api/user/create',
         json={
             "name": "Pedro",
             "email":"pedro@aacd.com",
@@ -89,7 +89,7 @@ def test_type_invalid_parameter():
     client = TestClient(app=app)
 
     created_user = client.post(
-        'user/create',
+        'api/user/create',
         json={
             "name": "Pedro",
             "email":"pedro@aacd.com",
@@ -117,7 +117,7 @@ def test_type_invalid_address_parameter():
     client = TestClient(app=app)
 
     created_user = client.post(
-        'user/create',
+        'api/user/create',
         json={
             "name": "Pedro",
             "email":"pedro@aacd.com",

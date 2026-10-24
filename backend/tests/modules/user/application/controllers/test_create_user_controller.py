@@ -32,4 +32,4 @@ class Test_CreateUserController():
 
         user = controller(request=CreateUserRequestSchema(**request))
 
-        assert user['name'] == "Pedro"
+        assert user.name == "Pedro"

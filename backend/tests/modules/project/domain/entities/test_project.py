@@ -8,6 +8,7 @@ from src.modules.project.domain.entities.project import Project
 from src.modules.project.domain.enums.order_status_enum import OrderStatus
 from src.modules.project.domain.enums.production_status_enum import ProductionStatus
 from src.modules.project.domain.enums.urgency_enum import Urgency
+from src.modules.project.domain.entities.project_file import ProjectFile
 
 def valid_project_data(**overrides):
     data = {
@@ -17,7 +18,13 @@ def valid_project_data(**overrides):
         "pieces_quantity": 2,
         "category": "Ortopedia",
         "description": "Prótese de mão para paciente em recuperação",
-        "filament_id": UUID("123e4567-e89b-12d3-a456-426614174000")
+        "filament_id": UUID("123e4567-e89b-12d3-a456-426614174000"),
+        "files": [
+            ProjectFile(
+                title = "Modelo de prótese",
+                file_url = "https://example.com/protese.stl"
+            )
+        ]
     }
     data.update(overrides)
     return data
@@ -186,3 +193,35 @@ class TestProject:
     def test_invalid_filament_id(self):
         with pytest.raises(ValidationError):
             Project(**valid_project_data(filament_id = "invalid-uuid"))
+
+    def test_project_with_one_file(self):
+        project = Project(**valid_project_data())
+
+        assert len(project.files) == 1
+        assert isinstance(project.files[0], ProjectFile)
+
+    def test_project_with_multiple_files(self):
+        files = [
+            ProjectFile(title = "Modelo de prótese", file_url = "https://example.com/protese.stl"),
+            ProjectFile(title = "Manual do usuário", file_url = "https://example.com/manual.pdf")
+        ]
+        project = Project(**valid_project_data(files = files))
+
+        assert len(project.files) == 2
+        assert project.files[0].title == "Modelo de prótese"
+        assert project.files[1].title == "Manual do usuário"
+
+    def test_required_files(self):
+        data = valid_project_data()
+        data.pop("files")
+
+        with pytest.raises(ValidationError):
+            Project(**data)
+
+    def test_empty_files_list(self):
+        with pytest.raises(ValidationError):
+            Project(**valid_project_data(files = []))
+
+    def test_invalid_file(self):
+        with pytest.raises(ValidationError):
+            Project(**valid_project_data(files = {"title": "Modelo inválido"}))

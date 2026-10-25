@@ -16,7 +16,8 @@ def valid_project_data(**overrides):
         "urgency": Urgency.HIGH,
         "pieces_quantity": 2,
         "category": "Ortopedia",
-        "description": "Prótese de mão para paciente em recuperação"
+        "description": "Prótese de mão para paciente em recuperação",
+        "filament_id": UUID("123e4567-e89b-12d3-a456-426614174000")
     }
     data.update(overrides)
     return data
@@ -168,3 +169,20 @@ class TestProject:
     def test_invalid_printer_id(self):
         with pytest.raises(ValidationError):
             Project(**valid_project_data(printer_id = "invalid-uuid"))
+
+    def test_project_with_filament_id(self):
+        filament_id = uuid4()
+        project = Project(**valid_project_data(filament_id = filament_id))
+
+        assert project.filament_id == filament_id
+
+    def test_required_filament_id(self):
+        data = valid_project_data()
+        data.pop("filament_id")
+
+        with pytest.raises(ValidationError):
+            Project(**data)
+
+    def test_invalid_filament_id(self):
+        with pytest.raises(ValidationError):
+            Project(**valid_project_data(filament_id = "invalid-uuid"))

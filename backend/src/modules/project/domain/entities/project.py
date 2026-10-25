@@ -6,7 +6,7 @@ from pydantic import BaseModel, Field, ConfigDict, field_validator
 from src.modules.project.domain.enums.order_status_enum import OrderStatus
 from src.modules.project.domain.enums.production_status_enum import ProductionStatus
 from src.modules.project.domain.enums.urgency_enum import Urgency
-
+from src.modules.project.domain.entities.project_file import ProjectFile
 
 class Project(BaseModel):
     id: UUID = Field(
@@ -72,6 +72,12 @@ class Project(BaseModel):
     filament_id: UUID | None = Field(
         ...,
         description = "ID do filamento associado ao projeto"
+    )
+
+    files: list[ProjectFile] = Field(
+        ...,
+        min_length = 1,
+        description = "Lista de arquivos anexados ao projeto"
     )
 
     @field_validator("description", mode = "before")

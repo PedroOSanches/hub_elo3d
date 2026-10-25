@@ -1,4 +1,4 @@
-from uuid import UUID
+from uuid import UUID, uuid4
 from datetime import date
 
 import pytest
@@ -153,3 +153,18 @@ class TestProject:
         project = Project(**valid_project_data(technical_info = "Impressão com 30% de preenchimento"))
 
         assert project.technical_info == "Impressão com 30% de preenchimento"
+
+    def test_printer_id_optional(self):
+        project = Project(**valid_project_data())
+
+        assert project.printer_id is None
+
+    def test_project_with_printer_id(self):
+        printer_id = uuid4()
+        project = Project(**valid_project_data(printer_id = printer_id))
+
+        assert project.printer_id == printer_id
+
+    def test_invalid_printer_id(self):
+        with pytest.raises(ValidationError):
+            Project(**valid_project_data(printer_id = "invalid-uuid"))

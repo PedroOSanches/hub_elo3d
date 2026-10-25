@@ -64,6 +64,11 @@ class Project(BaseModel):
         description = "Status da produção do projeto"
     )
 
+    printer_id: UUID | None = Field(
+        default = None,
+        description = "ID da impressora associada ao projeto"
+    )
+
     @field_validator("description", mode = "before")
     @classmethod
     def strip_description(cls, value: object) -> object:

@@ -4,7 +4,6 @@ from datetime import date
 from pydantic import BaseModel, Field, ConfigDict, field_validator
 
 from src.modules.project.domain.enums.order_status_enum import OrderStatus
-from src.modules.project.domain.enums.production_status_enum import ProductionStatus
 from src.modules.project.domain.enums.urgency_enum import Urgency
 from src.modules.project.domain.entities.project_file import ProjectFile
 
@@ -56,12 +55,8 @@ class Project(BaseModel):
 
     order_status: OrderStatus = Field(
         default = OrderStatus.WAITING_FOR_PARTNER,
+        validate_default = True,
         description = "Status do pedido do projeto"
-    )
-
-    production_status: ProductionStatus | None = Field(
-        default = None,
-        description = "Status da produção do projeto"
     )
 
     printer_id: UUID | None = Field(
@@ -89,5 +84,6 @@ class Project(BaseModel):
 
     model_config = ConfigDict(
         extra = "forbid",
-        populate_by_name = True
+        populate_by_name = True,
+        use_enum_values = True
     )

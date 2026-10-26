@@ -6,7 +6,6 @@ from pydantic import ValidationError
 
 from src.modules.project.domain.entities.project import Project
 from src.modules.project.domain.enums.order_status_enum import OrderStatus
-from src.modules.project.domain.enums.production_status_enum import ProductionStatus
 from src.modules.project.domain.enums.urgency_enum import Urgency
 from src.modules.project.domain.entities.project_file import ProjectFile
 
@@ -36,10 +35,11 @@ class TestProject:
 
         assert isinstance(project.id, UUID)
         assert project.title == "Prótese de mão"
+        assert project.urgency == "high"
         assert project.pieces_quantity == 2
         assert project.category == "Ortopedia"
         assert project.technical_info is None
-        assert project.order_status == OrderStatus.WAITING_FOR_PARTNER
+        assert project.order_status == "waiting_for_partner"
 
     def test_different_ids(self):
         project1 = Project(**valid_project_data())
@@ -80,15 +80,16 @@ class TestProject:
         with pytest.raises(ValidationError):
             Project(**data)
 
-    def test_production_status(self):
-        project = Project(**valid_project_data(production_status = ProductionStatus.IN_PRODUCTION))
-
-        assert project.production_status == ProductionStatus.IN_PRODUCTION
-
     def test_custom_order_status(self):
         project = Project(**valid_project_data(order_status = OrderStatus.IN_PROGRESS))
 
-        assert project.order_status == OrderStatus.IN_PROGRESS
+        assert project.order_status == "in_progress"
+        assert type(project.order_status) is str
+
+    def test_delivered_order_status(self):
+        project = Project(**valid_project_data(order_status=OrderStatus.DELIVERED))
+
+        assert project.order_status == "delivered"
 
     def test_invalid_urgency(self):
         with pytest.raises(ValidationError):
@@ -97,10 +98,6 @@ class TestProject:
     def test_invalid_order_status(self):
         with pytest.raises(ValidationError):
             Project(**valid_project_data(order_status = "canceled"))
-
-    def test_invalid_production_status(self):
-        with pytest.raises(ValidationError):
-            Project(**valid_project_data(production_status = "printing_error"))
 
     def test_required_pieces_quantity(self):
         data = valid_project_data()
@@ -225,3 +222,47 @@ class TestProject:
     def test_invalid_file(self):
         with pytest.raises(ValidationError):
             Project(**valid_project_data(files = {"title": "Modelo inválido"}))
+
+    def test_enum_values(self):
+        project = Project(**valid_project_data(
+            urgency = Urgency.HIGH,
+            order_status = OrderStatus.RECEIVED
+        ))
+
+        assert project.urgency == "high"
+        assert project.order_status == "received"
+
+        assert type(project.urgency) is str
+        assert type(project.order_status) is str
+
+    
+    @pytest.mark.parametrize("status", [
+        OrderStatus.WAITING_FOR_PARTNER,
+        OrderStatus.RECEIVED,
+        OrderStatus.IN_PROGRESS,
+        OrderStatus.FINALIZED,
+        OrderStatus.DELIVERED
+    ])
+
+    def test_valid_order_status(self, status):
+        project = Project(**valid_project_data(order_status=status))
+
+        assert project.order_status == status.value
+        assert type(project.order_status) is str
+
+    def test_default_order_status(self):
+        project = Project(**valid_project_data())
+
+        assert project.order_status == "waiting_for_partner"
+        assert type(project.order_status) is str
+
+    def test_enum_values_serialization(self):
+        project = Project(**valid_project_data())
+        data = project.model_dump()
+
+        assert data["order_status"] == "waiting_for_partner"
+        assert data["urgency"] == "high"
+
+    def test_removed_status_is_invalid(self):
+        with pytest.raises(ValidationError):
+            Project(**valid_project_data(order_status="completed"))

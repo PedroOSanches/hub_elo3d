@@ -41,7 +41,7 @@ class CustomNavbar extends HTMLElement {
       <link rel="stylesheet" href="${css}">
 
       <nav class="navbar" aria-label="Navegação principal">
-        <a href="#" class="nav-logo">
+        <a href="/" class="nav-logo">
           <img src="${logo}" alt="${logoAlt}">
         </a>
         <a href="${firstHref}" class="nav-item dark-first">${firstText}</a>

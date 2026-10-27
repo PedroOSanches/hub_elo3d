@@ -1,0 +1,85 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  min-height: 90px;
+  padding: 15px 18px 15px 10px;
+  box-sizing: border-box;
+  background: #fffdfa;
+  border: 1px solid #e3ddd2;
+  border-radius: 18px;
+  box-shadow: 0 3px 2px rgb(0 0 0 / 24%);
+  color: #151515;
+  font-family: 'Sora', sans-serif;
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
+  margin-right: 10px;
+  border-radius: 50%;
+  color: #b9003c;
+  background: #f7e2e5;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.icon::after {
+  content: '';
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: #b9003c;
+}
+
+:host([variant="total"]) .icon::after {
+  display: none;
+}
+
+:host([variant="done"]) .icon {
+  background: #e1f1dd;
+}
+
+:host([variant="done"]) .icon::after {
+  background: #1ca51c;
+}
+
+:host([variant="progress"]) .icon {
+  background: #f6efd9;
+}
+
+:host([variant="progress"]) .icon::after {
+  background: #bd951e;
+}
+
+:host([variant="waiting"]) .icon {
+  background: #f5e1e4;
+}
+
+strong,
+span {
+  display: block;
+}
+
+strong {
+  font-size: 1.45rem;
+  line-height: 1.1;
+}
+
+span {
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+@media (max-width: 800px) {
+  span {
+    white-space: normal;
+  }
+}

@@ -7,6 +7,27 @@ const routes = {
     style: null,
     background: '#F6E8DA',
   },
+  '/como-funciona': {
+    page: 'pages/home.html',
+    title: 'Como funciona - Elo3D Hub',
+    style: null,
+    background: '#F6E8DA',
+    target: 'como-funciona',
+  },
+  '/rede': {
+    page: 'pages/home.html',
+    title: 'Rede - Elo3D Hub',
+    style: null,
+    background: '#F6E8DA',
+    target: 'rede',
+  },
+  '/quem-somos': {
+    page: 'pages/home.html',
+    title: 'Quem somos - Elo3D Hub',
+    style: null,
+    background: '#F6E8DA',
+    target: 'quem-somos',
+  },
   '/login': {
     page: 'pages/login.html',
     title: 'Login - Hub Elo3D',
@@ -24,6 +45,18 @@ const routes = {
     title: 'Cadastro da instituição - Elo3D',
     style: 'style/login.css',
     background: '#F4F0E5',
+  },
+  '/meus-projetos': {
+    page: 'pages/meus-projetos.html',
+    title: 'Meus Projetos - Elo3D',
+    style: 'style/meus-projetos.css?v=2',
+    background: '#F6F0E4',
+  },
+  '/projetos-disponiveis': {
+    page: 'pages/ProjetosDisponiveis.html',
+    title: 'Projetos Disponíveis - Elo3D',
+    style: 'style/ProjetosDisponiveis.css',
+    background: '#F6F0E4',
   },
 };
 
@@ -59,8 +92,16 @@ async function renderRoute() {
     loadRouteStyle(route.style);
     document.title = route.title;
     document.body.style.backgroundColor = route.background;
+    if (route.target) {
+      document.getElementById(route.target)?.scrollIntoView();
+    } else {
+      window.scrollTo(0, 0);
+    }
     if (route.page === 'pages/login.html') {
       window.initLoginPage?.();
+    }
+    if (route.page === 'pages/meus-projetos.html') {
+      window.initProjectsPage?.();
     }
   } catch (error) {
     console.error(error);
@@ -73,8 +114,12 @@ async function renderRoute() {
 }
 
 document.addEventListener('click', event => {
-  const link = event.target.closest('a');
+  const link = event.composedPath().find(element => element instanceof HTMLAnchorElement);
   if (!link || link.origin !== window.location.origin || !link.pathname.startsWith('/')) {
+    return;
+  }
+
+  if (link.hash && link.pathname === window.location.pathname) {
     return;
   }
 

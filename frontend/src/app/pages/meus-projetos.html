@@ -1,0 +1,58 @@
+<header class="projects-header">
+  <app-navbar
+    logo="assets/Group 3.png"
+    icon="assets/account-circle-fill.png"
+    css="style/components/navbar.css"
+    profile-href="/login"
+    first-text="Minhas Impressoras"
+    first-href="/minhas-impressoras"
+    second-text="Meus Projetos"
+    second-href="/meus-projetos"
+    third-text="Projetos Disponíveis"
+    third-href="/projetos-disponiveis">
+  </app-navbar>
+</header>
+
+<main class="projects-page">
+  <section class="projects-intro" aria-labelledby="projects-title">
+    <h1 id="projects-title">Meus <span>Projetos</span></h1>
+    <p>Gerencie seus projetos.</p>
+  </section>
+
+  <section class="project-summary" aria-label="Resumo dos projetos">
+    <project-summary-card variant="total" value="4" label="Total de projetos"></project-summary-card>
+    <project-summary-card variant="done" value="2" label="Concluídos"></project-summary-card>
+    <project-summary-card variant="progress" value="1" label="Em andamento"></project-summary-card>
+    <project-summary-card variant="waiting" value="1" label="Em espera"></project-summary-card>
+  </section>
+
+  <section class="projects-table-card" aria-label="Lista de projetos">
+    <div class="projects-table-wrapper">
+      <div class="projects-table" role="table">
+        <div class="projects-table-header" role="row">
+          <div role="columnheader">Projeto</div>
+          <div role="columnheader">Impressora</div>
+          <div role="columnheader">Status</div>
+          <div role="columnheader">Prazo</div>
+          <div role="columnheader">
+              <label class="project-search">
+                <span class="sr-only">Buscar projeto</span>
+                <span aria-hidden="true">⌕</span>
+                <input id="project-search" type="search" placeholder="Buscar projeto">
+              </label>
+          </div>
+        </div>
+        <div id="projects-list" role="rowgroup">
+          <project-row name="Órtese de Punho" printer="Prusa i3 MK3S+" status="done" status-label="Concluído" due-date="03/10/2026" href="/projetos/ortese-de-punho"></project-row>
+          <project-row name="Órtese de Punho" printer="Prusa i3 MK3S+" status="done" status-label="Concluído" due-date="03/10/2026" href="/projetos/ortese-de-punho"></project-row>
+          <project-row name="Órtese de Punho" printer="Prusa i3 MK3S+" status="progress" status-label="Em andamento" due-date="03/10/2026" href="/projetos/ortese-de-punho"></project-row>
+          <project-row name="Órtese de Punho" printer="Prusa i3 MK3S+" status="waiting" status-label="Em espera" due-date="03/10/2026" href="/projetos/ortese-de-punho"></project-row>
+          <project-row name="Órtese de Punho" printer="Prusa i3 MK3S+" status="waiting" status-label="Em espera" due-date="03/10/2026" href="/projetos/ortese-de-punho"></project-row>
+          <project-row name="Órtese de Punho" printer="Prusa i3 MK3S+" status="waiting" status-label="Em espera" due-date="03/10/2026" href="/projetos/ortese-de-punho"></project-row>
+          <project-row name="Órtese de Punho" printer="Prusa i3 MK3S+" status="waiting" status-label="Em espera" due-date="03/10/2026" href="/projetos/ortese-de-punho"></project-row>
+          <project-row name="Órtese de Punho" printer="Prusa i3 MK3S+" status="waiting" status-label="Em espera" due-date="03/10/2026" href="/projetos/ortese-de-punho"></project-row>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

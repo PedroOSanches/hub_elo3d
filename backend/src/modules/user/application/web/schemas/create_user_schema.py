@@ -36,7 +36,7 @@ class CreateUserRequestSchema(BaseModel):
 
     role: ROLE = Field(
         ...,
-        examples=['hospital', 'user_hospital', 'admin', ]
+        examples=['hospital', 'user_hospital', 'admin', 'user' ]
     )
 
     @model_validator(mode='wrap')

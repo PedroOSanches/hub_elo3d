@@ -61,3 +61,7 @@ class IUserRepository(abc.ABC):
         Caso o ID não for encontrado retorna NoUsersFound
         """
         pass
+
+    @abstractmethod
+    def get_user_by_email(self, email: str) -> User:
+        """Retorna um usuario buscando-o pelo E-Mail\n Caso o usuario não seja encontrado retorna NoUsersFound"""

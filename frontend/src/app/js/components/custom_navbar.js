@@ -35,6 +35,8 @@ class CustomNavbar extends HTMLElement {
       return;
     }
 
+    const iconUrl = new URL(icon, document.baseURI).href;
+
     this.shadowRoot.innerHTML = `
       <link rel="stylesheet" href="${css}">
 
@@ -47,10 +49,7 @@ class CustomNavbar extends HTMLElement {
         <a href="${thirdHref}" class="nav-item dark">${thirdText}</a>
         <div class="nav-user">
           <a href="${profileHref}" class="user-btn" title="Perfil" aria-label="Perfil">
-            <span
-              class="icon-image"
-              style="--icon-image: url('${icon}');">
-            </span>
+            <img class="icon-image" src="${iconUrl}" alt="">
           </a>
         </div>
       </nav>

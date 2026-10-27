@@ -1,93 +1,54 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Sora', sans-serif;
 }
 
+body {
+    background-color: #F6E9DC;
+    color: #1A1A1A;
+    overflow-x: hidden;
+}
 
-.quem-somos{
+.quem-somos {
     background-color: #F7E7D3;
-
-
     display: flex;
     justify-content: space-between;
     align-items: center;
-    min-height: 100vh;
-    padding: 80px;
+    padding: 80px 8%;
     gap: 50px;
 }
 
-
-.texto{
+.texto {
     max-width: 500px;
 }
 
-
-.texto h2{
+.texto h2 {
     font-size: 48px;
     font-weight: 400;
     margin-bottom: 20px;
 }
 
-
-.texto h2 span{
+.texto h2 span {
     color: #A10029;
 }
 
-
-.texto p{
+.texto p {
     font-size: 20px;
     color: #000000;
+    line-height: 1.5;
 }
 
-
-.logo{
+.logo {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 20px;
 }
 
-
-.logo img{
+.logo img {
     width: 100%;
     max-width: 500px;
     height: auto;
-}
-
-
-@media (max-width: 768px) {
-    .quem-somos{
-        flex-direction: column-reverse;
-        justify-content: center;
-        padding: 80px 200px;
-        gap: 20px;
-        text-align: center;
-    }
-
-
-    .texto{
-        max-width: 100%;
-    }
-
-
-    .texto h2{
-        font-size: 32px;
-    }
-
-
-    .texto p{
-        font-size: 16px;
-    }
-
-
-    .logo{
-        justify-content: center;
-    }
-
-
-    .logo img{
-        max-width: 280px;
-    }
 }

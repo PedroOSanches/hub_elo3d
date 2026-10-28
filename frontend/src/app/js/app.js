@@ -1,3 +1,4 @@
+
 const app = document.getElementById('app');
 
 const routes = {
@@ -58,6 +59,14 @@ const routes = {
     style: 'style/ProjetosDisponiveis.css',
     background: '#F6F0E4',
   },
+
+ 
+  '/dashboard-aacd': {
+    page: 'pages/dashboard-aacd.html',
+    title: 'Dashboard AACD - Elo3D Hub',
+    style: 'style/dashboard-aacd.css',
+    background: '#F4F0E5',
+  },
 };
 
 function getCurrentRoute() {
@@ -92,17 +101,26 @@ async function renderRoute() {
     loadRouteStyle(route.style);
     document.title = route.title;
     document.body.style.backgroundColor = route.background;
+
     if (route.target) {
       document.getElementById(route.target)?.scrollIntoView();
     } else {
       window.scrollTo(0, 0);
     }
+
     if (route.page === 'pages/login.html') {
       window.initLoginPage?.();
     }
+
     if (route.page === 'pages/meus-projetos.html') {
       window.initProjectsPage?.();
     }
+
+    
+    if (route.page === 'pages/dashboard-aacd.html') {
+      window.initDashboardAACD?.();
+    }
+
   } catch (error) {
     console.error(error);
     app.innerHTML = `
@@ -114,7 +132,10 @@ async function renderRoute() {
 }
 
 document.addEventListener('click', event => {
-  const link = event.composedPath().find(element => element instanceof HTMLAnchorElement);
+  const link = event.composedPath().find(
+    element => element instanceof HTMLAnchorElement
+  );
+
   if (!link || link.origin !== window.location.origin || !link.pathname.startsWith('/')) {
     return;
   }

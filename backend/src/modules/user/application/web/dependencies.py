@@ -2,14 +2,11 @@ from src.modules.user.domain.repositories.user_repository_interface import IUser
 from src.modules.user.domain.repositories.institution_repository_interface import IInstitutionRepository
 from src.modules.user.infra.repositories.institution_repository_mock import InstitutionRepositoryMock
 from src.modules.user.infra.repositories.user_repository_mock import UserRepositoryMock
-from src.shared.environments import Environments, STAGE
+from src.shared.environments import Environments, STAGE, env
 
 
 def get_repo_user() -> IUserRepository:
-    if Environments.get_envs().stage == STAGE.TEST.value:
-        return UserRepositoryMock()
-    else:
-        return UserRepositoryMock()
+    return env.repo_user
 
 def get_repo_institution() -> IInstitutionRepository:
     if Environments.get_envs().stage == STAGE.TEST.value:

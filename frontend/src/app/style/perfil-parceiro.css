@@ -1,0 +1,129 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Sora', sans-serif;
+}
+
+body {
+    background-color: #F4F0E5;
+    color: #000000;
+}
+
+main {
+    min-height: 100vh;
+    padding: 40px 38px 60px;
+}
+
+.profile h1 {
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.profile h1 span {
+    color: #A10029;
+}
+
+.profile-content {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 560px));
+    gap: 20px 18px;
+    margin-top: 32px;
+}
+
+.card {
+    padding: 22px;
+    background-color: #F7E7D3;
+    border: 1px solid #A10029;
+    border-radius: 6px;
+}
+
+.internal-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 270px;
+    padding: 24px 24px 26px;
+    background-color: #FFFFFF;
+    border-radius: 6px;
+}
+
+.internal-card h2 {
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.data {
+    display: grid;
+    grid-template-columns: 190px 1fr;
+    gap: 12px 0;
+    font-size: 14px;
+    line-height: 1.2;
+}
+
+.data dd {
+    max-width: 280px;
+}
+
+.internal-card > div,
+.card-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: auto;
+    padding-top: 20px;
+}
+
+.button-edit {
+    padding: 7px 26px;
+    background-color: #A10029;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.button-edit:hover {
+    background-color: #7E0020;
+}
+
+.button-edit:focus-visible {
+    outline: 2px solid #A10029;
+    outline-offset: 3px;
+}
+
+@media (max-width: 1000px) {
+    .profile-content {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .data dd {
+        max-width: none;
+    }
+}
+
+@media (max-width: 480px) {
+    main {
+        padding: 28px 16px 40px;
+    }
+
+    .profile h1 {
+        font-size: 30px;
+    }
+
+    .card {
+        padding: 10px;
+    }
+
+    .data {
+        grid-template-columns: 1fr;
+        gap: 2px 0;
+    }
+
+    .data dd {
+        margin-bottom: 10px;
+    }
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu perfil</title>
+    <link rel="stylesheet" href="../style/perfil-parceiro.css">
+</head>
+
+<body>
+    <main>
+        <header class="profile">
+            <h1>Meu <span>Perfil</span></h1>
+        </header>
+
+        <div class="profile-content">
+            <section class="card" aria-labelledby="titulo-organizacao">
+                <div class="internal-card">
+                    <h2 id="titulo-organizacao">Dados da Organização</h2>
+                    <dl class="data">
+                        <dt>Nome do laboratório</dt>
+                        <dd>FabLab Mauá</dd>
+
+                        <dt>Instituição</dt>
+                        <dd>Instituto Mauá de Tecnologia</dd>
+
+                        <dt>Descrição</dt>
+                        <dd>Laboratório de fabricação digital com foco em impressão 3D, prototipagem e projetos de inclusão.</dd>
+                    </dl>
+                </div>
+            </section>
+
+            <section class="card" aria-labelledby="titulo-endereco">
+                <div class="internal-card">
+                    <h2 id="titulo-endereco">Endereço</h2>
+                    <dl class="data">
+                        <dt>Endereço</dt>
+                        <dd>Av. Barão de Mauá, 18681</dd>
+
+                        <dt>Bairro</dt>
+                        <dd>Jardim Pedroso</dd>
+
+                        <dt>Cidade/ Estado</dt>
+                        <dd>São Caetano do Sul - SP</dd>
+
+                        <dt>CEP</dt>
+                        <dd>09580-900</dd>
+                    </dl>
+                    <div>
+                        <button type="button" class="button-edit" data-editar="endereco">Editar</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card" aria-labelledby="titulo-contato">
+                <div class="internal-card">
+                    <h2 id="titulo-contato">Contato</h2>
+                    <dl class="data">
+                        <dt>Nome do Responsável</dt>
+                        <dd>Ana Beatriz Silva</dd>
+
+                        <dt>E-mail</dt>
+                        <dd>ana.silva@maua.br</dd>
+
+                        <dt>Telefone</dt>
+                        <dd>(11)4239-3000</dd>
+                    </dl>
+                    <div class="card-actions">
+                        <button type="button" class="button-edit" data-editar="contato">Editar</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+</body>
+</html>

@@ -18,13 +18,13 @@ def get_all_printers_by_user_dependencies() -> GetAllPrintersByUserController:
 
 
 @get_all_by_user_router.get(
-    "/user/{usuario_id}",
+    "/user/{user_id}",
     status_code=status.HTTP_200_OK,
     response_model=list[PrinterResponseSchema],
 )
 async def get_all_printers_by_user(
-    usuario_id: uuid.UUID,
+    user_id: uuid.UUID,
     controller: GetAllPrintersByUserController = Depends(get_all_printers_by_user_dependencies),
 ):
 
-    return controller(usuario_id)
+    return controller(user_id)

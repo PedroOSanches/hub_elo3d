@@ -16,6 +16,6 @@ class GetAllPrintersByUserController:
     def __init__(self, usecase: GetAllPrintersByUserUsecase):
         self.usecase = usecase
 
-    def __call__(self, usuario_id: UUID) -> list[PrinterResponseSchema]:
-        printers = self.usecase(usuario_id)
+    def __call__(self, user_id: UUID) -> list[PrinterResponseSchema]:
+        printers = self.usecase(user_id)
         return PrinterViewModel.from_entities(printers)

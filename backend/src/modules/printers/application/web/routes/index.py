@@ -5,6 +5,7 @@ from src.modules.printers.application.web.routes.get_printer import get_router
 from src.modules.printers.application.web.routes.list_printers import list_router
 from src.modules.printers.application.web.routes.update_printer import update_router
 from src.modules.printers.application.web.routes.delete_printer import delete_router
+from src.modules.printers.application.web.routes.get_all_printers_by_user import get_all_by_user_router
 
 router = APIRouter()
 
@@ -13,3 +14,4 @@ router.include_router(get_router)
 router.include_router(list_router)
 router.include_router(update_router)
 router.include_router(delete_router)
+router.include_router(get_all_by_user_router)

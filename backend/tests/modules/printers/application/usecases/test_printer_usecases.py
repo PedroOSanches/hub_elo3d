@@ -27,6 +27,10 @@ from src.modules.printers.infra.repositories.printer_repository_mock import (
     PrinterRepositoryMock,
 )
 
+from src.modules.printers.application.usecases.get_all_printers_by_user_usecase import (
+    GetAllPrintersByUserUsecase,
+)
+
 
 class UserGatewayFake(IUserGateway):
     def __init__(self, exists: bool = True) -> None:
@@ -134,3 +138,21 @@ class TestDeletePrinterUsecase:
     def test_delete_printer_not_found(self):
         with pytest.raises(PrinterNotFoundError):
             DeletePrinterUsecase(PrinterRepositoryMock())(uuid4())
+
+class TestGetAllPrintersByUserUsecase:
+    def test_get_all_printers_by_user(self):
+        repo = PrinterRepositoryMock()
+        user_id = uuid4()
+        p1 = create_printer(repo, user_id=user_id, apelido="A")
+        p2 = create_printer(repo, user_id=user_id, apelido="B")
+        create_printer(repo)
+
+        result = GetAllPrintersByUserUsecase(repo)(user_id)
+
+        assert result == [p1, p2]
+
+    def test_user_without_printers_returns_empty_list(self):
+        repo = PrinterRepositoryMock()
+        create_printer(repo)
+
+        assert GetAllPrintersByUserUsecase(repo)(uuid4()) == []

@@ -17,7 +17,7 @@ from src.shared.errors.domain_error import EntitieError
 from src.modules.user.domain.enums.role_enum import ROLE
 
 class User(BaseModel):
-    id: uuid.UUID = Field(
+    user_id: uuid.UUID = Field(
         default_factory=uuid.uuid4,
         description="Identificador único de usuário"
     ) 

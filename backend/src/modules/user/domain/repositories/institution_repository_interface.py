@@ -6,9 +6,9 @@ from src.modules.user.domain.entities.institution import Institution
 
 class IInstitutionRepository(abc.ABC):
     @abstractmethod
-    def get_institution(self, id: str) -> Institution:
+    def get_institution(self, user_id: str) -> Institution:
         """
-        Retorna um objeto "Institution" a partir do seu ID
+        Retorna um objeto "Institution" a partir do seu user_id
 
         Em caso não encontrado retorna NoInstitutionFound
         """
@@ -39,11 +39,11 @@ class IInstitutionRepository(abc.ABC):
     @abstractmethod
     def update_institution(
             self, 
-            id: str, 
+            user_id: str, 
             updated_institution: Institution
             ) -> Institution:
         """
-        Atualiza os campos de um usuário de acordo com o id
+        Atualiza os campos de um usuário de acordo com o user_id
 
         Retorna o usuário com os campos atualizados
 
@@ -55,10 +55,10 @@ class IInstitutionRepository(abc.ABC):
         pass
     
     @abstractmethod
-    def delete_institution(self, id: str) -> Institution:
+    def delete_institution(self, user_id: str) -> Institution:
         """
         Deleta um usuário retorna o Institution deletado
 
-        Caso o ID não for encontrado retorna NoInstitutionFound
+        Caso o user_id não for encontrado retorna NoInstitutionFound
         """
         pass

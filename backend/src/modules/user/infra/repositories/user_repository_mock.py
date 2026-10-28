@@ -4,7 +4,7 @@ from src.modules.user.domain.repositories.user_repository_interface import IUser
 from  src.modules.user.domain.entities.user import User
 from  src.modules.user.domain.entities.endereco import Address
 from  src.modules.user.domain.errors.user_usecase_errors import NoUsersFound, DuplicatedUser
-
+from src.shared.utils.password_hasher import gerar_hash_senha
 
 class UserRepositoryMock(IUserRepository):
     def __init__(self):
@@ -23,7 +23,8 @@ class UserRepositoryMock(IUserRepository):
                     complemento="Casa",
                     estado="SP"
                 ),
-                role="user"
+                role="user",
+                password_hash=gerar_hash_senha('!Teste123#')
                 ),
                 User(
                     id = "b189d11a-25d1-430e-b5a1-c53db528337e",
@@ -95,4 +96,10 @@ class UserRepositoryMock(IUserRepository):
 
         raise NoUsersFound(f"id: {id}")
 
-    
+    def get_user_by_email(self, email: str) -> User:
+        
+        for user in self.users:
+            if email == user.email:
+                return user
+
+        raise NoUsersFound(f'email: {email}')

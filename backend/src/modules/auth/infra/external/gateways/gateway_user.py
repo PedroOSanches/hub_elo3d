@@ -14,7 +14,7 @@ class GatewayUser(IGatewayUser):
                 id=user.id,
                 email=user.email,
                 password_hash=user.password_hash if user.password_hash is not None else "Error",
-                role=user.role.value
+                role=user.role
             )
 
     @classmethod

@@ -4,7 +4,7 @@ from typing import Any
 
 
 
-class AuthRequestSchema(BaseModel):
+class LoginRequestSchema(BaseModel):
     email: EmailStr
     password: str
 

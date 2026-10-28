@@ -6,9 +6,6 @@ const etapasProjeto = [
     "Entrega"
 ];
 
-// ==========================================
-// DADOS DEMONSTRATIVOS DO DASHBOARD
-// ==========================================
 
 const projetos = [
     { id: "016", etapaAtual: "Finalização" },
@@ -47,9 +44,7 @@ const atividadesRecentes = [
     }
 ];
 
-// ==========================================
-// ATUALIZA OS INDICADORES SUPERIORES
-// ==========================================
+
 
 document.querySelectorAll("[data-indicador]").forEach((elemento) => {
     const tipo = elemento.dataset.indicador;
@@ -59,9 +54,7 @@ document.querySelectorAll("[data-indicador]").forEach((elemento) => {
     }
 });
 
-// ==========================================
-// ATUALIZA OS INDICADORES DAS IMPRESSORAS
-// ==========================================
+
 
 document.querySelectorAll("[data-impressora]").forEach((elemento) => {
     const tipo = elemento.dataset.impressora;
@@ -71,9 +64,7 @@ document.querySelectorAll("[data-impressora]").forEach((elemento) => {
     }
 });
 
-// ==========================================
-// ATUALIZA O PROGRESSO DOS PROJETOS
-// ==========================================
+
 
 const cardsProjetos = document.querySelectorAll(
     ".aacd-dashboard__project-card"
@@ -121,9 +112,7 @@ cardsProjetos.forEach((card) => {
     });
 });
 
-// ==========================================
-// ATUALIZA AS ATIVIDADES RECENTES
-// ==========================================
+
 
 const listaAtividades = document.querySelector(
     ".aacd-dashboard__activity-list"

@@ -7,7 +7,7 @@ class Test_UpdateUserRequestSchema:
     def test_update_user_request_schema_type_invalid(self):
 
         request = {
-            'id': 'b189d11a-25d1-430e-b5a1-c53db528337e',
+            'user_id': 'b189d11a-25d1-430e-b5a1-c53db528337e',
             'new_name': ['Rafael']
         }
 
@@ -17,7 +17,7 @@ class Test_UpdateUserRequestSchema:
     def test_update_user_request_schema_missing_parameters(self):
 
         request = {
-            'id': 'b189d11a-25d1-430e-b5a1-c53db528337e',
+            'user_id': 'b189d11a-25d1-430e-b5a1-c53db528337e',
         }
 
         with pytest.raises(MissingParameters):

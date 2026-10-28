@@ -10,7 +10,7 @@ class UserRepositoryMock(IUserRepository):
     def __init__(self):
         self.users = [
             User(
-                id = "b189d11a-25d1-430e-b5a1-c53db528337e",
+                user_id = "b189d11a-25d1-430e-b5a1-c53db528337e",
                 name="User",
                 email="user@example.com",
                 phone="+5511999999999",
@@ -27,7 +27,7 @@ class UserRepositoryMock(IUserRepository):
                 password_hash=gerar_hash_senha('!Teste123#')
                 ),
                 User(
-                    id = "b189d11a-25d1-430e-b5a1-c53db528337e",
+                    user_id = "b189d11a-25d1-430e-b5a1-c53db528337e",
                     name="User AACD",
                     email="user@aacd.com",
                     phone="+5511999999999",
@@ -43,7 +43,7 @@ class UserRepositoryMock(IUserRepository):
                     role="hospital"
                     ),
                     User(
-                        id = "b189d11a-25d1-430e-b5a1-c53db528337e",
+                        user_id = "b189d11a-25d1-430e-b5a1-c53db528337e",
                         name="User Maua",
                         email="user@maua.br",
                         phone="+5511999999999",
@@ -60,12 +60,12 @@ class UserRepositoryMock(IUserRepository):
                         ),
         ]
 
-    def get_user(self, id: UUID) -> User:
+    def get_user(self, user_id: UUID) -> User:
         for user in self.users:
-            if user.id == id:
+            if user.user_id == user_id:
                 return user
 
-        raise NoUsersFound(f"id: {id}")
+        raise NoUsersFound(f"user_id: {user_id}")
 
     
 
@@ -83,18 +83,18 @@ class UserRepositoryMock(IUserRepository):
     
     def update_user(self, updated_user: User) -> User:
         for i, user in enumerate(self.users):
-            if updated_user.id == user.id:
+            if updated_user.user_id == user.user_id:
                 self.users[i] = updated_user
                 return self.users[i]
 
-        raise NoUsersFound(f'id: {id}')
+        raise NoUsersFound(f'user_id: {updated_user.user_id}')
 
-    def delete_user(self, id: str) -> User:
+    def delete_user(self, user_id: str) -> User:
         for i, user in enumerate(self.users):
-            if id == str(user.id):
+            if user_id == str(user.user_id):
                 return self.users.pop(i)
 
-        raise NoUsersFound(f"id: {id}")
+        raise NoUsersFound(f"user_id: {user_id}")
 
     def get_user_by_email(self, email: str) -> User:
         

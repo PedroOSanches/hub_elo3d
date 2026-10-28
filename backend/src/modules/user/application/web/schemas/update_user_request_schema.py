@@ -7,7 +7,7 @@ from src.shared.errors.controller_error import MissingParameters, WrongTypeParam
 from typing import Any
 
 class UpdateUserRequestSchema(BaseModel):
-    id: UUID = Field(
+    user_id: UUID = Field(
         ...
     )
     new_name: str | None = Field(
@@ -27,8 +27,8 @@ class UpdateUserRequestSchema(BaseModel):
     @classmethod
     def validar_request(cls, value: Any, handler: Any) -> "UpdateUserRequestSchema":
         try:
-            if value.get('id') is None:
-                raise MissingParameters('id')
+            if value.get('user_id') is None:
+                raise MissingParameters('user_id')
             if (
                 value.get('new_name') is None
                 and value.get('new_password') is None

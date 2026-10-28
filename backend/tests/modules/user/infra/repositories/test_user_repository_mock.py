@@ -10,7 +10,7 @@ class Test_UserRepositoryMock:
         repo = UserRepositoryMock()
         users = repo.users
         user = User(
-            id="0334c795-5e71-4c1e-8a0e-ab21a4fcdecf",
+            user_id="0334c795-5e71-4c1e-8a0e-ab21a4fcdecf",
             name = "Pedro",
             email="pedro@aacd.com",
             address=Address(
@@ -29,7 +29,7 @@ class Test_UserRepositoryMock:
         repo.create_user(user=user)
 
         assert users[-1] == user
-        assert users[-1].id == UUID('0334c795-5e71-4c1e-8a0e-ab21a4fcdecf')
+        assert users[-1].user_id == UUID('0334c795-5e71-4c1e-8a0e-ab21a4fcdecf')
 
     def test_get_user(self):
         repo = UserRepositoryMock()
@@ -61,7 +61,7 @@ class Test_UserRepositoryMock:
     def test_update_user(self):
         repo = UserRepositoryMock()
         user = User(
-            id="b189d11a-25d1-430e-b5a1-c53db528337e",
+            user_id="b189d11a-25d1-430e-b5a1-c53db528337e",
             name = "Miguel",
             email="miguel@aacd.com",
             address=Address(
@@ -95,7 +95,7 @@ class Test_UserRepositoryMock:
             with pytest.raises(NoUsersFound):
                 repo.update_user(
                     User(
-                        id="0334c795-5e71-4c1e-8a0e-ab21a4fcdecf",
+                        user_id="0334c795-5e71-4c1e-8a0e-ab21a4fcdecf",
                         name = "Miguel",
                         email="miguel@aacd.com",
                         address=Address(

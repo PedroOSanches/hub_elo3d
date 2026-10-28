@@ -11,7 +11,7 @@ class GatewayUser(IGatewayUser):
     def get_user_by_email(self, email: str) -> AuthUser:
             user = self.repo.get_user_by_email(email)
             return AuthUser(
-                id=user.id,
+                user_id=user.user_id,
                 email=user.email,
                 password_hash=user.password_hash if user.password_hash is not None else "Error",
                 role=user.role

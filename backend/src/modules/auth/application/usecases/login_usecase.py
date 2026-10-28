@@ -38,7 +38,7 @@ class LoginUsecase:
         now = datetime.now(timezone.utc)
 
         payload = {
-            'sub': str(user.id),
+            'sub': str(user.user_id),
             'email': user.email,
             'role': user.role,
             'iat': now,
@@ -55,7 +55,7 @@ class LoginUsecase:
         now = datetime.now(timezone.utc)
 
         payload = {
-            'sub': str(user.id),
+            'sub': str(user.user_id),
             'type': 'refresh',
             'iat': now,
             'exp': now + timedelta(days=3)

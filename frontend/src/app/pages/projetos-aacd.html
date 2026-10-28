@@ -1,0 +1,309 @@
+
+<main class="projetos-aacd">
+
+  
+  <header class="projetos-aacd__header">
+    <h1>Projetos</h1>
+
+    <button
+      type="button"
+      class="projetos-aacd__new-button"
+      id="btn-novo-projeto"
+    >
+      + Novo Projeto
+    </button>
+  </header>
+
+  
+  <section class="projetos-aacd__controls">
+
+    <div class="projetos-aacd__tabs" role="group" aria-label="Filtrar projetos">
+
+      <button type="button" class="tab active" data-filter="todos">
+        Todos <span>(10)</span>
+      </button>
+
+      <button type="button" class="tab" data-filter="aguardando">
+        Aguardando parceiro <span>(4)</span>
+      </button>
+
+      <button type="button" class="tab" data-filter="andamento">
+        Em andamento <span>(3)</span>
+      </button>
+
+      <button type="button" class="tab" data-filter="concluido">
+        Concluídos <span>(3)</span>
+      </button>
+
+    </div>
+
+    <div class="projetos-aacd__search">
+      <label for="buscar-projeto" class="sr-only">Buscar projeto</label>
+      <span aria-hidden="true">⌕</span>
+      <input
+        type="search"
+        id="buscar-projeto"
+        placeholder="Buscar projeto..."
+      >
+    </div>
+
+  </section>
+
+  
+  <section
+    class="projetos-aacd__list"
+    id="lista-projetos"
+    aria-label="Lista de projetos"
+  ></section>
+
+  <p id="projetos-vazio" class="projetos-aacd__empty" hidden>
+    Nenhum projeto encontrado.
+  </p>
+
+</main>
+
+
+
+<div class="projetos-modal" id="modal-adicionar" hidden>
+
+  <div class="projetos-modal__overlay" data-close-modal></div>
+
+  <section
+    class="projetos-modal__content projetos-modal__content--form"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="titulo-adicionar"
+    tabindex="-1"
+  >
+
+    <button type="button" class="projetos-modal__close" data-close-modal aria-label="Fechar">
+      &times;
+    </button>
+
+    <h2 id="titulo-adicionar">
+      Adicionar <span>projeto</span>
+    </h2>
+
+    <form id="form-adicionar-projeto">
+
+      
+      <fieldset class="projetos-form__section">
+        <legend>
+          <span class="projetos-form__number">01</span>
+          Informações básicas
+        </legend>
+
+        <div class="projetos-form__grid">
+
+          <div class="projetos-form__field">
+            <label for="projeto-nome">Nome do projeto: *</label>
+            <input type="text" id="projeto-nome" name="nome" required maxlength="100">
+          </div>
+
+          <div class="projetos-form__field">
+            <label for="projeto-quantidade">Quantidade de peças: *</label>
+            <input type="number" id="projeto-quantidade" name="quantidade" min="1" required>
+          </div>
+
+          <div class="projetos-form__field">
+            <label for="projeto-categoria">Categoria: *</label>
+            <select id="projeto-categoria" name="categoria" required>
+              <option value="">Selecione</option>
+              <option value="Órtese">Órtese</option>
+              <option value="Prótese">Prótese</option>
+              <option value="Acessório">Acessório</option>
+              <option value="Adaptador">Adaptador</option>
+              <option value="Outro">Outro</option>
+            </select>
+          </div>
+
+          <div class="projetos-form__field">
+            <label for="projeto-material">Material: *</label>
+            <input type="text" id="projeto-material" name="material" placeholder="Ex.: PLA, PETG, FDM" required>
+          </div>
+
+        </div>
+      </fieldset>
+
+      
+      <fieldset class="projetos-form__section">
+        <legend>
+          <span class="projetos-form__number">02</span>
+          Descrição do projeto
+        </legend>
+
+        <div class="projetos-form__field">
+          <label for="projeto-descricao">Descrição: *</label>
+
+          <textarea
+            id="projeto-descricao"
+            name="descricao"
+            maxlength="280"
+            rows="4"
+            required
+          ></textarea>
+
+          <span class="projetos-form__counter" id="contador-descricao">
+            0/280 caracteres
+          </span>
+        </div>
+      </fieldset>
+
+      
+      <fieldset class="projetos-form__section">
+        <legend>
+          <span class="projetos-form__number">03</span>
+          Requisitos e especificações
+        </legend>
+
+        <div class="projetos-form__grid">
+
+          <div class="projetos-form__field">
+            <label for="projeto-arquivo">Arquivos anexos:</label>
+
+            <label class="projetos-form__upload" for="projeto-arquivo">
+              <span aria-hidden="true">⇧</span>
+              <span>Upload do arquivo</span>
+            </label>
+
+            <input
+              type="file"
+              id="projeto-arquivo"
+              name="arquivo"
+              accept=".pdf,.stl,.3mf,.obj,.png,.jpg,.jpeg"
+              class="projetos-form__file-input"
+            >
+
+            <small id="nome-arquivo"></small>
+          </div>
+
+          <div class="projetos-form__field">
+            <label for="projeto-tecnico">Informações técnicas:</label>
+
+            <textarea
+              id="projeto-tecnico"
+              name="informacoesTecnicas"
+              rows="4"
+            ></textarea>
+          </div>
+
+        </div>
+      </fieldset>
+
+     
+      <fieldset class="projetos-form__section">
+        <legend>
+          <span class="projetos-form__number">04</span>
+          Prazos e prioridades
+        </legend>
+
+        <div class="projetos-form__grid">
+
+          <div class="projetos-form__field">
+            <label for="projeto-prazo">Prazo estimado: *</label>
+            <input type="date" id="projeto-prazo" name="prazo" required>
+          </div>
+
+          <div class="projetos-form__field">
+            <label for="projeto-prioridade">Prioridade: *</label>
+            <select id="projeto-prioridade" name="prioridade" required>
+              <option value="">Selecione</option>
+              <option value="Baixa">Baixa</option>
+              <option value="Média">Média</option>
+              <option value="Alta">Alta</option>
+              <option value="Urgente">Urgente</option>
+            </select>
+          </div>
+
+        </div>
+      </fieldset>
+
+      <button type="submit" class="projetos-form__submit">
+        Adicionar Projeto
+      </button>
+
+    </form>
+
+  </section>
+</div>
+
+
+
+<div class="projetos-modal" id="modal-detalhes" hidden>
+
+  <div class="projetos-modal__overlay" data-close-modal></div>
+
+  <section
+    class="projetos-modal__content projetos-modal__content--details"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="titulo-detalhes"
+    tabindex="-1"
+  >
+
+    <button type="button" class="projetos-modal__close" data-close-modal aria-label="Fechar">
+      &times;
+    </button>
+
+    <h2 id="titulo-detalhes">
+      Detalhes do <span>projeto</span>
+    </h2>
+
+    <div class="projetos-details__heading">
+      <div>
+        <p class="projetos-details__id" id="detalhe-id"></p>
+        <h3 id="detalhe-nome"></h3>
+      </div>
+
+      <span id="detalhe-status" class="projetos-details__status"></span>
+    </div>
+
+   
+    <ol class="projetos-details__progress" id="detalhe-progresso">
+      <li>Recebido</li>
+      <li>Produção</li>
+      <li>Finalização</li>
+      <li>Entrega</li>
+    </ol>
+
+    <div class="projetos-details__cards">
+
+      <article class="projetos-details__info-card">
+        <span class="projetos-details__info-icon" aria-hidden="true">♡</span>
+        <div>
+          <p>Parceiro responsável</p>
+          <strong id="detalhe-parceiro">—</strong>
+          <small id="detalhe-localizacao">—</small>
+          <small id="detalhe-contato">—</small>
+        </div>
+      </article>
+
+      <article class="projetos-details__info-card">
+        <span class="projetos-details__info-icon" aria-hidden="true">▣</span>
+        <div>
+          <p>Impressora utilizada</p>
+          <strong id="detalhe-impressora">—</strong>
+          <small id="detalhe-tecnologia">—</small>
+          <small id="detalhe-material">—</small>
+          <small id="detalhe-cor">—</small>
+        </div>
+      </article>
+
+      <article class="projetos-details__info-card">
+        <span class="projetos-details__info-icon" aria-hidden="true">▢</span>
+        <div>
+          <p>Previsão de conclusão</p>
+          <strong id="detalhe-previsao">—</strong>
+        </div>
+      </article>
+
+    </div>
+
+    
+    <section class="projetos-details__history">
+      <h3>Histórico do projeto</h3>
+      <ol id="detalhe-historico"></ol>
+    </section>
+
+  </section>
+</div>

@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Elo3D Hub — Projetos AACD</title>
+
+   
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    
+    <link rel="stylesheet" href="../style/projetos-aacd.css">
+
+    <style>
+        body {
+            margin: 0;
+            background-color: #F4F0E5;
+        }
+    </style>
+
+    
+    <script src="../js/projetos-aacd.js" defer></script>
+</head>
+
+<body>
+
+    <div id="projetos-aacd-container"></div>
+
+    <script>
+        async function carregarProjetosAACD() {
+            try {
+                const resposta = await fetch("./projetos-aacd.html");
+
+                if (!resposta.ok) {
+                    throw new Error("Não foi possível carregar Projetos AACD");
+                }
+
+                const html = await resposta.text();
+
+                document.getElementById(
+                    "projetos-aacd-container"
+                ).innerHTML = html;
+
+                // Inicializa os cards, filtros e modais
+                window.initProjetosAACD();
+
+            } catch (erro) {
+                console.error(erro);
+            }
+        }
+
+        carregarProjetosAACD();
+    </script>
+
+</body>
+</html>

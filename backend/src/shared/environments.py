@@ -1,5 +1,6 @@
 import os
 from enum import Enum
+from dotenv import load_dotenv
 
 class STAGE(Enum):
     DOTENV = 'DOTENV'
@@ -9,7 +10,6 @@ class STAGE(Enum):
 class Environments:
 
     def _configure_local(self):
-        from dotenv import load_dotenv
         load_dotenv()
         os.environ["STAGE"] = os.environ.get("STAGE", STAGE.DOTENV.value) 
 

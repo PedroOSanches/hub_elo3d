@@ -7,16 +7,15 @@ from src.modules.user.application.usecases.create_user_usecase import CreateUser
 
 create_router = APIRouter()
 
-    
 def get_create_user_dependecies() -> CreateUserController:
     repo = get_repo_user()
-    usecase = CreateUserUsecase(repo)
+    usecase = CreateUserUsecase(repo_user=repo)
     controller = CreateUserController(usecase)
     return controller
 
 
-@create_router.post("/create")
-def create_user(
+@create_router.post("/create", status_code=status.HTTP_201_CREATED)
+async def create_user(
     request: CreateUserRequestSchema,
     controller: CreateUserController = Depends(get_create_user_dependecies),
 ):

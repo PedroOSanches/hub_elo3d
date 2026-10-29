@@ -5,8 +5,8 @@ from src.shared.errors.usecase_error import NotFoundError, DuplicatedError, Forb
 
 
 ERROR_STATUS_CODES = {
-    WrongTypeParameter: 422,
-    MissingParameters: 422,
+    WrongTypeParameter: 400,
+    MissingParameters: 400,
     NotFoundError: 404,
     EntitieError: 406,
     DuplicatedError: 409,
@@ -16,7 +16,7 @@ ERROR_STATUS_CODES = {
 
 def get_status_code(error: Exception) -> int:
     for error_class in type(error).__mro__:
-        if error.__class__ in ERROR_STATUS_CODES:
+        if error_class in ERROR_STATUS_CODES:
             return ERROR_STATUS_CODES[error_class]
 
     return 500

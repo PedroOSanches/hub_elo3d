@@ -36,6 +36,5 @@ class Test_DeleteUser:
             "user/delete_user/1234"
         )
 
-        print(response.json())
         assert response.status_code == 400
         assert response.json()['message'] == "The field 'id' has the wrong type. Received: str. Expected: UUID"

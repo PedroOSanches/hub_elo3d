@@ -1,7 +1,8 @@
 import uuid
+import re
 from typing import Any
 
-from pydantic import BaseModel, Field, EmailStr, ValidationError, ModelWrapValidatorHandler, model_validator, ConfigDict
+from pydantic import BaseModel, Field, EmailStr, ValidationError, model_validator, ConfigDict, field_validator
 from pydantic_extra_types.phone_numbers import PhoneNumber
 from src.shared.errors.controller_error import MissingParameters, WrongTypeParameter
 from src.modules.user.domain.entities.endereco import Address
@@ -21,6 +22,7 @@ class CreateUserRequestSchema(BaseModel):
 
     password: str = Field(
         ...,
+        min_length=8,
         description="Senha do usuário"
     )
 
@@ -38,6 +40,23 @@ class CreateUserRequestSchema(BaseModel):
         ...,
         examples=['hospital', 'user_hospital', 'admin', ]
     )
+
+    @field_validator("password")
+    @classmethod
+    def validate_password(cls, password: str) -> str:
+        if not re.search(r"[a-z]", password):
+            raise ValueError("Password must contain a lowercase letter")
+
+        if not re.search(r"[A-Z]", password):
+            raise ValueError("Password must contain an uppercase letter")
+
+        if not re.search(r"\d", password):
+            raise ValueError("Password must contain a number")
+
+        if not re.search(r"[@$!%*?&]", password):
+            raise ValueError("Password must contain a special character")
+
+        return password
 
     @model_validator(mode='wrap')
     @classmethod
@@ -74,7 +93,9 @@ class CreateUserResponseSchema(BaseModel):
     email: EmailStr
     phone: PhoneNumber
     address: Address
-    institution_id: uuid.UUID | None
+    institution_id: uuid.UUID | None = Field(
+        default=None
+    )
 
 
 class CreateUserAddressSchema(BaseModel):
@@ -102,7 +123,9 @@ class CreateUserAddressSchema(BaseModel):
         ...
     )
 
-    complemento: str 
+    complemento: str | None = Field(
+        default=None
+    )
 
     model_config = ConfigDict(
         
@@ -140,5 +163,5 @@ class CreateUserAddressSchema(BaseModel):
             raise WrongTypeParameter(
                 field_name=str(err.errors()[0]["loc"][0]),
                 field_type_received=type(err.errors()[0]["input"]).__name__,
-                field_type_expected=str(cls.model_fields[str(err.errors()[0]["loc"][0])].annotation.__name__)
+                field_type_expected=str(cls.model_fields[str(err.errors()[0]["loc"][0])].annotation)
             ) from err

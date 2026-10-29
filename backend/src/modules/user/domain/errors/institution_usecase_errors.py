@@ -6,4 +6,4 @@ class NoInstitutionFound(BaseError):
 
 class DuplicatedInstitution(BaseError):
     def __init__(self):
-        super().__init__(f'The institution already exists.')
+        super().__init__('The institution already exists.')

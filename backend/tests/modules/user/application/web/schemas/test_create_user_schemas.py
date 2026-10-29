@@ -27,7 +27,7 @@ class Test_CreateUserRequestSchema:
                 "complemento": ""
             },
             'institution_id': "1cee6fe5-1fd5-4131-b054-4ec03358583a",
-            'password': 'teste123@#$',
+            'password': '!!Teste123@#$',
             'role': 'hospital'
         }
 
@@ -49,7 +49,7 @@ class Test_CreateUserRequestSchema:
                             'cep': '00000-000'
                         },
                         'institution_id': "1cee6fe5-1fd5-4131-b054-4ec03358583a",
-                        'password': 'teste123@#$',
+                        'password': '!!Teste123@#$',
                         'role': 'hospital'
                     }
 
@@ -70,7 +70,7 @@ class Test_CreateUserRequestSchema:
                             'cep': '00000-000'
                         },
                         'institution_id': "1cee6fe5-1fd5-4131-b054-4ec03358583a",
-                        'password': 'teste123@#$',
+                        'password': '!Teste123@#$',
                         'role': 'hospital'
                     }
             CreateUserRequestSchema(**request)
@@ -81,7 +81,7 @@ class Test_CreateUserRequestSchema:
                         'name': "Pedro",
                         "phone": "+5511999999999",
                         'institution_id': "1cee6fe5-1fd5-4131-b054-4ec03358583a",
-                        'password': 'teste123@#$',
+                        'password': '!Teste123@#$',
                         'role': 'hospital'
                     }
             CreateUserRequestSchema(**request) # pyright: ignore[reportArgumentType]
@@ -102,7 +102,7 @@ class Test_CreateUserRequestSchema:
                     "complemento": ""
                     },
                 'institution_id': "1cee6fe5-1fd5-4131-b054-4ec03358583a",
-                'password': 'teste123@#$',
+                'password': '!Teste123@#$',
                 'role': 'hospital'
                 }
                 
@@ -124,7 +124,7 @@ class Test_CreateUserRequestSchema:
                     "complemento": ""
                     },
                 'institution_id': "1cee6fe5-1fd5-4131-b054-4ec03358583a",
-                'password': 'teste123@#$',
+                'password': '!Teste123@#$',
                 'role': 'hospital'
                 }
                 
@@ -147,7 +147,7 @@ class Test_CreateUserRequestSchema:
                     "complemento": ""
                     },
                 'institution_id': "1cee6fe5-1fd5-4131-b054-4ec03358583a",
-                'password': 'teste123@#$',
+                'password': '!Teste123@#$',
                 'role': 'hospital'
                 }
                 
@@ -184,7 +184,7 @@ class Test_CreateUserRequestSchema:
                 "phone":"+5511999999999",
                 "address": ["Rua teste", "564"],
                 'institution_id': "1cee6fe5-1fd5-4131-b054-4ec03358583a",
-                'password': 'teste123@#$',
+                'password': '!Teste123@#$',
                 'role': 'hospital'
                     }
                     
@@ -207,7 +207,7 @@ class Test_CreateUserRequestSchema:
                     "complemento": ""
                     },
                 'institution_id': "1cee6fe5-1fd5-4131-b054-4ec03358583a",
-                'password': 'teste123@#$',
+                'password': '!Teste123@#$',
                 'role': 'felipe'
                 }
                 
@@ -229,7 +229,7 @@ class Test_CreateUserRequestSchema:
                     "complemento": ""
                 },
                 'institution_id': 123,
-                'password': 'teste123@#$',
+                'password': '!Teste123@#$',
                 'role': 'hospital'
             }
             

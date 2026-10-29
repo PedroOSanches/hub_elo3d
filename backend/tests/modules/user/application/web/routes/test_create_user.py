@@ -25,7 +25,7 @@ def test_create_user():
                 "complemento": "Casa"
             },
             'institution_id': "1cee6fe5-1fd5-4131-b054-4ec03358583a",
-            'password': 'teste123@#$',
+            'password': '!Teste123@#$',
             'role': 'user_hospital'
         }
 )
@@ -51,7 +51,7 @@ def test_missing_parameter_user():
                 "complemento": "Casa"
             },
             'institution_id': "1cee6fe5-1fd5-4131-b054-4ec03358583a",
-            'password': 'teste123@#$',
+            'password': '!Teste123@#$',
             'role': 'user_hospital'
         }
 )
@@ -77,7 +77,7 @@ def test_missing_parameter_address():
                 "complemento": "Casa"
             },
             'institution_id': "1cee6fe5-1fd5-4131-b054-4ec03358583a",
-            'password': 'teste123@#$',
+            'password': '!Teste123@#$',
             'role': 'user_hospital'
         }
 )
@@ -104,7 +104,7 @@ def test_type_invalid_parameter():
                 "complemento": "Casa"
             },
             'institution_id': "1cee6fe5-1fd5-4131-b054-4ec03358583a",
-            'password': 'teste123@#$',
+            'password': '!Teste123@#$',
             'role': 'user_hospital'
         }
 )
@@ -132,7 +132,7 @@ def test_type_invalid_address_parameter():
                 "complemento": [123]
             },
             'institution_id': "1cee6fe5-1fd5-4131-b054-4ec03358583a",
-            'password': 'teste123@#$',
+            'password': '!Teste123@#$',
             'role': 'user_hospital'
         }
 )

@@ -27,7 +27,6 @@ class JWTService:
 
         payload = {
             'sub': str(user.user_id),
-            'email': user.email,
             'role': user.role,
             'iat': now,
             'exp': (now + timedelta(minutes=self.access_token_exp_minutes))

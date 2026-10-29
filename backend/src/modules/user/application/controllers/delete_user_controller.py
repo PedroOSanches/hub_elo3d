@@ -1,5 +1,3 @@
-from typing import Any
-
 from uuid import UUID
 
 from src.modules.user.application.web.schemas.delete_user_schema import DeleteUserRequestSchema

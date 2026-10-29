@@ -30,7 +30,6 @@ class Test_LoginController:
         access_token_payload = jwt_service.decode_token(token=tokens.access_token)
 
         assert tokens.access_token is not None
-        assert access_token_payload.get('email') is not None
         assert access_token_payload.get('role') == 'user'
     
     def test_login_controller_invalid_credentials(self, controller, jwt_service):

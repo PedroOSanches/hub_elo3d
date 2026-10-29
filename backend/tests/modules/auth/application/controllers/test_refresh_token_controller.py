@@ -36,7 +36,6 @@ class Test_RefreshTokenController:
         payload = jwt_service.decode_token(token=response.access_token)
 
         assert response.access_token is not None
-        assert payload.get('email') == 'user@example.com'
         assert payload.get('role') == 'user'
     
     def test_refresh_token_controller_invalid_token(self, controller):

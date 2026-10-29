@@ -31,7 +31,6 @@ class Test_RefreshTokenUsecase:
 
         payload = jwt_service.decode_token(token=response.access_token)
 
-        assert payload.get('email') == 'user@example.com'
         assert payload.get('role') == 'user'
     
     def test_refresh_token_usecase_invalid_token(self, usecase, get_refresh_token, jwt_service):

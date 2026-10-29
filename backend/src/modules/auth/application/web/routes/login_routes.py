@@ -5,14 +5,15 @@ from src.modules.auth.application.web.schemas.login_schema import LoginRequestSc
 from src.modules.auth.application.usecases.login_usecase import LoginUsecase
 from src.modules.auth.application.controllers.login_controller import LoginController
 from src.modules.auth.infra.external.gateways.gateway_user import GatewayUser
-from src.shared.environments import Environments
+from src.modules.auth.infra.security.jwt_service import JWTService
+from src.shared.environments import env
 
-login_router = APIRouter(tags=['Auth'])
+login_router = APIRouter()
 
 def get_login_depends():
-    env = Environments.get_envs()
+    jwt_service = JWTService(jwt_secret=env.jwt_secret)
     gateway = GatewayUser(GatewayUser.get_repo_user())
-    usecase = LoginUsecase(gateway=gateway, jwt_secret=env.jwt_secret)
+    usecase = LoginUsecase(gateway=gateway, jwt_service=jwt_service)
     return LoginController(usecase)
 
 @login_router.post(

@@ -1,6 +1,9 @@
 from fastapi.testclient import TestClient
 from src.app.app import app
 
+
+
+
 class Test_LoginRoute:
 
 
@@ -20,7 +23,8 @@ class Test_LoginRoute:
         assert response.cookies.get('access_token') is not None
         assert response.cookies.get('refresh_token') is not None
         assert response.json()['message'] ==  'Login realizado com sucesso'
-    
+
+
     def test_login_unauthorized(self):
         client = TestClient(app=app)
         request = {

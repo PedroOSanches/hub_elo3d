@@ -25,7 +25,7 @@ app.add_exception_handler(
 
 api_router = APIRouter(prefix='/api')
 
-api_router.include_router(user_router, prefix='/user')
-api_router.include_router(auth_router, prefix='/auth')
+api_router.include_router(user_router, prefix='/user', tags=['User'])
+api_router.include_router(auth_router, prefix='/auth', tags=['Auth'])
 
 app.include_router(api_router)

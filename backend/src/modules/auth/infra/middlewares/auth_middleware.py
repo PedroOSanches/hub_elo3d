@@ -11,8 +11,12 @@ class AuthenticationMiddleware(BaseHTTPMiddleware):
     PUBLIC_ROUTES = {
         ("POST", "/api/auth/login"),
         ("POST", "/api/auth/refresh"),
-        ("POST", "/api/user/create"),
-    }
+        ("POST", "/api/user/create"),        
+
+        ("GET", "/docs"),
+        ("GET", "/openapi.json"),
+        ("GET", "/redoc")
+        }
 
     def __init__(self, app, jwt_secret: str) -> None:
         super().__init__(app)

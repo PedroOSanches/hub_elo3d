@@ -27,7 +27,7 @@ class UserRepositoryMock(IUserRepository):
                 password_hash=gerar_hash_senha('!Teste123#')
                 ),
                 User(
-                    user_id = "b189d11a-25d1-430e-b5a1-c53db528337e",
+                    user_id = "20ba02d0-d00f-474b-ad43-10b76abba8ee",
                     name="User AACD",
                     email="user@aacd.com",
                     phone="+5511999999999",
@@ -43,7 +43,7 @@ class UserRepositoryMock(IUserRepository):
                     role="hospital"
                     ),
                     User(
-                        user_id = "b189d11a-25d1-430e-b5a1-c53db528337e",
+                        user_id = "53965c00-a8bb-4d12-a013-d532c84e17c5",
                         name="User Maua",
                         email="user@maua.br",
                         phone="+5511999999999",

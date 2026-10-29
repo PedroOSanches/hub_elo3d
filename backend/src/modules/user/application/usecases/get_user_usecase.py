@@ -1,5 +1,3 @@
-from typing import Any
-
 from src.modules.user.domain.entities.user import User
 from src.modules.user.domain.repositories.user_repository_interface import IUserRepository
 from uuid import UUID

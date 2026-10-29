@@ -5,7 +5,7 @@ from uuid import uuid4
 from pytest import raises
 from pydantic import ValidationError
 
-from src.modules.project.application.usecases.create_project_usecase import CreateProjectUseCase
+from src.modules.project.application.usecases.create_project_usecase import CreateProjectUsecase
 from src.modules.project.domain.entities.project import Project
 from src.modules.project.domain.entities.project_file import ProjectFile
 from src.modules.project.domain.enums.order_status_enum import OrderStatus
@@ -31,7 +31,7 @@ class TestCreateProjectUsecase:
         repo = Mock(spec=IProjectRepository)
         repo.create_project.side_effect = lambda project: project
 
-        usecase = CreateProjectUseCase(repo)
+        usecase = CreateProjectUsecase(repo)
         
         project = usecase(**valid_create_data())
 
@@ -46,7 +46,7 @@ class TestCreateProjectUsecase:
 
     def test_invalid_quantity_does_not_save(self):
         repo = Mock(spec=IProjectRepository)
-        usecase = CreateProjectUseCase(repo)
+        usecase = CreateProjectUsecase(repo)
 
         with raises(ValidationError):
             usecase(**valid_create_data(pieces_quantity = 0))
@@ -57,7 +57,7 @@ class TestCreateProjectUsecase:
         repo = Mock(spec=IProjectRepository)
         repo.create_project.side_effect = lambda project: project
 
-        usecase = CreateProjectUseCase(repo)
+        usecase = CreateProjectUsecase(repo)
         
         project = usecase(**valid_create_data(description = "   Prótese de mão para paciente em recuperação   "))
 

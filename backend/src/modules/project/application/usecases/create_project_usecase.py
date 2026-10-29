@@ -6,7 +6,7 @@ from src.modules.project.domain.entities.project_file import ProjectFile
 from src.modules.project.domain.enums.urgency_enum import Urgency
 from src.modules.project.domain.repositories.project_repository_interface import IProjectRepository
 
-class CreateProjectUseCase:
+class CreateProjectUsecase:
     def __init__(self, repo: IProjectRepository):
         self.repo = repo
 

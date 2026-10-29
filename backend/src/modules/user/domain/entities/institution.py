@@ -1,4 +1,3 @@
-import pydantic
 import uuid
 
 from typing import Any

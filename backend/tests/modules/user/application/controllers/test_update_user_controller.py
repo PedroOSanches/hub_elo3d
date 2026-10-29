@@ -23,7 +23,7 @@ class Test_UpdateUserController:
         )
 
         request = {
-            'id': 'b189d11a-25d1-430e-b5a1-c53db528337e',
+            'user_id': 'b189d11a-25d1-430e-b5a1-c53db528337e',
             'new_name': 'Angela'
         }
 
@@ -43,7 +43,7 @@ class Test_UpdateUserController:
         )
 
         request = {
-            'id': 'b189d11a-25d1-430e-b5a1-c53db528337e',
+            'user_id': 'b189d11a-25d1-430e-b5a1-c53db528337e',
             'new_name': 2
         }
         
@@ -63,7 +63,7 @@ class Test_UpdateUserController:
         )
         
         request = {
-            'id': 'b189d11a-25d1-430e-b5a1-c53db528337e',
+            'user_id': 'b189d11a-25d1-430e-b5a1-c53db528337e',
             'address': {
                 'new_logradouro': 'Av. Bernadino Carvalho Pinto'
             }
@@ -85,7 +85,7 @@ class Test_UpdateUserController:
             )
     
             request = {
-                'id': 'b189d11a-25d1-430e-b5a1-c53db528337e',
+                'user_id': 'b189d11a-25d1-430e-b5a1-c53db528337e',
                 'address': {
                     'new_logradouro': [0, 123]
                 }
@@ -105,7 +105,7 @@ class Test_UpdateUserController:
         )
 
         request = {
-            'id': 'b189d12a-25d1-430e-b5a1-c53db528337e',
+            'user_id': 'b189d12a-25d1-430e-b5a1-c53db528337e',
             'new_name': 'BrenoORossini'
         }
         

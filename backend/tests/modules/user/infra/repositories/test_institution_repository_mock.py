@@ -14,14 +14,14 @@ class Test_InstitutionRepositoryMock:
         repo = InstitutionRepositoryMock()
         institutions = repo.institutions
         institution = Institution(
-            id="0334c795-5e71-4c1e-8a0e-ab21a4fcdecf",
+            institution_id="0334c795-5e71-4c1e-8a0e-ab21a4fcdecf",
             name = "Teste ABC",
         )
 
         repo.create_institution(institution=institution)
 
         assert institutions[-1] == institution
-        assert institutions[-1].id == UUID('0334c795-5e71-4c1e-8a0e-ab21a4fcdecf')
+        assert institutions[-1].institution_id == UUID('0334c795-5e71-4c1e-8a0e-ab21a4fcdecf')
 
     def test_get_institution(self):
         repo = InstitutionRepositoryMock()
@@ -53,7 +53,7 @@ class Test_InstitutionRepositoryMock:
     def test_update_institution(self):
         repo = InstitutionRepositoryMock()
         institution = Institution(
-            id="f65e238b-f673-499d-b48c-e65e9b8dfa82",
+            institution_id="f65e238b-f673-499d-b48c-e65e9b8dfa82",
             name = "UTeste",
             )
 
@@ -75,7 +75,7 @@ class Test_InstitutionRepositoryMock:
             with pytest.raises(NoInstitutionFound):
                 repo.update_institution(
                     Institution(
-                        id="0334c795-5e71-4c1e-8a0e-ab21a4fcdecf",
+                        institution_id="0334c795-5e71-4c1e-8a0e-ab21a4fcdecf",
                         name = "Teste",
                         )
                 )

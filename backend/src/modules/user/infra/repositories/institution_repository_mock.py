@@ -8,21 +8,21 @@ class InstitutionRepositoryMock(IInstitutionRepository):
     def __init__(self):
         self.institutions = [
             Institution(
-                id = UUID("f65e238b-f673-499d-b48c-e65e9b8dfa82"),
+                institution_id = UUID("f65e238b-f673-499d-b48c-e65e9b8dfa82"),
                 name="Instituto teste de Tecnologia",
             ),
             Institution(
-                id = UUID("7ed02789-516b-4a03-99b9-cbebaca72686"),
+                institution_id = UUID("7ed02789-516b-4a03-99b9-cbebaca72686"),
                 name="Hospital teste",
             ),
         ]
 
-    def get_institution(self, id: str) -> Institution:
+    def get_institution(self, institution_id: str) -> Institution:
         for institution in self.institutions:
-            if str(institution.id) == id:
+            if str(institution.institution_id) == institution_id:
                 return institution
 
-        raise NoInstitutionFound(f"{id}")
+        raise NoInstitutionFound(f"{institution_id}")
 
     def get_all_institutions(self) -> list[Institution]:
         return self.institutions
@@ -38,15 +38,15 @@ class InstitutionRepositoryMock(IInstitutionRepository):
     
     def update_institution(self,  updated_institution: Institution) -> Institution:
         for i, institution in enumerate(self.institutions):
-            if updated_institution.id == institution.id:
+            if updated_institution.institution_id == institution.institution_id:
                 self.institutions[i] = updated_institution
                 return self.institutions[i]
 
-        raise NoInstitutionFound(f'{id}')
+        raise NoInstitutionFound(f'{updated_institution.institution_id}')
 
-    def delete_institution(self, id: str) -> Institution:
+    def delete_institution(self, institution_id: str) -> Institution:
         for i, institution in enumerate(self.institutions):
-            if id == str(institution.id):
+            if institution_id == str(institution.institution_id):
                 return self.institutions.pop(i)
 
-        raise NoInstitutionFound(f"{id}")
+        raise NoInstitutionFound(f"{institution_id}")

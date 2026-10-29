@@ -36,7 +36,7 @@ class CreateUserRequestSchema(BaseModel):
 
     role: ROLE = Field(
         ...,
-        examples=['hospital', 'user_hospital', 'admin', ]
+        examples=['hospital', 'user_hospital', 'admin', 'user' ]
     )
 
     @model_validator(mode='wrap')
@@ -69,7 +69,7 @@ class CreateUserResponseSchema(BaseModel):
 
     model_config = ConfigDict(from_attributes=True)
     
-    id: uuid.UUID
+    user_id: uuid.UUID
     name: str
     email: EmailStr
     phone: PhoneNumber

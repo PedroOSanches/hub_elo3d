@@ -15,7 +15,7 @@ class UpdateUserController:
             ) -> Any:
 
         return self.usecase(
-            id = update_user.id,
+            user_id = update_user.user_id,
             new_name = update_user.new_name,
             new_phone = update_user.new_phone,
             new_password = update_user.new_password,

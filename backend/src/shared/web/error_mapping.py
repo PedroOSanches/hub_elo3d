@@ -1,5 +1,5 @@
 from src.shared.errors.controller_error import WrongTypeParameter, MissingParameters
-from src.shared.errors.domain_error import EntitieError
+from src.shared.errors.domain_error import EntitieError, UnauthorizedAction
 from src.shared.errors.usecase_error import NotFoundError, DuplicatedError, ForbiddenAction
 
 
@@ -10,6 +10,7 @@ ERROR_STATUS_CODES = {
     NotFoundError: 404,
     EntitieError: 406,
     DuplicatedError: 409,
+    UnauthorizedAction: 401,
     ForbiddenAction: 401
 }
 

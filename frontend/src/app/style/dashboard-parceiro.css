@@ -1,0 +1,245 @@
+.partner-header { 
+    height: 65px; 
+}
+.partner-dashboard { 
+    min-height: calc(100vh - 65px); 
+    padding: 42px 6%; 
+    box-sizing: border-box; 
+    background: #f4f0e5; 
+    color: #141414; 
+    font-family: 'Sora', sans-serif; 
+}
+
+.partner-welcome { 
+    margin-bottom: 18px; 
+}
+
+.partner-welcome p { 
+    margin: 0; 
+    font-size: 1.1rem; 
+    font-weight: 600; 
+}
+
+.partner-welcome h1 { 
+    margin: 2px 0 0; 
+    font-size: 2.25rem; 
+    line-height: 1.1; 
+}
+
+.partner-welcome h1 span { 
+    color: #b9003c; 
+}
+
+.partner-indicators { 
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr); 
+    margin-bottom: 16px; 
+    padding: 14px 20px; 
+    border-radius: 7px; 
+    background: #fffdfa; 
+    box-shadow: 0 2px 2px #aaa; 
+}
+
+.partner-indicators article { 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 10px; 
+    min-height: 48px; 
+    border-right: 1px solid #999; 
+}
+
+.partner-indicators article:last-child { 
+    border-right: 0; 
+}
+
+.partner-indicator-icon { 
+    display: grid; 
+    place-items: center; 
+    width: 38px; 
+    height: 38px; 
+    border-radius: 50%; 
+    color: #b9003c; 
+    background: #f5e2e5; 
+    font-size: 1.35rem; 
+}
+
+.partner-indicators strong, .partner-indicators small { 
+    display: block; 
+}
+
+.partner-indicators strong { 
+    font-size: 1.25rem; 
+}
+
+.partner-indicators small { 
+    font-size: .72rem; 
+}
+
+.partner-content { 
+    display: grid; 
+    grid-template-columns: 1.45fr 1fr; 
+    gap: 16px; 
+}
+
+.partner-panel { 
+    padding: 12px; 
+    border: 1px solid #ddd6ca; 
+    border-radius: 7px; 
+    background: #fffdfa; 
+    box-shadow: 0 2px 2px #bbb; 
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.partner-panel h2 { 
+    margin: 0 0 12px; 
+    font-size: 1.15rem; 
+}
+
+.partner-panel-title { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.partner-panel-title h2 { 
+    margin-bottom: 10px; 
+}
+
+.partner-panel-title a { 
+    color: #b9003c; 
+    font-size: .75rem; 
+    text-decoration: none;
+}
+
+.partner-panel.partner-projects {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    height: 100%;
+}
+
+.partner-project-table { 
+    width: 100%;
+    max-height: 360px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: 1px solid #b9003c; 
+    border-radius: 5px; 
+    box-sizing: border-box;
+}
+
+.partner-project-head, .partner-project-row { 
+    display: grid; 
+    grid-template-columns: 1.2fr 1.2fr .8fr; 
+    align-items: center;
+    min-height: 36px; 
+    padding: 0 12px; 
+    font-size: .72rem; 
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.partner-project-head {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.partner-project-head { 
+    background: #ddd6ca; 
+}
+
+.partner-project-row { 
+    border-top: 1px solid #e6a3b2; 
+}
+
+.partner-side { 
+    display: grid; 
+    gap: 16px; 
+}
+
+.printer-list, .deadline-list { 
+    display: grid; 
+    border: 1px solid #b9003c; 
+    border-radius: 14px; 
+    padding: 8px 12px; 
+}
+
+.printer-list > div, .deadline-list > div { 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+    min-height: 38px; 
+    border-bottom: 1px solid #e5ddd3; 
+    font-size: .72rem; 
+}
+
+.printer-list > div:last-child, .deadline-list > div:last-child { 
+    border-bottom: 0; 
+}
+
+.printer-list b { 
+    color: #b9003c; 
+    font-size: 1.2rem; 
+}
+
+.printer-list span, .deadline-list span { 
+    display: block; 
+}
+
+.printer-list small, .deadline-list small { 
+    display: block; 
+    font-size: .62rem; 
+    font-weight: 700; 
+}
+
+.deadline-list b { 
+    padding: 6px 4px; 
+    background: #d997aa; 
+    font-size: .72rem; 
+}
+
+.status-production { 
+    color: #bf8a00; 
+}
+
+.status-paused { 
+    color: #b9003c; 
+}
+
+.status-online { 
+    color: #387c24; 
+}
+
+.partner-indicator-icon i { 
+    font-size: 20px; 
+}
+
+@media (max-width: 800px) { 
+    .partner-indicators, .partner-content { 
+        grid-template-columns: 1fr 1fr; 
+    } 
+    .partner-content { 
+        grid-template-columns: 1fr; 
+    } 
+    .partner-indicators article:nth-child(2) { 
+        border-right: 0; 
+    } 
+}
+
+@media (max-width: 500px) { 
+    .partner-dashboard { 
+        padding: 28px 18px; 
+    } 
+    .partner-indicators { 
+        grid-template-columns: 1fr; 
+    } 
+    .partner-indicators article { 
+        border-right: 0; border-bottom: 1px solid #999; 
+    } 
+    .partner-indicators article:last-child { 
+        border-bottom: 0; 
+    } 
+}

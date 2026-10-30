@@ -1,0 +1,83 @@
+  <header class="partner-header">
+    <app-navbar
+      logo="assets/Group 3.png"
+      icon="assets/account-circle-fill.png"
+      css="style/components/navbar.css"
+      profile-href="/login"
+      first-text="Minhas Impressoras"
+      first-href="/minhas-impressoras"
+      second-text="Meus Projetos"
+      second-href="/meus-projetos"
+      third-text="Projetos Disponíveis"
+      third-href="/projetos-disponiveis">
+    </app-navbar>
+  </header>
+
+  <main class="partner-dashboard">
+    <header class="partner-welcome">
+      <p>Olá,</p>
+      <h1>FabLab <span>Mauá</span></h1>
+    </header>
+
+    <section class="partner-indicators" aria-label="Resumo">
+      <article>
+        <span class="partner-indicator-icon"><i data-lucide="clock"></i></span>
+        <div><strong>4</strong><small>Projetos em andamento</small></div>
+      </article>
+      <article>
+        <span class="partner-indicator-icon"><i data-lucide="circle-check"></i></span>
+        <div><strong>2</strong><small>Projetos concluídos</small></div>
+      </article>
+      <article>
+        <span class="partner-indicator-icon"><i data-lucide="box"></i></span>
+        <div><strong>8</strong><small>Projetos disponíveis</small></div>
+      </article>
+      <article>
+        <span class="partner-indicator-icon"><i data-lucide="printer"></i></span>
+        <div><strong>3</strong><small>Impressoras ativas</small></div>
+      </article>
+    </section>
+
+    <section class="partner-content">
+      
+      <article class="partner-panel partner-projects">
+        <h2>Meus projetos em andamento</h2>
+        <div class="partner-project-table">
+          <div class="partner-project-head"><span>Projeto</span><span>Impressora</span><span>Prazo</span></div>
+          <div class="partner-project-row"><span>Órtese de punho</span><span>Prusa i3 MK3S+</span><span>03/10/2026</span></div>
+          <div class="partner-project-row"><span>Órtese de punho</span><span>Prusa i3 MK3S+</span><span>03/10/2026</span></div>
+          <div class="partner-project-row"><span>Órtese de punho</span><span>Prusa i3 MK3S+</span><span>03/10/2026</span></div>
+          <div class="partner-project-row"><span>Órtese de punho</span><span>Prusa i3 MK3S+</span><span>03/10/2026</span></div>
+          <div class="partner-project-row"><span>Órtese de punho</span><span>Prusa i3 MK3S+</span><span>03/10/2026</span></div>
+          <div class="partner-project-row"><span>Órtese de punho</span><span>Prusa i3 MK3S+</span><span>03/10/2026</span></div>
+          <div class="partner-project-row"><span>Órtese de punho</span><span>Prusa i3 MK3S+</span><span>03/10/2026</span></div>
+          <div class="partner-project-row"><span>Órtese de punho</span><span>Prusa i3 MK3S+</span><span>03/10/2026</span></div>
+          <div class="partner-project-row"><span>Órtese de punho</span><span>Prusa i3 MK3S+</span><span>03/10/2026</span></div>
+          <div class="partner-project-row"><span>Órtese de punho</span><span>Prusa i3 MK3S+</span><span>03/10/2026</span></div>
+          <div class="partner-project-row"><span>Órtese de punho</span><span>Prusa i3 MK3S+</span><span>03/10/2026</span></div>
+          <div class="partner-project-row"><span>Órtese de punho</span><span>Prusa i3 MK3S+</span><span>03/10/2026</span></div>
+        </div>
+      </article>
+
+      <div class="partner-side">
+        
+        <card-dashboard 
+          id="card-impressoras"
+          titulo="Minhas impressoras" 
+          link-texto="Ver mais" 
+          link-url="/minhas-impressoras">
+        </card-dashboard>
+
+        <card-dashboard 
+          id="card-prazos"
+          titulo="Prazos próximos" 
+          link-texto="Ver mais" 
+          link-url="/meus-projetos">
+        </card-dashboard>
+
+      </div>
+    </section>
+  </main>
+
+</body>
+</html>

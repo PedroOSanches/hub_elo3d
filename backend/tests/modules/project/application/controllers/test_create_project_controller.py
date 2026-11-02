@@ -2,6 +2,7 @@ import json
 from datetime import date
 from unittest.mock import Mock
 from uuid import UUID, uuid4
+from pytest import fixture
 
 from src.modules.project.application.controllers.create_project_controller import CreateProjectController
 from src.modules.project.application.usecases.create_project_usecase import CreateProjectUsecase
@@ -9,6 +10,7 @@ from src.modules.project.application.web.schemas.create_project_schema import Cr
 from src.modules.project.domain.entities.project import Project
 from src.modules.project.domain.repositories.project_repository_interface import IProjectRepository
 
+@fixture
 def valid_request_data(**overrides):
     data = {
         "title": "Prótese de mão",
@@ -30,14 +32,14 @@ def valid_request_data(**overrides):
     return data
 
 class TestCreateProjectController:
-    def test_create_project_controller(self):
+    def test_create_project_controller(self, valid_request_data):
         repo = Mock(spec=IProjectRepository)
         repo.create_project.side_effect = lambda project: project
 
         usecase = CreateProjectUsecase(repo)
         controller = CreateProjectController(usecase)
 
-        request = CreateProjectRequestSchema(**valid_request_data())
+        request = CreateProjectRequestSchema(**valid_request_data)
         response = controller(request)
 
         assert isinstance(response, dict)
@@ -54,12 +56,12 @@ class TestCreateProjectController:
 
         repo.create_project.assert_called_once()
 
-    def test_controller_sends_project_to_repository(self):
+    def test_controller_sends_project_to_repository(self, valid_request_data):
         repo = Mock(spec=IProjectRepository)
         repo.create_project.side_effect = lambda project: project
 
         controller = CreateProjectController(CreateProjectUsecase(repo))
-        request = CreateProjectRequestSchema(**valid_request_data())
+        request = CreateProjectRequestSchema(**valid_request_data)
         controller(request)
 
         saved_project = repo.create_project.call_args.kwargs["project"]
@@ -69,12 +71,16 @@ class TestCreateProjectController:
         assert saved_project.pieces_quantity == request.pieces_quantity
         assert saved_project.order_status == "waiting_for_partner"
 
-    def test_controller_with_technical_info(self):
+    def test_controller_with_technical_info(self, valid_request_data):
         repo = Mock(spec=IProjectRepository)
         repo.create_project.side_effect = lambda project: project
 
         controller = CreateProjectController(CreateProjectUsecase(repo))
-        request = CreateProjectRequestSchema(**valid_request_data(technical_info="Preenchimento de 30%"))
+
+        data = valid_request_data.copy()
+        data["technical_info"] = "Preenchimento de 30%"
+
+        request = CreateProjectRequestSchema(**data)
         response = controller(request)
 
         assert response["technical_info"] == "Preenchimento de 30%"

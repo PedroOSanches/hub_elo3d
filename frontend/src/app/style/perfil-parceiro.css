@@ -127,3 +127,124 @@ main {
         margin-bottom: 10px;
     }
 }
+
+.modal {
+    width: min(540px, 92vw);
+    max-height: 92vh;
+    margin: auto;
+    padding: 24px 28px 28px;
+    background-color: #FFFFFF;
+    color: #000000;
+    border: none;
+    border-radius: 18px;
+    overflow-y: auto;
+}
+ 
+.modal::backdrop {
+    background-color: rgba(0, 0, 0, 0.55);
+}
+ 
+.modal :focus-visible {
+    outline: 2px solid #A10029;
+    outline-offset: 2px;
+}
+ 
+.modal_fechar {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    background: none;
+    border: none;
+    border-radius: 50%;
+    color: #000000;
+    cursor: pointer;
+}
+ 
+.modal_fechar:hover {
+    background-color: #F7E7D3;
+}
+ 
+.modal_titulo {
+    margin-bottom: 22px;
+    padding-right: 40px;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.modal form {
+    padding: 0 40px;
+}
+ 
+.campo {
+    margin-bottom: 28px;
+}
+ 
+.campo_rotulo {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 15px;
+}
+ 
+.campo_input {
+    width: 100%;
+    height: 30px;
+    padding: 4px 8px;
+    background-color: #F7E7D3;
+    border: 2px solid #A10029;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #000000;
+}
+ 
+.campo_telefone {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+}
+ 
+.campo_telefone span {
+    padding-left: 8px;
+}
+ 
+.modal_acoes {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 44px;
+    padding: 0 14px;
+}
+ 
+.botao_modal {
+    min-width: 88px;
+    padding: 5px 26px;
+    background-color: #A10029;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+ 
+.botao_modal:hover {
+    background-color: #7E0020;
+}
+ 
+@media (max-width: 480px) {
+    .modal {
+        padding: 22px 16px 24px;
+    }
+ 
+    .modal form {
+        padding: 0 6px;
+    }
+ 
+    .modal_acoes {
+        padding: 0;
+    }
+}

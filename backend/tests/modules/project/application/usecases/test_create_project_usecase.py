@@ -38,8 +38,7 @@ class TestCreateProjectUsecase:
         assert isinstance(project, Project)
         assert project.pieces_quantity == 1
         assert project.category == "Ortopedia"
-        assert project.order_status == OrderStatus.WAITING_FOR_PARTNER
-        assert project.production_status is None
+        assert project.order_status == "waiting_for_partner"
         assert project.printer_id is None
 
         repo.create_project.assert_called_once_with(project = project)

@@ -1,0 +1,54 @@
+from pytest import fixture
+from uuid import uuid4
+from fastapi.testclient import TestClient
+
+from src.app.app import app
+from src.modules.project.application.controllers.create_project_controller import CreateProjectController
+from src.modules.project.application.usecases.create_project_usecase import CreateProjectUsecase
+from src.modules.project.application.web.routes.create_project import get_create_project_dependencies
+from src.modules.project.infra.repositories.project_repository_mock import ProjectRepositoryMock
+
+@fixture
+def client_and_repo():
+    repo = ProjectRepositoryMock()
+    usecase = CreateProjectUsecase(repo)
+    controller = CreateProjectController(usecase)
+
+    previous_overrides = app.dependency_overrides.copy()
+
+    app.dependency_overrides[get_create_project_dependencies] = lambda: controller
+
+    try:
+        with TestClient(app) as client:
+            yield client, repo
+    finally:
+        app.dependency_overrides = previous_overrides
+
+def test_create_project_in_real_app(client_and_repo):
+    client, repo = client_and_repo
+
+    request_data = {
+        "title": "Prótese de mão",
+        "date_end": "2026-11-15",
+        "pieces_quantity": 1,
+        "category": "Ortopedia",
+        "description": "Prótese para reabilitação",
+        "urgency": "high",
+        "filament_id": str(uuid4()),
+        "files": [
+            {
+                "title": "Modelo 3D",
+                "file_url": "https://example.com/model.stl"
+            }
+        ]
+    }
+
+    response = client.post("/projects/create", json=request_data)
+
+    assert response.status_code == 201
+
+    data = response.json()
+
+    assert data["title"] == "Prótese de mão"
+    assert data["order_status"] == "waiting_for_partner"
+    assert len(repo.projects) == 1

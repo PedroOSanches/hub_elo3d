@@ -26,6 +26,7 @@ class JWTService:
         now = datetime.now(timezone.utc)
 
         payload = {
+            'type': 'access',
             'sub': str(user.user_id),
             'role': user.role,
             'iat': now,

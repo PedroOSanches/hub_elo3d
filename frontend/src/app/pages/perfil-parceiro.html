@@ -110,6 +110,47 @@
  
         </form>
     </dialog>
+
+    <dialog class="modal" id="modal-endereco" aria-labelledby="titulo-modal-endereco">
+        <button type="button" class="modal_fechar" data-fechar aria-label="Fechar">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                <line x1="3" y1="3" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <line x1="21" y1="3" x2="3" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </button>
+ 
+        <h2 class="modal_titulo" id="titulo-modal-endereco">Endereço</h2>
+ 
+        <form id="form-endereco">
+ 
+            <div class="campo">
+                <label class="campo_rotulo" for="f-cep">CEP:</label>
+                <input class="campo_input" type="text" id="f-cep" name="cep" required>
+            </div>
+ 
+            <div class="campo">
+                <label class="campo_rotulo" for="f-endereco">Endereço:</label>
+                <input class="campo_input" type="endereco" id="f-endereco" name="endereco" required>
+            </div>
+ 
+            <div class="campo">
+                <label class="campo_rotulo" for="f-phone">Bairro:</label>
+                <input class="campo_input" type="bairro" id="f-bairro" name="bairro" required>
+
+            </div>
+
+             <div class="campo">
+                <label class="campo_rotulo" for="f-email">Cidade/Estado:</label>
+                <input class="campo_input" type="cidade" id="f-cidade" name="cidade" required>
+            </div>
+ 
+            <div class="modal_acoes">
+                <button type="button" class="botao_modal" data-fechar>Cancelar</button>
+                <button type="submit" class="botao_modal">Salvar</button>
+            </div>
+ 
+        </form>
+    </dialog>
         <script src="../js/perfil-parceiro.js"></script>
 
 </body>

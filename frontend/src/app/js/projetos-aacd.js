@@ -47,9 +47,27 @@ const projetosAACDLista = [
         prazo: "2026-11-12",
         prioridade: "Média",
         parceiro: "FabLab Mauá",
-        telefone: "(11) 99999-9999",
+        telefone: "(11) 99999-9999",  
         impressora: "Bambu Lab P1S",
-        cor: "Branco"
+        cor: "Branco",
+        historico: [
+        {
+         data: "09/09/2026",
+         titulo: "Início da produção",
+         descricao: "Projeto encaminhado para impressão."
+        },
+        {
+          data: "08/09/2026",
+          titulo: "Projeto assumido pelo FabLab Mauá",
+          descricao: "Parceiro responsável definido."
+        },
+        {
+          data: "07/09/2026",
+          titulo: "Projeto publicado pela AACD",
+          descricao: "Projeto disponibilizado na plataforma."
+        }
+        ]
+
     },
     {
         id: "021",
@@ -250,19 +268,23 @@ window.initProjetosAACD = function () {
     }
 
     
-
-    function criarMeta(simbolo, texto) {
+    function criarMeta(nomeIcone, texto) {
         const linha = criar("div", "projetos-aacd__meta-row");
-        const icone = criar("span", "", simbolo);
-        icone.setAttribute("aria-hidden", "true");
 
-        linha.append(
-            icone,
-            criar("span", "", texto)
-        );
+        const icone = document.createElement("img");
+        icone.src = `../assets/icons/projetos-aacd/${nomeIcone}`;
+        icone.alt = "";
+        icone.className = "projetos-aacd__meta-icon";
+
+        const descricao = criar("span", "", texto);
+
+        linha.append(icone, descricao);
 
         return linha;
     }
+
+
+    
 
     function criarCard(projeto) {
         const card = criar("article", "projetos-aacd__card");
@@ -288,9 +310,18 @@ window.initProjetosAACD = function () {
 
         const meta = criar("div", "projetos-aacd__card-meta");
         meta.append(
-            criarMeta("⌖", projeto.cidade || "Localização não informada"),
-            criarMeta("▢", projeto.dataTexto || "Projeto cadastrado"),
-            criarMeta("⬡", `${projeto.quantidade} ${projeto.quantidade === 1 ? "unidade" : "unidades"}`)
+           criarMeta(
+              "projeto-localizacao.svg",
+               projeto.cidade || "Localização não informada"
+            ),
+           criarMeta(
+              "projeto-data.svg",
+               projeto.dataTexto || "Projeto cadastrado"
+            ),
+            criarMeta(
+               "projeto-quantidade.svg",
+               `${projeto.quantidade} ${projeto.quantidade === 1 ? "unidade" : "unidades"}`
+            )
         );
 
         const situacao = criar("div", "projetos-aacd__card-status");
@@ -411,6 +442,7 @@ window.initProjetosAACD = function () {
     document.getElementById("btn-novo-projeto")
         ?.addEventListener("click", () => {
             form.reset();
+            atualizarEstadoBotao;
             atualizarContadorDescricao();
             document.getElementById("nome-arquivo").textContent = "";
             abrirModal(modalAdicionar);
@@ -545,6 +577,28 @@ window.initProjetosAACD = function () {
     const descricao = document.getElementById("projeto-descricao");
     const contador = document.getElementById("contador-descricao");
     const arquivoInput = document.getElementById("projeto-arquivo");
+
+      
+    const botaoAdicionar = form.querySelector(".projetos-form__submit");
+
+    function atualizarEstadoBotao() {
+         const camposObrigatorios = Array.from(
+            form.querySelectorAll("[required]")
+        );
+
+        const todosPreenchidos = camposObrigatorios.every((campo) => {
+             return campo.checkValidity() &&
+                String(campo.value).trim() !== "";
+        });
+
+        botaoAdicionar.disabled = !todosPreenchidos;
+    }
+
+    form.addEventListener("input", atualizarEstadoBotao);
+    form.addEventListener("change", atualizarEstadoBotao);
+
+    atualizarEstadoBotao();
+
 
     function atualizarContadorDescricao() {
         contador.textContent = `${descricao.value.length}/280 caracteres`;

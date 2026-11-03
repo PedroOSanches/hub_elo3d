@@ -1,0 +1,218 @@
+
+<main class="rede-aacd">
+
+    <header class="rede-aacd__header">
+        <h1>Rede</h1>
+    </header>
+
+    <section class="rede-aacd__controls">
+        <div class="rede-aacd__search">
+            <label for="rede-busca" class="rede-aacd__sr-only">
+                Buscar parceiro
+            </label>
+
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+            >
+                <circle cx="10.8" cy="10.8" r="6.8"></circle>
+                <path d="M16 16L21 21"></path>
+            </svg>
+
+            <input
+                type="search"
+                id="rede-busca"
+                placeholder="Buscar parceiro..."
+                autocomplete="off"
+            >
+        </div>
+    </section>
+
+    <section
+        id="rede-lista-parceiros"
+        class="rede-aacd__list"
+        aria-label="Parceiros da rede"
+    ></section>
+
+    <p class="rede-aacd__empty" id="rede-sem-resultados" hidden>
+        Nenhum parceiro encontrado.
+    </p>
+
+</main>
+
+<div class="rede-aacd-modal" id="rede-modal-parceiro" hidden>
+
+    <div
+        class="rede-aacd-modal__overlay"
+        data-rede-fechar
+    ></div>
+
+    <section
+        class="rede-aacd-modal__content"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="rede-modal-titulo"
+        tabindex="-1"
+    >
+
+        <button
+            type="button"
+            class="rede-aacd-modal__close"
+            data-rede-fechar
+            aria-label="Fechar detalhes do parceiro"
+        >
+            &times;
+        </button>
+
+        <h2 id="rede-modal-titulo">
+            Meu <span>parceiro</span>
+        </h2>
+
+        <div class="rede-aacd-modal__cards">
+
+            <article class="rede-aacd-modal__info-card">
+
+                <div class="rede-aacd-modal__icon">
+                    <svg
+                        viewBox="0 0 48 48"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <circle cx="24" cy="24" r="20"></circle>
+                        <path d="M24 38C18 33 11 28 11 21a8 8 0 0 1 13-6 8 8 0 0 1 13 6c0 7-7 12-13 17Z"></path>
+                    </svg>
+                </div>
+
+                <div class="rede-aacd-modal__info">
+                    <h3 id="rede-parceiro-nome">—</h3>
+
+                    <p class="rede-aacd-modal__address">
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"></path>
+                            <circle cx="12" cy="10" r="2.5"></circle>
+                        </svg>
+
+                        <span id="rede-parceiro-endereco">—</span>
+                    </p>
+                </div>
+
+            </article>
+
+            <article class="rede-aacd-modal__info-card">
+
+                <div class="rede-aacd-modal__icon">
+                    <svg
+                        viewBox="0 0 48 48"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <rect x="11" y="4" width="26" height="12" rx="3"></rect>
+                        <rect x="5" y="15" width="38" height="22" rx="5"></rect>
+                        <rect x="12" y="28" width="24" height="16" rx="3"></rect>
+                        <path d="M34 22h3"></path>
+                    </svg>
+                </div>
+
+                <div class="rede-aacd-modal__info">
+                    <strong
+                        class="rede-aacd-modal__number"
+                        id="rede-parceiro-impressoras"
+                    >
+                        00
+                    </strong>
+
+                    <h3>Impressoras cadastradas</h3>
+                </div>
+
+            </article>
+
+            <article class="rede-aacd-modal__info-card">
+
+                <div class="rede-aacd-modal__icon">
+                    <svg
+                        viewBox="0 0 48 48"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M8 37l2-9a18 18 0 1 1 9 9Z"></path>
+                    </svg>
+                </div>
+
+                <div class="rede-aacd-modal__info">
+                    <h3>Contato</h3>
+
+                    <p id="rede-parceiro-telefone">—</p>
+
+                    <p
+                        id="rede-parceiro-email"
+                        class="rede-aacd-modal__email"
+                    >
+                        —
+                    </p>
+                </div>
+
+            </article>
+
+        </div>
+
+        <section class="rede-aacd-modal__projects">
+
+            <h3>Projetos assumidos</h3>
+
+            <div class="rede-aacd-modal__table-frame">
+                <div class="rede-aacd-modal__table-scroll">
+
+                    <table class="rede-aacd-modal__table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nome do Projeto</th>
+                                <th scope="col">Data de adoção</th>
+                                <th scope="col">Data de conclusão</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="rede-parceiro-projetos">
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+            <p
+                id="rede-parceiro-sem-projetos"
+                class="rede-aacd-modal__no-projects"
+                hidden
+            >
+                Este parceiro ainda não assumiu projetos.
+            </p>
+
+        </section>
+
+    </section>
+
+</div>

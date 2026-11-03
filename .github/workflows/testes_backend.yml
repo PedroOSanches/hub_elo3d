@@ -20,6 +20,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Set secret
+        env:
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+        run: echo "Env ok"
+
       - name: Set up Python 3.14
         uses: actions/setup-python@v5
         with:

@@ -21,6 +21,6 @@ class IGatewayUser(ABC):
     @abstractmethod
     def get_user_by_id(self, user_id: UUID) -> AuthUser:
         """
-        Busca usuario por meio do id do usuário\n
+        Busca usuario por meio do user_id do usuário\n
         Se não encontrado retorna NoUsersFound
         """

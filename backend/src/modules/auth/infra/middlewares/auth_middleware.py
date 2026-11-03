@@ -71,7 +71,7 @@ class AuthenticationMiddleware(BaseHTTPMiddleware):
             )
 
         request.state.current_user = {
-            "id": user_id,
+            "user_id": user_id,
             "email": payload.get("email"),
             "role": payload.get("role"),
         }

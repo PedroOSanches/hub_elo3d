@@ -1,6 +1,6 @@
 from fastapi import APIRouter, status, Depends
 from src.modules.user.application.web.dependencies import get_repo_user
-from src.modules.user.application.web.schemas.create_user_schema import CreateUserResponseSchema
+from src.modules.user.application.web.schemas.user_response_schema import UserResponseSchema
 
 from src.modules.user.application.controllers.update_user_controller import UpdateUserController
 from src.modules.user.application.usecases.update_user_usecase import UpdateUserUsecase
@@ -17,7 +17,7 @@ def get_update_user_dependencies():
 @update_user_router.post(
         '/update_user', 
         status_code=status.HTTP_200_OK, 
-        response_model=CreateUserResponseSchema
+        response_model=UserResponseSchema
         )
 async def update_user(
     request: UpdateUserRequestSchema,

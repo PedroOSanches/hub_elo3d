@@ -23,6 +23,7 @@ app.add_exception_handler(
     cast(ExceptionHandler, base_error_handler),
 )
 
+
 api_router = APIRouter(prefix='/api')
 
 api_router.include_router(user_router, prefix='/user', tags=['User'])

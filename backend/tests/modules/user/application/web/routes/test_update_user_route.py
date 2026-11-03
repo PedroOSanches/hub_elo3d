@@ -33,18 +33,18 @@ class Test_UpdateUserRoute:
 
         client.cookies.set("access_token", get_access_token)
         response = client.post(
-            'api/user/update_user',
+            '/api/user/update_user',
             json={
-                "user_id": "b189d11a-25d1-430e-b5a1-c53db528337e",
+                "user_id": "20ba02d0-d00f-474b-ad43-10b76abba8ee",
                 "new_name": "Luiza"
             }
         )
 
         assert response.status_code == 200
         assert response.json() == {
-            'user_id': 'b189d11a-25d1-430e-b5a1-c53db528337e', 
+            'user_id': '20ba02d0-d00f-474b-ad43-10b76abba8ee', 
             'name': 'Luiza', 
-            'email': 'user@example.com', 
+            'email': 'user@aacd.com', 
             'phone': 'tel:+55-11-99999-9999', 
             'address': {
                 'logradouro': 'Rua Teste', 
@@ -55,14 +55,15 @@ class Test_UpdateUserRoute:
                 'cep': '00000-000', 
                 'complemento': 'Casa'
                 },
-            'institution_id': None
+            'institution_id': None,
+            'role': 'hospital'
             }
 
     def test_not_found_user(self, get_access_token):
         client = TestClient(app=app)
         client.cookies.set('access_token', get_access_token)
         response = client.post(
-            'api/user/update_user',
+            '/api/user/update_user',
             json={
                 "user_id": "b189d12a-25d1-430e-b5a1-c53db528337e",
                 "new_name": "Luiza"
@@ -76,7 +77,7 @@ class Test_UpdateUserRoute:
         client = TestClient(app=app)
         client.cookies.set('access_token', get_access_token)
         response = client.post(
-            'api/user/update_user',
+            '/api/user/update_user',
             json={
                 "user_id": "b189d12a-25d1-430e-b5a1-c53db528337e",
                 "new_name": 1

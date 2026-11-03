@@ -54,7 +54,7 @@ class Test_UserRepositoryMock:
 
         user = repo.get_all_users()[0]
 
-        deleted_user = repo.delete_user("b189d11a-25d1-430e-b5a1-c53db528337e")
+        deleted_user = repo.delete_user(UUID("b189d11a-25d1-430e-b5a1-c53db528337e"))
 
         assert user == deleted_user
 

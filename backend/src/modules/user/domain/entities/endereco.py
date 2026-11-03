@@ -1,5 +1,4 @@
 from typing import Any
-import uuid
 from src.shared.errors.domain_error import EntitieError
 from pydantic import BaseModel, Field, ConfigDict, model_validator, ModelWrapValidatorHandler, ValidationError
 

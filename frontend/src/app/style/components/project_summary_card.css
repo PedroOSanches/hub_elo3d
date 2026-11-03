@@ -31,6 +31,13 @@
   font-weight: 700;
 }
 
+.icon svg {
+  width: 25px;
+  height: 25px;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
 .icon::after {
   content: '';
   width: 17px;

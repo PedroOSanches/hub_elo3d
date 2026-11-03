@@ -166,7 +166,7 @@ async function renderRoute() {
     }
 
     if (route.page === 'pages/meus-projetos.html') {
-      window.initProjectsPage?.();
+      await window.initProjectsPage?.();
     }
 
     
@@ -176,6 +176,7 @@ async function renderRoute() {
 
     if (route.page === 'pages/dashboard-parceiro.html') {
       window.initDashboardParceiro?.();
+      await window.initProjectsPage?.();
     }
 
   } catch (error) {
@@ -189,6 +190,10 @@ async function renderRoute() {
 }
 
 document.addEventListener('click', event => {
+  if (event.defaultPrevented) {
+    return;
+  }
+
   const link = event.composedPath().find(
     element => element instanceof HTMLAnchorElement
   );

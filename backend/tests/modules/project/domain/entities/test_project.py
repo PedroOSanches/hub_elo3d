@@ -372,3 +372,19 @@ class TestProject:
 
         with raises(ValidationError):
             Project(**data)
+
+    def test_required_filament_id(self, valid_project_data):
+        data = valid_project_data
+        data.pop("filament_id")
+
+        with raises(ValidationError):
+            Project(**data)
+
+    def test_filament_id_cannot_be_none(self, valid_project_data):
+        data = {
+            **valid_project_data,
+            "filament_id": None
+        }
+
+        with raises(ValidationError):
+            Project(**data)

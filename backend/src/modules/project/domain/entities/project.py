@@ -64,7 +64,7 @@ class Project(BaseModel):
         description = "ID da impressora associada ao projeto"
     )
 
-    filament_id: UUID | None = Field(
+    filament_id: UUID = Field(
         ...,
         description = "ID do filamento associado ao projeto"
     )

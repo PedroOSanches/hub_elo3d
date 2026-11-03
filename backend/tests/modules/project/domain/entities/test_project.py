@@ -365,3 +365,7 @@ class TestProject:
 
         with pytest.raises(ValueError):
             _ = project.current_order_status
+
+    def test_filament_id_is_required(self):
+        with pytest.raises(ValidationError):
+            Project(**valid_project_data(filament_id=None))

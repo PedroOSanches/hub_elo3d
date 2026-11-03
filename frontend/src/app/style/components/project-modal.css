@@ -152,10 +152,29 @@ body.modal-open {
   color: #fff;
 }
 
+.project-modal__status-button {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--projects-red);
+  color: #fff;
+  cursor: pointer;
+}
+
+.project-modal__status-button svg {
+  width: 31px;
+  height: 31px;
+}
+
 .project-modal__step svg {
   width: 31px;
   height: 31px;
 }
+
 
 .project-modal__step small {
   margin-top: 8px;

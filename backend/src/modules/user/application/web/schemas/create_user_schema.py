@@ -1,4 +1,4 @@
-import uuid
+from uuid import UUID
 import re
 from typing import Any
 
@@ -33,7 +33,7 @@ class CreateUserRequestSchema(BaseModel):
         ...
     )
 
-    institution_id: uuid.UUID | None = None
+    institution_id: UUID | None = None
 
     role: ROLE = Field(
         ...,
@@ -81,24 +81,23 @@ class CreateUserRequestSchema(BaseModel):
         try:
             return handler(value)
         except ValidationError as err:
+            annotation = str(cls.model_fields[str(err.errors()[0]["loc"][0])].annotation.__name__)
             raise WrongTypeParameter(
                 field_name=str(err.errors()[0]["loc"][0]),
                 field_type_received=type(err.errors()[0]["input"]).__name__,
-                field_type_expected=str(
-                    cls.model_fields[str(err.errors()[0]["loc"][0])].annotation
-                ),
-            ) from err
+                field_type_expected = annotation if annotation != 'Union' else str(cls.model_fields[str(err.errors()[0]['loc'][0])].annotation) 
+                ) from err
 
 
 class CreateUserResponseSchema(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     
-    user_id: uuid.UUID
+    user_id: UUID
     name: str
     email: EmailStr
     phone: PhoneNumber
     address: Address
-    institution_id: uuid.UUID | None = None
+    institution_id: UUID | None = None
 
 
 class CreateUserAddressSchema(BaseModel):

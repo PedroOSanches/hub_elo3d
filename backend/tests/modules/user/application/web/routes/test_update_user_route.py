@@ -71,3 +71,17 @@ class Test_UpdateUserRoute:
         
         assert response.status_code == 404
         assert response.json()['message'] == 'No users found for user_id: b189d12a-25d1-430e-b5a1-c53db528337e'
+    
+    def test_type_invalid(self, get_access_token):
+        client = TestClient(app=app)
+        client.cookies.set('access_token', get_access_token)
+        response = client.post(
+            'api/user/update_user',
+            json={
+                "user_id": "b189d12a-25d1-430e-b5a1-c53db528337e",
+                "new_name": 1
+            }
+        )
+        
+        assert response.status_code == 400
+        assert response.json()['message'] == "The field 'new_name' has the wrong type. Received: int. Expected: str | None"

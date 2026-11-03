@@ -142,7 +142,7 @@ class TestUser:
     def test_id_invalid(self):
             with pytest.raises(EntitieError):
                 user = User(
-                    id="u",
+                    user_id="u",
                     name="User",
                     email="user@institution.com",
                     institution_id="bd6987dc-8298-4c03-9ccd-91f2ebdbe28a",
@@ -163,7 +163,7 @@ class TestUser:
     def test_role_invalid(self):
             with pytest.raises(EntitieError):
                 user = User(
-                    id="u",
+                    user_id="u",
                     name="User",
                     email="user@institution.com",
                     institution_id="bd6987dc-8298-4c03-9ccd-91f2ebdbe28a",

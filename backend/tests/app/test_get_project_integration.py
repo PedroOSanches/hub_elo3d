@@ -1,9 +1,11 @@
-from datetime import date
+from datetime import date, datetime, timedelta, timezone
 from uuid import uuid4
 from fastapi.testclient import TestClient
 from pytest import fixture
+import jwt
 
 from src.app.app import app
+from src.shared.environments import env
 from src.modules.project.application.web import dependencies as project_dependencies
 
 from src.modules.project.domain.entities.project import Project
@@ -31,11 +33,22 @@ def valid_project():
     )
 
 @fixture
-def client_and_repo(monkeypatch):
+def access_token():
+    payload = {
+        "sub": str(uuid4()),
+        "type": "access",
+        "exp": datetime.now(timezone.utc) + timedelta(minutes=30),
+    }
+    
+    return jwt.encode(payload, env.jwt_secret, algorithm="HS256")
+
+@fixture
+def client_and_repo(monkeypatch, access_token):
     repo = ProjectRepositoryMock()
     monkeypatch.setattr(project_dependencies, "_project_repository", repo)
 
     with TestClient(app) as client:
+        client.cookies.set("access_token", access_token)
         yield client, repo
 
 class TestGetProjectIntegration:
@@ -43,7 +56,7 @@ class TestGetProjectIntegration:
         client, repo = client_and_repo
         repo.create_project(valid_project)
 
-        response = client.get(f"/projects/get/{valid_project.id}")
+        response = client.get(f"/api/projects/get/{valid_project.id}")
 
         assert response.status_code == 200
 
@@ -59,7 +72,7 @@ class TestGetProjectIntegration:
         client, repo = client_and_repo
         project_id = uuid4()
 
-        response = client.get(f"/projects/get/{project_id}")
+        response = client.get(f"/api/projects/get/{project_id}")
 
         assert response.status_code == 404
         assert str(project_id) in response.json()["message"]
@@ -68,7 +81,7 @@ class TestGetProjectIntegration:
     def test_get_project_invalid_id(self, client_and_repo):
         client, repo = client_and_repo
         
-        response = client.get(f"/projects/get/invalid-uuid")
+        response = client.get(f"/api/projects/get/invalid-uuid")
 
         assert response.status_code == 422
         assert len(repo.projects) == 0

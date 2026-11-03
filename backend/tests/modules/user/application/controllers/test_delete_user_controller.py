@@ -11,6 +11,6 @@ class Test_DeleteUserController:
         repo = UserRepositoryMock()
         usecase = DeleteUserUsecase(repo)
 
-        controller = DeleteUserController(usecase)(DeleteUserRequestSchema(id='b189d11a-25d1-430e-b5a1-c53db528337e'))
+        controller = DeleteUserController(usecase)(DeleteUserRequestSchema(user_id='b189d11a-25d1-430e-b5a1-c53db528337e'))
 
         assert controller != repo.users[0]

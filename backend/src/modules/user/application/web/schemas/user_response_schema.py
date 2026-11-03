@@ -11,7 +11,7 @@ class UserResponseSchema(BaseModel):
         from_attributes=True
         )
     
-    id: UUID
+    user_id: UUID
     name: str
     email: EmailStr
     phone: PhoneNumber

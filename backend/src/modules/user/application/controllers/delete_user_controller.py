@@ -10,4 +10,4 @@ class DeleteUserController:
 
     def __call__(self, request: DeleteUserRequestSchema) -> UserResponseSchema:
         
-            return UserResponseSchema.model_validate(self.usecase(request.id))
+            return UserResponseSchema.model_validate(self.usecase(request.user_id))

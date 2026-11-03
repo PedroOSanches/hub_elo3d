@@ -5,15 +5,15 @@ from uuid import UUID
 
 class DeleteUserRequestSchema(BaseModel):
 
-    id: UUID = Field(
+    user_id: UUID = Field(
         ...
     )
 
     @model_validator(mode='wrap')
     @classmethod
     def validar_schema(cls, value: Any, handler: Any) -> "DeleteUserRequestSchema":
-        if not value.get('id'):
-            raise MissingParameters('id')
+        if not value.get('user_id'):
+            raise MissingParameters('user_id')
 
         try:
             return handler(value)

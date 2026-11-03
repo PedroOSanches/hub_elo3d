@@ -7,7 +7,7 @@ class CreateUserController :
     def __init__(self, usecase: CreateUserUsecase):
         self.usecase = usecase
 
-    def __call__(self, request: CreateUserRequestSchema) -> dict:
+    def __call__(self, request: CreateUserRequestSchema) -> UserResponseSchema:
         user = self.usecase(
             name=request.name,
             email=request.email,
@@ -18,4 +18,4 @@ class CreateUserController :
             password=request.password
         )
 
-        return UserResponseSchema.model_validate(user).model_dump(mode='json')
+        return UserResponseSchema.model_validate(user)

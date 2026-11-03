@@ -8,6 +8,6 @@ class DeleteUserUsecase:
     def __init__(self, repo: IUserRepository) -> None:
         self.repo = repo
 
-    def __call__(self, id: UUID) -> User:
+    def __call__(self, user_id: UUID) -> User:
 
-        return self.repo.delete_user(id)
+        return self.repo.delete_user(user_id=user_id)

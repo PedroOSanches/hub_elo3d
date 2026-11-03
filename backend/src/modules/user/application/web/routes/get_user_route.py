@@ -15,10 +15,10 @@ def get_dependencies_get_user() -> GetUserController:
     usecase = GetUserUsecase(repo)
     return GetUserController(usecase)
 
-@get_user_router.get('/get_user/{id}', status_code=status.HTTP_200_OK)
+@get_user_router.get('/get_user/{user_id}', status_code=status.HTTP_200_OK)
 async def get_user(
-    id: str,
+    user_id: str,
     controller: GetUserController = Depends(get_dependencies_get_user)
 ):
-    param = GetUserRequestSchema(id=id) # type: ignore
+    param = GetUserRequestSchema(user_id=user_id) # type: ignore
     return controller(param)

@@ -16,11 +16,11 @@ def get_dependencies_delete_user() -> DeleteUserController:
 
 delete_user_router = APIRouter()
 
-@delete_user_router.delete('/delete_user/{id}', status_code=status.HTTP_200_OK, response_model=UserResponseSchema)
+@delete_user_router.delete('/delete_user/{user_id}', status_code=status.HTTP_200_OK, response_model=UserResponseSchema)
 def delete_user(
-    id: str,
+    user_id: str,
     controller: DeleteUserController = Depends(get_dependencies_delete_user)
     ) -> UserResponseSchema:
 
-    request= DeleteUserRequestSchema(id=id) # type: ignore
+    request= DeleteUserRequestSchema(user_id=user_id) # type: ignore
     return controller(request=request)

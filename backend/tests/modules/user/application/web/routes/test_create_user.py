@@ -9,7 +9,7 @@ def test_create_user():
     client = TestClient(app=app)
 
     created_user = client.post(
-        'user/create',
+        'api/user/create',
         json={
             "name": "Pedro",
             "email":"pedro@aacd.com",
@@ -36,7 +36,7 @@ def test_missing_parameter_user():
     client = TestClient(app=app)
 
     created_user = client.post(
-        'user/create',
+        'api/user/create',
         json={
             "name": "Pedro",
             "email":"pedro@aacd.com",
@@ -62,7 +62,7 @@ def test_missing_parameter_address():
     client = TestClient(app=app)
 
     created_user = client.post(
-        'user/create',
+        'api/user/create',
         json={
             "name": "Pedro",
             "email":"pedro@aacd.com",
@@ -88,7 +88,7 @@ def test_type_invalid_parameter():
     client = TestClient(app=app)
 
     created_user = client.post(
-        'user/create',
+        'api/user/create',
         json={
             "name": "Pedro",
             "email":"pedro@aacd.com",
@@ -110,13 +110,40 @@ def test_type_invalid_parameter():
     assert created_user.status_code == 400
     assert created_user.json()['message'] == "The field 'phone' has the wrong type. Received: int. Expected: str"
 
+def test_type_invalid_parameter_institution_id():
+
+    client = TestClient(app=app)
+
+    created_user = client.post(
+        'api/user/create',
+        json={
+            "name": "Pedro",
+            "email":"pedro@aacd.com",
+            'phone': '+5511999999999',
+            "address": {
+                "logradouro": "Rua Teste",
+                'numero': "564",
+                "bairro": "Novo Teste",
+                'cidade': 'Joateste',
+                'estado': "SP",
+                'cep': '00000-000',
+                "complemento": "Casa"
+            },
+            'institution_id': 1,
+            'password': '!Teste123@#$',
+            'role': 'user_hospital'
+        }
+)
+    assert created_user.status_code == 400
+    assert created_user.json()['message'] == "The field 'institution_id' has the wrong type. Received: int. Expected: uuid.UUID | None"
+
 
 def test_type_invalid_address_parameter():
 
     client = TestClient(app=app)
 
     created_user = client.post(
-        'user/create',
+        'api/user/create',
         json={
             "name": "Pedro",
             "email":"pedro@aacd.com",

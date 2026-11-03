@@ -1,4 +1,4 @@
-import uuid
+from uuid import UUID
 import re
 from typing import Any
 
@@ -7,7 +7,6 @@ from pydantic_extra_types.phone_numbers import PhoneNumber
 from src.shared.errors.controller_error import MissingParameters, WrongTypeParameter
 from src.modules.user.domain.entities.endereco import Address
 from src.modules.user.domain.enums.role_enum import ROLE
-
 
 class CreateUserRequestSchema(BaseModel):
     
@@ -34,7 +33,7 @@ class CreateUserRequestSchema(BaseModel):
         ...
     )
 
-    institution_id: uuid.UUID | None
+    institution_id: UUID | None = None
 
     role: ROLE = Field(
         ...,
@@ -58,6 +57,11 @@ class CreateUserRequestSchema(BaseModel):
 
         return password
 
+    role: ROLE = Field(
+        ...,
+        examples=['hospital', 'user_hospital', 'admin', 'user' ]
+    )
+
     @model_validator(mode='wrap')
     @classmethod
     def validar_modelo(cls, value: Any, handler: Any) -> "CreateUserRequestSchema":
@@ -77,78 +81,47 @@ class CreateUserRequestSchema(BaseModel):
         try:
             return handler(value)
         except ValidationError as err:
+            annotation = str(cls.model_fields[str(err.errors()[0]["loc"][0])].annotation.__name__)
             raise WrongTypeParameter(
                 field_name=str(err.errors()[0]["loc"][0]),
                 field_type_received=type(err.errors()[0]["input"]).__name__,
-                field_type_expected=str(cls.model_fields[str(err.errors()[0]["loc"][0])].annotation.__name__)
-            ) from err
-
+                field_type_expected = annotation if annotation != 'Union' else str(cls.model_fields[str(err.errors()[0]['loc'][0])].annotation) 
+                ) from err
 
 
 class CreateUserAddressSchema(BaseModel):
+    logradouro: str = Field(...)
+    numero: str = Field(...)
+    bairro: str = Field(...)
+    cidade: str = Field(...)
+    estado: str = Field(...)
+    cep: str = Field(...)
+    complemento: str | None = Field(default=None)
 
-    logradouro: str = Field(
-        ...,
-    )
+    model_config = ConfigDict(populate_by_name=True)
 
-    numero: str = Field(
-        ...
-    )
-
-    bairro: str = Field(
-        ...
-    )
-
-    cidade: str = Field(
-        ...
-    )
-
-    estado: str = Field(
-        ...
-    )
-    cep: str = Field(
-        ...
-    )
-
-    complemento: str | None = Field(
-        default=None
-    )
-
-    model_config = ConfigDict(
-        
-        populate_by_name=True
-    )
-
-    
-    @model_validator(mode='wrap')
+    @model_validator(mode="wrap")
     @classmethod
     def validar_schema(cls, value: Any, handler: Any) -> "CreateUserAddressSchema":
-
         if not isinstance(value, dict):
             raise WrongTypeParameter(
-                field_name='address',
+                field_name="address",
                 field_type_received=type(value).__name__,
-                field_type_expected='dict'
+                field_type_expected="dict",
             )
 
-        if not value.get('logradouro'):
-            raise MissingParameters('address.logradouro')
-        if not value.get('numero'):
-            raise MissingParameters('address.numero')
-        if not value.get('bairro'):
-            raise MissingParameters('address.bairro')
-        if not value.get('cidade'):
-            raise MissingParameters('address.cidade')
-        if not value.get('estado'):
-            raise MissingParameters('address.estado')
-        if "cep" not in value or value['cep'] is None:
-            raise MissingParameters('address.cep')
-        
+        for field in ("logradouro", "numero", "bairro", "cidade", "estado"):
+            if not value.get(field):
+                raise MissingParameters(f"address.{field}")
+        if "cep" not in value or value["cep"] is None:
+            raise MissingParameters("address.cep")
+
         try:
             return handler(value)
         except ValidationError as err:
+            field_name = str(err.errors()[0]["loc"][0])
             raise WrongTypeParameter(
-                field_name=str(err.errors()[0]["loc"][0]),
+                field_name=field_name,
                 field_type_received=type(err.errors()[0]["input"]).__name__,
-                field_type_expected=str(cls.model_fields[str(err.errors()[0]["loc"][0])].annotation)
+                field_type_expected=str(cls.model_fields[field_name].annotation),
             ) from err

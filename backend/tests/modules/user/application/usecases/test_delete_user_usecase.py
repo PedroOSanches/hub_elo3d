@@ -12,7 +12,7 @@ class Test_DeleteUserUsecase:
         repo = UserRepositoryMock()
         usecase = DeleteUserUsecase(repo)
 
-        user = usecase(id=UUID('b189d11a-25d1-430e-b5a1-c53db528337e'))
+        user = usecase(user_id=UUID('b189d11a-25d1-430e-b5a1-c53db528337e'))
 
         with pytest.raises(NoUsersFound):
-            repo.get_user(user.id)
+            repo.get_user(user.user_id)

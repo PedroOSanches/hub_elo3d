@@ -1,7 +1,7 @@
 import os
 from enum import Enum
 from dotenv import load_dotenv
-
+from src.modules.user.infra.repositories.user_repository_mock import UserRepositoryMock
 class STAGE(Enum):
     DOTENV = 'DOTENV'
     TEST = 'TEST'
@@ -17,20 +17,29 @@ class Environments:
         if "STAGE" not in os.environ or os.environ["STAGE"] == STAGE.DOTENV.value:
             self._configure_local()
 
-        self.stage = STAGE[os.environ.get("STAGE")]
+        self.stage = STAGE[os.environ.get("STAGE", 'DOENV')]
 
-        self.mongo_host = os.environ.get("MONGO_HOST",'localhost')
-        self.mongo_port = os.environ.get("MONGO_PORT", 27017)
-        self.mongo_user = os.environ.get("MONGO_USER", '')
-        self.mongo_pass = os.environ.get("MONGO_PASS", '')
+        self.neo_host = os.environ.get("NEO_HOST",'localhost')
+        self.neo_port = os.environ.get("NEO_PORT", 7687)
+        self.neo_user = os.environ.get("NEO_USER", '')
+        self.neo_pass = os.environ.get("NEO_PASS", '')
 
-        if self.stage == STAGE.TEST.value:
-            self.mongo_url = f'mongodb://{self.mongo_host}:{self.mongo_port}/'
-        else:
-            self.mongo_url = f"mongodb://{self.mongo_user}:{self.mongo_pass}@{self.mongo_host}:{self.mongo_port}/"
+        self.jwt_secret: str = os.environ.get("JWT_SECRET", '')
+
+        self.repo_user = self.get_repository_user()
+
+        if not self.jwt_secret:
+            raise RuntimeError('Missing JWT_SECRET in enviroments')
+        
+        self.NEO_URL = f'neo4j://{self.neo_host}:{self.neo_port}'
 
     @staticmethod
     def get_envs() -> "Environments":
         envs = Environments()
         envs.load_envs()
         return envs
+
+    def get_repository_user(self):
+        return UserRepositoryMock()
+
+env = Environments.get_envs()

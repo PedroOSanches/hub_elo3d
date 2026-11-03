@@ -10,7 +10,7 @@ class GetUserController:
 
     def __call__(self, request: GetUserRequestSchema) -> dict:
         user = self.usecase(
-            id=request.id
+            user_id=request.user_id
             )
 
         return UserResponseSchema.model_validate(user).model_dump(mode='json')

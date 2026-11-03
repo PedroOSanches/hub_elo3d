@@ -7,5 +7,5 @@ class GetUserUsecase:
     def __init__(self, repo: IUserRepository) -> None:
         self.repo = repo
 
-    def __call__(self, id: UUID) -> User:
-        return self.repo.get_user(id=id)
+    def __call__(self, user_id: UUID) -> User:
+        return self.repo.get_user(user_id=user_id)

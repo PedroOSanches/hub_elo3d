@@ -8,7 +8,7 @@ class Test_CreateUserResponse:
 
     def test_create_user_response(self):
         UserResponseSchema(
-            id='1e82ade2-961f-472d-9f32-b86647c63616',
+            user_id='1e82ade2-961f-472d-9f32-b86647c63616',
             name="Teste",
             email="teste@example.com",
             phone="+5511999990000",

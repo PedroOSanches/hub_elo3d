@@ -7,9 +7,9 @@ from src.modules.user.domain.entities.user import User
 class IUserRepository(abc.ABC):
     
     @abstractmethod
-    def get_user(self, id: UUID) -> User:
+    def get_user(self, user_id: UUID) -> User:
         """
-        Retorna um objeto "User" a partir do seu ID
+        Retorna um objeto "User" a partir do seu user_id
 
         Em caso não encontrado retorna NoUsersFound
         """
@@ -39,12 +39,11 @@ class IUserRepository(abc.ABC):
 
     @abstractmethod
     def update_user(
-            self, 
-            id: str, 
+            self,  
             updated_user: User
             ) -> User:
         """
-        Atualiza os campos de um usuário de acordo com o id
+        Atualiza os campos de um usuário de acordo com o user_id
 
         Retorna o usuário com os campos atualizados
 
@@ -56,10 +55,14 @@ class IUserRepository(abc.ABC):
         pass
     
     @abstractmethod
-    def delete_user(self, id: UUID) -> User:
+    def delete_user(self, user_id: UUID) -> User:
         """
         Deleta um usuário retorna o User deletado
 
-        Caso o ID não for encontrado retorna NoUsersFound
+        Caso o user_id não for encontrado retorna NoUsersFound
         """
         pass
+
+    @abstractmethod
+    def get_user_by_email(self, email: str) -> User:
+        """Retorna um usuario buscando-o pelo E-Mail\n Caso o usuario não seja encontrado retorna NoUsersFound"""

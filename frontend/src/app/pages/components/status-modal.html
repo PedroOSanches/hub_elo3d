@@ -1,0 +1,24 @@
+<div class="status-modal" id="status-modal" hidden>
+  <div class="status-modal__backdrop" data-status-close></div>
+  <section class="status-modal__content" role="dialog" aria-modal="true" aria-labelledby="status-modal-title">
+    <button class="status-modal__close" type="button" aria-label="Fechar" data-status-close>
+      <i data-lucide="x"></i>
+    </button>
+
+    <h2 id="status-modal-title">Adicionar Status</h2>
+
+    <label for="project-status">Status</label>
+    <select id="project-status">
+      <option value="" selected disabled>Selecione um status</option>
+      <option value="assumido">Em Progresso</option>
+      <option value="preparacao">Finalizado</option>
+      <option value="producao">Enviado</option>
+      <option value="finalizado">Recebido</option>
+    </select>
+
+    <label for="project-status-date">Data</label>
+    <input id="project-status-date" type="date">
+
+    <button class="status-modal__save" type="button" data-status-save>Salvar</button>
+  </section>
+</div>

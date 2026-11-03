@@ -6,6 +6,13 @@ async function initProjectsPage() {
   modalStyle.href = 'style/components/project-modal.css';
   document.head.appendChild(modalStyle);
 
+  document.getElementById('status-modal-style')?.remove();
+  const statusModalStyle = document.createElement('link');
+  statusModalStyle.id = 'status-modal-style';
+  statusModalStyle.rel = 'stylesheet';
+  statusModalStyle.href = 'style/components/status-modal.css';
+  document.head.appendChild(statusModalStyle);
+
   const search = document.getElementById('project-search');
   const rows = [...document.querySelectorAll('#projects-list project-row')];
   let modal = document.getElementById('project-modal');
@@ -29,6 +36,23 @@ async function initProjectsPage() {
   const title = document.getElementById('project-modal-title');
   const dueDate = document.getElementById('project-modal-due-date');
   const printer = document.getElementById('project-modal-printer');
+  let statusModal = document.getElementById('status-modal');
+
+  if (!statusModal) {
+    const response = await fetch('pages/components/status-modal.html');
+
+    if (!response.ok) {
+      throw new Error('Não foi possível carregar o modal de status.');
+    }
+
+    document.getElementById('app').insertAdjacentHTML('beforeend', await response.text());
+    window.lucide?.createIcons();
+    statusModal = document.getElementById('status-modal');
+  }
+
+  if (!statusModal) {
+    throw new Error('O modal de status não foi encontrado após o carregamento.');
+  }
 
   const closeModal = () => {
     modal.hidden = true;
@@ -44,6 +68,14 @@ async function initProjectsPage() {
     document.body.classList.add('modal-open');
   };
 
+  const closeStatusModal = () => {
+    statusModal.hidden = true;
+  };
+
+  const openStatusModal = () => {
+    statusModal.hidden = false;
+  };
+
   if (search) {
     search.addEventListener('input', () => {
       const query = search.value.trim().toLowerCase();
@@ -54,11 +86,17 @@ async function initProjectsPage() {
   }
 
   document.addEventListener('project-detail-request', openModal);
+  modal.querySelector('[data-open-status]')?.addEventListener('click', openStatusModal);
   modal.querySelectorAll('[data-modal-close]').forEach(element => {
     element.addEventListener('click', closeModal);
   });
+  statusModal.querySelectorAll('[data-status-close]').forEach(element => {
+    element.addEventListener('click', closeStatusModal);
+  });
+  statusModal.querySelector('[data-status-save]')?.addEventListener('click', closeStatusModal);
   document.addEventListener('keydown', event => {
     if (event.key === 'Escape' && !modal.hidden) closeModal();
+    if (event.key === 'Escape' && !statusModal.hidden) closeStatusModal();
   });
 }
 

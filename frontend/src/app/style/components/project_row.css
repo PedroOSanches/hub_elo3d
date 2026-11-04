@@ -1,0 +1,55 @@
+:host {
+  display: block;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 22% 22% 16% 17% 23%;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 61px;
+  border-bottom: 1px solid #e7e0d6;
+  color: #151515;
+  font-family: 'Sora', sans-serif;
+  font-size: 0.94rem;
+}
+
+.row > div {
+  min-width: 0;
+  padding: 0 35px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.row--compact {
+  grid-template-columns: repeat(3, 1fr);
+  min-height: 42px;
+  font-size: .72rem;
+}
+
+.row--compact > div {
+  padding: 0 12px;
+}
+
+.status-dot {
+  display: block;
+  margin: 0 auto;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+}
+
+.status-dot--done { background: #1ca51c; }
+.status-dot--progress { background: #bd951e; }
+.status-dot--waiting { background: #b9003c; }
+
+.project-detail-link {
+  display: inline-block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #b9003c;
+  font-size: 2.5rem;
+  line-height: 0;
+  cursor: pointer;
+}

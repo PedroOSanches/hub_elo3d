@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Elo3D Hub — Dashboard AACD</title>
+
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  
+    <link rel="stylesheet" href="../style/dashboard-aacd.css">
+
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="dashboard-container"></div>
+
+    <script>
+        fetch('./dashboard-aacd.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao carregar o dashboard');
+                }
+
+                return response.text();
+            })
+            .then(html => {
+                document.getElementById('dashboard-container').innerHTML = html;
+
+                const script = document.createElement('script');
+                script.src = '../js/dashboard-aacd.js';
+                document.body.appendChild(script);
+                
+            })
+            .catch(error => console.error(error));
+    </script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  --page-padding: clamp(24px, 8vw, 120px);
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: auto !important;
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  display: block;
+  background-color: #f6e8da;
+}
+
+header,
+main,
+footer {
+  display: block;
+  width: 100%;
+}
+
+header {
+  height: 65px;
+}
+
+main > section {
+  width: 100%;
+}
+
+.hero {
+  padding-left: var(--page-padding);
+  padding-right: var(--page-padding);
+}
+
+.how-it-works-section {
+  padding-left: var(--page-padding);
+  padding-right: var(--page-padding);
+}
+
+.quem-somos {
+  padding-left: var(--page-padding);
+  padding-right: var(--page-padding);
+}
+
+.network-section {
+  padding: 40px 0;
+}
+
+.network-section .container {
+  max-width: none;
+  padding-left: var(--page-padding);
+  padding-right: var(--page-padding);
+}
+
+.footer {
+  padding-left: var(--page-padding);
+  padding-right: var(--page-padding);
+}
+
+.footer {
+  margin: 0;
+}

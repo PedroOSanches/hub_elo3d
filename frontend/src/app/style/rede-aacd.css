@@ -1,0 +1,704 @@
+
+.rede-aacd,
+.rede-aacd-modal {
+    font-family: 'Sora', sans-serif;
+    box-sizing: border-box;
+}
+
+.rede-aacd *,
+.rede-aacd-modal * {
+    box-sizing: border-box;
+}
+
+.rede-aacd {
+    min-height: 100vh;
+    padding: 32px 4.2% 48px;
+    background: #F4F0E5;
+    color: #171717;
+}
+
+.rede-aacd button,
+.rede-aacd input,
+.rede-aacd-modal button {
+    font: inherit;
+}
+
+.rede-aacd__header {
+    margin-bottom: 20px;
+}
+
+.rede-aacd__header h1 {
+    margin: 0;
+    font-size: 36px;
+    line-height: 1.25;
+    font-weight: 600;
+    color: #080808;
+}
+
+.rede-aacd__controls {
+    margin-bottom: 24px;
+}
+
+.rede-aacd__search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: min(100%, 450px);
+    height: 32px;
+    padding: 0 10px;
+    background: #FFFFFF;
+    border: 1px solid #C70039;
+    border-radius: 20px;
+    color: #A00032;
+}
+
+.rede-aacd__search svg {
+    width: 19px;
+    height: 19px;
+    flex-shrink: 0;
+}
+
+.rede-aacd__search input {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #171717;
+    font-size: 13px;
+}
+
+.rede-aacd__search input::placeholder {
+    color: #929292;
+}
+
+.rede-aacd__search:focus-within {
+    outline: 2px solid #C70039;
+    outline-offset: 2px;
+}
+
+.rede-aacd__sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.rede-aacd__list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.rede-aacd__empty {
+    padding: 35px 15px;
+    color: #777777;
+    text-align: center;
+    font-size: 14px;
+}
+
+.rede-aacd__empty[hidden],
+.rede-aacd__menu[hidden],
+.rede-aacd-modal[hidden],
+.rede-aacd-modal__no-projects[hidden] {
+    display: none !important;
+}
+
+.rede-aacd__card {
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1.15fr) minmax(0, 1fr) minmax(160px, .8fr) 50px;
+    align-items: center;
+    gap: 20px;
+    min-height: 105px;
+    background: #FFFFFF;
+    border: 1px solid #D0C7C0;
+    border-radius: 15px;
+    position: relative;
+}
+
+.rede-aacd__card-accent {
+    align-self: stretch;
+    background: #FFE5A5;
+    border-radius: 14px 0 0 14px;
+}
+
+.rede-aacd__card-name {
+    min-width: 0;
+}
+
+.rede-aacd__card-name h2 {
+    margin: 0;
+    font-size: 21px;
+    line-height: 1.3;
+    font-weight: 500;
+}
+
+.rede-aacd__card-meta {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 9px;
+    min-width: 0;
+    min-height: 72px;
+    padding-left: 24px;
+    border-left: 1px solid #999999;
+}
+
+.rede-aacd__meta-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.rede-aacd__meta-row svg {
+    display: block;
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+}
+
+.rede-aacd__meta-row span {
+    overflow-wrap: anywhere;
+}
+
+.rede-aacd__card-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+}
+
+.rede-aacd__status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    width: max-content;
+    max-width: 100%;
+    min-width: 170px;
+    padding: 6px 12px;
+    border-radius: 22px;
+    background: #BF3F62;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.rede-aacd__status::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, .3);
+}
+
+.rede-aacd__status--inactive {
+    background: #C9BDBD;
+}
+
+.rede-aacd__card-actions {
+    position: relative;
+    justify-self: center;
+}
+
+
+
+.rede-aacd__menu-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 44px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: transparent;
+    font-size: 0;
+    line-height: 0;
+    cursor: pointer;
+    position: relative;
+}
+
+.rede-aacd__menu-button::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #111111;
+    transform: translate(-50%, -50%);
+    box-shadow:
+        0 -10px 0 #111111,
+        0 10px 0 #111111;
+}
+
+
+
+.rede-aacd__menu-button:hover {
+    color: #A00032;
+}
+
+.rede-aacd__menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    z-index: 10;
+    min-width: 158px;
+    padding: 6px;
+    background: #FFFFFF;
+    border: 1px solid #DDD2CE;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .14);
+}
+
+.rede-aacd__menu button {
+    display: block;
+    width: 100%;
+    padding: 10px 9px;
+    border: 0;
+    border-radius: 5px;
+    background: transparent;
+    color: #171717;
+    font-size: 12px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.rede-aacd__menu button:hover {
+    background: #F5E2E5;
+}
+
+.rede-aacd-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.rede-aacd-modal__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, .55);
+}
+
+.rede-aacd-modal__content {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 760px);
+    max-height: 92vh;
+    overflow-y: auto;
+    padding: 36px 30px 58px;
+    background: #F4F0E5;
+    color: #171717;
+    scrollbar-width: thin;
+    box-shadow: 0 14px 48px rgba(0, 0, 0, .15);
+}
+
+.rede-aacd-modal__content h2 {
+    margin: 0 35px 38px 18px;
+    font-size: 35px;
+    line-height: 1.2;
+    font-weight: 400;
+}
+
+.rede-aacd-modal__content h2 span {
+    color: #A00032;
+}
+
+.rede-aacd-modal__close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    padding: 2px 6px;
+    border: 0;
+    background: transparent;
+    color: #888888;
+    font-size: 35px;
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.rede-aacd-modal__close:hover {
+    color: #A00032;
+}
+
+.rede-aacd-modal__cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+    margin-bottom: 62px;
+}
+
+.rede-aacd-modal__info-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    min-height: 145px;
+    padding: 13px;
+    border: 1.5px solid #BA0034;
+    background: #F7E8D5;
+}
+
+.rede-aacd-modal__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    color: #A00032;
+}
+
+.rede-aacd-modal__icon svg {
+    display: block;
+    width: 40px;
+    height: 40px;
+}
+
+.rede-aacd-modal__info {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    min-width: 0;
+    text-align: center;
+}
+
+.rede-aacd-modal__info h3 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.rede-aacd-modal__info p {
+    margin: 0;
+    font-size: 11px;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+}
+
+.rede-aacd-modal__address {
+    display: flex;
+    align-items: flex-start;
+    gap: 5px;
+    margin-top: 5px !important;
+}
+
+.rede-aacd-modal__address svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+
+.rede-aacd-modal__number {
+    color: #111111;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.rede-aacd-modal__email {
+    overflow-wrap: anywhere;
+}
+
+.rede-aacd-modal__projects {
+    padding: 0 12px;
+}
+
+.rede-aacd-modal__projects > h3 {
+    margin: 0 0 20px;
+    color: #898989;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.rede-aacd-modal__table-frame {
+    width: min(100%, 480px);
+    min-height: 335px;
+    margin: 0 auto;
+    padding: 18px;
+    border: 1.5px solid #BA0034;
+    border-radius: 16px;
+    background: #F7E8D5;
+}
+
+.rede-aacd-modal__table-scroll {
+    height: 300px;
+    overflow: auto;
+    background: #FFFFFF;
+    border: 1px solid #C70039;
+    border-radius: 7px;
+    scrollbar-width: thin;
+}
+
+.rede-aacd-modal__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+    color: #111111;
+}
+
+.rede-aacd-modal__table th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: 14px 9px;
+    background: #FFFFFF;
+    font-weight: 500;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.rede-aacd-modal__table td {
+    padding: 12px 9px;
+    border-bottom: 1px solid #A0A0A0;
+    vertical-align: top;
+}
+
+.rede-aacd-modal__table tr:last-child td {
+    border-bottom: none;
+}
+
+.rede-aacd-modal__no-projects {
+    margin: 14px 0 0;
+    text-align: center;
+    color: #777777;
+    font-size: 12px;
+}
+
+
+
+@media (min-width: 769px) {
+    .rede-aacd-modal__cards {
+        grid-template-columns: 1.25fr 0.9fr 1fr;
+        gap: 18px;
+    }
+
+    .rede-aacd-modal__info-card:first-child {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        padding: 16px;
+    }
+
+    .rede-aacd-modal__info-card:first-child .rede-aacd-modal__icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .rede-aacd-modal__info-card:first-child .rede-aacd-modal__icon svg {
+        width: 40px;
+        height: 40px;
+    }
+
+    .rede-aacd-modal__info-card:first-child .rede-aacd-modal__info {
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .rede-aacd-modal__info-card:first-child .rede-aacd-modal__address {
+        justify-content: center;
+        text-align: left;
+        font-size: 10px;
+        line-height: 1.4;
+        max-width: 100%;
+    }
+}
+
+
+@media (max-width: 1100px) {
+    .rede-aacd__card {
+        grid-template-columns: 35px minmax(0, 1fr) minmax(0, 1fr) 160px 40px;
+        gap: 12px;
+    }
+
+    .rede-aacd__card-meta {
+        padding-left: 14px;
+    }
+
+    .rede-aacd-modal__cards {
+        gap: 14px;
+    }
+
+    .rede-aacd-modal__info-card {
+        gap: 7px;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .rede-aacd {
+        padding: 24px 5%;
+    }
+
+    .rede-aacd__header h1 {
+        font-size: 29px;
+    }
+
+    .rede-aacd__search {
+        width: 100%;
+        max-width: 450px;
+    }
+
+    .rede-aacd__list {
+        gap: 16px;
+    }
+
+    .rede-aacd__card {
+        grid-template-columns: 12px minmax(0, 1fr) auto;
+        gap: 11px;
+        padding-right: 12px;
+    }
+
+    .rede-aacd__card-accent {
+        grid-column: 1;
+        grid-row: 1 / span 3;
+    }
+
+    .rede-aacd__card-name {
+        grid-column: 2;
+        grid-row: 1;
+        padding-top: 16px;
+    }
+
+    .rede-aacd__card-name h2 {
+        font-size: 18px;
+    }
+
+    .rede-aacd__card-meta {
+        grid-column: 2 / 4;
+        grid-row: 2;
+        min-height: 0;
+        padding: 5px 0;
+        border-left: none;
+    }
+
+    .rede-aacd__card-status {
+        grid-column: 2;
+        grid-row: 3;
+        justify-content: flex-start;
+        padding-bottom: 16px;
+    }
+
+    .rede-aacd__card-actions {
+        grid-column: 3;
+        grid-row: 1;
+        align-self: start;
+        margin-top: 7px;
+    }
+
+    .rede-aacd__status {
+        min-width: 0;
+        font-size: 11px;
+    }
+
+    .rede-aacd-modal {
+        padding: 10px;
+    }
+
+    .rede-aacd-modal__content {
+        max-height: 94vh;
+        padding: 28px 18px 36px;
+    }
+
+    .rede-aacd-modal__content h2 {
+        margin: 0 30px 28px 0;
+        font-size: 28px;
+    }
+
+    .rede-aacd-modal__cards {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-bottom: 30px;
+    }
+
+    .rede-aacd-modal__info-card {
+        min-height: 110px;
+        justify-content: flex-start;
+        padding: 16px;
+    }
+
+    .rede-aacd-modal__info {
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .rede-aacd-modal__projects {
+        padding: 0;
+    }
+
+    .rede-aacd-modal__projects > h3 {
+        font-size: 17px;
+    }
+
+    .rede-aacd-modal__table-frame {
+        min-height: 280px;
+        padding: 10px;
+    }
+
+    .rede-aacd-modal__table-scroll {
+        height: 260px;
+    }
+
+    .rede-aacd-modal__table {
+        font-size: 10px;
+    }
+
+    .rede-aacd-modal__table th,
+    .rede-aacd-modal__table td {
+        padding: 11px 7px;
+    }
+}
+
+@media (max-width: 360px) {
+    .rede-aacd__card-name h2 {
+        font-size: 16px;
+    }
+
+    .rede-aacd__meta-row {
+        font-size: 11px;
+    }
+
+    .rede-aacd-modal__content h2 {
+        font-size: 25px;
+    }
+
+    .rede-aacd-modal__icon {
+        width: 34px;
+        height: 34px;
+    }
+
+    .rede-aacd-modal__icon svg {
+        width: 33px;
+        height: 33px;
+    }
+
+    .rede-aacd-modal__table {
+        font-size: 9px;
+    }
+}

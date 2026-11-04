@@ -1,0 +1,112 @@
+
+#modal-endereco {
+    width: min(720px, calc(100vw - 32px));
+    min-height: 0;
+    padding: 24px 32px 30px;
+    border-radius: 18px;
+}
+
+#modal-endereco .modal_titulo {
+    margin-bottom: 30px;
+    font-size: 28px;
+    line-height: 1.1;
+}
+
+#modal-endereco form {
+    padding: 0 42px;
+}
+
+#modal-endereco .campo {
+    margin-bottom: 24px;
+}
+
+#modal-endereco .campo_rotulo {
+    margin-bottom: 4px;
+    font-size: 18px;
+    line-height: 1.2;
+}
+
+#modal-endereco .campo_input {
+    height: 44px;
+    padding: 6px 10px;
+    background-color: #F7E7D3;
+    border: 2px solid #A10029;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#modal-endereco .modal_acoes {
+    margin-top: 28px;
+    padding: 0;
+}
+
+#modal-endereco .botao_modal {
+    min-width: 150px;
+    padding: 8px 22px;
+    font-size: 16px;
+    border-radius: 24px;
+}
+
+#modal-endereco .endereco-modal__button {
+    width: 150px;
+    --app-button-height: 38px;
+    --app-button-font-size: 0.95rem;
+    --app-button-radius: 24px;
+}
+
+#modal-endereco .endereco-modal__button::part(button) {
+    width: 100%;
+}
+
+#modal-endereco .modal_fechar {
+    top: 20px;
+    right: 24px;
+    width: 40px;
+    height: 40px;
+}
+
+#modal-endereco .modal_fechar svg {
+    width: 30px;
+    height: 30px;
+}
+
+@media (max-width: 700px) {
+    #modal-endereco {
+        width: calc(100vw - 24px);
+        max-height: 94vh;
+        padding: 24px 20px 30px;
+    }
+
+    #modal-endereco .modal_titulo {
+        margin-bottom: 32px;
+        font-size: 28px;
+    }
+
+    #modal-endereco form {
+        padding: 0 10px;
+    }
+
+    #modal-endereco .campo {
+        margin-bottom: 28px;
+    }
+
+    #modal-endereco .campo_rotulo {
+        font-size: 20px;
+    }
+
+    #modal-endereco .campo_input {
+        height: 48px;
+        font-size: 16px;
+    }
+
+    #modal-endereco .modal_acoes {
+        margin-top: 28px;
+        padding: 0;
+    }
+
+    #modal-endereco .botao_modal {
+        min-width: 130px;
+        padding: 8px 18px;
+        font-size: 16px;
+    }
+}

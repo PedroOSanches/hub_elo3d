@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Elo3D Hub — Rede AACD</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="../style/rede-aacd.css">
+
+    <script src="../js/rede-aacd.js" defer></script>
+
+    <style>
+        body {
+            margin: 0;
+            background-color: #F4F0E5;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="rede-aacd-container"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const container = document.getElementById("rede-aacd-container");
+
+            try {
+                const resposta = await fetch("./rede-aacd.html");
+
+                if (!resposta.ok) {
+                    throw new Error("Não foi possível carregar a Rede AACD");
+                }
+
+                container.innerHTML = await resposta.text();
+
+                if (typeof window.initRedeAACD !== "function") {
+                    throw new Error("A função initRedeAACD não foi carregada");
+                }
+
+                window.initRedeAACD();
+
+            } catch (erro) {
+                console.error(erro);
+                container.textContent = "Erro ao carregar a página Rede AACD. Verifique o Console.";
+            }
+        });
+    </script>
+</body>
+</html>
+

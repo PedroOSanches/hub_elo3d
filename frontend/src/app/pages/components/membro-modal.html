@@ -1,0 +1,46 @@
+<dialog class="member-modal" id="member-modal" aria-labelledby="member-modal-title">
+    <button type="button" class="member-modal__close" data-close-member-modal aria-label="Fechar">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 5 19 19M19 5 5 19"/>
+        </svg>
+    </button>
+
+    <h2 id="member-modal-title">Adicionar membro</h2>
+
+    <form id="member-form">
+        <div class="member-modal__field" id="member-password-field">
+            <label for="member-name">Nome do membro:</label>
+            <input id="member-name" name="name" type="text" required>
+        </div>
+
+        <div class="member-modal__field">
+            <label for="member-email">Email:</label>
+            <input id="member-email" name="email" type="email" required>
+        </div>
+
+        <div class="member-modal__field">
+            <label for="member-phone">Telefone:</label>
+            <input id="member-phone" name="phone" type="tel" required>
+        </div>
+
+        <div class="member-modal__field">
+            <label for="member-password">Senha do primeiro acesso:</label>
+            <input id="member-password" name="password" type="password" required>
+        </div>
+
+        <div class="member-modal__actions">
+            <app-button
+                class="member-modal__button member-modal__button--cancel"
+                type="button"
+                text="Cancelar"
+                data-close-member-modal>
+            </app-button>
+            <app-button
+                class="member-modal__button"
+                type="submit"
+                text="Adicionar"
+                data-submit-member>
+            </app-button>
+        </div>
+    </form>
+</dialog>

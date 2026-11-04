@@ -1,0 +1,69 @@
+#modal-contato {
+    width: min(730px, calc(100vw - 32px));
+    max-height: 92vh;
+    padding: 18px 24px 60px;
+    border-radius: 14px;
+}
+
+#modal-contato .modal_titulo {
+    margin-bottom: 32px;
+    padding-right: 40px;
+    font-size: 24px;
+}
+
+#modal-contato form {
+    padding: 0 58px;
+}
+
+#modal-contato .campo {
+    margin-bottom: 32px;
+}
+
+#modal-contato .campo_rotulo {
+    margin-bottom: 4px;
+    font-size: 17px;
+}
+
+#modal-contato .campo_input {
+    height: 38px;
+    padding: 6px 10px;
+    border: 2px solid #A10029;
+    border-radius: 4px;
+    font-size: 15px;
+}
+
+#modal-contato .campo_telefone {
+    gap: 8px;
+    font-size: 15px;
+}
+
+#modal-contato .campo_telefone .campo_input {
+    flex: 1;
+}
+
+#modal-contato .modal_acoes {
+    margin-top: 40px;
+    padding: 0 38px;
+}
+
+#modal-contato .contato-modal__button {
+    width: 122px;
+    --app-button-height: 34px;
+    --app-button-font-size: 0.9rem;
+    --app-button-radius: 20px;
+}
+
+@media (max-width: 600px) {
+    #modal-contato {
+        width: calc(100vw - 24px);
+        padding: 20px 16px 30px;
+    }
+
+    #modal-contato form {
+        padding: 0 8px;
+    }
+
+    #modal-contato .modal_acoes {
+        padding: 0;
+    }
+}

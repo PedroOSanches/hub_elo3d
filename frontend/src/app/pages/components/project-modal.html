@@ -1,0 +1,55 @@
+<div class="project-modal" id="project-modal" hidden>
+  <div class="project-modal__backdrop" data-modal-close></div>
+  <section class="project-modal__content" role="dialog" aria-modal="true" aria-labelledby="project-modal-title">
+    <button class="project-modal__close" type="button" aria-label="Fechar" data-modal-close>
+      <i data-lucide="x"></i>
+    </button>
+
+    <header class="project-modal__header">
+      <div>
+        <h2 id="project-modal-title">Órtese de punho</h2>
+        <div class="project-modal__tags">
+          <span>Material: PLA</span>
+          <span>Processo: FDM</span>
+          <span>Tipo: Órtese</span>
+        </div>
+      </div>
+      <strong>Prazo <span id="project-modal-due-date">03/10</span></strong>
+    </header>
+
+    <article class="project-modal__data">
+      <h3>Dados e arquivos</h3>
+      <p class="project-modal__subtitle">Impressora e configurações</p>
+      <p id="project-modal-printer">Equipamento: Prusa i3 MK3S+ (FDM, 250x210x210mm)</p>
+      <h4>Arquivos do Projeto</h4>
+      <a href="#" download>
+        <i data-lucide="download"></i>
+        ortese_punho_v3.stl (12MB)
+      </a>
+    </article>
+
+    <div class="project-modal__timeline" aria-label="Etapas do projeto">
+      <div class="project-modal__step is-complete">
+        <span><i data-lucide="check"></i></span>
+        <small>Assumido<br>(21/09)</small>
+      </div>
+      <div class="project-modal__connector"></div>
+      <div class="project-modal__step is-complete">
+        <span><i data-lucide="check"></i></span>
+        <small>Preparação<br>(25/09)</small>
+      </div>
+      <div class="project-modal__connector"></div>
+      <div class="project-modal__step is-complete">
+        <span><i data-lucide="check"></i></span>
+        <small>Em produção<br>(27/09)</small>
+      </div>
+      <div class="project-modal__connector"></div>
+      <div class="project-modal__step">
+        <button class="project-modal__status-button" type="button" data-open-status aria-label="Adicionar status">
+          <i data-lucide="plus"></i>
+        </button>
+        <small>Adicionar status</small>
+      </div>
+    </div>
+  </section>
+</div>

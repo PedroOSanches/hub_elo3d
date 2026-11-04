@@ -1,0 +1,65 @@
+<header class="projects-header">
+    <app-navbar
+        logo="assets/Group 3.png"
+        icon="assets/account-circle-fill.png"
+        css="style/components/navbar.css"
+        profile-href="/login"
+        first-text="Minhas Impressoras"
+        first-href="/minhas-impressoras"
+        second-text="Meus Projetos"
+        second-href="/meus-projetos"
+        third-text="Projetos Disponíveis"
+        third-href="/projetos-disponiveis">
+    </app-navbar>
+</header>
+<main>
+    <header class="profile">
+        <h1>Meu <span>Perfil</span></h1>
+    </header>
+
+    <div class="profile-content">
+
+        <section class="card" aria-labelledby="titulo-endereco">
+            <div class="internal-card">
+                <h2 id="titulo-endereco">Endereço</h2>
+                <dl class="data">
+                    <dt>Endereço</dt>
+                    <dd>Av. Barão de Mauá, 18681</dd>
+
+                    <dt>Bairro</dt>
+                    <dd>Jardim Pedroso</dd>
+
+                    <dt>Cidade/ Estado</dt>
+                    <dd>São Caetano do Sul - SP</dd>
+
+                    <dt>CEP</dt>
+                    <dd>09580-900</dd>
+                </dl>
+                <div>
+                    <button type="button" class="button-edit" data-open-endereco>Editar</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="card" aria-labelledby="titulo-contato">
+            <div class="internal-card">
+                <h2 id="titulo-contato">Contato</h2>
+                <dl class="data">
+                    <dt>Nome do Responsável</dt>
+                    <dd>Ana Beatriz Silva</dd>
+
+                    <dt>E-mail</dt>
+                    <dd>ana.silva@maua.br</dd>
+
+                    <dt>Telefone</dt>
+                    <dd>(11)4239-3000</dd>
+                </dl>
+                <div class="card-actions">
+                    <button type="button" class="button-edit" data-open-contato>Editar</button>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<script src="../js/perfil-parceiro.js"></script>    

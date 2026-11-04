@@ -23,7 +23,7 @@ class Test_UserRepositoryMock:
                 complemento="Apto. 13"
             ),
             phone="+5511999999999",
-            role="admin"
+            role="user"
         )
 
         repo.create_user(user=user)
@@ -74,7 +74,7 @@ class Test_UserRepositoryMock:
                     estado="SP"
                 ),
             phone="+5511999999999",
-            role="admin"
+            role="user"
         )
 
         repo_users = repo.users
@@ -108,7 +108,7 @@ class Test_UserRepositoryMock:
                             estado="SP"
                             ),
                         phone="+5511999999999",
-                        role="admin"
+                        role="user"
         )
                 )
 
@@ -136,6 +136,6 @@ class Test_UserRepositoryMock:
                         estado="SP"
                         ),
                     phone="+5511999999999",
-                    role="admin"
+                    role="user"
                 )
             )

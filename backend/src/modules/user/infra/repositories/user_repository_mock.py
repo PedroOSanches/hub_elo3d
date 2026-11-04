@@ -56,7 +56,7 @@ class UserRepositoryMock(IUserRepository):
                             complemento="Casa",
                             estado="SP"
                         ),
-                        role="admin"
+                        role="user"
                         ),
         ]
 

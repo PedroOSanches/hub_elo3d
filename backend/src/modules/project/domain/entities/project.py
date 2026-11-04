@@ -6,6 +6,7 @@ from pydantic import BaseModel, Field, ConfigDict, field_validator
 from src.modules.project.domain.enums.order_status_enum import OrderStatus
 from src.modules.project.domain.enums.production_status_enum import ProductionStatus
 from src.modules.project.domain.enums.urgency_enum import Urgency
+from src.modules.project.domain.enums.category_enum import Category
 from src.modules.project.domain.entities.project_file import ProjectFile
 
 class Project(BaseModel):
@@ -31,9 +32,8 @@ class Project(BaseModel):
         description = "Quantidade de peças necessárias para o projeto"
     )
 
-    category: str = Field(
+    category: Category = Field(
         ...,
-        min_length = 1,
         description = "Categoria do projeto"
     )
 

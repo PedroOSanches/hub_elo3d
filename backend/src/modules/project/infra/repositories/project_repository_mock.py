@@ -23,7 +23,7 @@ class ProjectRepositoryMock(IProjectRepository):
         return project
 
     def get_all_projects(self) -> list[Project]:
-        raise NotImplementedError
+        return list(self.projects.values())
 
     def update_project(
         self,

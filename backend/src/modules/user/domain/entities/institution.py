@@ -15,7 +15,7 @@ from src.shared.errors.domain_error import EntitieError
 class Institution(BaseModel):
 
     institution_id: uuid.UUID = Field(
-        default=uuid.uuid4(),
+        default_factory=uuid.uuid7,
         description="Identificador único da instituição"
     )
 

@@ -10,6 +10,7 @@ class AuthenticationMiddleware(BaseHTTPMiddleware):
 
     PUBLIC_ROUTES = {
         ("POST", "/api/auth/login"),
+        ("POST", "/api/auth/logout"),
         ("POST", "/api/auth/refresh"),
         ("POST", "/api/user/create"),        
 

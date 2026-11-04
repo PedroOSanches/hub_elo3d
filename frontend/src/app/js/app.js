@@ -1,4 +1,6 @@
 const app = document.getElementById("app");
+const ROUTER_API_BASE_URL =
+  window.ENV?.API_BASE_URL || "http://localhost:8000/api";
 
 const routes = {
   "/": {
@@ -88,7 +90,23 @@ const routes = {
     style: "style/gerenciamento.css",
     background: "#F4F0E5",
   },
+  "/minhas-impressoras": {
+    page: "pages/MinhasImpressoras.html",
+    title: "Minhas Impressoras - Elo3D Hub",
+    style: "style/MinhasImpressoras.css",
+    background: "#F4F0E5",
+  },
 };
+
+const publicRoutes = new Set([
+  "/",
+  "/como-funciona",
+  "/rede",
+  "/quem-somos",
+  "/login",
+  "/cadastro",
+  "/cadastro/instituicao",
+]);
 
 function getUserRole() {
   const savedUser = localStorage.getItem("elo3d-user");
@@ -114,6 +132,98 @@ function getDashboardRoute() {
 
 function getCurrentRoute() {
   return window.location.pathname.replace(/\/+$/, "") || "/";
+}
+
+async function isAuthenticated() {
+  try {
+    const response = await fetch(`${ROUTER_API_BASE_URL}/auth/me`, {
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      return false;
+    }
+
+    const user = await response.json();
+    localStorage.setItem("elo3d-user", JSON.stringify(user));
+    return true;
+  } catch (error) {
+    console.error("Não foi possível validar a autenticação:", error);
+    return false;
+  }
+}
+
+function showLoginRequiredMessage() {
+  let message = document.getElementById("auth-route-message");
+
+  if (!message) {
+    message = document.createElement("div");
+    message.id = "auth-route-message";
+    message.setAttribute("role", "alert");
+    message.setAttribute("aria-live", "assertive");
+    message.innerHTML = `
+      <strong>Acesso restrito</strong>
+      <span>Você precisa estar logado para acessar esta página.</span>
+    `;
+
+    Object.assign(message.style, {
+      alignItems: "center",
+      background: "#fff4e5",
+      border: "1px solid #e6a23c",
+      borderRadius: "12px",
+      boxShadow: "0 8px 24px rgba(67, 45, 28, 0.18)",
+      color: "#6b4218",
+      display: "flex",
+      flexDirection: "column",
+      gap: "4px",
+      left: "50%",
+      maxWidth: "calc(100% - 32px)",
+      padding: "16px 22px",
+      position: "fixed",
+      textAlign: "center",
+      top: "24px",
+      transform: "translateX(-50%)",
+      width: "360px",
+      zIndex: "9999",
+    });
+
+    const title = message.querySelector("strong");
+    Object.assign(title.style, {
+      color: "#8a4b08",
+      fontSize: "16px",
+    });
+
+    const text = message.querySelector("span");
+    Object.assign(text.style, {
+      fontSize: "14px",
+      lineHeight: "1.4",
+    });
+
+    document.body.appendChild(message);
+  }
+
+  clearTimeout(showLoginRequiredMessage.timeoutId);
+  message.hidden = false;
+  showLoginRequiredMessage.timeoutId = setTimeout(() => {
+    message.hidden = true;
+  }, 4000);
+}
+
+async function canAccessRoute(pathname, { showAlert = false } = {}) {
+  if (publicRoutes.has(pathname)) {
+    return true;
+  }
+
+  const authenticated = await isAuthenticated();
+  if (authenticated) {
+    return true;
+  }
+
+  if (showAlert) {
+    showLoginRequiredMessage();
+  }
+
+  return false;
 }
 
 function loadRouteStyle(stylePath) {
@@ -155,6 +265,14 @@ window.initDashboardParceiro = async function () {
 
 async function renderRoute() {
   const currentRoute = getCurrentRoute();
+
+  if (!(await canAccessRoute(currentRoute))) {
+    window.history.replaceState({}, "", "/login");
+    await renderRoute();
+    showLoginRequiredMessage();
+    return;
+  }
+
   const route =
     currentRoute === "/dashboard" || currentRoute === "/dashboard-aacd"
       ? routes[getDashboardRoute()]
@@ -183,7 +301,7 @@ async function renderRoute() {
       window.initLoginPage?.();
     }
 
-    if (route.page === 'pages/perfil-parceiro.html') {
+    if (route.page === "pages/perfil-parceiro.html") {
       await window.initPerfilParceiro?.();
     }
 
@@ -226,7 +344,7 @@ async function renderRoute() {
   }
 }
 
-document.addEventListener("click", (event) => {
+document.addEventListener("click", async (event) => {
   if (event.defaultPrevented) {
     return;
   }
@@ -248,8 +366,41 @@ document.addEventListener("click", (event) => {
   }
 
   event.preventDefault();
+
+  const targetPath = link.pathname.replace(/\/+$/, "") || "/";
+  if (!(await canAccessRoute(targetPath, { showAlert: true }))) {
+    return;
+  }
+
   window.history.pushState({}, "", `${link.pathname}${link.search}`);
   renderRoute();
+});
+
+async function logout() {
+  try {
+    const response = await fetch(`${ROUTER_API_BASE_URL}/auth/logout`, {
+      method: "POST",
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      throw new Error("A API não conseguiu encerrar a sessão.");
+    }
+  } catch (error) {
+    console.error("Não foi possível fazer logout:", error);
+  } finally {
+    localStorage.removeItem("elo3d-user");
+    localStorage.removeItem("elo3d-role");
+    window.history.pushState({}, "", "/login");
+    await renderRoute();
+  }
+}
+
+document.addEventListener("app-logout", logout);
+document.addEventListener("click", (event) => {
+  if (event.target.closest("[data-logout]")) {
+    logout();
+  }
 });
 
 window.addEventListener("popstate", renderRoute);

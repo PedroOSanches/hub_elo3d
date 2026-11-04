@@ -1,4 +1,7 @@
+import os
+
 from fastapi import FastAPI, APIRouter
+from fastapi.middleware.cors import CORSMiddleware
 from starlette.types import ExceptionHandler
 from typing import cast
 
@@ -12,6 +15,23 @@ from src.modules.auth.infra.middlewares.auth_middleware import AuthenticationMid
 from src.shared.environments import env
 
 app = FastAPI()
+
+frontend_origins = [
+    origin.strip()
+    for origin in os.getenv(
+        "FRONTEND_ORIGINS",
+        "http://localhost:5500,http://127.0.0.1:5500",
+    ).split(",")
+    if origin.strip()
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=frontend_origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.add_middleware(
     AuthenticationMiddleware,

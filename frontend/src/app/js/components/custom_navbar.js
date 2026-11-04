@@ -7,6 +7,7 @@ class CustomNavbar extends HTMLElement {
   connectedCallback() {
     const logo = this.getAttribute('logo');
     const logoAlt = this.getAttribute('logo-alt') || 'HUB Elo3D Logo';
+    const logoHref = this.getAttribute('logo-href') || '/dashboard';
     const profileHref = this.getAttribute('profile-href') || '#perfil';
     const css = this.getAttribute('css') || '../../style/components/navbar.css';
     const icon = this.getAttribute('icon');
@@ -41,7 +42,7 @@ class CustomNavbar extends HTMLElement {
       <link rel="stylesheet" href="${css}">
 
       <nav class="navbar" aria-label="Navegação principal">
-        <a href="/" class="nav-logo">
+        <a href="${logoHref}" class="nav-logo">
           <img src="${logo}" alt="${logoAlt}">
         </a>
         <a href="${firstHref}" class="nav-item dark-first">${firstText}</a>

@@ -25,6 +25,33 @@ main {
     color: #A10029;
 }
 
+.profile-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.logout-profile-button {
+    padding: 9px 26px;
+    background-color: #A10029;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 20px;
+    font: inherit;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.logout-profile-button:hover {
+    background-color: #7E0020;
+}
+
+.logout-profile-button:focus-visible {
+    outline: 2px solid #A10029;
+    outline-offset: 3px;
+}
+
 .profile-content {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 560px));

@@ -1,4 +1,4 @@
-from uuid import UUID, uuid4
+from uuid import UUID, uuid7
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
@@ -8,7 +8,7 @@ from .status_printer import StatusPrinter
 class Printer(BaseModel):
     model_config = ConfigDict(str_strip_whitespace=True, validate_assignment=True)
 
-    id: UUID = Field(default_factory=uuid4)
+    id: UUID = Field(default_factory=uuid7)
     apelido: str = Field(min_length=1)
     modelo: str = Field(min_length=1)
     tecnologia_impressao: str = Field(min_length=1)

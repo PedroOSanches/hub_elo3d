@@ -18,7 +18,7 @@ from src.modules.user.domain.enums.role_enum import ROLE
 
 class User(BaseModel):
     user_id: uuid.UUID = Field(
-        default_factory=uuid.uuid4,
+        default_factory=uuid.uuid7,
         description="Identificador único de usuário"
     ) 
     name: str = Field(

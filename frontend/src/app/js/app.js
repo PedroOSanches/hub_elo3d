@@ -215,14 +215,15 @@ async function canAccessRoute(pathname, { showAlert = false } = {}) {
   }
 
   const authenticated = await isAuthenticated();
+
   if (authenticated) {
     return true;
   }
 
   if (showAlert) {
-    showLoginRequiredMessage();
+    window.location.href = '/login';
   }
-
+  
   return false;
 }
 

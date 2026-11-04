@@ -1,6 +1,7 @@
 const parceiro = {};
 const API_BASE_URL = window.ENV?.API_BASE_URL || 'http://localhost:8000/api';
 
+
 const api = {
   async login(dados) {
     const resposta = await fetch(`${API_BASE_URL}/auth/login`, {
@@ -17,6 +18,7 @@ const api = {
   },
 
   async cadastrar(dados) {
+    telefone = normalizaTelefone(dados.telefone)
     const resposta = await fetch(`${API_BASE_URL}/user/create`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -25,11 +27,11 @@ const api = {
         name: dados.instituicao,
         email: dados.email,
         password: dados.senha,
-        phone: dados.telefone,
+        phone: telefone,
         role: 'user',
         address: {
           logradouro: dados.endereco,
-          numero: 'S/N',
+          numero: dados.numero,
           bairro: dados.bairro,
           cidade: dados.cidade_estado.split('/')[0]?.trim(),
           estado: dados.cidade_estado.split('/')[1]?.trim(),
@@ -42,6 +44,12 @@ const api = {
     return parseApiResponse(resposta, 'Cadastro realizado com sucesso.');
   },
 };
+
+function normalizaTelefone(telefone) {
+    const number = telefone.replace(/\D/g, '');
+
+    return `+55${number}`;
+}
 
 async function parseApiResponse(response, successMessage) {
   const body = await response.json().catch(() => ({}));

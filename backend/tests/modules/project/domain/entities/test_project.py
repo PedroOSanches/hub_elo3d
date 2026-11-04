@@ -8,6 +8,7 @@ from src.modules.project.domain.entities.project import Project
 from src.modules.project.domain.enums.order_status_enum import OrderStatus
 from src.modules.project.domain.enums.production_status_enum import ProductionStatus
 from src.modules.project.domain.enums.urgency_enum import Urgency
+from src.modules.project.domain.enums.category_enum import Category
 from src.modules.project.domain.entities.project_file import ProjectFile
 
 def valid_project_data(**overrides):
@@ -16,7 +17,7 @@ def valid_project_data(**overrides):
         "date_end": date(2026, 11, 15),
         "urgency": Urgency.HIGH,
         "pieces_quantity": 2,
-        "category": "Ortopedia",
+        "category": Category.PROSTHESIS,
         "description": "Prótese de mão para paciente em recuperação",
         "filament_id": UUID("123e4567-e89b-12d3-a456-426614174000"),
         "files": [
@@ -37,7 +38,7 @@ class TestProject:
         assert isinstance(project.id, UUID)
         assert project.title == "Prótese de mão"
         assert project.pieces_quantity == 2
-        assert project.category == "Ortopedia"
+        assert project.category == Category.PROSTHESIS
         assert project.technical_info is None
         assert project.order_status == OrderStatus.WAITING_FOR_PARTNER
 
@@ -225,3 +226,22 @@ class TestProject:
     def test_invalid_file(self):
         with pytest.raises(ValidationError):
             Project(**valid_project_data(files = {"title": "Modelo inválido"}))
+    
+    @pytest.mark.parametrize(
+        "category",
+        [
+            Category.ORTHOSIS,
+            Category.PROSTHESIS,
+            Category.ACCESSORY,
+            Category.ADAPTER,
+            Category.OTHER,
+        ],
+    )
+    def test_valid_categories(self, category):
+        project = Project(**valid_project_data(category=category))
+
+        assert project.category == category
+
+    def test_invalid_category(self):
+        with pytest.raises(ValidationError):
+            Project(**valid_project_data(category="Ortopedia"))

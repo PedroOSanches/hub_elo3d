@@ -3,7 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const root = path.join(__dirname, 'src', 'app');
-const port = Number(process.env.PORT) || 5500;
+const port = Number(process.env.PORT) || 3000;
 
 const mimeTypes = {
   '.css': 'text/css; charset=utf-8',

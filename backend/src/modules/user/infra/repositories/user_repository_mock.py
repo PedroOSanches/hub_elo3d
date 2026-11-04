@@ -40,6 +40,7 @@ class UserRepositoryMock(IUserRepository):
                         complemento="Casa",
                         estado="SP"
                     ),
+                    password_hash=gerar_hash_senha('!Hospital123#')
                     role="hospital"
                     ),
                     User(
@@ -56,7 +57,8 @@ class UserRepositoryMock(IUserRepository):
                             complemento="Casa",
                             estado="SP"
                         ),
-                        role="user"
+                        role="user",
+                        password_hash=gerar_hash_senha('Maua123#')
                         ),
         ]
 

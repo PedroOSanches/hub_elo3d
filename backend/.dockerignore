@@ -1,0 +1,33 @@
+# Testes
+tests/
+test/
+**/tests/
+pytest.ini
+pyproject.toml
+
+# Ambiente virtual
+.venv/
+venv/
+env/
+
+# Cache Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Git
+.git/
+.gitignore
+.gitkeep
+
+# Arquivos de ambiente
+.env
+.env.*
+!.env.example
+
+# Outros
+.vscode/
+.idea/
+*.log

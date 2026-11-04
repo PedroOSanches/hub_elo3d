@@ -1,0 +1,20 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: iac/Dockerfile
+    container_name: hub_frontend
+    ports:
+      - "5500:5500"
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: iac/Dockerfile
+    ports:
+      - "8000:8000"
+    
+    env_file:
+      - ./.env

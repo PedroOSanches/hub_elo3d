@@ -19,7 +19,7 @@ def valid_project():
         title="Prótese de mão",
         date_end=date(2026, 11, 15),
         pieces_quantity=1,
-        category="ortese",
+        category="prosthesis",
         description="Projeto para reabilitação",
         urgency="high",
         filament_id=uuid4(),
@@ -33,7 +33,7 @@ def valid_project():
 
 class TestGetAllProjectsController:
     def test_get_all_projects_success(self, repo, valid_project):
-        second_project = valid_project.model_copy(update={"id": uuid4(), "title": "Prótese de perna", "category": "prótese"})
+        second_project = valid_project.model_copy(update={"id": uuid4(), "title": "Prótese de perna", "category": "prosthesis"})
 
         repo.get_all_projects.return_value = [valid_project, second_project]
 
@@ -44,7 +44,7 @@ class TestGetAllProjectsController:
         assert len(response) == 2
         assert response[0]["id"] == str(valid_project.id)
         assert response[1]["title"] == "Prótese de perna"
-        assert response[1]["category"] == "prótese"
+        assert response[1]["category"] == "prosthesis"
 
         repo.get_all_projects.assert_called_once_with()
 

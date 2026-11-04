@@ -1,3 +1,18 @@
+async function initMinhasImpressoras() {
+const app = document.getElementById('app');
+const modalFiles = [
+    'pages/components/impressora-detalhes-modal.html',
+    'pages/components/impressora-form-modal.html',
+];
+
+for (const modalFile of modalFiles) {
+    const response = await fetch(modalFile);
+    if (!response.ok) {
+        throw new Error(`Não foi possível carregar o popup: ${modalFile}`);
+    }
+    app.insertAdjacentHTML('beforeend', await response.text());
+}
+
 const modalDetalhes = document.getElementById('modal-detalhes');
 const modalForm = document.getElementById('modal-form');
 const form = document.getElementById('form-impressora');
@@ -114,3 +129,6 @@ document.querySelectorAll('.modal').forEach((modal) => {
         if (e.target === modal) modal.close();
     });
 });
+}
+
+window.initMinhasImpressoras = initMinhasImpressoras;

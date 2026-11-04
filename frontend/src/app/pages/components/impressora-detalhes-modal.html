@@ -1,0 +1,28 @@
+<dialog class="modal" id="modal-detalhes" aria-labelledby="detalhes-titulo">
+    <button type="button" class="modal_fechar" data-fechar aria-label="Fechar">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <line x1="3" y1="3" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="21" y1="3" x2="3" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+    </button>
+    <h2 class="modal_titulo" id="detalhes-titulo">Nome da impressora</h2>
+    <div class="campos-linha">
+        <div class="campo"><span class="campo_rotulo">Tecnologia de Impressão:</span><p class="campo_valor" id="det-tecnologia"></p></div>
+        <div class="campo"><span class="campo_rotulo">Modelo:</span><p class="campo_valor" id="det-modelo"></p></div>
+    </div>
+    <div class="campo"><span class="campo_rotulo">Atual estado da impressora:</span><p class="campo_valor campo_valor--status"><i class="ponto" id="det-ponto"></i><span id="det-estado"></span></p></div>
+    <div class="campo"><span class="campo_rotulo">Filamentos compatíveis:</span><p class="campo_valor" id="det-filamentos"></p></div>
+    <div class="campo">
+        <span class="campo_rotulo">Volume de impressão:</span>
+        <dl class="volume">
+            <dt>Largura:</dt><dd id="det-largura"></dd>
+            <dt>Altura:</dt><dd id="det-altura"></dd>
+            <dt>Profundidade:</dt><dd id="det-profundidade"></dd>
+            <dt>Total:</dt><dd id="det-total"></dd>
+        </dl>
+    </div>
+    <div class="modal_rodape">
+        <button type="button" class="botao-excluir" id="btn-excluir">Excluir impressora</button>
+        <button type="button" class="botao-principal" id="btn-editar">Editar impressora</button>
+    </div>
+</dialog>

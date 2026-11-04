@@ -17,6 +17,12 @@ const api = {
     return parseApiResponse(resposta, 'Login realizado com sucesso.');
   },
 
+  async getUser() {
+    const resposta = await window.apiFetch(`${API_BASE_URL}/user/get_user`);
+
+    return parseApiResponse(resposta, 'Usuário carregado com sucesso.');
+  },
+
   async cadastrar(dados) {
     telefone = normalizaTelefone(dados.telefone)
     const resposta = await fetch(`${API_BASE_URL}/user/create`, {
@@ -64,6 +70,7 @@ async function parseApiResponse(response, successMessage) {
   return {
     ok: true,
     mensagem: body.message || successMessage,
+    role: body.role,
   };
 }
 
@@ -125,6 +132,12 @@ function initLoginPage() {
     if (!valido(formLogin)) return;
     const resposta = await enviando(formLogin, () => api.login(dadosDo(formLogin)));
     if (resposta) {
+      const usuario = await api.getUser();
+      const role = usuario.role || resposta.role;
+
+      if (role) {
+        localStorage.setItem("elo3d-role", role);
+      }
       mensagem(formLogin, resposta.mensagem, resposta.ok);
       window.history.pushState({}, '', '/dashboard');
       window.dispatchEvent(new PopStateEvent('popstate'));

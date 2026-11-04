@@ -1,5 +1,23 @@
-function initPerfilHospital() {
+async function initPerfilHospital() {
   const $ = (sel) => document.querySelector(sel);
+
+  const modalResponse = await fetch('pages/components/senha-modal.html');
+  if (!modalResponse.ok) {
+    throw new Error('Não foi possível carregar o modal de senha.');
+  }
+
+  document.getElementById('app').insertAdjacentHTML(
+    'beforeend',
+    await modalResponse.text()
+  );
+
+  if (!document.getElementById('senha-modal-style')) {
+    const modalStyle = document.createElement('link');
+    modalStyle.id = 'senha-modal-style';
+    modalStyle.rel = 'stylesheet';
+    modalStyle.href = 'style/components/senha-modal.css';
+    document.head.appendChild(modalStyle);
+  }
 
   /* ---------- Toast ---------- */
   const toast = $('#toast');

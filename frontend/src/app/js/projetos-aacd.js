@@ -225,7 +225,13 @@ window.initProjetosAACD = function () {
     const modalDetalhes = document.getElementById("modal-detalhes");
     const form = document.getElementById("form-adicionar-projeto");
 
-    let filtroAtual = "todos";
+    const filtroInicial = new URLSearchParams(window.location.search).get("status");
+    const filtrosDisponiveis = new Set(
+        [...abas].map(aba => aba.dataset.filter)
+    );
+    let filtroAtual = filtrosDisponiveis.has(filtroInicial)
+        ? filtroInicial
+        : "todos";
     let modalAberto = null;
     let focoAnterior = null;
 
@@ -376,13 +382,16 @@ window.initProjetosAACD = function () {
 
     function renderizarProjetos() {
         const pesquisa = busca.value.trim().toLocaleLowerCase("pt-BR");
+        const filtro = filtroAtual.trim().toLocaleLowerCase("pt-BR");
 
         const filtrados = projetosAACDLista.filter(projeto => {
             const correspondeStatus =
-                filtroAtual === "todos" || projeto.status === filtroAtual;
+                filtro === "todos" || projeto.status === filtro;
 
             const correspondeBusca =
-                `${projeto.nome} ${projeto.id} ${projeto.categoria}`
+                `${projeto.nome} ${projeto.id} ${projeto.categoria} ${
+                    projeto.tecnologia
+                } ${projeto.material} ${projeto.cidade}`
                     .toLocaleLowerCase("pt-BR")
                     .includes(pesquisa);
 
@@ -400,12 +409,20 @@ window.initProjetosAACD = function () {
     }
 
     abas.forEach(aba => {
-        aba.addEventListener("click", () => {
-            filtroAtual = aba.dataset.filter;
+        const filtro = aba.dataset.filter?.trim().toLocaleLowerCase("pt-BR");
+        aba.setAttribute("aria-pressed", String(filtro === filtroAtual));
+        aba.classList.toggle("active", filtro === filtroAtual);
+
+        aba.addEventListener("click", event => {
+            event.preventDefault();
+            filtroAtual = event.currentTarget.dataset.filter
+                .trim()
+                .toLocaleLowerCase("pt-BR");
 
             abas.forEach(item => {
-                item.classList.toggle("active", item === aba);
-                item.setAttribute("aria-pressed", String(item === aba));
+                const ativo = item === aba;
+                item.classList.toggle("active", ativo);
+                item.setAttribute("aria-pressed", String(ativo));
             });
 
             renderizarProjetos();

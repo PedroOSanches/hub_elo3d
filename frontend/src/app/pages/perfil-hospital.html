@@ -11,18 +11,19 @@
 </head>
 <body>
 
-    <header class="projects-header">
+    <header class="partner-header">
         <app-navbar
             logo="assets/Group 3.png"
             icon="assets/icons/icon-perfil.svg"
+            logo-href="/dashboard"
             css="style/components/navbar.css"
             profile-href="/perfil-hospital"
-            first-text="Minhas Impressoras"
-            first-href="/minhas-impressoras"
-            second-text="Meus Projetos"
-            second-href="/meus-projetos"
-            third-text="Projetos Disponíveis"
-            third-href="/projetos-disponiveis">
+            first-text="Projetos"
+            first-href="/projetos-aacd"
+            second-text="Rede"
+            second-href="/rede-aacd"
+            third-text="Gerenciamento"
+            third-href="/gerenciamento">
         </app-navbar>
     </header>
 
@@ -122,42 +123,6 @@
       </div>
     </div>
   </main>
-
-  <dialog id="dlg-senha" aria-labelledby="dlg-titulo">
-    <form method="dialog" id="form-senha" novalidate>
-      <h2 id="dlg-titulo">Alterar senha</h2>
-
-      <div class="field field--stacked">
-        <label for="s-atual">Senha atual</label>
-        <input id="s-atual" type="password" autocomplete="current-password" required>
-      </div>
-      <div class="field field--stacked">
-        <label for="s-nova">Nova senha</label>
-        <input id="s-nova" type="password" autocomplete="new-password" minlength="8" required>
-        <small>Mínimo de 8 caracteres.</small>
-      </div>
-      <div class="field field--stacked">
-        <label for="s-conf">Confirmar nova senha</label>
-        <input id="s-conf" type="password" autocomplete="new-password" required>
-      </div>
-
-      <p class="error" id="senha-erro" role="alert" hidden></p>
-
-      <div class="actions">
-        <app-button
-          class="profile-button profile-button--ghost"
-          type="button"
-          id="senha-cancelar"
-          text="Cancelar">
-        </app-button>
-        <app-button
-          class="profile-button"
-          type="submit"
-          text="Salvar senha">
-        </app-button>
-      </div>
-    </form>
-  </dialog>
 
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 

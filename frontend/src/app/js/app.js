@@ -96,6 +96,18 @@ const routes = {
     style: "style/MinhasImpressoras.css",
     background: "#F4F0E5",
   },
+  "/projetos-aacd": {
+    page: "pages/projetos-aacd.html",
+    title: "Projetos AACD - Elo3D Hub",
+    style: "style/projetos-aacd.css",
+    background: "#F4F0E5",
+  },
+  "/rede-aacd": {
+    page: "pages/rede-aacd.html",
+    title: "Projetos AACD - Elo3D Hub",
+    style: "style/rede-aacd.css",
+    background: "#F4F0E5",
+  },
 };
 
 const publicRoutes = new Set([

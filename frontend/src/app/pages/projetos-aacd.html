@@ -1,7 +1,19 @@
-
+  <header class="partner-header">
+    <app-navbar
+      logo="assets/Group 3.png"
+      logo-href="/dashboard"
+      icon="assets/account-circle-fill.png"
+      css="style/components/navbar.css"
+      profile-href="/perfil"
+      first-text="Projetos"
+      first-href="/projetos-aacd"
+      second-text="Rede"
+      second-href="/rede-aacd"
+      third-text="Gerenciamento"
+      third-href="/gerenciamento">
+    </app-navbar>
+  </header>
 <main class="projetos-aacd">
-
-  
   <header class="projetos-aacd__header">
     <h1>Projetos</h1>
 
@@ -14,11 +26,8 @@
     </button>
   </header>
 
-  
   <section class="projetos-aacd__controls">
-
     <div class="projetos-aacd__tabs" role="group" aria-label="Filtrar projetos">
-
       <button type="button" class="tab active" data-filter="todos">
         Todos <span>(10)</span>
       </button>
@@ -34,7 +43,6 @@
       <button type="button" class="tab" data-filter="concluido">
         Concluídos <span>(3)</span>
       </button>
-
     </div>
 
     <div class="projetos-aacd__search">
@@ -44,12 +52,10 @@
         type="search"
         id="buscar-projeto"
         placeholder="Buscar projeto..."
-      >
+      />
     </div>
-
   </section>
 
-  
   <section
     class="projetos-aacd__list"
     id="lista-projetos"
@@ -59,13 +65,9 @@
   <p id="projetos-vazio" class="projetos-aacd__empty" hidden>
     Nenhum projeto encontrado.
   </p>
-
 </main>
 
-
-
 <div class="projetos-modal" id="modal-adicionar" hidden>
-
   <div class="projetos-modal__overlay" data-close-modal></div>
 
   <section
@@ -75,18 +77,18 @@
     aria-labelledby="titulo-adicionar"
     tabindex="-1"
   >
-
-    <button type="button" class="projetos-modal__close" data-close-modal aria-label="Fechar">
+    <button
+      type="button"
+      class="projetos-modal__close"
+      data-close-modal
+      aria-label="Fechar"
+    >
       &times;
     </button>
 
-    <h2 id="titulo-adicionar">
-      Adicionar <span>projeto</span>
-    </h2>
+    <h2 id="titulo-adicionar">Adicionar <span>projeto</span></h2>
 
     <form id="form-adicionar-projeto">
-
-      
       <fieldset class="projetos-form__section">
         <legend>
           <span class="projetos-form__number">01</span>
@@ -94,15 +96,26 @@
         </legend>
 
         <div class="projetos-form__grid">
-
           <div class="projetos-form__field">
             <label for="projeto-nome">Nome do projeto: *</label>
-            <input type="text" id="projeto-nome" name="nome" required maxlength="100">
+            <input
+              type="text"
+              id="projeto-nome"
+              name="nome"
+              required
+              maxlength="100"
+            />
           </div>
 
           <div class="projetos-form__field">
             <label for="projeto-quantidade">Quantidade de peças: *</label>
-            <input type="number" id="projeto-quantidade" name="quantidade" min="1" required>
+            <input
+              type="number"
+              id="projeto-quantidade"
+              name="quantidade"
+              min="1"
+              required
+            />
           </div>
 
           <div class="projetos-form__field">
@@ -119,13 +132,17 @@
 
           <div class="projetos-form__field">
             <label for="projeto-material">Material: *</label>
-            <input type="text" id="projeto-material" name="material" placeholder="Ex.: PLA, PETG, FDM" required>
+            <input
+              type="text"
+              id="projeto-material"
+              name="material"
+              placeholder="Ex.: PLA, PETG, FDM"
+              required
+            />
           </div>
-
         </div>
       </fieldset>
 
-      
       <fieldset class="projetos-form__section">
         <legend>
           <span class="projetos-form__number">02</span>
@@ -149,7 +166,6 @@
         </div>
       </fieldset>
 
-      
       <fieldset class="projetos-form__section">
         <legend>
           <span class="projetos-form__number">03</span>
@@ -157,7 +173,6 @@
         </legend>
 
         <div class="projetos-form__grid">
-
           <div class="projetos-form__field">
             <label for="projeto-arquivo">Arquivos anexos:</label>
 
@@ -172,7 +187,7 @@
               name="arquivo"
               accept=".pdf,.stl,.3mf,.obj,.png,.jpg,.jpeg"
               class="projetos-form__file-input"
-            >
+            />
 
             <small id="nome-arquivo"></small>
           </div>
@@ -186,11 +201,9 @@
               rows="4"
             ></textarea>
           </div>
-
         </div>
       </fieldset>
 
-     
       <fieldset class="projetos-form__section">
         <legend>
           <span class="projetos-form__number">04</span>
@@ -198,10 +211,9 @@
         </legend>
 
         <div class="projetos-form__grid">
-
           <div class="projetos-form__field">
             <label for="projeto-prazo">Prazo estimado: *</label>
-            <input type="date" id="projeto-prazo" name="prazo" required>
+            <input type="date" id="projeto-prazo" name="prazo" required />
           </div>
 
           <div class="projetos-form__field">
@@ -214,23 +226,17 @@
               <option value="Urgente">Urgente</option>
             </select>
           </div>
-
         </div>
       </fieldset>
 
       <button type="submit" class="projetos-form__submit" disabled>
         Adicionar Projeto
       </button>
-
     </form>
-
   </section>
 </div>
 
-
-
 <div class="projetos-modal" id="modal-detalhes" hidden>
-
   <div class="projetos-modal__overlay" data-close-modal></div>
 
   <section
@@ -240,14 +246,16 @@
     aria-labelledby="titulo-detalhes"
     tabindex="-1"
   >
-
-    <button type="button" class="projetos-modal__close" data-close-modal aria-label="Fechar">
+    <button
+      type="button"
+      class="projetos-modal__close"
+      data-close-modal
+      aria-label="Fechar"
+    >
       &times;
     </button>
 
-    <h2 id="titulo-detalhes">
-      Detalhes do <span>projeto</span>
-    </h2>
+    <h2 id="titulo-detalhes">Detalhes do <span>projeto</span></h2>
 
     <div class="projetos-details__heading">
       <div>
@@ -258,7 +266,6 @@
       <span id="detalhe-status" class="projetos-details__status"></span>
     </div>
 
-   
     <ol class="projetos-details__progress" id="detalhe-progresso">
       <li>Recebido</li>
       <li>Produção</li>
@@ -267,10 +274,12 @@
     </ol>
 
     <div class="projetos-details__cards">
-
       <article class="projetos-details__info-card">
         <span class="projetos-details__info-icon">
-           <img src="../assets/icons/projetos-aacd/projeto-parceiro.svg" alt="">
+          <img
+            src="../assets/icons/projetos-aacd/projeto-parceiro.svg"
+            alt=""
+          />
         </span>
         <div>
           <p>Parceiro responsável</p>
@@ -282,7 +291,10 @@
 
       <article class="projetos-details__info-card">
         <span>
-           <img src="../assets/icons/projetos-aacd/projeto-impressora.svg" alt="">
+          <img
+            src="../assets/icons/projetos-aacd/projeto-impressora.svg"
+            alt=""
+          />
         </span>
         <div>
           <p>Impressora utilizada</p>
@@ -295,21 +307,21 @@
 
       <article class="projetos-details__info-card">
         <span class="projetos-details__info-icon">
-          <img src="../assets/icons/projetos-aacd/projeto-calendario.svg" alt="">
+          <img
+            src="../assets/icons/projetos-aacd/projeto-calendario.svg"
+            alt=""
+          />
         </span>
         <div>
           <p>Previsão de conclusão</p>
           <strong id="detalhe-previsao">—</strong>
         </div>
       </article>
-
     </div>
 
-    
     <section class="projetos-details__history">
       <h3>Histórico do projeto</h3>
       <ol id="detalhe-historico"></ol>
     </section>
-
   </section>
 </div>

@@ -4,6 +4,7 @@ from uuid import UUID
 from src.modules.project.domain.entities.project import Project
 from src.modules.project.domain.entities.project_file import ProjectFile
 from src.modules.project.domain.enums.urgency_enum import Urgency
+from src.modules.project.domain.enums.category_enum import Category
 from src.modules.project.domain.repositories.project_repository_interface import IProjectRepository
 
 class CreateProjectUsecase:
@@ -15,7 +16,7 @@ class CreateProjectUsecase:
         title: str,
         date_end: date,
         pieces_quantity: int,
-        category: str,
+        category: Category,
         description: str,
         urgency: Urgency,
         filament_id: UUID,

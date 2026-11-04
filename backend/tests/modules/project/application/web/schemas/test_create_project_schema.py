@@ -11,7 +11,7 @@ def valid_request_data(**overrides):
         "title": "Prótese de mão",
         "date_end": "2026-11-15",
         "pieces_quantity": 2,
-        "category": "Ortopedia",
+        "category": "prosthesis",
         "description": "Modelo de prótese para reabilitação",
         "urgency": "high",
         "filament_id": "123e4567-e89b-12d3-a456-426614174000",
@@ -67,3 +67,7 @@ class TestCreateProjectRequestSchema:
         ]:
             with raises(ValidationError):
                 CreateProjectRequestSchema(**valid_request_data(**{field: value}))
+
+    def test_invalid_category(self):
+        with raises(ValidationError):
+            CreateProjectRequestSchema(**valid_request_data(category="invalid_category"))

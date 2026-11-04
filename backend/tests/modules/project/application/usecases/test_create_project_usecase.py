@@ -10,6 +10,7 @@ from src.modules.project.domain.entities.project import Project
 from src.modules.project.domain.entities.project_file import ProjectFile
 from src.modules.project.domain.enums.order_status_enum import OrderStatus
 from src.modules.project.domain.enums.urgency_enum import Urgency
+from src.modules.project.domain.enums.category_enum import Category
 from src.modules.project.domain.repositories.project_repository_interface import IProjectRepository
 
 def valid_create_data(**overrides):
@@ -17,7 +18,7 @@ def valid_create_data(**overrides):
         "title": "Prótese de mão",
         "date_end": date(2026, 11, 15),
         "pieces_quantity": 1,
-        "category": "Ortopedia",
+        "category": Category.PROSTHESIS,
         "description": "Prótese de mão para paciente em recuperação",
         "urgency": Urgency.HIGH,
         "filament_id": uuid4(),
@@ -37,7 +38,7 @@ class TestCreateProjectUsecase:
 
         assert isinstance(project, Project)
         assert project.pieces_quantity == 1
-        assert project.category == "Ortopedia"
+        assert project.category == Category.PROSTHESIS
         assert project.order_status == "waiting_for_partner"
         assert project.printer_id is None
 

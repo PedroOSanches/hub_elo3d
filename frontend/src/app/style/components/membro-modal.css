@@ -1,0 +1,114 @@
+.member-modal {
+    position: fixed;
+    inset: 50% auto auto 50%;
+    transform: translate(-50%, -50%);
+    width: min(820px, calc(100vw - 32px));
+    max-height: calc(100vh - 32px);
+    margin: 0;
+    overflow-y: auto;
+    padding: 24px 44px 38px;
+    border: 0;
+    border-radius: 16px;
+    color: #111111;
+    font-family: 'Sora', sans-serif;
+}
+
+.member-modal::backdrop {
+    background: rgba(0, 0, 0, .48);
+}
+
+.member-modal__close {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+}
+
+.member-modal__close svg {
+    width: 26px;
+    height: 26px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-width: 1.8;
+}
+
+.member-modal h2 {
+    margin: 0 0 34px;
+    padding-right: 42px;
+    font-size: 27px;
+}
+
+.member-modal__field {
+    display: grid;
+    gap: 5px;
+    margin: 0 auto 28px;
+    width: min(100%, 640px);
+}
+
+.member-modal__field label {
+    font-size: 18px;
+}
+
+.member-modal__field input {
+    width: 100%;
+    height: 40px;
+    padding: 6px 10px;
+    background: #f8e6d2;
+    border: 2px solid #a10029;
+    border-radius: 4px;
+    color: #111111;
+    font: inherit;
+    font-size: 15px;
+}
+
+.member-modal__field input:focus {
+    outline: 2px solid rgba(161, 0, 41, .2);
+    outline-offset: 2px;
+}
+
+.member-modal__actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    width: min(100%, 640px);
+    margin: 46px auto 0;
+}
+
+.member-modal__button {
+    width: 136px;
+    --app-button-height: 36px;
+    --app-button-font-size: .95rem;
+    --app-button-radius: 22px;
+    --app-button-border: #a10029;
+}
+
+.member-modal__button--cancel {
+    --app-button-background: #a10029;
+}
+
+@media (max-width: 600px) {
+    .member-modal {
+        width: calc(100vw - 24px);
+        padding: 22px 18px 28px;
+    }
+
+    .member-modal h2 {
+        font-size: 23px;
+    }
+
+    .member-modal__field label {
+        font-size: 16px;
+    }
+
+    .member-modal__actions {
+        margin-top: 32px;
+    }
+}

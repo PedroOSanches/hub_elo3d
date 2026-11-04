@@ -1,0 +1,101 @@
+:root {
+  --team-wine: #a10029;
+  --team-cream: #f4f0e5;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--team-cream);
+  color: #111111;
+  font-family: 'Sora', sans-serif;
+}
+
+.team-page {
+  width: min(100%, 1320px);
+  min-height: calc(100vh - 65px);
+  margin: 0 auto;
+  padding: 64px 32px 48px;
+}
+
+.team-page__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 28px;
+  margin-bottom: 14px;
+}
+
+.team-page h1 {
+  margin: 0 0 14px;
+  font-size: 34px;
+  font-weight: 700;
+}
+
+.team-search {
+  display: block;
+  width: 360px;
+}
+
+.team-search input {
+  width: 100%;
+  height: 30px;
+  padding: 4px 12px;
+  background: #ffffff;
+  border: 1px solid var(--team-wine);
+  border-radius: 12px;
+  font: inherit;
+  font-size: 14px;
+}
+
+.team-search input:focus {
+  outline: 2px solid rgba(161, 0, 41, .2);
+}
+
+.team-page__add {
+  width: 178px;
+  --app-button-height: 44px;
+  --app-button-font-size: .82rem;
+  --app-button-radius: 8px;
+  --app-button-border: var(--team-wine);
+}
+
+.member-list {
+  display: grid;
+  gap: 20px;
+}
+
+.member-list:empty::after {
+  content: 'Nenhum membro encontrado.';
+  color: #777274;
+  font-size: 14px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 600px) {
+  .team-page {
+    padding: 80px 14px 32px;
+  }
+
+  .team-page__header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .team-search {
+    width: 100%;
+  }
+}

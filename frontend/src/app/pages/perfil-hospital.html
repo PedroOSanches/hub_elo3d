@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Perfil • HUB Elo3D</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="perfil-hospital.css">
+</head>
+<body>
+
+    <header class="projects-header">
+        <app-navbar
+            logo="assets/Group 3.png"
+            icon="assets/account-circle-fill.png"
+            css="style/components/navbar.css"
+            profile-href="/login"
+            first-text="Minhas Impressoras"
+            first-href="/minhas-impressoras"
+            second-text="Meus Projetos"
+            second-href="/meus-projetos"
+            third-text="Projetos Disponíveis"
+            third-href="/projetos-disponiveis">
+        </app-navbar>
+    </header>
+
+  <main class="page">
+    <h1 class="page__title">Perfil</h1>
+
+    <section class="identity card" aria-labelledby="inst-nome">
+      <div class="identity__logo">
+        <img src="assets/aacd-seeklogo 1.png" alt="Logo da AACD">
+      </div>
+      <div class="identity__text">
+        <h2 id="inst-nome">AACD</h2>
+        <p>Associação de Assistência à Criança Deficiente</p>
+      </div>
+      <span class="badge">Conta institucional</span>
+    </section>
+
+    <div class="grid">
+
+      <section class="card" aria-labelledby="t-info">
+        <header class="card__head">
+          <h2 id="t-info">Informações da instituição</h2>
+          
+        </header>
+
+        <form id="form-info" class="fields" novalidate>
+          <div class="field">
+            <label for="f-nome">Nome</label>
+            <input id="f-nome" name="nome" value="AACD" readonly required>
+          </div>
+          <div class="field">
+            <label for="f-email">E-mail institucional</label>
+            <input id="f-email" name="email" type="email" value="contato@aacd.org.br" readonly required>
+          </div>
+          <div class="field">
+            <label for="f-tel">Telefone</label>
+            <input id="f-tel" name="telefone" type="tel" value="(11) 99999-9999" readonly>
+          </div>
+          <div class="field">
+            <label for="f-end">Endereço</label>
+            <textarea id="f-end" name="endereco" rows="2" readonly>Rua Loefgren, 2109 - Vila Clementino - São Paulo/SP, 04040-030</textarea>
+          </div>
+
+          <div class="actions" id="edit-actions" hidden>
+            <app-button
+              class="profile-button profile-button--ghost"
+              type="button"
+              id="btn-cancelar"
+              text="Cancelar">
+            </app-button>
+            <app-button
+              class="profile-button"
+              type="submit"
+              text="Salvar alterações">
+            </app-button>
+          </div>
+        </form>
+      </section>
+
+      <div class="stack">
+
+        <section class="card" aria-labelledby="t-conta">
+          <header class="card__head">
+            <h2 id="t-conta">Conta e segurança</h2>
+            <app-button
+              class="profile-button"
+              id="btn-senha"
+              type="button"
+              text="Alterar senha">
+            </app-button>
+          </header>
+
+          <dl class="list">
+            <div class="list__row"><dt>Usuário</dt><dd>equipe_aacd</dd></div>
+            <div class="list__row"><dt>E-mail de acesso</dt><dd>equipeaacd@aacd.org.br</dd></div>
+            <div class="list__row"><dt>Senha</dt><dd><span class="dots" aria-label="Senha oculta">••••••••••••</span></dd></div>
+          </dl>
+        </section>
+
+        <section class="card" aria-labelledby="t-membros">
+          <header class="card__head">
+            <h2 id="t-membros">Membros da equipe <span class="count" id="count-membros">2</span></h2>
+            <app-button
+              class="profile-button"
+              id="btn-membros"
+              href="/gerenciamento"
+              text="Gerenciar membros">
+            </app-button>
+          </header>
+
+          <ul class="members" id="members"></ul>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <dialog id="dlg-senha" aria-labelledby="dlg-titulo">
+    <form method="dialog" id="form-senha" novalidate>
+      <h2 id="dlg-titulo">Alterar senha</h2>
+
+      <div class="field field--stacked">
+        <label for="s-atual">Senha atual</label>
+        <input id="s-atual" type="password" autocomplete="current-password" required>
+      </div>
+      <div class="field field--stacked">
+        <label for="s-nova">Nova senha</label>
+        <input id="s-nova" type="password" autocomplete="new-password" minlength="8" required>
+        <small>Mínimo de 8 caracteres.</small>
+      </div>
+      <div class="field field--stacked">
+        <label for="s-conf">Confirmar nova senha</label>
+        <input id="s-conf" type="password" autocomplete="new-password" required>
+      </div>
+
+      <p class="error" id="senha-erro" role="alert" hidden></p>
+
+      <div class="actions">
+        <app-button
+          class="profile-button profile-button--ghost"
+          type="button"
+          id="senha-cancelar"
+          text="Cancelar">
+        </app-button>
+        <app-button
+          class="profile-button"
+          type="submit"
+          text="Salvar senha">
+        </app-button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+</body>
+</html>

@@ -1,157 +1,65 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu perfil</title>
-    <link rel="stylesheet" href="../style/perfil-parceiro.css">
-</head>
+<header class="projects-header">
+    <app-navbar
+        logo="assets/Group 3.png"
+        icon="assets/account-circle-fill.png"
+        css="style/components/navbar.css"
+        profile-href="/login"
+        first-text="Minhas Impressoras"
+        first-href="/minhas-impressoras"
+        second-text="Meus Projetos"
+        second-href="/meus-projetos"
+        third-text="Projetos Disponíveis"
+        third-href="/projetos-disponiveis">
+    </app-navbar>
+</header>
+<main>
+    <header class="profile">
+        <h1>Meu <span>Perfil</span></h1>
+    </header>
 
-<body>
-    <main>
-        <header class="profile">
-            <h1>Meu <span>Perfil</span></h1>
-        </header>
+    <div class="profile-content">
 
-        <div class="profile-content">
-            <section class="card" aria-labelledby="titulo-organizacao">
-                <div class="internal-card">
-                    <h2 id="titulo-organizacao">Dados da Organização</h2>
-                    <dl class="data">
-                        <dt>Nome do laboratório</dt>
-                        <dd>FabLab Mauá</dd>
+        <section class="card" aria-labelledby="titulo-endereco">
+            <div class="internal-card">
+                <h2 id="titulo-endereco">Endereço</h2>
+                <dl class="data">
+                    <dt>Endereço</dt>
+                    <dd>Av. Barão de Mauá, 18681</dd>
 
-                        <dt>Instituição</dt>
-                        <dd>Instituto Mauá de Tecnologia</dd>
+                    <dt>Bairro</dt>
+                    <dd>Jardim Pedroso</dd>
 
-                        <dt>Descrição</dt>
-                        <dd>Laboratório de fabricação digital com foco em impressão 3D, prototipagem e projetos de inclusão.</dd>
-                    </dl>
-                </div>
-            </section>
+                    <dt>Cidade/ Estado</dt>
+                    <dd>São Caetano do Sul - SP</dd>
 
-            <section class="card" aria-labelledby="titulo-endereco">
-                <div class="internal-card">
-                    <h2 id="titulo-endereco">Endereço</h2>
-                    <dl class="data">
-                        <dt>Endereço</dt>
-                        <dd>Av. Barão de Mauá, 18681</dd>
-
-                        <dt>Bairro</dt>
-                        <dd>Jardim Pedroso</dd>
-
-                        <dt>Cidade/ Estado</dt>
-                        <dd>São Caetano do Sul - SP</dd>
-
-                        <dt>CEP</dt>
-                        <dd>09580-900</dd>
-                    </dl>
-                    <div>
-                        <button type="button" class="button-edit" data-editar="endereco">Editar</button>
-                    </div>
-                </div>
-            </section>
-
-            <section class="card" aria-labelledby="titulo-contato">
-                <div class="internal-card">
-                    <h2 id="titulo-contato">Contato</h2>
-                    <dl class="data">
-                        <dt>Nome do Responsável</dt>
-                        <dd>Ana Beatriz Silva</dd>
-
-                        <dt>E-mail</dt>
-                        <dd>ana.silva@maua.br</dd>
-
-                        <dt>Telefone</dt>
-                        <dd>(11)4239-3000</dd>
-                    </dl>
-                    <div class="card-actions">
-                        <button type="button" class="button-edit" data-editar="contato">Editar</button>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </main>
-
-    <dialog class="modal" id="modal-contato" aria-labelledby="titulo-modal-contato">
-        <button type="button" class="modal_fechar" data-fechar aria-label="Fechar">
-            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-                <line x1="3" y1="3" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <line x1="21" y1="3" x2="3" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-        </button>
- 
-        <h2 class="modal_titulo" id="titulo-modal-contato">Contato</h2>
- 
-        <form id="form-contato">
- 
-            <div class="campo">
-                <label class="campo_rotulo" for="f-nome">Nome do responsável:</label>
-                <input class="campo_input" type="text" id="f-nome" name="nome" required>
-            </div>
- 
-            <div class="campo">
-                <label class="campo_rotulo" for="f-email">E-mail:</label>
-                <input class="campo_input" type="email" id="f-email" name="email" required>
-            </div>
- 
-            <div class="campo">
-                <label class="campo_rotulo" for="f-phone">Telefone:</label>
-                <div class="campo_telefone">
-                    <span id="ddi">+55</span>
-                    <input class="campo_input" type="tel" id="f-phone" name="telefone" aria-describedby="ddi" required>
+                    <dt>CEP</dt>
+                    <dd>09580-900</dd>
+                </dl>
+                <div>
+                    <button type="button" class="button-edit" data-open-endereco>Editar</button>
                 </div>
             </div>
- 
-            <div class="modal_acoes">
-                <button type="button" class="botao_modal" data-fechar>Cancelar</button>
-                <button type="submit" class="botao_modal">Salvar</button>
-            </div>
- 
-        </form>
-    </dialog>
+        </section>
 
-    <dialog class="modal" id="modal-endereco" aria-labelledby="titulo-modal-endereco">
-        <button type="button" class="modal_fechar" data-fechar aria-label="Fechar">
-            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-                <line x1="3" y1="3" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <line x1="21" y1="3" x2="3" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-        </button>
- 
-        <h2 class="modal_titulo" id="titulo-modal-endereco">Endereço</h2>
- 
-        <form id="form-endereco">
- 
-            <div class="campo">
-                <label class="campo_rotulo" for="f-cep">CEP:</label>
-                <input class="campo_input" type="text" id="f-cep" name="cep" required>
-            </div>
- 
-            <div class="campo">
-                <label class="campo_rotulo" for="f-endereco">Endereço:</label>
-                <input class="campo_input" type="endereco" id="f-endereco" name="endereco" required>
-            </div>
- 
-            <div class="campo">
-                <label class="campo_rotulo" for="f-phone">Bairro:</label>
-                <input class="campo_input" type="bairro" id="f-bairro" name="bairro" required>
+        <section class="card" aria-labelledby="titulo-contato">
+            <div class="internal-card">
+                <h2 id="titulo-contato">Contato</h2>
+                <dl class="data">
+                    <dt>Nome do Responsável</dt>
+                    <dd>Ana Beatriz Silva</dd>
 
-            </div>
+                    <dt>E-mail</dt>
+                    <dd>ana.silva@maua.br</dd>
 
-             <div class="campo">
-                <label class="campo_rotulo" for="f-email">Cidade/Estado:</label>
-                <input class="campo_input" type="cidade" id="f-cidade" name="cidade" required>
+                    <dt>Telefone</dt>
+                    <dd>(11)4239-3000</dd>
+                </dl>
+                <div class="card-actions">
+                    <button type="button" class="button-edit" data-open-contato>Editar</button>
+                </div>
             </div>
- 
-            <div class="modal_acoes">
-                <button type="button" class="botao_modal" data-fechar>Cancelar</button>
-                <button type="submit" class="botao_modal">Salvar</button>
-            </div>
- 
-        </form>
-    </dialog>
-        <script src="../js/perfil-parceiro.js"></script>
+        </section>
+    </div>
+</main>
 
-</body>
-</html>
+<script src="../js/perfil-parceiro.js"></script>    

@@ -1,0 +1,33 @@
+<header class="projects-header">
+    <app-navbar
+        logo="assets/Group 3.png"
+        icon="assets/account-circle-fill.png"
+        css="style/components/navbar.css"
+        profile-href="/login"
+        first-text="Início"
+        first-href="/"
+        second-text="Projetos"
+        second-href="/meus-projetos"
+        third-text="Rede"
+        third-href="/gerenciamento">
+    </app-navbar>
+</header>
+
+<main class="team-page">
+    <div class="team-page__header">
+        <div>
+            <h1>Membros da equipe</h1>
+            <label class="team-search">
+                <span class="sr-only">Buscar membro</span>
+                <input id="member-search" type="search" placeholder="Buscar membro">
+            </label>
+        </div>
+        <app-button
+            class="team-page__add"
+            type="button"
+            text="+ Adicionar membro">
+        </app-button>
+    </div>
+
+    <section id="member-list" class="member-list" aria-label="Membros da equipe"></section>
+</main>

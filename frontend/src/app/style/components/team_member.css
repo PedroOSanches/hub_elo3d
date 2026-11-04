@@ -1,0 +1,116 @@
+team-member {
+  display: block;
+}
+
+.member-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(260px, 32%) minmax(0, 1fr) auto;
+  align-items: center;
+  min-height: 82px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #d5d0c8;
+  border-radius: 10px;
+  box-shadow: 0 1px 2px rgba(40, 30, 20, .08);
+}
+
+.member-card__accent {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 58px;
+  background: #ffe4a3;
+}
+
+.member-card__name {
+  position: relative;
+  padding: 24px 24px 24px 74px;
+  border-right: 1px solid #b7b1a9;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.member-card__details {
+  min-width: 0;
+  display: grid;
+  gap: 7px;
+  padding: 14px 30px;
+  color: #1d1a1b;
+  font-size: 12px;
+}
+
+.member-card__details > div {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.member-card__details span {
+  font-weight: 700;
+}
+
+.member-card__phone-icon {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.member-card__phone-icon svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+.member-card__actions {
+  display: flex;
+  gap: 24px;
+  padding: 16px 22px;
+}
+
+.member-card__action {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  color: #111111;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.member-card__action svg {
+  width: 23px;
+  height: 23px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.member-card__action:hover {
+  color: #a10029;
+}
+
+@media (max-width: 700px) {
+  .member-card {
+    grid-template-columns: 1fr auto;
+  }
+
+  .member-card__name {
+    border-right: 0;
+  }
+
+  .member-card__details {
+    grid-column: 1 / -1;
+    padding: 0 18px 14px 42px;
+  }
+
+  .member-card__actions {
+    grid-column: 2;
+    grid-row: 1;
+    padding-right: 14px;
+  }
+}

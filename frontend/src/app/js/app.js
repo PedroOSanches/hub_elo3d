@@ -1,6 +1,8 @@
 const app = document.getElementById("app");
 const ROUTER_API_BASE_URL =
   window.ENV?.API_BASE_URL || "http://localhost:8000/api";
+let refreshPromise = null;
+let sessionRedirectInProgress = false;
 
 const routes = {
   "/": {
@@ -146,26 +148,7 @@ function getCurrentRoute() {
   return window.location.pathname.replace(/\/+$/, "") || "/";
 }
 
-async function isAuthenticated() {
-  try {
-    const response = await fetch(`${ROUTER_API_BASE_URL}/auth/me`, {
-      credentials: "include",
-    });
-
-    if (!response.ok) {
-      return false;
-    }
-
-    const user = await response.json();
-    localStorage.setItem("elo3d-user", JSON.stringify(user));
-    return true;
-  } catch (error) {
-    console.error("Não foi possível validar a autenticação:", error);
-    return false;
-  }
-}
-
-function showLoginRequiredMessage() {
+function showAuthMessage(title, text) {
   let message = document.getElementById("auth-route-message");
 
   if (!message) {
@@ -173,69 +156,129 @@ function showLoginRequiredMessage() {
     message.id = "auth-route-message";
     message.setAttribute("role", "alert");
     message.setAttribute("aria-live", "assertive");
-    message.innerHTML = `
-      <strong>Acesso restrito</strong>
-      <span>Você precisa estar logado para acessar esta página.</span>
-    `;
-
-    Object.assign(message.style, {
-      alignItems: "center",
-      background: "#fff4e5",
-      border: "1px solid #e6a23c",
-      borderRadius: "12px",
-      boxShadow: "0 8px 24px rgba(67, 45, 28, 0.18)",
-      color: "#6b4218",
-      display: "flex",
-      flexDirection: "column",
-      gap: "4px",
-      left: "50%",
-      maxWidth: "calc(100% - 32px)",
-      padding: "16px 22px",
-      position: "fixed",
-      textAlign: "center",
-      top: "24px",
-      transform: "translateX(-50%)",
-      width: "360px",
-      zIndex: "9999",
-    });
-
-    const title = message.querySelector("strong");
-    Object.assign(title.style, {
-      color: "#8a4b08",
-      fontSize: "16px",
-    });
-
-    const text = message.querySelector("span");
-    Object.assign(text.style, {
-      fontSize: "14px",
-      lineHeight: "1.4",
-    });
-
     document.body.appendChild(message);
   }
 
-  clearTimeout(showLoginRequiredMessage.timeoutId);
+  message.innerHTML = `
+    <strong>${title}</strong>
+    <span>${text}</span>
+  `;
+
+  Object.assign(message.style, {
+    alignItems: "center",
+    background: "#fff4e5",
+    border: "1px solid #e6a23c",
+    borderRadius: "12px",
+    boxShadow: "0 8px 24px rgba(67, 45, 28, 0.18)",
+    color: "#6b4218",
+    display: "flex",
+    flexDirection: "column",
+    gap: "4px",
+    left: "50%",
+    maxWidth: "calc(100% - 32px)",
+    padding: "16px 22px",
+    position: "fixed",
+    textAlign: "center",
+    top: "24px",
+    transform: "translateX(-50%)",
+    width: "360px",
+    zIndex: "9999",
+  });
+
+  Object.assign(message.querySelector("strong").style, {
+    color: "#8a4b08",
+    fontSize: "16px",
+  });
+  Object.assign(message.querySelector("span").style, {
+    fontSize: "14px",
+    lineHeight: "1.4",
+  });
+
+  clearTimeout(showAuthMessage.timeoutId);
   message.hidden = false;
-  showLoginRequiredMessage.timeoutId = setTimeout(() => {
+  message.style.display = "flex";
+  showAuthMessage.timeoutId = setTimeout(() => {
     message.hidden = true;
-  }, 4000);
+    message.style.display = "none";
+  }, 3000);
 }
 
-async function canAccessRoute(pathname, { showAlert = false } = {}) {
-  if (publicRoutes.has(pathname)) {
-    return true;
+function handleExpiredSession() {
+  localStorage.removeItem("elo3d-user");
+  localStorage.removeItem("elo3d-role");
+  showAuthMessage(
+    "Sessão expirada",
+    "Faça login novamente para continuar."
+  );
+
+  if (!publicRoutes.has(getCurrentRoute()) && !sessionRedirectInProgress) {
+    sessionRedirectInProgress = true;
+    window.history.replaceState({}, "", "/login");
+    renderRoute().finally(() => {
+      sessionRedirectInProgress = false;
+      showAuthMessage(
+        "Sessão expirada",
+        "Faça login novamente para continuar."
+      );
+    });
+  }
+}
+
+async function refreshAccessToken() {
+  if (!refreshPromise) {
+    refreshPromise = fetch(`${ROUTER_API_BASE_URL}/auth/refresh`, {
+      method: "POST",
+      credentials: "include",
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Não foi possível renovar a sessão.");
+        }
+      })
+      .finally(() => {
+        refreshPromise = null;
+      });
   }
 
-  const authenticated = await isAuthenticated();
-  if (authenticated) {
-    return true;
+  return refreshPromise;
+}
+
+async function apiFetch(url, options = {}) {
+  const { retryOnUnauthorized = true, ...requestOptions } = options;
+  const response = await fetch(url, {
+    ...requestOptions,
+    credentials: "include",
+  });
+
+  if (response.status !== 401) {
+    return response;
   }
 
-  if (showAlert) {
-    showLoginRequiredMessage();
+  if (!retryOnUnauthorized) {
+    handleExpiredSession();
+    return response;
   }
 
-  return false;
+  try {
+    await refreshAccessToken();
+    return apiFetch(url, {
+      ...requestOptions,
+      retryOnUnauthorized: false,
+    });
+  } catch (error) {
+    console.error("Não foi possível renovar o token:", error);
+    handleExpiredSession();
+    return response;
+  }
+}
+
+window.apiFetch = apiFetch;
+
+function showLoginRequiredMessage() {
+  showAuthMessage(
+    "Acesso restrito",
+    "Você precisa estar logado para acessar esta página."
+  );
 }
 
 function loadRouteStyle(stylePath) {
@@ -277,13 +320,6 @@ window.initDashboardParceiro = async function () {
 
 async function renderRoute() {
   const currentRoute = getCurrentRoute();
-
-  if (!(await canAccessRoute(currentRoute))) {
-    window.history.replaceState({}, "", "/login");
-    await renderRoute();
-    showLoginRequiredMessage();
-    return;
-  }
 
   const route =
     currentRoute === "/dashboard" || currentRoute === "/dashboard-aacd"
@@ -346,6 +382,14 @@ async function renderRoute() {
       window.initDashboardParceiro?.();
       await window.initProjectsPage?.();
     }
+
+    if (route.page === "pages/projetos-aacd.html") {
+      window.initProjetosAACD?.();
+    }
+
+    if (route.page === "pages/rede-aacd.html") {
+      window.initRedeAACD?.();
+    }
   } catch (error) {
     console.error(error);
     app.innerHTML = `
@@ -378,11 +422,6 @@ document.addEventListener("click", async (event) => {
   }
 
   event.preventDefault();
-
-  const targetPath = link.pathname.replace(/\/+$/, "") || "/";
-  if (!(await canAccessRoute(targetPath, { showAlert: true }))) {
-    return;
-  }
 
   window.history.pushState({}, "", `${link.pathname}${link.search}`);
   renderRoute();

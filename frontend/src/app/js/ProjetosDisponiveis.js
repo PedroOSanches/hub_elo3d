@@ -1,4 +1,17 @@
+async function initProjetosDisponiveis() {
+const app = document.getElementById('app');
+const response = await fetch('pages/components/projeto-disponivel-modal.html');
+
+if (!response.ok) {
+    throw new Error('Não foi possível carregar o modal de projeto disponível.');
+}
+
+app.insertAdjacentHTML('beforeend', await response.text());
+
 const modal = document.getElementById('modal-projeto');
+if (!modal) {
+    throw new Error('O modal de projeto disponível não foi encontrado.');
+}
  
 const campos = {
     titulo:      document.getElementById('modal-titulo'),
@@ -11,7 +24,7 @@ const campos = {
     arquivoLink: document.getElementById('modal-arquivo'),
 };
  
-document.querySelectorAll('[data-abrir-modal]').forEach((botao) => {
+app.querySelectorAll('[data-abrir-modal]').forEach((botao) => {
     botao.addEventListener('click', () => {
         const d = botao.dataset;
  
@@ -33,3 +46,6 @@ modal.querySelector('[data-fechar-modal]').addEventListener('click', () => modal
 modal.addEventListener('click', (e) => {
     if (e.target === modal) modal.close();
 });
+}
+
+window.initProjetosDisponiveis = initProjetosDisponiveis;

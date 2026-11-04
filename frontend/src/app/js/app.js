@@ -374,6 +374,14 @@ async function renderRoute() {
       await window.initProjectsPage?.();
     }
 
+    if (route.page === "pages/MinhasImpressoras.html") {
+      await window.initMinhasImpressoras?.();
+    }
+
+    if (route.page === "pages/ProjetosDisponiveis.html") {
+      await window.initProjetosDisponiveis?.();
+    }
+
     if (route.page === "pages/dashboard-aacd.html") {
       window.initDashboardAACD?.();
     }

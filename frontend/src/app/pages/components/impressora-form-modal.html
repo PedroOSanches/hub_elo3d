@@ -1,0 +1,43 @@
+<dialog class="modal modal--form" id="modal-form" aria-labelledby="form-titulo">
+    <button type="button" class="modal_fechar" data-fechar aria-label="Fechar">×</button>
+    <h2 class="sr-only" id="form-titulo">Adicionar impressora</h2>
+    <form id="form-impressora">
+        <div class="campo"><label class="campo_rotulo" for="f-nome">Nome da Impressora:</label><input class="campo_input" type="text" id="f-nome" name="nome" required></div>
+        <div class="campos-linha">
+            <div class="campo"><label class="campo_rotulo" for="f-tecnologia">Tecnologia de Impressão:</label><input class="campo_input" type="text" id="f-tecnologia" name="tecnologia" required></div>
+            <div class="campo"><label class="campo_rotulo" for="f-modelo">Modelo:</label><input class="campo_input" type="text" id="f-modelo" name="modelo" required></div>
+        </div>
+        <fieldset class="campo">
+            <legend class="campo_rotulo">Atual estado da impressora:</legend>
+            <div class="estados">
+                <label class="radio"><input type="radio" name="estado" value="online" checked> <i class="ponto ponto--disponivel"></i> Online</label>
+                <label class="radio"><input type="radio" name="estado" value="producao"> <i class="ponto ponto--uso"></i> Em produção</label>
+                <label class="radio"><input type="radio" name="estado" value="pausada"> <i class="ponto ponto--pausada"></i> Pausada</label>
+            </div>
+        </fieldset>
+        <div class="campo">
+            <span class="campo_rotulo" id="rotulo-filamentos">Filamentos compatíveis:</span>
+            <details class="dropdown" id="dropdown-filamentos">
+                <summary aria-labelledby="rotulo-filamentos" id="resumo-filamentos">Selecione os filamentos</summary>
+                <div class="dropdown_lista">
+                    <label class="check"><input type="checkbox" name="filamentos" value="PLA"> <span>PLA</span></label>
+                    <label class="check"><input type="checkbox" name="filamentos" value="PETG"> <span>PETG</span></label>
+                    <label class="check"><input type="checkbox" name="filamentos" value="ABS"> <span>ABS</span></label>
+                    <label class="check"><input type="checkbox" name="filamentos" value="ASA"> <span>ASA</span></label>
+                    <label class="check"><input type="checkbox" name="filamentos" value="Policarbonato (PC)"> <span>Policarbonato (PC)</span></label>
+                    <label class="check"><input type="checkbox" name="filamentos" value="Nylon"> <span>Nylon</span></label>
+                    <label class="check"><input type="checkbox" name="filamentos" value="Flexíveis"> <span>Flexíveis</span></label>
+                </div>
+            </details>
+        </div>
+        <fieldset class="campo">
+            <legend class="campo_rotulo">Volume de impressão:</legend>
+            <div class="volume volume--form">
+                <label for="f-largura">Largura:</label><input type="number" id="f-largura" name="largura" min="1" required placeholder="mm">
+                <label for="f-altura">Altura:</label><input type="number" id="f-altura" name="altura" min="1" required placeholder="mm">
+                <label for="f-profundidade">Profundidade:</label><input type="number" id="f-profundidade" name="profundidade" min="1" required placeholder="mm">
+            </div>
+        </fieldset>
+        <div class="modal_rodape modal_rodape--centro"><button type="submit" class="botao-principal" id="btn-enviar">+ Adicionar impressora</button></div>
+    </form>
+</dialog>

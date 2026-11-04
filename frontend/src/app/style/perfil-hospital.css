@@ -76,7 +76,26 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 /* ---------- Layout ---------- */
 .page { max-width: 1200px; margin: 0 auto; padding: 38px 38px 64px; }
 .page { min-height: calc(100vh - 76px); }
-.page__title { font-size: 42px; margin: 0 0 24px; letter-spacing: -.03em; }
+.page__title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+.page__title { font-size: 42px; margin: 0; letter-spacing: -.03em; }
+.logout-profile-button {
+  padding: 9px 26px;
+  background: var(--wine-900);
+  color: var(--white);
+  border: 0;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.logout-profile-button:hover { background: #7e0020; }
 
 .grid {
   display: grid;

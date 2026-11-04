@@ -1,15 +1,63 @@
 const parceiro = {};
+const API_BASE_URL = window.ENV?.API_BASE_URL || 'http://localhost:8000/api';
 
 const api = {
   async login(dados) {
-    console.log('login', { email: dados.email });
-    return { ok: true, mensagem: 'Login enviado (conectar à API).' };
+    const resposta = await fetch(`${API_BASE_URL}/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({
+        email: dados.email,
+        password: dados.senha,
+      }),
+    });
+
+    return parseApiResponse(resposta, 'Login realizado com sucesso.');
   },
+
   async cadastrar(dados) {
-    console.log('cadastro', dados);
-    return { ok: true, mensagem: 'Cadastro enviado (conectar à API).' };
+    const resposta = await fetch(`${API_BASE_URL}/user/create`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({
+        name: dados.instituicao,
+        email: dados.email,
+        password: dados.senha,
+        phone: dados.telefone,
+        role: 'user',
+        address: {
+          logradouro: dados.endereco,
+          numero: 'S/N',
+          bairro: dados.bairro,
+          cidade: dados.cidade_estado.split('/')[0]?.trim(),
+          estado: dados.cidade_estado.split('/')[1]?.trim(),
+          cep: dados.cep,
+          complemento: null,
+        },
+      }),
+    });
+
+    return parseApiResponse(resposta, 'Cadastro realizado com sucesso.');
   },
 };
+
+async function parseApiResponse(response, successMessage) {
+  const body = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    const detail = Array.isArray(body.detail)
+      ? body.detail.map((item) => item.msg).join(' ')
+      : body.detail || body.message;
+    throw new Error(detail || 'A API não conseguiu processar a solicitação.');
+  }
+
+  return {
+    ok: true,
+    mensagem: body.message || successMessage,
+  };
+}
 
 function initLoginPage() {
   const rotas = {
@@ -68,7 +116,11 @@ function initLoginPage() {
     mensagem(formLogin, '');
     if (!valido(formLogin)) return;
     const resposta = await enviando(formLogin, () => api.login(dadosDo(formLogin)));
-    if (resposta) mensagem(formLogin, resposta.mensagem, resposta.ok);
+    if (resposta) {
+      mensagem(formLogin, resposta.mensagem, resposta.ok);
+      window.history.pushState({}, '', '/dashboard');
+      window.dispatchEvent(new PopStateEvent('popstate'));
+    }
   });
 
   const formParceiro = document.getElementById('form-parceiro');
@@ -119,7 +171,11 @@ function initLoginPage() {
     mensagem(formInstituicao, '');
     if (!valido(formInstituicao)) return;
     const resposta = await enviando(formInstituicao, () => api.cadastrar({ ...parceiro, ...dadosDo(formInstituicao) }));
-    if (resposta) mensagem(formInstituicao, resposta.mensagem, resposta.ok);
+    if (resposta) {
+      mensagem(formInstituicao, resposta.mensagem, resposta.ok);
+      window.history.pushState({}, '', '/login');
+      window.dispatchEvent(new PopStateEvent('popstate'));
+    }
   });
 }
 

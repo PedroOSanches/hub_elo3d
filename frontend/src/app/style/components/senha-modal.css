@@ -1,0 +1,67 @@
+.password-modal {
+  position: fixed;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  width: min(420px, calc(100vw - 32px));
+  margin: 0;
+  padding: 28px;
+  border: 0;
+  border-radius: 7px;
+  box-shadow: 0 20px 60px rgba(40, 10, 15, .35);
+  color: #111111;
+  font-family: "Sora", system-ui, sans-serif;
+}
+
+.password-modal::backdrop {
+  background: rgba(40, 10, 15, .45);
+}
+
+.password-modal h2 {
+  margin: 0 0 12px;
+  font-size: 20px;
+}
+
+.password-modal__field {
+  display: grid;
+  gap: 4px;
+  padding: 8px 0;
+}
+
+.password-modal__field label {
+  font-size: 12px;
+}
+
+.password-modal__field input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 6px 8px;
+  border: 1.5px solid #ded8ce;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #111111;
+  font: inherit;
+  font-size: 12px;
+}
+
+.password-modal__field small {
+  padding-left: 4px;
+  color: #777274;
+  font-size: 12px;
+}
+
+.password-modal__error {
+  margin: 8px 0 0;
+  color: #b3261e;
+  font-size: 13px;
+}
+
+.password-modal__error[hidden] {
+  display: none;
+}
+
+.password-modal__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+}

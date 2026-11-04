@@ -442,7 +442,7 @@ async function logout() {
   } finally {
     localStorage.removeItem("elo3d-user");
     localStorage.removeItem("elo3d-role");
-    window.history.pushState({}, "", "/login");
+    window.history.pushState({}, "", "/");
     await renderRoute();
   }
 }

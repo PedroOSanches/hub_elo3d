@@ -1,0 +1,35 @@
+<dialog class="password-modal" id="dlg-senha" aria-labelledby="dlg-titulo">
+  <form method="dialog" id="form-senha" novalidate>
+    <h2 id="dlg-titulo">Alterar senha</h2>
+
+    <div class="password-modal__field">
+      <label for="s-atual">Senha atual</label>
+      <input id="s-atual" type="password" autocomplete="current-password" required>
+    </div>
+    <div class="password-modal__field">
+      <label for="s-nova">Nova senha</label>
+      <input id="s-nova" type="password" autocomplete="new-password" minlength="8" required>
+      <small>Mínimo de 8 caracteres.</small>
+    </div>
+    <div class="password-modal__field">
+      <label for="s-conf">Confirmar nova senha</label>
+      <input id="s-conf" type="password" autocomplete="new-password" required>
+    </div>
+
+    <p class="password-modal__error" id="senha-erro" role="alert" hidden></p>
+
+    <div class="password-modal__actions">
+      <app-button
+        class="profile-button profile-button--ghost"
+        type="button"
+        id="senha-cancelar"
+        text="Cancelar">
+      </app-button>
+      <app-button
+        class="profile-button"
+        type="submit"
+        text="Salvar senha">
+      </app-button>
+    </div>
+  </form>
+</dialog>

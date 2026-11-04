@@ -13,7 +13,7 @@ def valid_request_data(**overrides):
         "title": "Prótese de mão",
         "date_end": "2026-11-15",
         "pieces_quantity": 1,
-        "category": "Ortopedia",
+        "category": "prosthesis",
         "description": "Prótese para reabilitação",
         "urgency": "high",
         "filament_id": "123e4567-e89b-12d3-a456-426614174000",

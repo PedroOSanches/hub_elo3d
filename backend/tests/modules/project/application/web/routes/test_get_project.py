@@ -22,7 +22,7 @@ def valid_project():
         title="Prótese de mão",
         date_end=date(2026, 11, 15),
         pieces_quantity=1,
-        category="Ortopedia",
+        category="prosthesis",
         description="Projeto para reabilitação",
         technical_info=None,
         urgency="high",

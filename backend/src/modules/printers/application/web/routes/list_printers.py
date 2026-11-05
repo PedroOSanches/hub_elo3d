@@ -12,7 +12,7 @@ list_router = APIRouter()
 
 def get_list_printers_dependencies() -> ListPrintersController:
     repo = get_repo_printer()
-    usecase = ListPrintersUsecase(repo_printer=repo)
+    usecase = ListPrintersUsecase(repo=repo)
     controller = ListPrintersController(usecase)
     return controller
 

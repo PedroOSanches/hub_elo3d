@@ -12,7 +12,7 @@ get_router = APIRouter()
 
 def get_get_printer_dependencies() -> GetPrinterController:
     repo = get_repo_printer()
-    usecase = GetPrinterUsecase(repo_printer=repo)
+    usecase = GetPrinterUsecase(repo=repo)
     controller = GetPrinterController(usecase)
     return controller
 

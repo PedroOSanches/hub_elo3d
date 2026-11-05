@@ -13,7 +13,7 @@ update_router = APIRouter()
 
 def get_update_printer_dependencies() -> UpdatePrinterController:
     repo = get_repo_printer()
-    usecase = UpdatePrinterUsecase(repo_printer=repo)
+    usecase = UpdatePrinterUsecase(repo=repo)
     controller = UpdatePrinterController(usecase)
     return controller
 

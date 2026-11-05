@@ -11,7 +11,7 @@ delete_router = APIRouter()
 
 def get_delete_printer_dependencies() -> DeletePrinterController:
     repo = get_repo_printer()
-    usecase = DeletePrinterUsecase(repo_printer=repo)
+    usecase = DeletePrinterUsecase(repo=repo)
     controller = DeletePrinterController(usecase)
     return controller
 

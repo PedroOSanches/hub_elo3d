@@ -14,7 +14,7 @@ def valid_project():
         title="Prótese de mão",
         date_end=date(2026, 11, 15),
         pieces_quantity=1,
-        category="Ortopedia",
+        category="prosthesis",
         description="Projeto para reabilitação",
         technical_info=None,
         urgency="high",
@@ -51,3 +51,10 @@ class TestGetProjectResponseSchema:
 
         with raises(ValidationError):
             GetProjectResponseSchema.model_validate(valid_project)
+
+    def test_response_rejects_invalid_category(self, valid_project):
+        data = valid_project.model_dump()
+        data["category"] = "invalid_category"
+
+        with raises(ValidationError):
+            GetProjectResponseSchema.model_validate(data)

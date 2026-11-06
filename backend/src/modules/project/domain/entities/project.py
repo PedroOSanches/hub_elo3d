@@ -1,4 +1,4 @@
-from uuid import uuid4, UUID
+from uuid import uuid7, UUID
 from datetime import date
 
 from pydantic import BaseModel, Field, ConfigDict, field_validator
@@ -11,7 +11,7 @@ from src.modules.project.domain.entities.project_file import ProjectFile
 
 class Project(BaseModel):
     id: UUID = Field(
-        default_factory = uuid4,
+        default_factory = uuid7,
         description = "ID do projeto"
     )
 

@@ -245,3 +245,9 @@ class TestProject:
     def test_invalid_category(self):
         with pytest.raises(ValidationError):
             Project(**valid_project_data(category="Ortopedia"))
+
+    def test_project_generates_uuid7(self):
+        project = Project(**valid_project_data())
+
+        assert isinstance(project.id, UUID)
+        assert project.id.version == 7

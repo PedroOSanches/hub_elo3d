@@ -65,7 +65,7 @@ class TestGetProjectIntegration:
         assert data["id"] == str(valid_project.id)
         assert data["title"] == valid_project.title
         assert data["date_end"] == "2026-11-15"
-        assert data["order_status"] == "waiting_for_partner"
+        assert "waiting_for_partner" in data["order_status"]
         assert data["files"][0]["title"] == "Modelo 3D"
 
     def test_get_nonexistent_project(self, client_and_repo):

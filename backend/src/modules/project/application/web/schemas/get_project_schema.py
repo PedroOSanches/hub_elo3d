@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 from uuid import UUID
 from pydantic import BaseModel, ConfigDict
 
@@ -18,7 +18,7 @@ class GetProjectResponseSchema(BaseModel):
     description: str
     technical_info: str | None
     urgency: Urgency
-    order_status: OrderStatus
+    order_status: dict[OrderStatus, datetime]
     printer_id: UUID | None
     filament_id: UUID
     files: list[ProjectFile]

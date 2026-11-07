@@ -45,7 +45,7 @@ class TestGetProjectController:
         assert response["id"] == str(valid_project.id)
         assert response["title"] == valid_project.title
         assert response["pieces_quantity"] == 1
-        assert response["order_status"] == "waiting_for_partner"
+        assert "waiting_for_partner" in response["order_status"]
 
         repo.get_project.assert_called_once_with(valid_project.id)
 

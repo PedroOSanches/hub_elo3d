@@ -64,7 +64,7 @@ class TestGetProjectRoute:
 
         assert data["id"] == str(valid_project.id)
         assert data["title"] == valid_project.title
-        assert data["order_status"] == "waiting_for_partner"
+        assert "waiting_for_partner" in data["order_status"]
 
     def test_get_nonexistent_project(self, client_and_repo):
         client, _ = client_and_repo

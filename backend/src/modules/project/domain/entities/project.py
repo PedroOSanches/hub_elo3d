@@ -98,3 +98,10 @@ class Project(BaseModel):
             raise ValueError("Status já registrado")
 
         self.order_status[status] = datetime.now(timezone.utc)
+
+    @property
+    def current_order_status(self) -> OrderStatus:
+        if not self.order_status:
+            raise ValueError("Nenhum status registrado")
+
+        return max(self.order_status, key=lambda status: self.order_status[status])

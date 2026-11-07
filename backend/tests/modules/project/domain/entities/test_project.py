@@ -6,7 +6,6 @@ from pydantic import ValidationError
 
 from src.modules.project.domain.entities.project import Project
 from src.modules.project.domain.enums.order_status_enum import OrderStatus
-from src.modules.project.domain.enums.production_status_enum import ProductionStatus
 from src.modules.project.domain.enums.urgency_enum import Urgency
 from src.modules.project.domain.enums.category_enum import Category
 from src.modules.project.domain.entities.project_file import ProjectFile
@@ -81,11 +80,6 @@ class TestProject:
         with pytest.raises(ValidationError):
             Project(**data)
 
-    def test_production_status(self):
-        project = Project(**valid_project_data(production_status = ProductionStatus.IN_PRODUCTION))
-
-        assert project.production_status == ProductionStatus.IN_PRODUCTION
-
     def test_custom_order_status(self):
         project = Project(**valid_project_data(order_status = OrderStatus.IN_PROGRESS))
 
@@ -98,10 +92,6 @@ class TestProject:
     def test_invalid_order_status(self):
         with pytest.raises(ValidationError):
             Project(**valid_project_data(order_status = "canceled"))
-
-    def test_invalid_production_status(self):
-        with pytest.raises(ValidationError):
-            Project(**valid_project_data(production_status = "printing_error"))
 
     def test_required_pieces_quantity(self):
         data = valid_project_data()
@@ -251,3 +241,22 @@ class TestProject:
 
         assert isinstance(project.id, UUID)
         assert project.id.version == 7
+
+    @pytest.mark.parametrize(
+        "status",
+        [
+            OrderStatus.WAITING_FOR_PARTNER,
+            OrderStatus.RECEIVED,
+            OrderStatus.IN_PROGRESS,
+            OrderStatus.FINALIZED,
+            OrderStatus.DELIVERED,
+        ],
+    )
+    def test_valid_order_status(self, status):
+        project = Project(**valid_project_data(order_status=status))
+
+        assert project.order_status == status
+
+    def test_removed_production_status_is_invalid(self):
+        with pytest.raises(ValidationError):
+            Project(**valid_project_data(production_status="received"))

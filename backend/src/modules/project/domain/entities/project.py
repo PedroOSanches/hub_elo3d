@@ -89,3 +89,12 @@ class Project(BaseModel):
         extra = "forbid",
         populate_by_name = True
     )
+
+    def register_order_status(self, status: OrderStatus) -> None:
+        if not isinstance(status, OrderStatus):
+            raise ValueError("Status inválido")
+
+        if status in self.order_status:
+            raise ValueError("Status já registrado")
+
+        self.order_status[status] = datetime.now(timezone.utc)

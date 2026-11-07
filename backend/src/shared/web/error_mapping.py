@@ -11,7 +11,7 @@ ERROR_STATUS_CODES = {
     EntitieError: 406,
     DuplicatedError: 409,
     UnauthorizedAction: 401,
-    ForbiddenAction: 401
+    ForbiddenAction: 403
 }
 
 

@@ -25,11 +25,11 @@ def refresh_token(
     controller: RefreshTokenController = Depends(get_refresh_token_controller)
     ):
 
-    access_token = controller(refresh_token=refresh_token)
+    tokens = controller(refresh_token=refresh_token)
 
     response.set_cookie(
         key='access_token',
-        value=access_token.access_token,
+        value=tokens.access_token,
         httponly=True,
         secure=False,
         samesite='lax',
@@ -37,6 +37,16 @@ def refresh_token(
         path='/'
     )
 
+    response.set_cookie(
+        key="refresh_token",
+        value=tokens.refresh_token,
+        httponly=True,
+        secure=False,
+        samesite="lax",
+        max_age=7 * 24 * 60 * 60,
+        path="/api/auth",
+    )
+    
     return {
-        'message': 'New access_token created'
+        'message': 'New tokens created'
     }

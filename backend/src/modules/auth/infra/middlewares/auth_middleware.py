@@ -4,7 +4,7 @@ from fastapi import Request
 from jwt import InvalidTokenError
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.responses import JSONResponse, Response
-
+from src.modules.auth.domain.errors.auth_error_usecase import AuthUnathorizedAction
 
 class AuthenticationMiddleware(BaseHTTPMiddleware):
 
@@ -40,10 +40,7 @@ class AuthenticationMiddleware(BaseHTTPMiddleware):
         token = request.cookies.get("access_token")
 
         if not token:
-            return JSONResponse(
-                status_code=401,
-                content={"message": "Authentication required"},
-            )
+            raise AuthUnathorizedAction()
 
         try:
             payload = jwt.decode(
@@ -56,24 +53,18 @@ class AuthenticationMiddleware(BaseHTTPMiddleware):
             )
 
             if payload.get("type") != "access":
-                raise InvalidTokenError("Invalid token type")
+                raise AuthUnathorizedAction()
 
             user_id = payload.get("sub")
 
             if not user_id:
-                raise InvalidTokenError("Missing subject")
+                raise AuthUnathorizedAction()
 
         except InvalidTokenError as error:
-            return JSONResponse(
-                status_code=401,
-                content={
-                    "message": "Invalid or expired access token"
-                },
-            )
+            raise AuthUnathorizedAction()
 
         request.state.current_user = {
             "user_id": user_id,
-            "email": payload.get("email"),
             "role": payload.get("role"),
         }
 

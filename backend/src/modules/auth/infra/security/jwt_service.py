@@ -1,3 +1,4 @@
+from typing import Any
 import jwt
 from jwt import InvalidTokenError
 from datetime import datetime, timedelta, timezone
@@ -72,7 +73,7 @@ class JWTService:
         except (InvalidTokenError, ValueError) as err:
             raise AuthUnathorizedAction()
 
-    def decode_token(self, *, token: str) -> dict:
+    def decode_token(self, *, token: str) -> dict[str, Any]:
         return jwt.decode(
             token,
             self.jwt_secret,

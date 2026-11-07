@@ -32,7 +32,7 @@ class Test_RefreshTokenRoute:
         )
 
         assert response.status_code == 200
-        assert response.json() == {'message': 'New access_token created'}
+        assert response.json() == {'message': 'New tokens created'}
 
     def test_refresh_token_invalid_token(self, get_refresh_token):
 

@@ -5,4 +5,5 @@ from dataclasses import dataclass
 class RefreshTokenResponseSchema:
 
     access_token: str
+    refresh_token: str
     

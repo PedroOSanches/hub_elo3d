@@ -26,7 +26,10 @@ class RefreshTokenUsecase:
             user=user
         )
 
+        new_refresh = self.jwt_service.get_refresh_token(user=user)
+
         return RefreshTokenResponseSchema(
-            access_token=access_token
+            access_token=access_token,
+            refresh_token=new_refresh
         )
 

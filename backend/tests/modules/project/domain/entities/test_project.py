@@ -287,3 +287,61 @@ class TestProject:
         project2 = Project(**valid_project_data())
 
         assert project1.order_status is not project2.order_status
+
+    def test_register_order_status(self):
+        project = Project(**valid_project_data())
+
+        initial_timestamp = project.order_status[OrderStatus.WAITING_FOR_PARTNER]
+        project.register_order_status(OrderStatus.RECEIVED)
+
+        assert len(project.order_status) == 2
+        assert project.order_status[OrderStatus.WAITING_FOR_PARTNER] == initial_timestamp
+
+        received_timestamp = project.order_status[OrderStatus.RECEIVED]
+
+        assert isinstance(received_timestamp, datetime)
+        assert received_timestamp.utcoffset().total_seconds() == 0
+        assert received_timestamp >= initial_timestamp
+
+    def test_register_multiple_order_statuses(self):
+        project = Project(**valid_project_data())
+
+        project.register_order_status(OrderStatus.RECEIVED)
+        project.register_order_status(OrderStatus.IN_PROGRESS)
+
+        assert len(project.order_status) == 3
+        assert OrderStatus.RECEIVED in project.order_status
+        assert OrderStatus.IN_PROGRESS in project.order_status
+
+    def test_cannot_register_duplicate_order_status(self):
+        project = Project(**valid_project_data())
+
+        project.register_order_status(OrderStatus.RECEIVED)
+        original_timestamp = project.order_status[OrderStatus.RECEIVED]
+
+        with pytest.raises(ValueError):
+            project.register_order_status(OrderStatus.RECEIVED)
+
+        assert project.order_status[OrderStatus.RECEIVED] == original_timestamp
+
+    def test_cannot_register_invalid_order_status(self):
+        project = Project(**valid_project_data())
+
+        with pytest.raises(ValueError):
+            project.register_order_status("invalid_status")
+
+        assert len(project.order_status) == 1
+
+    def test_registered_status_serialization(self):
+        project = Project(**valid_project_data())
+
+        project.register_order_status(OrderStatus.RECEIVED)
+
+        data = project.model_dump(mode="json")
+
+        assert "waiting_for_partner" in data["order_status"]
+        assert "received" in data["order_status"]
+
+        timestamp = data["order_status"]["received"]
+
+        assert datetime.fromisoformat(timestamp).tzinfo is not None

@@ -1,10 +1,11 @@
-from datetime import date
+from datetime import date, datetime
 from uuid import uuid4
 from pytest import fixture
 
 from src.modules.project.domain.entities.project import Project
 from src.modules.project.domain.entities.project_file import ProjectFile
 from src.modules.project.application.web.schemas.get_all_projects_schema import GetAllProjectsResponseSchema
+from src.modules.project.domain.enums.order_status_enum import OrderStatus
 
 @fixture
 def valid_project():
@@ -45,9 +46,26 @@ class TestGetAllProjectsResponseSchema:
     def test_serialize_to_json(self, valid_project):
         response = GetAllProjectsResponseSchema.model_validate([valid_project])
         json_data = response.model_dump(mode="json")
+        timestamp = json_data[0]["order_status"]["waiting_for_partner"]
 
         assert isinstance(json_data, list)
         assert json_data[0]["id"] == str(valid_project.id)
         assert json_data[0]["date_end"] == "2026-11-15"
-        assert json_data[0]["order_status"] == "waiting_for_partner"
+        assert "waiting_for_partner" in json_data[0]["order_status"]
+        assert datetime.fromisoformat(timestamp).tzinfo is not None
         assert json_data[0]["files"][0]["title"] == "Modelo 3D"
+
+    def test_response_status_history(self, valid_project):
+        valid_project.register_order_status(OrderStatus.RECEIVED)
+        valid_project.register_order_status(OrderStatus.IN_PROGRESS)
+        response = GetAllProjectsResponseSchema.model_validate([valid_project])
+        data = response.model_dump(mode="json")
+        history = data[0]["order_status"]
+
+        assert len(history) == 3
+        assert "waiting_for_partner" in history
+        assert "received" in history
+        assert "in_progress" in history
+
+        for timestamp in history.values():
+            assert datetime.fromisoformat(timestamp).tzinfo is not None

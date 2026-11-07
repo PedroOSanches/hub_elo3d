@@ -64,6 +64,11 @@ class TestGetAllProjectsIntegration:
         data = response.json()
 
         assert len(data) == 2
+        assert "waiting_for_partner" in data[0]["order_status"]
+
+        timestamp = data[0]["order_status"]["waiting_for_partner"]
+
+        assert datetime.fromisoformat(timestamp).tzinfo is not None
 
         returned_ids = {project["id"] for project in data}
 

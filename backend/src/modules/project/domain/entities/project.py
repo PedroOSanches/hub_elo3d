@@ -1,12 +1,16 @@
 from uuid import uuid7, UUID
-from datetime import date
-
+from datetime import date, datetime, timezone
 from pydantic import BaseModel, Field, ConfigDict, field_validator
 
 from src.modules.project.domain.enums.order_status_enum import OrderStatus
 from src.modules.project.domain.enums.urgency_enum import Urgency
 from src.modules.project.domain.enums.category_enum import Category
 from src.modules.project.domain.entities.project_file import ProjectFile
+
+def initial_order_status() -> dict[OrderStatus, datetime]:
+    return {
+        OrderStatus.WAITING_FOR_PARTNER: datetime.now(timezone.utc)
+    }
 
 class Project(BaseModel):
     id: UUID = Field(
@@ -53,9 +57,9 @@ class Project(BaseModel):
         description = "Nível de prioridade do projeto"
     )
 
-    order_status: OrderStatus = Field(
-        default = OrderStatus.WAITING_FOR_PARTNER,
-        description = "Status do pedido do projeto"
+    order_status: dict[OrderStatus, datetime] = Field(
+        default_factory = initial_order_status,
+        description = "Status do pedido e o timestamp de quando foi atualizado"
     )
 
     printer_id: UUID | None = Field(

@@ -1,5 +1,5 @@
 from uuid import UUID, uuid4
-from datetime import date
+from datetime import date, datetime, timezone
 
 import pytest
 from pydantic import ValidationError
@@ -39,7 +39,7 @@ class TestProject:
         assert project.pieces_quantity == 2
         assert project.category == Category.PROSTHESIS
         assert project.technical_info is None
-        assert project.order_status == OrderStatus.WAITING_FOR_PARTNER
+        assert OrderStatus.WAITING_FOR_PARTNER in project.order_status
 
     def test_different_ids(self):
         project1 = Project(**valid_project_data())
@@ -81,9 +81,11 @@ class TestProject:
             Project(**data)
 
     def test_custom_order_status(self):
-        project = Project(**valid_project_data(order_status = OrderStatus.IN_PROGRESS))
+        timestamp = datetime.now(timezone.utc)
 
-        assert project.order_status == OrderStatus.IN_PROGRESS
+        project = Project(**valid_project_data(order_status = {OrderStatus.RECEIVED: timestamp}))
+
+        assert project.order_status[OrderStatus.RECEIVED] == timestamp
 
     def test_invalid_urgency(self):
         with pytest.raises(ValidationError):
@@ -91,7 +93,7 @@ class TestProject:
 
     def test_invalid_order_status(self):
         with pytest.raises(ValidationError):
-            Project(**valid_project_data(order_status = "canceled"))
+            Project(**valid_project_data(order_status = {"invalid_status": datetime.now(timezone.utc)}))
 
     def test_required_pieces_quantity(self):
         data = valid_project_data()
@@ -253,10 +255,35 @@ class TestProject:
         ],
     )
     def test_valid_order_status(self, status):
-        project = Project(**valid_project_data(order_status=status))
+        timestamp = datetime.now(timezone.utc)
 
-        assert project.order_status == status
+        project = Project(**valid_project_data(order_status={status: timestamp}))
+
+        assert project.order_status[status] == timestamp
 
     def test_removed_production_status_is_invalid(self):
         with pytest.raises(ValidationError):
             Project(**valid_project_data(production_status="received"))
+
+    def test_initial_order_status_timestamp(self):
+        project = Project(**valid_project_data())
+        timestamp = project.order_status[OrderStatus.WAITING_FOR_PARTNER]
+
+        assert isinstance(timestamp, datetime)
+        assert timestamp.utcoffset().total_seconds() == 0
+
+    def test_order_status_serialization(self):
+        project = Project(**valid_project_data())
+        data = project.model_dump(mode="json")
+
+        assert "waiting_for_partner" in data["order_status"]
+
+        timestamp = data["order_status"]["waiting_for_partner"]
+
+        assert datetime.fromisoformat(timestamp).tzinfo is not None
+
+    def test_independent_order_status_timestamps(self):
+        project1 = Project(**valid_project_data())
+        project2 = Project(**valid_project_data())
+
+        assert project1.order_status is not project2.order_status

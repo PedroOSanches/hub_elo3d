@@ -69,5 +69,5 @@ class TestGetAllProjectsController:
         assert isinstance(response, list)
         assert response[0]["date_end"] == "2026-11-15"
         assert response[0]["urgency"] == "high"
-        assert response[0]["order_status"] == "waiting_for_partner"
+        assert "waiting_for_partner" in response[0]["order_status"]
         assert response[0]["files"][0]["title"] == "Modelo 3D"

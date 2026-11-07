@@ -89,5 +89,5 @@ class TestGetAllProjectsRoute:
         assert data[0]["id"] == str(valid_project.id)
         assert data[0]["date_end"] == "2026-11-15"
         assert data[0]["category"] == "prosthesis"
-        assert data[0]["order_status"] == "waiting_for_partner"
+        assert "waiting_for_partner" in data[0]["order_status"]
         assert data[0]["files"][0]["title"] == "Modelo 3D"

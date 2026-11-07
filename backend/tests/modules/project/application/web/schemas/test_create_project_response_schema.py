@@ -1,5 +1,5 @@
 import json
-from datetime import date
+from datetime import date, datetime
 from uuid import UUID, uuid4
 
 from src.modules.project.application.web.schemas.create_project_schema import (CreateProjectRequestSchema, CreateProjectResponseSchema)
@@ -31,18 +31,20 @@ class TestCreateProjectResponseSchema:
 
         assert response.id == project.id
         assert response.title == "Prótese de mão"
-        assert response.order_status == "waiting_for_partner"
+        assert "waiting_for_partner" in response.model_dump(mode="json")["order_status"]
         assert response.printer_id is None
 
     def test_response_json_serialization(self):
         project = valid_project()
         response = CreateProjectResponseSchema.model_validate(project)
         data = response.model_dump(mode="json")
+        timestamp = data["order_status"]["waiting_for_partner"]
 
         assert data["id"] == str(project.id)
         assert data["date_end"] == "2026-11-15"
         assert data["urgency"] == "high"
         assert data["files"][0]["title"] == "Modelo 3D"
+        assert datetime.fromisoformat(timestamp).tzinfo is not None
 
         json.dumps(data)
 

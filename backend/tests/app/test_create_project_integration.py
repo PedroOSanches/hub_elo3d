@@ -68,7 +68,7 @@ def test_create_project_in_real_app(client_and_repo):
     data = response.json()
 
     assert data["title"] == "Prótese de mão"
-    assert data["order_status"] == "waiting_for_partner"
+    assert "waiting_for_partner" in data["order_status"]
     assert len(repo.projects) == 1
 
 def test_create_project_with_real_dependencies(access_token):

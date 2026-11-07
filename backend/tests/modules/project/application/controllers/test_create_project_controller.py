@@ -9,6 +9,7 @@ from src.modules.project.application.usecases.create_project_usecase import Crea
 from src.modules.project.application.web.schemas.create_project_schema import CreateProjectRequestSchema
 from src.modules.project.domain.entities.project import Project
 from src.modules.project.domain.repositories.project_repository_interface import IProjectRepository
+from src.modules.project.domain.enums.order_status_enum import OrderStatus
 
 @fixture
 def valid_request_data(**overrides):
@@ -45,7 +46,7 @@ class TestCreateProjectController:
         assert isinstance(response, dict)
         assert response["title"] == "Prótese de mão"
         assert response["pieces_quantity"] == 1
-        assert response["order_status"] == "waiting_for_partner"
+        assert "waiting_for_partner" in response["order_status"]
         assert response["urgency"] == "high"
         assert response["printer_id"] is None
         assert response["date_end"] == "2026-11-15"
@@ -69,7 +70,7 @@ class TestCreateProjectController:
         assert isinstance(saved_project, Project)
         assert saved_project.title == request.title
         assert saved_project.pieces_quantity == request.pieces_quantity
-        assert saved_project.order_status == "waiting_for_partner"
+        assert OrderStatus.WAITING_FOR_PARTNER in saved_project.order_status
 
     def test_controller_with_technical_info(self, valid_request_data):
         repo = Mock(spec=IProjectRepository)

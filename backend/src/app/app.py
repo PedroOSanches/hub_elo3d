@@ -12,7 +12,7 @@ from src.modules.printers.application.web.routes.index import router as printers
 from src.modules.user.application.web.routes.index import user_router
 from src.modules.auth.application.web.routes.index import auth_router
 from src.modules.auth.infra.middlewares.auth_middleware import AuthenticationMiddleware
-from src.shared.environments import env
+from src.shared.environments.environments import env
 
 app = FastAPI()
 

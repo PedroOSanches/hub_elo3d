@@ -4,7 +4,7 @@ from datetime import datetime, timedelta, timezone
 from fastapi.testclient import TestClient
 import jwt
 from src.app.app import app
-from src.shared.environments import env
+from src.shared.environments.environments import env
 
 @pytest.fixture
 def get_access_token():
@@ -55,7 +55,6 @@ class Test_UpdateUserRoute:
                 'cep': '00000-000', 
                 'complemento': 'Casa'
                 },
-            'institution_id': None,
             'role': 'hospital'
             }
 

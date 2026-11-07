@@ -33,11 +33,6 @@ class User(BaseModel):
         examples=["user@example.com", "user@aacd.com"]
     )
 
-    institution_id: uuid.UUID | None = Field(
-        default=None,
-        description="Identificador da instituição que o usuário pertence."
-    )
-
     address: Address = Field(
         ...,
         description="Endereço do usuário"

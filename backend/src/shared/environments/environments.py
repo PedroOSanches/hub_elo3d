@@ -31,7 +31,7 @@ class Environments:
         if not self.jwt_secret:
             raise RuntimeError('Missing JWT_SECRET in enviroments')
         
-        self.NEO_URL = f'neo4j://{self.neo_host}:{self.neo_port}'
+        self.neo_uri = f'neo4j+s://{self.neo_host}.databases.neo4j.io' if self.stage == STAGE.PROD else f'neo4j://{self.neo_host}:{self.neo_port}'
 
     @staticmethod
     def get_envs() -> "Environments":

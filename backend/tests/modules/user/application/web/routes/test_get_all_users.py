@@ -5,7 +5,7 @@ from fastapi.testclient import TestClient
 from datetime import datetime, timedelta, timezone
 from src.modules.user.application.web.schemas.user_response_schema import UserResponseSchema
 
-from src.shared.environments import env
+from src.shared.environments.environments import env
 
 
 @pytest.fixture

@@ -33,8 +33,6 @@ class CreateUserRequestSchema(BaseModel):
         ...
     )
 
-    institution_id: UUID | None = None
-
     role: ROLE = Field(
         ...,
         examples=['hospital', 'user_hospital', 'admin', ]

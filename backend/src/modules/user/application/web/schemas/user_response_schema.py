@@ -16,5 +16,4 @@ class UserResponseSchema(BaseModel):
     email: EmailStr
     phone: PhoneNumber
     address: Address
-    institution_id: UUID | None
     role: ROLE

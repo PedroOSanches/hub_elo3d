@@ -14,7 +14,6 @@ class CreateUserController :
             phone=request.phone,
             address=request.address,
             role=request.role,
-            institution_id=request.institution_id,
             password=request.password
         )
 

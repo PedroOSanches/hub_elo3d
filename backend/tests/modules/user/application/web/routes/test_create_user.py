@@ -23,7 +23,6 @@ def test_create_user():
                 'cep': '00000-000',
                 "complemento": "Casa"
             },
-            'institution_id': "1cee6fe5-1fd5-4131-b054-4ec03358583a",
             'password': '!Teste123@#$',
             'role': 'user_hospital'
         }
@@ -49,7 +48,6 @@ def test_missing_parameter_user():
                 'cep': '00000-000',
                 "complemento": "Casa"
             },
-            'institution_id': "1cee6fe5-1fd5-4131-b054-4ec03358583a",
             'password': '!Teste123@#$',
             'role': 'user_hospital'
         }
@@ -75,7 +73,6 @@ def test_missing_parameter_address():
                 'cep': '00000-000',
                 "complemento": "Casa"
             },
-            'institution_id': "1cee6fe5-1fd5-4131-b054-4ec03358583a",
             'password': '!Teste123@#$',
             'role': 'user_hospital'
         }
@@ -102,40 +99,12 @@ def test_type_invalid_parameter():
                 'cep': '00000-000',
                 "complemento": "Casa"
             },
-            'institution_id': "1cee6fe5-1fd5-4131-b054-4ec03358583a",
             'password': '!Teste123@#$',
             'role': 'user_hospital'
         }
 )
     assert created_user.status_code == 400
     assert created_user.json()['message'] == "The field 'phone' has the wrong type. Received: int. Expected: str"
-
-def test_type_invalid_parameter_institution_id():
-
-    client = TestClient(app=app)
-
-    created_user = client.post(
-        'api/user/create',
-        json={
-            "name": "Pedro",
-            "email":"pedro@aacd.com",
-            'phone': '+5511999999999',
-            "address": {
-                "logradouro": "Rua Teste",
-                'numero': "564",
-                "bairro": "Novo Teste",
-                'cidade': 'Joateste',
-                'estado': "SP",
-                'cep': '00000-000',
-                "complemento": "Casa"
-            },
-            'institution_id': 1,
-            'password': '!Teste123@#$',
-            'role': 'user_hospital'
-        }
-)
-    assert created_user.status_code == 400
-    assert created_user.json()['message'] == "The field 'institution_id' has the wrong type. Received: int. Expected: uuid.UUID | None"
 
 
 def test_type_invalid_address_parameter():
@@ -157,7 +126,6 @@ def test_type_invalid_address_parameter():
                 'cep': '00000-000',
                 "complemento": [123]
             },
-            'institution_id': "1cee6fe5-1fd5-4131-b054-4ec03358583a",
             'password': '!Teste123@#$',
             'role': 'user_hospital'
         }

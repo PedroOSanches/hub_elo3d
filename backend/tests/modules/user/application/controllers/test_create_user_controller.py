@@ -25,7 +25,6 @@ class Test_CreateUserController():
                 'estado': "SP",
                 'cep': '00000-000'
             },
-            'institution_id': "1cee6fe5-1fd5-4131-b054-4ec03358583a",
             'password': '!Teste123@#$',
             'role': 'hospital'
         }

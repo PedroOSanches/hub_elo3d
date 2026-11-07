@@ -345,3 +345,23 @@ class TestProject:
         timestamp = data["order_status"]["received"]
 
         assert datetime.fromisoformat(timestamp).tzinfo is not None
+
+    def test_current_order_status_initial(self):
+        project = Project(**valid_project_data())
+
+        assert project.current_order_status == OrderStatus.WAITING_FOR_PARTNER
+
+    def test_current_order_status_after_registration(self):
+        project = Project(**valid_project_data())
+
+        project.register_order_status(OrderStatus.RECEIVED)
+        project.register_order_status(OrderStatus.IN_PROGRESS)
+
+        assert project.current_order_status == OrderStatus.IN_PROGRESS
+
+    def test_current_order_status_with_no_statuses(self):
+        project = Project(**valid_project_data())
+        project.order_status.clear()
+
+        with pytest.raises(ValueError):
+            _ = project.current_order_status

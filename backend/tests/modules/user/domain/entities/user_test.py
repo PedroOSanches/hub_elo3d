@@ -12,13 +12,13 @@ class TestUser:
             role="user",
             password_hash="5156BECBC019E3F0F9520B143435427E",
             address=Address(
-                    logradouro="Rua Teste",
-                    bairro="Teste",
+                    street="Rua Teste",
+                    neighborhood="Teste",
                     cep="00000-000",
-                    numero="S/N",
-                    complemento="Casa",
-                    cidade="Teste",
-                    estado="SP"
+                    number="S/N",
+                    address_details="Casa",
+                    city="Teste",
+                    state="SP"
                 )
             
         )
@@ -31,13 +31,13 @@ class TestUser:
             role="user",
             password_hash="5156BECBC019E3F0F9520B143435427E",
             address=Address(
-                    logradouro="Rua Teste",
-                    bairro="Teste",
+                    street="Rua Teste",
+                    neighborhood="Teste",
                     cep="00000-000",
-                    numero="S/N",
-                    complemento="Casa",
-                    cidade="Teste",
-                    estado="SP"
+                    number="S/N",
+                    address_details="Casa",
+                    city="Teste",
+                    state="SP"
                 )
         )
 
@@ -50,13 +50,13 @@ class TestUser:
                 role="user",
                 password_hash="5156BECBC019E3F0F9520B143435427E",
                 address=Address(
-                    logradouro="Rua Teste",
-                    bairro="Teste",
+                    street="Rua Teste",
+                    neighborhood="Teste",
                     cep="00000-000",
-                    numero="S/N",
-                    complemento="Casa",
-                    cidade="Teste",
-                    estado="SP"
+                    number="S/N",
+                    address_details="Casa",
+                    city="Teste",
+                    state="SP"
                 )
             )
     def test_phone_invalid(self):
@@ -68,13 +68,13 @@ class TestUser:
                 role="user",
                 password_hash="5156BECBC019E3F0F9520B143435427E",
                 address=Address(
-                    logradouro="Rua Teste",
-                    bairro="Teste",
+                    street="Rua Teste",
+                    neighborhood="Teste",
                     cep="00000-000",
-                    numero="S/N",
-                    complemento="Casa",
-                    cidade="Teste",
-                    estado="SP"
+                    number="S/N",
+                    address_details="Casa",
+                    city="Teste",
+                    state="SP"
                 )
             )
 
@@ -87,13 +87,13 @@ class TestUser:
                 role="user",
                 password_hash="5156BECBC019E3F0F9520B143435427E",
                 address=Address(
-                    logradouro="Rua Teste",
-                    bairro="Teste",
+                    street="Rua Teste",
+                    neighborhood="Teste",
                     cep="00000-000",
-                    numero="S/N",
-                    complemento="Casa",
-                    cidade="Teste",
-                    estado="SP"
+                    number="S/N",
+                    address_details="Casa",
+                    city="Teste",
+                    state="SP"
                 )
             )
     def test_password_hash_invalid(self):
@@ -105,13 +105,13 @@ class TestUser:
                 role="admin",
                 password_hash="5",
                 address=Address(
-                    logradouro="Rua Teste",
-                    bairro="Teste",
+                    street="Rua Teste",
+                    neighborhood="Teste",
                     cep="00000-000",
-                    numero="S/N",
-                    complemento="Casa",
-                    cidade="Teste",
-                    estado="SP"
+                    number="S/N",
+                    address_details="Casa",
+                    city="Teste",
+                    state="SP"
                 )
             )
 
@@ -126,13 +126,13 @@ class TestUser:
                     password_hash="5156BECBC019E3F0F9520B143435427E",
                     role="admin",
                     address=Address(
-                    logradouro="Rua Teste",
-                    bairro="Teste",
+                    street="Rua Teste",
+                    neighborhood="Teste",
                     cep="00000-000",
-                    numero="S/N",
-                    complemento="Casa",
-                    cidade="Teste",
-                    estado="SP"
+                    number="S/N",
+                    address_details="Casa",
+                    city="Teste",
+                    state="SP"
                 )
                 )
 
@@ -147,13 +147,13 @@ class TestUser:
                     password_hash="5156BECBC019E3F0F9520B143435427E",
                     role="a",
                     address=Address(
-                    logradouro="Rua Teste",
-                    bairro="Teste",
+                    street="Rua Teste",
+                    neighborhood="Teste",
                     cep="00000-000",
-                    numero="S/N",
-                    complemento="Casa",
-                    cidade="Teste",
-                    estado="SP"
+                    number="S/N",
+                    address_details="Casa",
+                    city="Teste",
+                    state="SP"
                 )
                 )
         

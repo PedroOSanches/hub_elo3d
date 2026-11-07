@@ -47,13 +47,13 @@ class Test_UpdateUserRoute:
             'email': 'user@aacd.com', 
             'phone': 'tel:+55-11-99999-9999', 
             'address': {
-                'logradouro': 'Rua Teste', 
-                'numero': 'S/N', 
-                'bairro': 'Teste', 
-                'cidade': 'São Teste do Sul', 
-                'estado': 'SP', 
+                'street': 'Rua Teste', 
+                'number': 'S/N', 
+                'neighborhood': 'Teste', 
+                'city': 'São Teste do Sul', 
+                'state': 'SP', 
                 'cep': '00000-000', 
-                'complemento': 'Casa'
+                'address_details': 'Casa'
                 },
             'role': 'hospital'
             }

@@ -15,13 +15,13 @@ def test_create_user():
             "email":"pedro@aacd.com",
             "phone":"+5511999999999",
             "address": {
-                "logradouro": "Rua Teste",
-                'numero': "564",
-                "bairro": "Novo Teste",
-                'cidade':'Joateste',
-                'estado': "SP",
+                "street": "Rua Teste",
+                'number': "564",
+                "neighborhood": "Novo Teste",
+                'city':'Joateste',
+                'state': "SP",
                 'cep': '00000-000',
-                "complemento": "Casa"
+                "address_details": "Casa"
             },
             'password': '!Teste123@#$',
             'role': 'user_hospital'
@@ -40,13 +40,13 @@ def test_missing_parameter_user():
             "name": "Pedro",
             "email":"pedro@aacd.com",
             "address": {
-                "logradouro": "Rua Teste",
-                'numero': "564",
-                "bairro": "Novo Teste",
-                'cidade':'Joateste',
-                'estado': "SP",
+                "street": "Rua Teste",
+                'number': "564",
+                "neighborhood": "Novo Teste",
+                'city':'Joateste',
+                'state': "SP",
                 'cep': '00000-000',
-                "complemento": "Casa"
+                "address_details": "Casa"
             },
             'password': '!Teste123@#$',
             'role': 'user_hospital'
@@ -66,19 +66,19 @@ def test_missing_parameter_address():
             "email":"pedro@aacd.com",
             'phone': '+5511999999999',
             "address": {
-                "logradouro": "Rua Teste",
-                'numero': "564",
-                "bairro": "Novo Teste",
-                'estado': "SP",
+                "street": "Rua Teste",
+                'number': "564",
+                "neighborhood": "Novo Teste",
+                'state': "SP",
                 'cep': '00000-000',
-                "complemento": "Casa"
+                "address_details": "Casa"
             },
             'password': '!Teste123@#$',
             'role': 'user_hospital'
         }
 )
     assert created_user.status_code == 400
-    assert created_user.json()['message'] == "Field 'address.cidade' is missing"
+    assert created_user.json()['message'] == "Field 'address.city' is missing"
 
 def test_type_invalid_parameter():
 
@@ -91,13 +91,13 @@ def test_type_invalid_parameter():
             "email":"pedro@aacd.com",
             'phone': 1,
             "address": {
-                "logradouro": "Rua Teste",
-                'numero': "564",
-                "bairro": "Novo Teste",
-                'cidade': 'Joateste',
-                'estado': "SP",
+                "street": "Rua Teste",
+                'number': "564",
+                "neighborhood": "Novo Teste",
+                'city': 'Joateste',
+                'state': "SP",
                 'cep': '00000-000',
-                "complemento": "Casa"
+                "address_details": "Casa"
             },
             'password': '!Teste123@#$',
             'role': 'user_hospital'
@@ -118,17 +118,17 @@ def test_type_invalid_address_parameter():
             "email":"pedro@aacd.com",
             'phone': '+5511900000000',
             "address": {
-                "logradouro": "Rua Teste",
-                'numero': "564",
-                "bairro": "Novo Teste",
-                'cidade': 'Joateste',
-                'estado': "SP",
+                "street": "Rua Teste",
+                'number': "564",
+                "neighborhood": "Novo Teste",
+                'city': 'Joateste',
+                'state': "SP",
                 'cep': '00000-000',
-                "complemento": [123]
+                "address_details": [123]
             },
             'password': '!Teste123@#$',
             'role': 'user_hospital'
         }
 )
     assert created_user.status_code == 400
-    assert created_user.json()['message'] == "The field 'complemento' has the wrong type. Received: list. Expected: str | None"
+    assert created_user.json()['message'] == "The field 'address_details' has the wrong type. Received: list. Expected: str | None"

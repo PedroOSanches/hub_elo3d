@@ -1,7 +1,7 @@
 from uuid import UUID
 from pydantic import BaseModel, ConfigDict, EmailStr
 from pydantic_extra_types.phone_numbers import PhoneNumber
-from src.modules.user.domain.entities.endereco import Address
+from src.modules.user.domain.entities.address import Address
 from src.modules.user.domain.enums.role_enum import ROLE
 
 class UserResponseSchema(BaseModel):

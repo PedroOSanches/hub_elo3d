@@ -19,13 +19,13 @@ class Test_CreateUserRequestSchema:
             "email":"pedro@aacd.com",
             "phone":"+5511999999999",
             "address": {
-                "logradouro": "Rua Teste",
-                'numero': "564",
-                "bairro": "Novo Teste",
-                'cidade':'Joateste',
-                'estado': "SP",
+                "street": "Rua Teste",
+                'number': "564",
+                "neighborhood": "Novo Teste",
+                'city':'Joateste',
+                'state': "SP",
                 'cep': '00000-000',
-                "complemento": ""
+                "address_details": ""
             },
             'password': '!!Teste123@#$',
             'role': 'hospital'
@@ -39,12 +39,12 @@ class Test_CreateUserRequestSchema:
                         "email":"pedro@aacd.com",
                         "phone":"+5511999999999",
                         "address": {
-                            "logradouro": "Rua Teste",
-                            'numero': "564",
-                            "bairro": "Novo Teste",
-                            'cidade':'Joateste',
-                            "complemento": "",
-                            'estado': "SP",
+                            "street": "Rua Teste",
+                            'number': "564",
+                            "neighborhood": "Novo Teste",
+                            'city':'Joateste',
+                            "address_details": "",
+                            'state': "SP",
                             'cep': '00000-000'
                         },
                         'password': '!!Teste123@#$',
@@ -58,12 +58,12 @@ class Test_CreateUserRequestSchema:
                         'name': "Pedro",
                         "phone":"+5511999999999",
                         "address": {
-                            "logradouro": "Rua Teste",
-                            'numero': "564",
-                            "bairro": "Novo Teste",
-                            'cidade':'Joateste',
-                            "complemento": "",
-                            'estado': "SP",
+                            "street": "Rua Teste",
+                            'number': "564",
+                            "neighborhood": "Novo Teste",
+                            'city':'Joateste',
+                            "address_details": "",
+                            'state': "SP",
                             'cep': '00000-000'
                         },
                         'password': '!Teste123@#$',
@@ -88,13 +88,13 @@ class Test_CreateUserRequestSchema:
                 "email":"pedro@aacd.com",
                 "phone":"+5511999999999",
                 "address": {
-                    "logradouro": "Rua Teste",
-                    'numero': "564",
-                    "bairro": "Novo Teste",
-                    'cidade':'Joateste',
-                    'estado': "SP",
+                    "street": "Rua Teste",
+                    'number': "564",
+                    "neighborhood": "Novo Teste",
+                    'city':'Joateste',
+                    'state': "SP",
                     'cep': '00000-000',
-                    "complemento": ""
+                    "address_details": ""
                     },
                 'password': '!Teste123@#$',
                 'role': 'hospital'
@@ -109,13 +109,13 @@ class Test_CreateUserRequestSchema:
                 "email": 1,
                 "phone":"+5511999999999",
                 "address": {
-                    "logradouro": "Rua Teste",
-                    'numero': "564",
-                    "bairro": "Novo Teste",
-                    'cidade':'Joateste',
-                    'estado': "SP",
+                    "street": "Rua Teste",
+                    'number': "564",
+                    "neighborhood": "Novo Teste",
+                    'city':'Joateste',
+                    'state': "SP",
                     'cep': '00000-000',
-                    "complemento": ""
+                    "address_details": ""
                     },
                 'password': '!Teste123@#$',
                 'role': 'hospital'
@@ -131,13 +131,13 @@ class Test_CreateUserRequestSchema:
                 "email":"pedro@aacd.com",
                 "phone":123,
                 "address": {
-                    "logradouro": "Rua Teste",
-                    'numero': "564",
-                    "bairro": "Novo Teste",
-                    'cidade':'Joateste',
-                    'estado': "SP",
+                    "street": "Rua Teste",
+                    'number': "564",
+                    "neighborhood": "Novo Teste",
+                    'city':'Joateste',
+                    'state': "SP",
                     'cep': '00000-000',
-                    "complemento": ""
+                    "address_details": ""
                     },
                 'password': '!Teste123@#$',
                 'role': 'hospital'
@@ -153,13 +153,13 @@ class Test_CreateUserRequestSchema:
                 "email":"pedro@aacd.com",
                 "phone":"+5511999999999",
                 "address": {
-                    "logradouro": "Rua Teste",
-                    'numero': "564",
-                    "bairro": "Novo Teste",
-                    'cidade':'Joateste',
-                    'estado': "SP",
+                    "street": "Rua Teste",
+                    'number': "564",
+                    "neighborhood": "Novo Teste",
+                    'city':'Joateste',
+                    'state': "SP",
                     'cep': '00000-000',
-                    "complemento": ""
+                    "address_details": ""
                     },
                 'password': 123455,
                 'role': 'hospital'
@@ -188,13 +188,13 @@ class Test_CreateUserRequestSchema:
                 "email":"pedro@aacd.com",
                 "phone":"+5511999999999",
                 "address": {
-                    "logradouro": "Rua Teste",
-                    'numero': "564",
-                    "bairro": "Novo Teste",
-                    'cidade':'Joateste',
-                    'estado': "SP",
+                    "street": "Rua Teste",
+                    'number': "564",
+                    "neighborhood": "Novo Teste",
+                    'city':'Joateste',
+                    'state': "SP",
                     'cep': '00000-000',
-                    "complemento": ""
+                    "address_details": ""
                     },
                 'password': '!Teste123@#$',
                 'role': 'felipe'

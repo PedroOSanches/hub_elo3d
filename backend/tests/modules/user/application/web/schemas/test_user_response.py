@@ -1,7 +1,7 @@
 import pydantic
 
 from src.modules.user.application.web.schemas.user_response_schema import UserResponseSchema
-from src.modules.user.domain.entities.endereco import Address
+from src.modules.user.domain.entities.address import Address
 
 
 class Test_CreateUserResponse:
@@ -13,11 +13,11 @@ class Test_CreateUserResponse:
             email="teste@example.com",
             phone="+5511999990000",
             address=Address(
-                logradouro="Teste",
-                numero="000",
-                bairro="Praça do Teste",
-                cidade="Testenópolis",
-                estado="TO",
+                street="Teste",
+                number="000",
+                neighborhood="Praça do Teste",
+                city="Testenópolis",
+                state="TO",
                 cep="00000-000"
             ),
             role="hospital"

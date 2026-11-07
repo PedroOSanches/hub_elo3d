@@ -12,7 +12,7 @@ from pydantic import (
 
 from pydantic_extra_types.phone_numbers import PhoneNumber
 
-from .endereco import Address
+from .address import Address
 from src.shared.errors.domain_error import EntitieError
 from src.modules.user.domain.enums.role_enum import ROLE
 

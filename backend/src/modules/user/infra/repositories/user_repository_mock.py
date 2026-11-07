@@ -2,7 +2,7 @@ from uuid import UUID
 
 from src.modules.user.domain.repositories.user_repository_interface import IUserRepository 
 from  src.modules.user.domain.entities.user import User
-from  src.modules.user.domain.entities.endereco import Address
+from  src.modules.user.domain.entities.address import Address
 from  src.modules.user.domain.errors.user_usecase_errors import NoUsersFound, DuplicatedUser
 from src.shared.utils.password_hasher import gerar_hash_senha
 
@@ -15,13 +15,13 @@ class UserRepositoryMock(IUserRepository):
                 email="user@example.com",
                 phone="+5511999999999",
                 address=Address(
-                    logradouro="Rua Teste",
-                    bairro="Teste",
+                    street="Rua Teste",
+                    neighborhood="Teste",
                     cep="00000-000",
-                    cidade="São Teste do Sul",
-                    numero="S/N",
-                    complemento="Casa",
-                    estado="SP"
+                    city="São Teste do Sul",
+                    number="S/N",
+                    address_details="Casa",
+                    state="SP"
                 ),
                 role="user",
                 password_hash=gerar_hash_senha('!Teste123#')
@@ -32,13 +32,13 @@ class UserRepositoryMock(IUserRepository):
                     email="user@aacd.com",
                     phone="+5511999999999",
                     address=Address(
-                        logradouro="Rua Teste",
-                        bairro="Teste",
+                        street="Rua Teste",
+                        neighborhood="Teste",
                         cep="00000-000",
-                        cidade="São Teste do Sul",
-                        numero="S/N",
-                        complemento="Casa",
-                        estado="SP"
+                        city="São Teste do Sul",
+                        number="S/N",
+                        address_details="Casa",
+                        state="SP"
                     ),
                     password_hash=gerar_hash_senha('!Hospital123#'),
                     role="hospital"
@@ -49,13 +49,13 @@ class UserRepositoryMock(IUserRepository):
                         email="user@maua.br",
                         phone="+5511999999999",
                         address=Address(
-                            logradouro="Rua Teste",
-                            bairro="Teste",
+                            street="Rua Teste",
+                            neighborhood="Teste",
                             cep="00000-000",
-                            cidade="São Teste do Sul",
-                            numero="S/N",
-                            complemento="Casa",
-                            estado="SP"
+                            city="São Teste do Sul",
+                            number="S/N",
+                            address_details="Casa",
+                            state="SP"
                         ),
                         role="user",
                         password_hash=gerar_hash_senha('Maua123#')

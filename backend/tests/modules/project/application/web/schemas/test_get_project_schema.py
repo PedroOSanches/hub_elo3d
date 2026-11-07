@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 from uuid import uuid4
 from pytest import fixture, raises
 from pydantic import ValidationError
@@ -6,6 +6,7 @@ from pydantic import ValidationError
 from src.modules.project.domain.entities.project import Project
 from src.modules.project.domain.entities.project_file import ProjectFile
 from src.modules.project.application.web.schemas.get_project_schema import GetProjectResponseSchema
+from src.modules.project.domain.enums.order_status_enum import OrderStatus
 
 @fixture
 def valid_project():
@@ -39,10 +40,12 @@ class TestGetProjectResponseSchema:
     def test_serialize_response_to_json(self, valid_project):
         response = GetProjectResponseSchema.model_validate(valid_project)
         data = response.model_dump(mode="json")
+        timestamp = data["order_status"]["waiting_for_partner"]
 
         assert data["id"] == str(valid_project.id)
         assert data["date_end"] == "2026-11-15"
-        assert data["order_status"] == "waiting_for_partner"
+        assert "waiting_for_partner" in data["order_status"]
+        assert datetime.fromisoformat(timestamp).tzinfo is not None
         assert data["urgency"] == "high"
         assert data["files"][0]["title"] == "Modelo 3D"
 
@@ -58,3 +61,19 @@ class TestGetProjectResponseSchema:
 
         with raises(ValidationError):
             GetProjectResponseSchema.model_validate(data)
+
+    def test_response_contains_status_history(self, valid_project):
+        valid_project.register_order_status(OrderStatus.RECEIVED)
+        valid_project.register_order_status(OrderStatus.IN_PROGRESS)
+
+        response = GetProjectResponseSchema.model_validate(valid_project)
+        data = response.model_dump(mode="json")
+        history = data["order_status"]
+
+        assert len(history) == 3
+        assert "waiting_for_partner" in history
+        assert "received" in history
+        assert "in_progress" in history
+
+        for timestamp in history.values():
+            assert datetime.fromisoformat(timestamp).tzinfo is not None

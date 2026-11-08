@@ -3,6 +3,7 @@ from uuid import UUID
 
 from src.modules.project.domain.entities.project import Project
 from src.modules.project.domain.repositories.project_repository_interface import IProjectRepository
+from src.modules.project.domain.enums.order_status_enum import OrderStatus
 
 class UpdateProjectUsecase:
     EDITABLE_FIELDS = {
@@ -21,8 +22,14 @@ class UpdateProjectUsecase:
     def __init__(self, repo: IProjectRepository):
         self.repo = repo
 
-    def __call__(self, project_id: UUID, changes: dict[str, Any]) -> Project:
-        if not changes:
+    def __call__(
+            self,
+            project_id: UUID,
+            changes: dict[str, Any],
+            new_status: OrderStatus | None = None
+        ) -> Project:
+        
+        if not changes and new_status is None:
             raise ValueError("Nenhuma alteração foi fornecida")
 
         invalid_fields = set(changes) - self.EDITABLE_FIELDS
@@ -35,5 +42,8 @@ class UpdateProjectUsecase:
         project_data.update(changes)
 
         updated_project = Project.model_validate(project_data)
+
+        if new_status is not None:
+            updated_project.register_order_status(new_status)
 
         return self.repo.update_project(project_id, updated_project)

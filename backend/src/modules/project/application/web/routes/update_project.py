@@ -5,6 +5,7 @@ from src.modules.project.application.controllers.update_project_controller impor
 from src.modules.project.application.usecases.update_project_usecase import UpdateProjectUsecase
 from src.modules.project.application.web.dependencies import get_repo_project
 from src.modules.project.application.web.schemas.update_project_schema import UpdateProjectRequestSchema, UpdateProjectResponseSchema
+from src.modules.project.domain.errors.project_errors import ProjectStatusConflictError
 
 update_project_router = APIRouter()
 
@@ -24,5 +25,5 @@ async def update_project(
     try:
         return controller(project_id, request)
 
-    except ValueError as e:
+    except ProjectStatusConflictError as e:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(e)) from e

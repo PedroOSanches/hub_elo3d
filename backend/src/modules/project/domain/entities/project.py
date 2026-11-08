@@ -6,6 +6,7 @@ from src.modules.project.domain.enums.order_status_enum import OrderStatus
 from src.modules.project.domain.enums.urgency_enum import Urgency
 from src.modules.project.domain.enums.category_enum import Category
 from src.modules.project.domain.entities.project_file import ProjectFile
+from src.modules.project.domain.errors.project_errors import ProjectStatusConflictError
 
 def initial_order_status() -> dict[OrderStatus, datetime]:
     return {
@@ -95,7 +96,7 @@ class Project(BaseModel):
             raise ValueError("Status inválido")
 
         if status in self.order_status:
-            raise ValueError("Status já registrado")
+            raise ProjectStatusConflictError("Status já registrado")
 
         next_status = {
             OrderStatus.WAITING_FOR_PARTNER: OrderStatus.RECEIVED,
@@ -108,7 +109,7 @@ class Project(BaseModel):
         current_status = self.current_order_status
 
         if status != next_status[current_status]:
-            raise ValueError(f"Status inválido. O próximo status esperado é: {next_status[current_status]}")
+            raise ProjectStatusConflictError(f"Status inválido. O próximo status esperado é: {next_status[current_status]}")
 
         self.order_status[status] = datetime.now(timezone.utc)
 

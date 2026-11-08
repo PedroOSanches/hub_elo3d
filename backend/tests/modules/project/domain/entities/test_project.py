@@ -9,6 +9,7 @@ from src.modules.project.domain.enums.order_status_enum import OrderStatus
 from src.modules.project.domain.enums.urgency_enum import Urgency
 from src.modules.project.domain.enums.category_enum import Category
 from src.modules.project.domain.entities.project_file import ProjectFile
+from src.modules.project.domain.errors.project_errors import ProjectStatusConflictError
 
 def valid_project_data(**overrides):
     data = {
@@ -395,3 +396,15 @@ class TestProject:
             assert project.current_order_status == status
 
         assert len(project.order_status) == 5
+
+    def test_invalid_transition_raises_especific_error(self):
+        project = Project(**valid_project_data())
+
+        with pytest.raises(ProjectStatusConflictError, match="Status inválido"):
+            project.register_order_status(OrderStatus.IN_PROGRESS)
+
+    def test_duplicate_status_raises_especific_error(self):
+        project = Project(**valid_project_data())
+
+        with pytest.raises(ProjectStatusConflictError, match="Status já registrado"):
+            project.register_order_status(OrderStatus.WAITING_FOR_PARTNER)

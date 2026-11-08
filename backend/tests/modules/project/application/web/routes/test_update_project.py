@@ -117,3 +117,12 @@ class TestUpdateProjectRoute:
         response = client.patch(f"/projects/update/{valid_project.id}", json={})
 
         assert response.status_code == 422
+
+    def test_duplicate_status_returns_conflict(self, client_and_repo, valid_project):
+        client, repo = client_and_repo
+        repo.create_project(valid_project)
+
+        response = client.patch(f"/projects/update/{valid_project.id}", json={"new_status": "waiting_for_partner"})
+
+        assert response.status_code == 409
+        assert len(repo.get_project(valid_project.id).order_status) == 1

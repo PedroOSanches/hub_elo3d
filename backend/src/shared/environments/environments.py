@@ -23,7 +23,7 @@ class Environments:
         self.neo_port = os.environ.get("NEO_PORT", 7687)
         self.neo_user = os.environ.get("NEO_USER", '')
         self.neo_pass = os.environ.get("NEO_PASS", '')
-
+        self.neo_database = os.environ.get("NEO_DATABASE")
         self.jwt_secret: str = os.environ.get("JWT_SECRET", '')
 
         self.repo_user = self.get_repository_user()

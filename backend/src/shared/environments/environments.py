@@ -26,8 +26,6 @@ class Environments:
         self.neo_database = os.environ.get("NEO_DATABASE")
         self.jwt_secret: str = os.environ.get("JWT_SECRET", '')
 
-        self.repo_user = self.get_repository_user()
-
         if not self.jwt_secret:
             raise RuntimeError('Missing JWT_SECRET in enviroments')
         
@@ -38,8 +36,5 @@ class Environments:
         envs = Environments()
         envs.load_envs()
         return envs
-
-    def get_repository_user(self):
-        return UserRepositoryMock()
 
 env = Environments.get_envs()

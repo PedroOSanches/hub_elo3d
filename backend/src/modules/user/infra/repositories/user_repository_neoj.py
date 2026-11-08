@@ -48,12 +48,11 @@ class UserRepositoyNeoJ(IUserRepository):
 
             if 'user_id_unique' in err.message:
                 raise DuplicatedUser('user_id')
-            if "user_email_unique" in err.message:
+            if "user_email_is_unique" in err.message:
                 raise DuplicatedUser('email')
 
             raise DatabaseError()
-        finally:
-            self.connection.close()        
+        
         return UserDTO.dict_to_entitie(result.data())
 
     def get_user(self, user_id: UUID) -> User:
@@ -68,17 +67,16 @@ class UserRepositoyNeoJ(IUserRepository):
             result = self.connection.execute_read(
                 lambda tx: tx.run(
                     query=query,
-                    user_id=user_id
+                    user_id=str(user_id)
                 ).single()
             )
 
             if result is None:
                 raise NoUsersFound('id')
-            
+        except NoUsersFound:
+            raise
         except Exception:
             raise DatabaseError()
-        finally:
-            self.connection.close()
             
         return UserDTO.dict_to_entitie(result.data())
 
@@ -88,28 +86,25 @@ class UserRepositoyNeoJ(IUserRepository):
                 RETURN u AS user, a AS address;
                 """
         try:
-
             result = self.connection.execute_read(
-                lambda tx: tx.run(
-                    query
-                ).single()
+                lambda tx:[
+                    UserDTO.dict_to_entitie(record.data())
+                    for record in tx.run(query)
+                    ]
             )
-            
-        except Exception:
-            DatabaseError()
-        finally:
-            self.connection.close()
 
-        if result is None:
-            raise NoUsersFound('this query')
-        return [
-            UserDTO.dict_to_entitie(user_db=result.data())
-            for record in result
-            ]
+            if not result:
+                raise NoUsersFound('this query')
+
+            return result
+        except NoUsersFound:
+            raise
+        except Exception:
+            raise DatabaseError()
 
     def get_user_by_email(self, email: str) -> User:
         query = """
-        MATCH (u:User {email: $email})-[:HAS_ADDRESS]->(a:Adress)
+        MATCH (u:User {email: $email})-[:HAS_ADDRESS]->(a:Address)
         RETURN u AS user, a AS address;
         """
 
@@ -117,17 +112,19 @@ class UserRepositoyNeoJ(IUserRepository):
             result = self.connection.execute_read(
                 lambda tx: tx.run(
                     query=query,
-                    email=email
+                    email=str(email)
                 ).single()
             )
 
             if result is None:
                 raise NoUsersFound('email')
+
+        
+        except NoUsersFound:
+            raise
         except Exception:
             raise DatabaseError()
-        finally:
-            self.connection.close()
-
+        
         return UserDTO.dict_to_entitie(result.data())
 
     def update_user(self, updated_user: User) -> User:
@@ -144,7 +141,7 @@ class UserRepositoyNeoJ(IUserRepository):
             result = self.connection.execute_write(
                 lambda tx: tx.run(
                     query=query,
-                    user_id=updated_user.user_id,
+                    user_id=str(updated_user.user_id),
                     user = u,
                     address = a
                     
@@ -153,12 +150,11 @@ class UserRepositoyNeoJ(IUserRepository):
 
             if result is None:
                 raise NoUsersFound('user_id')
-        
+        except NoUsersFound:
+            raise
         except Exception:
             raise DatabaseError()
 
-        finally:
-            self.connection.close()
 
         return UserDTO.dict_to_entitie(result.data())
 
@@ -182,18 +178,17 @@ class UserRepositoyNeoJ(IUserRepository):
             result = self.connection.execute_write(
                 lambda tx: tx.run(
                     query=query,
-                    user_id=user_id,
+                    user_id=str(user_id),
         
                 ).single()
             )
 
             if result is None:
                 raise NoUsersFound('user_id')
-        
+        except NoUsersFound:
+            raise
         except:
             raise DatabaseError()
 
-        finally:
-            self.connection.close()
 
         return UserDTO.dict_to_entitie(result.data())

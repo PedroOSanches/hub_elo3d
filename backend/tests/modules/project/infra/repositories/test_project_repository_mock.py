@@ -64,7 +64,4 @@ class TestProjectRepositoryMock:
         repo = ProjectRepositoryMock()
 
         with raises(NotImplementedError):
-            repo.update_project(uuid4(), valid_project())
-
-        with raises(NotImplementedError):
             repo.delete_project(uuid4())

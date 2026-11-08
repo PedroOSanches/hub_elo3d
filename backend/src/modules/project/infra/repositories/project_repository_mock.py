@@ -28,9 +28,17 @@ class ProjectRepositoryMock(IProjectRepository):
     def update_project(
         self,
         project_id: UUID,
-        update_project: Project
+        updated_project: Project
     ) -> Project:
-        raise NotImplementedError
+        if project_id not in self.projects:
+            raise ProjectNotFoundError(project_id)
+
+        if updated_project.id != project_id:
+            raise ValueError("Project ID cannot be changed")
+
+        self.projects[project_id] = updated_project
+
+        return updated_project
 
     def delete_project(self, project_id: UUID) -> Project:
         raise NotImplementedError

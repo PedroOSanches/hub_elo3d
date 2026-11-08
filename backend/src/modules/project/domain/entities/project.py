@@ -97,6 +97,19 @@ class Project(BaseModel):
         if status in self.order_status:
             raise ValueError("Status já registrado")
 
+        next_status = {
+            OrderStatus.WAITING_FOR_PARTNER: OrderStatus.RECEIVED,
+            OrderStatus.RECEIVED: OrderStatus.IN_PROGRESS,
+            OrderStatus.IN_PROGRESS: OrderStatus.FINALIZED,
+            OrderStatus.FINALIZED: OrderStatus.DELIVERED,
+            OrderStatus.DELIVERED: None
+        }
+
+        current_status = self.current_order_status
+
+        if status != next_status[current_status]:
+            raise ValueError(f"Status inválido. O próximo status esperado é: {next_status[current_status]}")
+
         self.order_status[status] = datetime.now(timezone.utc)
 
     @property

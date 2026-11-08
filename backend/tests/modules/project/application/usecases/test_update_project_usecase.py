@@ -120,3 +120,13 @@ class TestUpdateProjectUsecase:
             usecase(valid_project.id, {"order_status": {}})
 
         repo.update_project.assert_not_called()
+
+    def test_invalid_status_transition_raises_error(self, repo, valid_project):
+        usecase = UpdateProjectUsecase(repo)
+
+        with raises(ValueError, match="Status inválido"):
+            usecase(valid_project.id, {}, new_status=OrderStatus.IN_PROGRESS)
+
+        repo.update_project.assert_not_called()
+
+        assert valid_project.current_order_status == OrderStatus.WAITING_FOR_PARTNER

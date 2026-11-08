@@ -369,3 +369,29 @@ class TestProject:
     def test_filament_id_is_required(self):
         with pytest.raises(ValidationError):
             Project(**valid_project_data(filament_id=None))
+
+    def test_cannot_skip_order_status(self):
+        project = Project(**valid_project_data())
+        original_history = project.order_status.copy()
+
+        with pytest.raises(ValueError, match="Status inválido"):
+            project.register_order_status(OrderStatus.IN_PROGRESS)
+
+        assert project.order_status == original_history
+
+    def test_complete_order_status_flow(self):
+        project = Project(**valid_project_data())
+
+        statuses = [
+            OrderStatus.RECEIVED,
+            OrderStatus.IN_PROGRESS,
+            OrderStatus.FINALIZED,
+            OrderStatus.DELIVERED
+        ]
+
+        for status in statuses:
+            project.register_order_status(status)
+
+            assert project.current_order_status == status
+
+        assert len(project.order_status) == 5

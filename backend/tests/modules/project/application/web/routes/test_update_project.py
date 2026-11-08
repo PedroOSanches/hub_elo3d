@@ -9,11 +9,12 @@ from src.shared.web.error_handlers import base_error_handler
 
 from src.modules.project.application.controllers.update_project_controller import UpdateProjectController
 from src.modules.project.application.usecases.update_project_usecase import UpdateProjectUsecase
-from src.modules.project.application.web.routes.update_project import get_update_project_dependencies
+from src.modules.project.application.web.routes.update_project import get_update_project_dependencies, get_current_user
 from src.modules.project.application.web.routes.index import project_router
 from src.modules.project.domain.entities.project import Project
 from src.modules.project.domain.entities.project_file import ProjectFile
 from src.modules.project.infra.repositories.project_repository_mock import ProjectRepositoryMock
+from src.modules.user.domain.enums.role_enum import ROLE
 
 @fixture
 def valid_project():
@@ -44,6 +45,7 @@ def client_and_repo():
     controller = UpdateProjectController(usecase)
 
     app.dependency_overrides[get_update_project_dependencies] = lambda: controller
+    app.dependency_overrides[get_current_user] = lambda: ROLE.HOSPITAL
 
     with TestClient(app) as client:
         yield client, repo

@@ -41,4 +41,9 @@ class ProjectRepositoryMock(IProjectRepository):
         return updated_project
 
     def delete_project(self, project_id: UUID) -> Project:
-        raise NotImplementedError
+        if project_id not in self.projects:
+            raise ProjectNotFoundError(project_id)
+
+        deleted_project = self.projects.pop(project_id)
+
+        return deleted_project

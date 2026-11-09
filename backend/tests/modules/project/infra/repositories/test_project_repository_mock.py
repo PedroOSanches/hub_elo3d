@@ -1,6 +1,5 @@
 from datetime import date
 from uuid import uuid4
-from pytest import raises
 
 from src.modules.project.domain.entities.project import Project
 from src.modules.project.domain.entities.project_file import ProjectFile
@@ -59,9 +58,3 @@ class TestProjectRepositoryMock:
 
         assert len(repo1.projects) == 1
         assert len(repo2.projects) == 0
-
-    def test_other_methods_raise_not_implemented_error(self):
-        repo = ProjectRepositoryMock()
-
-        with raises(NotImplementedError):
-            repo.delete_project(uuid4())

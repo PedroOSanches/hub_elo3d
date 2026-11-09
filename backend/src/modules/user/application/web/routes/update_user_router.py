@@ -17,11 +17,12 @@ def get_update_user_dependencies():
 @update_user_router.post(
         '/update_user', 
         status_code=status.HTTP_200_OK, 
-        response_model=UserResponseSchema
+        response_model=UserResponseSchema,
+        response_model_exclude_none=True,
         )
 async def update_user(
     request: UpdateUserRequestSchema,
     controller: UpdateUserController = Depends(get_update_user_dependencies)
     ):
 
-    return controller(request)
+    return UserResponseSchema.model_validate(controller(request))

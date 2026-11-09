@@ -1,6 +1,6 @@
 import jwt
 
-from fastapi import Request
+from fastapi import Request, status
 from jwt import InvalidTokenError
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.responses import JSONResponse, Response
@@ -40,7 +40,10 @@ class AuthenticationMiddleware(BaseHTTPMiddleware):
         token = request.cookies.get("access_token")
 
         if not token:
-            raise AuthUnathorizedAction()
+            return JSONResponse(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                content={"message": "Unauthorizated"}
+            )
 
         try:
             payload = jwt.decode(
@@ -53,15 +56,24 @@ class AuthenticationMiddleware(BaseHTTPMiddleware):
             )
 
             if payload.get("type") != "access":
-                raise AuthUnathorizedAction()
+                return JSONResponse(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    content={"message": "Authentication is failed"}
+                )
 
             user_id = payload.get("sub")
 
             if not user_id:
-                raise AuthUnathorizedAction()
+                return JSONResponse(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    content={"message": "Authentication is failed"}
+                )
 
         except InvalidTokenError as error:
-            raise AuthUnathorizedAction()
+            return JSONResponse(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                content={"message": "Authentication is failed"}
+            )
 
         request.state.current_user = {
             "user_id": user_id,

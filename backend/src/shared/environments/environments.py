@@ -1,7 +1,6 @@
 import os
 from enum import Enum
 from dotenv import load_dotenv
-from src.modules.user.infra.repositories.user_repository_mock import UserRepositoryMock
 class STAGE(Enum):
     DOTENV = 'DOTENV'
     TEST = 'TEST'
@@ -23,23 +22,18 @@ class Environments:
         self.neo_port = os.environ.get("NEO_PORT", 7687)
         self.neo_user = os.environ.get("NEO_USER", '')
         self.neo_pass = os.environ.get("NEO_PASS", '')
-
+        self.neo_database = os.environ.get("NEO_DATABASE")
         self.jwt_secret: str = os.environ.get("JWT_SECRET", '')
-
-        self.repo_user = self.get_repository_user()
 
         if not self.jwt_secret:
             raise RuntimeError('Missing JWT_SECRET in enviroments')
         
-        self.NEO_URL = f'neo4j://{self.neo_host}:{self.neo_port}'
+        self.neo_uri = f'neo4j+s://{self.neo_host}.databases.neo4j.io' if self.stage == STAGE.PROD else f'neo4j://{self.neo_host}:{self.neo_port}'
 
     @staticmethod
     def get_envs() -> "Environments":
         envs = Environments()
         envs.load_envs()
         return envs
-
-    def get_repository_user(self):
-        return UserRepositoryMock()
-
+    
 env = Environments.get_envs()

@@ -20,3 +20,5 @@ class Neo4JConnectionFactory:
 
     def close(self):
         self.driver.close()
+
+connection = Neo4JConnectionFactory()

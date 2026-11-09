@@ -1,7 +1,6 @@
 import os
 from enum import Enum
 from dotenv import load_dotenv
-from src.modules.user.infra.repositories.user_repository_mock import UserRepositoryMock
 class STAGE(Enum):
     DOTENV = 'DOTENV'
     TEST = 'TEST'
@@ -36,5 +35,5 @@ class Environments:
         envs = Environments()
         envs.load_envs()
         return envs
-
+    
 env = Environments.get_envs()

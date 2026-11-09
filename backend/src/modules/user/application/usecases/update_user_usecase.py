@@ -35,9 +35,11 @@ class UpdateUserUsecase:
                 city = new_address.new_city or stored_user.address.city,
                 cep = new_address.new_cep or stored_user.address.cep,
                 state = new_address.new_state or stored_user.address.state,
+                address_details=new_address.new_address_details or stored_user.address.address_details
             ) if new_address is not None else stored_user.address,
             role=stored_user.role,
             phone=new_phone or stored_user.phone,
+            institution_id=stored_user.institution_id,
             password_hash=gerar_hash_senha(new_password) if new_password is not None else stored_user.password_hash
         )
 

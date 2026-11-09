@@ -1,7 +1,6 @@
 from uuid import UUID
 
 from neo4j.exceptions import ConstraintError
-from neo4j import Session
 
 from src.modules.user.domain.entities.user import User
 from src.modules.user.infra.dto.user_dto import UserDTO
@@ -9,7 +8,6 @@ from src.modules.user.domain.repositories.user_repository_interface import IUser
 from src.modules.user.domain.errors.user_usecase_errors import NoUsersFound, DuplicatedUser
 from src.shared.environments.neo4j_connection_factory import Neo4JConnectionFactory
 from src.shared.errors.database_error import DatabaseError
-from src.shared.environments.environments import env
 
 
 class UserRepositoyNeoJ(IUserRepository):

@@ -8,3 +8,6 @@ class ProjectNotFoundError(NotFoundError):
 
 class ProjectStatusConflictError(ValueError):
     pass
+
+class ProjectDeletionConflictError(ValueError):
+    pass

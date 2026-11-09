@@ -10,6 +10,7 @@ from src.modules.project.application.web import dependencies as project_dependen
 from src.modules.project.domain.entities.project import Project
 from src.modules.project.domain.entities.project_file import ProjectFile
 from src.modules.project.infra.repositories.project_repository_mock import ProjectRepositoryMock
+from src.modules.project.domain.enums.order_status_enum import OrderStatus
 
 @fixture
 def valid_project():
@@ -98,3 +99,17 @@ class TestDeleteProjectIntegration:
         assert first_response.status_code == 200
         assert second_response.status_code == 404
         assert valid_project.id not in repo.projects
+    
+    def test_cannot_delete_project_in_progress(self, client_and_repo, valid_project):
+        client, repo = client_and_repo
+
+        valid_project.register_order_status(OrderStatus.RECEIVED)
+
+        repo.create_project(valid_project)
+
+        response = client.delete(f"/api/projects/delete/{valid_project.id}")
+
+        assert response.status_code == 409
+        assert repo.get_project(valid_project.id) == valid_project
+        assert len(repo.projects) == 1
+        assert len(valid_project.order_status) == 2

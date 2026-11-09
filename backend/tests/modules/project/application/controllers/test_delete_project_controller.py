@@ -39,6 +39,8 @@ class TestDeleteProjectController:
         usecase = DeleteProjectUsecase(repo)
         controller = DeleteProjectController(usecase)
 
+        repo.get_project.return_value = valid_project
+
         response = controller(valid_project.id)
 
         assert response["id"] == str(valid_project.id)
@@ -52,6 +54,8 @@ class TestDeleteProjectController:
 
         usecase = DeleteProjectUsecase(repo)
         controller = DeleteProjectController(usecase)
+
+        repo.get_project.return_value = valid_project
 
         response = controller(valid_project.id)
 
@@ -68,7 +72,7 @@ class TestDeleteProjectController:
     def test_delete_nonexistent_project(self, repo):
         project_id = uuid7()
 
-        repo.delete_project.side_effect = ProjectNotFoundError(project_id)
+        repo.get_project.side_effect = ProjectNotFoundError(project_id)
 
         usecase = DeleteProjectUsecase(repo)
         controller = DeleteProjectController(usecase)
@@ -76,4 +80,4 @@ class TestDeleteProjectController:
         with raises(ProjectNotFoundError, match=f"Project {project_id} not found"):
             controller(project_id)
 
-        repo.delete_project.assert_called_once_with(project_id)
+        repo.delete_project.assert_not_called()

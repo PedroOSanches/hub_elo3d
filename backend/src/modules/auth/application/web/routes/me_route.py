@@ -3,7 +3,7 @@ from fastapi.requests import Request
 from src.modules.auth.application.controllers.me_controller import MeController
 from src.modules.auth.application.usecases.me_usecase import MeUsecase
 from src.modules.auth.infra.security.jwt_service import JWTService
-from src.shared.environments import env
+from src.shared.environments.environments import env
 from src.modules.auth.application.web.schemas.me_responses import MeResponseSchema
 route_me = APIRouter()
 

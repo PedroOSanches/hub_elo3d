@@ -2,7 +2,7 @@ import pytest
 from src.modules.auth.domain.entities.auth_user import AuthUser
 from src.modules.auth.infra.security.jwt_service import JWTService
 from src.modules.user.infra.repositories.user_repository_mock import UserRepositoryMock
-from src.shared.environments import env
+from src.shared.environments.environments import env
 from uuid import UUID
 
 @pytest.fixture

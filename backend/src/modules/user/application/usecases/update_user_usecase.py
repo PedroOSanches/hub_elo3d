@@ -1,4 +1,3 @@
-from typing import Any
 from uuid import UUID
 
 from pydantic_extra_types.phone_numbers import PhoneNumber
@@ -21,7 +20,7 @@ class UpdateUserUsecase:
             new_phone: PhoneNumber | None,
             new_address: UpdateAddressRequestSchema | None,
             new_password: str | None
-            ) -> Any:
+            ) -> User:
 
         stored_user = self.repo.get_user(user_id=user_id)
 
@@ -30,15 +29,17 @@ class UpdateUserUsecase:
             name=new_name or stored_user.name,
             email=stored_user.email,
             address= Address(
-                logradouro = new_address.new_logradouro or stored_user.address.logradouro,
-                numero = new_address.new_numero or stored_user.address.numero,
-                bairro = new_address.new_bairro or stored_user.address.bairro,
-                cidade = new_address.new_cidade or stored_user.address.cidade,
+                street = new_address.new_street or stored_user.address.street,
+                number = new_address.new_number or stored_user.address.number,
+                neighborhood = new_address.new_neighborhood or stored_user.address.neighborhood,
+                city = new_address.new_city or stored_user.address.city,
                 cep = new_address.new_cep or stored_user.address.cep,
-                estado = new_address.new_estado or stored_user.address.estado,
+                state = new_address.new_state or stored_user.address.state,
+                address_details=new_address.new_address_details or stored_user.address.address_details
             ) if new_address is not None else stored_user.address,
             role=stored_user.role,
             phone=new_phone or stored_user.phone,
+            institution_id=stored_user.institution_id,
             password_hash=gerar_hash_senha(new_password) if new_password is not None else stored_user.password_hash
         )
 

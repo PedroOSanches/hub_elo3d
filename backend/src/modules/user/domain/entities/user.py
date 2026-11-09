@@ -12,7 +12,7 @@ from pydantic import (
 
 from pydantic_extra_types.phone_numbers import PhoneNumber
 
-from .endereco import Address
+from .address import Address
 from src.shared.errors.domain_error import EntitieError
 from src.modules.user.domain.enums.role_enum import ROLE
 
@@ -33,11 +33,6 @@ class User(BaseModel):
         examples=["user@example.com", "user@aacd.com"]
     )
 
-    institution_id: uuid.UUID | None = Field(
-        default=None,
-        description="Identificador da instituição que o usuário pertence."
-    )
-
     address: Address = Field(
         ...,
         description="Endereço do usuário"
@@ -51,7 +46,11 @@ class User(BaseModel):
         default=None,
         description="Hash da senha do usuário",
         min_length=2,
-        exclude=True,
+    )
+
+    institution_id: uuid.UUID | None = Field(
+        default=None,
+        description='Id do usuário institucional da AACD'
     )
 
     role: ROLE = Field(

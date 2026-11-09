@@ -5,10 +5,10 @@ from src.modules.auth.infra.external.gateways.gateway_user import GatewayUser
 from src.modules.auth.infra.security.jwt_service import JWTService
 from src.modules.auth.application.web.schemas.login_schema import LoginRequestSchema
 
-from src.shared.environments import env
+from src.shared.environments.environments import env
 @pytest.fixture
 def controller():
-    gateway = GatewayUser(env.repo_user)
+    gateway = GatewayUser(GatewayUser.get_repo_user())
     jwt_service = JWTService(jwt_secret=env.jwt_secret)
     usecase = LoginUsecase(gateway=gateway, jwt_service=jwt_service)
     return LoginController(usecase=usecase)

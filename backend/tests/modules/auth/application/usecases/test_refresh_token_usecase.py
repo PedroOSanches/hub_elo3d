@@ -3,7 +3,7 @@ import pytest
 from src.modules.auth.application.usecases.refresh_token_usecase import RefreshTokenUsecase, GatewayUser, JWTService
 from src.modules.auth.domain.errors.auth_error_usecase import AuthUnathorizedAction
 from src.modules.user.infra.repositories.user_repository_mock import UserRepositoryMock
-from src.shared.environments import env
+from src.shared.environments.environments import env
 
 @pytest.fixture
 def jwt_service():

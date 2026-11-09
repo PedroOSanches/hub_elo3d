@@ -65,14 +65,14 @@ class Test_UpdateUserController:
         request = {
             'user_id': 'b189d11a-25d1-430e-b5a1-c53db528337e',
             'address': {
-                'new_logradouro': 'Av. Bernadino Carvalho Pinto'
+                'new_street': 'Av. Bernadino Carvalho Pinto'
             }
         }
         
         
         controller(UpdateUserRequestSchema(**request))
         
-        assert repo.users[0].address.logradouro == request['address']['new_logradouro']
+        assert repo.users[0].address.street == request['address']['new_street']
 
     def test_update_user_type_parameter_invalid(self):
             repo = UserRepositoryMock()
@@ -87,7 +87,7 @@ class Test_UpdateUserController:
             request = {
                 'user_id': 'b189d11a-25d1-430e-b5a1-c53db528337e',
                 'address': {
-                    'new_logradouro': [0, 123]
+                    'new_street': [0, 123]
                 }
             }
             

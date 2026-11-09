@@ -13,8 +13,8 @@ class CreateUserController :
             email=request.email,
             phone=request.phone,
             address=request.address,
-            role=request.role,
             institution_id=request.institution_id,
+            role=request.role,
             password=request.password
         )
 

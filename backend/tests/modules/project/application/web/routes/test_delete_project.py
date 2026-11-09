@@ -14,6 +14,8 @@ from src.modules.project.application.web.routes.index import project_router
 from src.modules.project.domain.entities.project import Project
 from src.modules.project.domain.entities.project_file import ProjectFile
 from src.modules.project.infra.repositories.project_repository_mock import ProjectRepositoryMock
+from src.modules.project.application.web.routes.delete_project import get_delete_project_role
+from src.modules.user.domain.enums.role_enum import ROLE
 
 @fixture
 def valid_project():
@@ -44,6 +46,7 @@ def client_and_repo():
     controller = DeleteProjectController(usecase)
 
     app.dependency_overrides[get_delete_project_dependencies] = (lambda: controller)
+    app.dependency_overrides[get_delete_project_role] = (lambda: ROLE.HOSPITAL)
 
     with TestClient(app) as client:
         yield client, repo

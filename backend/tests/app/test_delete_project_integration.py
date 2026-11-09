@@ -12,6 +12,16 @@ from src.modules.project.domain.entities.project_file import ProjectFile
 from src.modules.project.infra.repositories.project_repository_mock import ProjectRepositoryMock
 from src.modules.project.domain.enums.order_status_enum import OrderStatus
 
+def make_access_token(role: str) -> str:
+    payload = {
+        "sub": str(uuid7()),
+        "type": "access",
+        "role": role,
+        "exp": datetime.now(timezone.utc) + timedelta(minutes=30)
+    }
+
+    return jwt.encode(payload, env.jwt_secret, algorithm="HS256")
+
 @fixture
 def valid_project():
     return Project(
@@ -32,14 +42,7 @@ def valid_project():
 
 @fixture
 def access_token():
-    payload = {
-        "sub": str(uuid7()),
-        "type": "access",
-        "role": "hospital",
-        "exp": datetime.now(timezone.utc) + timedelta(minutes=30)
-    }
-
-    return jwt.encode(payload, env.jwt_secret, algorithm="HS256")
+    return make_access_token("hospital")
 
 @fixture
 def client_and_repo(monkeypatch, access_token):
@@ -113,3 +116,50 @@ class TestDeleteProjectIntegration:
         assert repo.get_project(valid_project.id) == valid_project
         assert len(repo.projects) == 1
         assert len(valid_project.order_status) == 2
+    
+    def test_user_hospital_can_delete(self, client_and_repo, valid_project):
+        client, repo = client_and_repo
+        repo.create_project(valid_project)
+
+        client.cookies.set("access_token", make_access_token("user_hospital"))
+
+        response = client.delete(f"/api/projects/delete/{valid_project.id}")
+
+        assert response.status_code == 200
+        assert valid_project.id not in repo.projects
+
+    def test_user_cannot_delete(self, client_and_repo, valid_project):
+        client, repo = client_and_repo
+        repo.create_project(valid_project)
+
+        client.cookies.set("access_token", make_access_token("user"))
+
+        response = client.delete(f"/api/projects/delete/{valid_project.id}")
+
+        assert response.status_code == 403
+        assert repo.get_project(valid_project.id) == valid_project
+
+    def test_invalid_role_cannot_delete(self, client_and_repo, valid_project):
+        client, repo = client_and_repo
+        repo.create_project(valid_project)
+
+        client.cookies.set("access_token", make_access_token("invalid_role"))
+
+        response = client.delete(f"/api/projects/delete/{valid_project.id}")
+
+        assert response.status_code == 403
+        assert valid_project.id in repo.projects
+
+    def test_user_cannot_delete_project_in_progress(self, client_and_repo, valid_project):
+        client, repo = client_and_repo
+
+        valid_project.register_order_status(OrderStatus.RECEIVED)
+
+        repo.create_project(valid_project)
+
+        client.cookies.set("access_token", make_access_token("user"))
+
+        response = client.delete(f"/api/projects/delete/{valid_project.id}")
+
+        assert response.status_code == 403
+        assert valid_project.id in repo.projects

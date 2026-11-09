@@ -1,4 +1,3 @@
-from typing import Any
 from uuid import UUID
 
 from pydantic_extra_types.phone_numbers import PhoneNumber
@@ -21,7 +20,7 @@ class UpdateUserUsecase:
             new_phone: PhoneNumber | None,
             new_address: UpdateAddressRequestSchema | None,
             new_password: str | None
-            ) -> Any:
+            ) -> User:
 
         stored_user = self.repo.get_user(user_id=user_id)
 

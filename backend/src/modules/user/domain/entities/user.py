@@ -48,6 +48,11 @@ class User(BaseModel):
         min_length=2,
     )
 
+    institution_id: uuid.UUID | None = Field(
+        default=None,
+        description='Id do usuário institucional da AACD'
+    )
+
     role: ROLE = Field(
         ...,
         description="As funções que o usuário tem no sistema"

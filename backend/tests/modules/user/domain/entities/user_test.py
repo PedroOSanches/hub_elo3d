@@ -29,6 +29,7 @@ class TestUser:
             email="user@institution.com",
             phone="+5599999999999",
             role="user",
+            institution_id='01a1bd91-f555-7673-9bde-b97cf74658d4',
             password_hash="5156BECBC019E3F0F9520B143435427E",
             address=Address(
                     street="Rua Teste",
@@ -40,6 +41,26 @@ class TestUser:
                     state="SP"
                 )
         )
+    
+    def test_institucional_user_id_invalid(self):
+        with pytest.raises(EntitieError):
+            user = User(
+                name="User",
+                email="user@institution.com",
+                phone="+5599999999999",
+                role="user",
+                institution_id=0,
+                password_hash="5156BECBC019E3F0F9520B143435427E",
+                address=Address(
+                        street="Rua Teste",
+                        neighborhood="Teste",
+                        cep="00000-000",
+                        number="S/N",
+                        address_details="Casa",
+                        city="Teste",
+                        state="SP"
+                    )
+            )
 
     def test_email_invalid(self):
         with pytest.raises(EntitieError):
@@ -121,7 +142,6 @@ class TestUser:
                     user_id="u",
                     name="User",
                     email="user@institution.com",
-
                     phone="+5511999999999",
                     password_hash="5156BECBC019E3F0F9520B143435427E",
                     role="admin",
@@ -142,7 +162,6 @@ class TestUser:
                     user_id="u",
                     name="User",
                     email="user@institution.com",
-
                     phone="+5511999999999",
                     password_hash="5156BECBC019E3F0F9520B143435427E",
                     role="a",

@@ -106,6 +106,33 @@ def test_type_invalid_parameter():
     assert created_user.status_code == 400
     assert created_user.json()['message'] == "The field 'phone' has the wrong type. Received: int. Expected: str"
 
+def test_type_invalid_institution():
+
+    client = TestClient(app=app)
+
+    created_user = client.post(
+        'api/user/create',
+        json={
+            "name": "Pedro",
+            "email":"pedro@aacd.com",
+            'phone': '+5511999999999',
+            "address": {
+                "street": "Rua Teste",
+                'number': "564",
+                "neighborhood": "Novo Teste",
+                'city': 'Joateste',
+                'state': "SP",
+                'cep': '00000-000',
+                "address_details": "Casa"
+            },
+            'institution_id': 12,
+            'password': '!Teste123@#$',
+            'role': 'user_hospital'
+        }
+)
+    assert created_user.status_code == 400
+    assert created_user.json()['message'] == "The field 'institution_id' has the wrong type. Received: int. Expected: uuid.UUID | None"
+
 
 def test_type_invalid_address_parameter():
 

@@ -8,7 +8,7 @@ from src.modules.auth.application.web.schemas.login_schema import LoginRequestSc
 from src.shared.environments.environments import env
 @pytest.fixture
 def controller():
-    gateway = GatewayUser(env.repo_user)
+    gateway = GatewayUser(GatewayUser.get_repo_user())
     jwt_service = JWTService(jwt_secret=env.jwt_secret)
     usecase = LoginUsecase(gateway=gateway, jwt_service=jwt_service)
     return LoginController(usecase=usecase)

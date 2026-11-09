@@ -30,7 +30,7 @@ def user():
         )
 
 class Test_UserRepositoryNeoJ:
-
+    @pytest.mark.skip('Needs Neo4J')
     def test_create_user(self, user):
 
         repo = UserRepositoyNeoJ(connection=get_connection())
@@ -40,12 +40,14 @@ class Test_UserRepositoryNeoJ:
         assert created_user.user_id == user.user_id
         assert created_user.name == 'Angela'
     
+    @pytest.mark.skip('Needs Neo4J')
     def test_create_user_duplicated(self, user):
 
         with pytest.raises(DuplicatedUser):
             repo = UserRepositoyNeoJ(connection=get_connection())
             repo.create_user(user=user)
     
+    @pytest.mark.skip('Needs Neo4J')
     def test_get_user(self, user):
 
         repo = UserRepositoyNeoJ(connection=get_connection())
@@ -55,18 +57,21 @@ class Test_UserRepositoryNeoJ:
         assert user_stored.name == user.name
         assert user_stored.user_id is not None 
     
+    @pytest.mark.skip('Needs Neo4J')
     def test_get_user_no_users_found(self, user):
         with pytest.raises(NoUsersFound):
             repo = UserRepositoyNeoJ(connection=get_connection())
             user_stored = repo.get_user(user_id=UUID('01a1bc0c-e700-7522-92dd-e54d15712d3b'))
-
+    
+    @pytest.mark.skip('Needs Neo4J')
     def test_get_user_all(self):
         repo = UserRepositoyNeoJ(connection=get_connection())
         users = repo.get_all_users()
 
         assert str(users[0].user_id) == '01a1bbf0-5fff-7615-8970-41c994a6e31f'
         assert str(users[0].name) == 'Angela'
-
+    
+    @pytest.mark.skip('Needs Neo4J')
     def test_get_user_by_email(self, user):
         repo = UserRepositoyNeoJ(connection=get_connection())
 
@@ -74,12 +79,14 @@ class Test_UserRepositoryNeoJ:
 
         assert user_stored.user_id == user.user_id
         assert user_stored.role == user.role
-    
+
+    @pytest.mark.skip('Needs Neo4J')
     def test_get_user_by_email_no_user_found(self, user):
         with pytest.raises(NoUsersFound):
             repo = UserRepositoyNeoJ(connection=get_connection())
             user_stored = repo.get_user_by_email('no_user@example.com')
 
+    @pytest.mark.skip('Needs Neo4J')
     def test_update(self, user):
         repo = UserRepositoyNeoJ(connection=get_connection())
 
@@ -105,7 +112,8 @@ class Test_UserRepositoryNeoJ:
         assert updated_user.user_id == user.user_id
         assert updated_user.phone == user.phone
         assert updated_user.email == user.email
-    
+
+    @pytest.mark.skip('Needs Neo4J')
     def test_update_no_user_found(self, user):
         
         repo = UserRepositoyNeoJ(connection=get_connection())
@@ -129,6 +137,7 @@ class Test_UserRepositoryNeoJ:
         with pytest.raises(NoUsersFound):
             updated_user = repo.update_user(user)
 
+    @pytest.mark.skip('Needs Neo4J')
     def test_delete(self, user):
         repo = UserRepositoyNeoJ(get_connection())
 
@@ -137,7 +146,8 @@ class Test_UserRepositoryNeoJ:
         assert user_deleted.user_id == user.user_id
         assert user_deleted.name == user.name
         assert user_deleted.email == 'angela@maua.br'
-
+    
+    @pytest.mark.skip('Needs Neo4J')
     def test_delete_no_found_user(self, user):
         repo = UserRepositoyNeoJ(get_connection())
 

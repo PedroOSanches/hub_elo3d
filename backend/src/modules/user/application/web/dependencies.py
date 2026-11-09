@@ -8,7 +8,7 @@ def get_connection():
     return Neo4JConnectionFactory()
 
 def get_repo_user() -> IUserRepository:
-    if env.stage != "TEST" or env.stage != "DOTENV":
+    if env.stage.value == "PROD":
         return UserRepositoyNeoJ(get_connection())
     else:
         return UserRepositoryMock()

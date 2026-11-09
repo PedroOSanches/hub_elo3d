@@ -46,25 +46,25 @@ class UpdateUserRequestSchema(BaseModel):
             ) from err
 
 class UpdateAddressRequestSchema(BaseModel):
-    new_logradouro: str | None = Field(
+    new_street: str | None = Field(
         default=None,
         )
-    new_numero: str | None = Field(
+    new_number: str | None = Field(
         default=None,
         )
-    new_bairro: str | None = Field(
+    new_neighborhood: str | None = Field(
         default=None,
     )
-    new_cidade: str | None = Field(
+    new_city: str | None = Field(
         default=None,
     )
-    new_estado: str | None = Field(
+    new_state: str | None = Field(
         default=None,
     )
     new_cep: str | None = Field(
         default=None,
     )
-    new_complemento: str | None = Field(
+    new_address_details: str | None = Field(
         default=None,
     )
 
@@ -73,15 +73,15 @@ class UpdateAddressRequestSchema(BaseModel):
     def validar_model(cls, value: Any, handler: Any) -> "UpdateAddressRequestSchema":
         try:
             if (
-                value.get('new_logradouro') is None
-                and value.get('new_numero') is None
-                and value.get('new_bairro') is None
-                and value.get('new_cidade') is None
-                and value.get('new_estado') is None
+                value.get('new_street') is None
+                and value.get('new_number') is None
+                and value.get('new_neighborhood') is None
+                and value.get('new_city') is None
+                and value.get('new_state') is None
                 and value.get('new_cep') is None
-                and value.get('new_complemento') is None
+                and value.get('new_address_details') is None
             ):
-                raise MissingParameters(['new_logradouro', 'new_numero', 'new_bairro', 'new_cidade', 'new_estado', 'new_cep', 'new_complemento'])
+                raise MissingParameters(['new_street', 'new_number', 'new_neighborhood', 'new_city', 'new_state', 'new_cep', 'new_address_details'])
             return handler(value)
         except ValidationError as err:
             raise WrongTypeParameter(

@@ -4,26 +4,26 @@ from pydantic import BaseModel, Field, ConfigDict, model_validator, ModelWrapVal
 
 class Address(BaseModel):
 
-    logradouro: str = Field(
+    street: str = Field(
         ...,
         min_length=5,
-        examples=["Praça Mauá", "Av. dos Estados"]
+        examples=["Praça Mauá", "Av. dos states"]
     )
 
-    numero: str = Field(
+    number: str = Field(
         ...,
         min_length=1,
         examples=["S/N", "234"]
     )
-    bairro: str = Field(
+    neighborhood: str = Field(
         ...,
         examples=["Sé", "Jardim Bela Vista"]
     )
-    cidade: str = Field(
+    city: str = Field(
         ...,
         examples=['São Bernardo do Campo', 'São Paulo', 'Teresina']
     )
-    estado: str = Field(
+    state: str = Field(
         ...,
         min_length=2,
         max_length=2,
@@ -37,7 +37,7 @@ class Address(BaseModel):
         examples=["12980-000", "09572-550"]
     )
 
-    complemento: str | None = Field(
+    address_details: str | None = Field(
         default=None,
         examples=["Apto. 51", "Casa"]
     )

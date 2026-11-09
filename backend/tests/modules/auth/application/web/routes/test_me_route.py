@@ -6,7 +6,7 @@ import pytest
 from src.app.app import app
 from src.modules.auth.domain.entities.auth_user import AuthUser
 from src.modules.auth.infra.security.jwt_service import JWTService
-from src.shared.environments import env
+from src.shared.environments.environments import env
 
 
 @pytest.fixture

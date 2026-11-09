@@ -6,7 +6,7 @@ from src.modules.auth.application.usecases.login_usecase import LoginUsecase
 from src.modules.auth.application.controllers.login_controller import LoginController
 from src.modules.auth.infra.external.gateways.gateway_user import GatewayUser
 from src.modules.auth.infra.security.jwt_service import JWTService
-from src.shared.environments import env
+from src.shared.environments.environments import env
 
 login_router = APIRouter()
 

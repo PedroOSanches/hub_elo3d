@@ -16,9 +16,9 @@ class CreateUserUsecase:
             name: str, 
             email: str, 
             phone: PhoneNumber, 
-            institution_id: UUID | None,
             role: ROLE,
             address: Address,
+            institution_id: UUID | None,
             password: str
             ) -> User:
 
@@ -26,9 +26,9 @@ class CreateUserUsecase:
             name=name,
             email=email,
             phone=phone,
-            institution_id=institution_id,
             address=Address.model_validate(address),
             role=role,
+            institution_id=institution_id,
             password_hash = gerar_hash_senha(password)
             )
         

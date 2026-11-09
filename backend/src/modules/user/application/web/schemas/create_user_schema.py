@@ -5,7 +5,7 @@ from typing import Any
 from pydantic import BaseModel, Field, EmailStr, ValidationError, model_validator, ConfigDict, field_validator
 from pydantic_extra_types.phone_numbers import PhoneNumber
 from src.shared.errors.controller_error import MissingParameters, WrongTypeParameter
-from src.modules.user.domain.entities.endereco import Address
+from src.modules.user.domain.entities.address import Address
 from src.modules.user.domain.enums.role_enum import ROLE
 
 class CreateUserRequestSchema(BaseModel):
@@ -33,8 +33,10 @@ class CreateUserRequestSchema(BaseModel):
         ...
     )
 
-    institution_id: UUID | None = None
-
+    institution_id: UUID | None = Field(
+        default=None
+    )
+    
     role: ROLE = Field(
         ...,
         examples=['hospital', 'user_hospital', 'admin', ]
@@ -90,13 +92,13 @@ class CreateUserRequestSchema(BaseModel):
 
 
 class CreateUserAddressSchema(BaseModel):
-    logradouro: str = Field(...)
-    numero: str = Field(...)
-    bairro: str = Field(...)
-    cidade: str = Field(...)
-    estado: str = Field(...)
+    street: str = Field(...)
+    number: str = Field(...)
+    neighborhood: str = Field(...)
+    city: str = Field(...)
+    state: str = Field(...)
     cep: str = Field(...)
-    complemento: str | None = Field(default=None)
+    address_details: str | None = Field(default=None)
 
     model_config = ConfigDict(populate_by_name=True)
 
@@ -110,7 +112,7 @@ class CreateUserAddressSchema(BaseModel):
                 field_type_expected="dict",
             )
 
-        for field in ("logradouro", "numero", "bairro", "cidade", "estado"):
+        for field in ("street", "number", "neighborhood", "city", "state"):
             if not value.get(field):
                 raise MissingParameters(f"address.{field}")
         if "cep" not in value or value["cep"] is None:

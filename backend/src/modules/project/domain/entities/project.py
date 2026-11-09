@@ -118,4 +118,4 @@ class Project(BaseModel):
         if not self.order_status:
             raise ValueError("Nenhum status registrado")
 
-        return max(self.order_status, key=lambda status: self.order_status[status])
+        return next(reversed(self.order_status))

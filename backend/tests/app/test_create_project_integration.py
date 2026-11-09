@@ -6,7 +6,7 @@ from fastapi.testclient import TestClient
 from uuid import UUID
 
 from src.app.app import app
-from src.shared.environments import env
+from src.shared.environments.environments import env
 
 from src.modules.project.application.controllers.create_project_controller import CreateProjectController
 from src.modules.project.application.usecases.create_project_usecase import CreateProjectUsecase

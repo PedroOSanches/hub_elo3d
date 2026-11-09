@@ -4,7 +4,7 @@ from src.modules.auth.application.usecases.login_usecase import LoginUsecase
 from src.modules.auth.infra.external.gateways.gateway_user import GatewayUser
 from src.modules.auth.infra.security.jwt_service import JWTService
 from src.modules.user.infra.repositories.user_repository_mock import UserRepositoryMock
-from src.shared.environments import env
+from src.shared.environments.environments import env
 from src.shared.errors.usecase_error import NotFoundError
 
 @pytest.fixture

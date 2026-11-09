@@ -14,13 +14,13 @@ class Test_UserRepositoryMock:
             name = "Pedro",
             email="pedro@aacd.com",
             address=Address(
-                logradouro="teste",
-                numero="564",
-                bairro="Novo Teste",
-                cidade="Bragança Teste",
+                street="teste",
+                number="564",
+                neighborhood="Novo Teste",
+                city="Bragança Teste",
                 cep="00000-000",
-                estado="SP",
-                complemento="Apto. 13"
+                state="SP",
+                address_details="Apto. 13"
             ),
             phone="+5511999999999",
             role="user"
@@ -65,13 +65,13 @@ class Test_UserRepositoryMock:
             name = "Miguel",
             email="miguel@aacd.com",
             address=Address(
-                    logradouro="Rua Teste",
-                    bairro="Teste",
-                    cidade="Joateste",
+                    street="Rua Teste",
+                    neighborhood="Teste",
+                    city="Joateste",
                     cep="00000-000",
-                    numero="S/N",
-                    complemento="Casa",
-                    estado="SP"
+                    number="S/N",
+                    address_details="Casa",
+                    state="SP"
                 ),
             phone="+5511999999999",
             role="user"
@@ -99,13 +99,13 @@ class Test_UserRepositoryMock:
                         name = "Miguel",
                         email="miguel@aacd.com",
                         address=Address(
-                            logradouro="Rua Teste",
-                            bairro="Teste",
-                            cidade="Joateste",
+                            street="Rua Teste",
+                            neighborhood="Teste",
+                            city="Joateste",
                             cep="00000-000",
-                            numero="S/N",
-                            complemento="Casa",
-                            estado="SP"
+                            number="S/N",
+                            address_details="Casa",
+                            state="SP"
                             ),
                         phone="+5511999999999",
                         role="user"
@@ -127,13 +127,13 @@ class Test_UserRepositoryMock:
                     name = "User",
                     email="user@example.com",
                     address=Address(
-                        logradouro="Rua Teste",
-                        bairro="Teste",
-                        cidade="Joateste",
+                        street="Rua Teste",
+                        neighborhood="Teste",
+                        city="Joateste",
                         cep="00000-000",
-                        numero="S/N",
-                        complemento="Casa",
-                        estado="SP"
+                        number="S/N",
+                        address_details="Casa",
+                        state="SP"
                         ),
                     phone="+5511999999999",
                     role="user"

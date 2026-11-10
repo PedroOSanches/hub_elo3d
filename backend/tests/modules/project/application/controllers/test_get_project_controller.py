@@ -40,7 +40,7 @@ class TestGetProjectController:
         usecase = GetProjectUsecase(repo)
         controller = GetProjectController(usecase)
 
-        response = controller(valid_project.id)
+        response = controller(valid_project.id).model_dump(mode="json")
 
         assert response["id"] == str(valid_project.id)
         assert response["title"] == valid_project.title
@@ -54,7 +54,7 @@ class TestGetProjectController:
         usecase = GetProjectUsecase(repo)
         controller = GetProjectController(usecase)
 
-        response = controller(valid_project.id)
+        response = controller(valid_project.id).model_dump(mode="json")
 
         assert response["date_end"] == "2026-11-15"
         assert response["filament_id"] == str(valid_project.filament_id)

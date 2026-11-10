@@ -26,8 +26,11 @@ def access_token():
     return jwt.encode(payload, env.jwt_secret, algorithm="HS256")
 
 @fixture
-def client_and_repo(access_token):
-    repo = ProjectRepositoryMock()
+def repo():
+    return ProjectRepositoryMock()
+
+@fixture
+def client(repo, access_token):
     usecase = CreateProjectUsecase(repo)
     controller = CreateProjectController(usecase)
 
@@ -36,14 +39,13 @@ def client_and_repo(access_token):
     app.dependency_overrides[get_create_project_dependencies] = lambda: controller
 
     try:
-        with TestClient(app) as client:
-            client.cookies.set("access_token", access_token)
-            yield client, repo
+        with TestClient(app) as test_client:
+            test_client.cookies.set("access_token", access_token)
+            yield test_client
     finally:
         app.dependency_overrides = previous_overrides
 
-def test_create_project_in_real_app(client_and_repo):
-    client, repo = client_and_repo
+def test_create_project_in_real_app(client, repo):
 
     request_data = {
         "title": "Prótese de mão",

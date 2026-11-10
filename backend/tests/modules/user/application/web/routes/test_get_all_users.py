@@ -5,7 +5,8 @@ from fastapi.testclient import TestClient
 from datetime import datetime, timedelta, timezone
 from src.modules.user.application.web.schemas.user_response_schema import UserResponseSchema
 
-from src.shared.environments import env
+from src.modules.user.infra.repositories.user_repository_mock import UserRepositoryMock
+from src.shared.environments.environments import env
 
 
 @pytest.fixture
@@ -35,7 +36,7 @@ class Test_GetAllUsersRoute:
         client.cookies.set('access_token', value=get_access_token)
         response = client.get('api/user/get_all_users')
 
-        all_users = env.repo_user.users
+        all_users = UserRepositoryMock().get_all_users()
 
         
         all_users = [UserResponseSchema.model_validate(user).model_dump(mode='json') for user in all_users]

@@ -4,7 +4,7 @@ from fastapi.testclient import TestClient
 import jwt
 from uuid import UUID
 from src.app.app import app
-from src.shared.environments import env
+from src.shared.environments.environments import env
 from src.modules.auth.infra.security.jwt_service import JWTService
 from src.modules.auth.domain.entities.auth_user import AuthUser
 

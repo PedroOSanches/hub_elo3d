@@ -1,14 +1,14 @@
 from uuid import UUID
-from pydantic import BaseModel, ConfigDict, EmailStr
+from pydantic import BaseModel, ConfigDict, EmailStr, Field
 from pydantic_extra_types.phone_numbers import PhoneNumber
-from src.modules.user.domain.entities.endereco import Address
+from src.modules.user.domain.entities.address import Address
 from src.modules.user.domain.enums.role_enum import ROLE
 
 class UserResponseSchema(BaseModel):
 
     model_config = ConfigDict(
         use_enum_values=True,
-        from_attributes=True
+        from_attributes=True,
         )
     
     user_id: UUID
@@ -16,5 +16,8 @@ class UserResponseSchema(BaseModel):
     email: EmailStr
     phone: PhoneNumber
     address: Address
-    institution_id: UUID | None
+    institution_id: UUID | None = Field(
+        default=None,
+        exclude_if=None
+    )
     role: ROLE

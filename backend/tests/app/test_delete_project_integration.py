@@ -5,7 +5,7 @@ from fastapi.testclient import TestClient
 from pytest import fixture
 
 from src.app.app import app
-from src.shared.environments import env
+from src.shared.environments.environments import env
 from src.modules.project.application.web import dependencies as project_dependencies
 from src.modules.project.domain.entities.project import Project
 from src.modules.project.domain.entities.project_file import ProjectFile

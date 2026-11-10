@@ -28,7 +28,7 @@ class Test_UpdateUserAddressRequestSchema:
 
     def test_update_user_address_request_schema_type_invalid(self):
         request = {
-            'new_logradouro': 52
+            'new_street': 52
         }
 
 

@@ -17,15 +17,14 @@ class Test_CreateUserController():
             "email":"pedro@aacd.com",
             "phone":"+5511999999999",
             "address": {
-                "logradouro": "Rua Teste",
-                'numero': "564",
-                "bairro": "Novo Teste",
-                "complemento": "",
-                'cidade': 'São Paulo',
-                'estado': "SP",
+                "street": "Rua Teste",
+                'number': "564",
+                "neighborhood": "Novo Teste",
+                "address_details": "",
+                'city': 'São Paulo',
+                'state': "SP",
                 'cep': '00000-000'
             },
-            'institution_id': "1cee6fe5-1fd5-4131-b054-4ec03358583a",
             'password': '!Teste123@#$',
             'role': 'hospital'
         }

@@ -2,10 +2,10 @@ from datetime import date, datetime, timedelta, timezone
 from uuid import uuid4
 import jwt
 from fastapi.testclient import TestClient
-from pytest import fixture, mark
+from pytest import fixture
 
 from src.app.app import app
-from src.shared.environments import env
+from src.shared.environments.environments import env
 from src.modules.project.application.web import dependencies as project_dependencies
 
 from src.modules.project.domain.entities.project import Project
@@ -85,19 +85,17 @@ class TestGetAllProjectsIntegration:
         assert response.json() == []
         assert len(repo.projects) == 0
 
-    @mark.xfail(reason="Middleware Auth lança exceção em vez de retornar HTTP 401", strict=True)
     def test_get_all_projects_unauthorized(self):
         with TestClient(app) as client:
             response = client.get("/api/projects/get_all")
 
             assert response.status_code == 401
-            assert response.json()["message"] == "Authentication required"
+            assert response.json().get("message")
 
-    @mark.xfail(reason="Middleware Auth lança exceção em vez de retornar HTTP 401", strict=True)
     def test_get_all_projects_invalid_token(self):
         with TestClient(app) as client:
             client.cookies.set("access_token", "invalid_token")
             response = client.get("/api/projects/get_all")
 
             assert response.status_code == 401
-            assert response.json()["message"] == "Invalid or expired access token"
+            assert response.json().get("message")

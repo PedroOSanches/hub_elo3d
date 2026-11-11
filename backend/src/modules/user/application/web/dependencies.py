@@ -4,8 +4,11 @@ from src.shared.environments.neo4j_connection_factory import connection
 from src.modules.user.domain.repositories.user_repository_interface import IUserRepository
 from src.shared.environments.environments import env
 
+_repository_mock = UserRepositoryMock()
+
+
 def get_repo_user() -> IUserRepository:
     if env.stage.value == "PROD":
         return UserRepositoyNeoJ(connection=connection)
     else:
-        return UserRepositoryMock()
+        return _repository_mock

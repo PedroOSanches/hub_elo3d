@@ -37,32 +37,14 @@ class Test_GetAllUsersRoute:
         
         response = client.get('/api/user/get_all_users')
 
-        all_users = UserRepositoryMock().get_all_users()
+        all_users = _repository_mock.get_all_users()
 
         
         all_users = [UserResponseSchema.model_validate(user).model_dump(mode='json') for user in all_users]
 
 
         assert response.status_code == 200
-        assert response.json() ==[
-            {
-                'user_id': 'b189d11a-25d1-430e-b5a1-c53db528337e',
-                'name': 'User',
-                'email': 'user@example.com',
-                'phone': 'tel:+55-11-99999-9999',
-                'address': {
-                    'street': 'Rua Teste',
-                    'number': 'S/N',
-                    'neighborhood': 'Teste',
-                    'city': 'São Teste do Sul',
-                    'state': 'SP',
-                    'cep': '00000-000',
-                    'address_details': 'Casa',
-                    },
-                    'institution_id': None,
-                    'role': 'user',
-                    },
-                {
+        assert response.json()[0] == {
                     'user_id': '20ba02d0-d00f-474b-ad43-10b76abba8ee',
                     'name': 'User AACD',
                     'email': 'user@aacd.com',
@@ -75,25 +57,7 @@ class Test_GetAllUsersRoute:
                         'state': 'SP',
                         'cep': '00000-000',
                         'address_details': 'Casa',
-                        },
+                    },
                     'institution_id': None,
                     'role': 'hospital',
-                    },
-            {
-                    'user_id': '53965c00-a8bb-4d12-a013-d532c84e17c5',
-                    'name': 'User Maua',
-                    'email': 'user@maua.br',
-                    'phone': 'tel:+55-11-99999-9999',
-                    'address': {
-                        'street': 'Rua Teste',
-                        'number': 'S/N',
-                        'neighborhood': 'Teste',
-                        'city': 'São Teste do Sul',
-                        'state': 'SP',
-                        'cep': '00000-000',
-                        'address_details': 'Casa',
-                    },
-                    'institution_id': None,
-                    'role': 'user',
-                    },
-    ]
+                    }

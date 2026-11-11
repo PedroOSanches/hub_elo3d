@@ -13,6 +13,7 @@ class AuthenticationMiddleware(BaseHTTPMiddleware):
         ("POST", "/api/auth/logout"),
         ("POST", "/api/auth/refresh"),
         ("POST", "/api/user/create"),        
+        ("GET", "/api/tea"),
 
         ("GET", "/docs"),
         ("GET", "/openapi.json"),

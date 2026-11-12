@@ -52,6 +52,11 @@ JavaScript
 
 Python
 
+pydantic
+pydantic-extra-types
+fastapi
+uvicorn
+
 Figma para prototipação e desenvolvimento da interface
 
 Git e GitHub para versionamento e colaboração

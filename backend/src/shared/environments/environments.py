@@ -26,11 +26,11 @@ class Environments:
         self.jwt_secret: str = os.environ.get("JWT_SECRET", '')
 
         self.frontend_origin = [
-            origin 
+            origin.strip()
             for origin in os.environ.get(
                 'FRONTEND_ORIGINS', 
                 'http://localhost:3000, http://localhost'
-                ).strip(',')
+                ).split(',')
                 if origin.strip()
                 ]
 

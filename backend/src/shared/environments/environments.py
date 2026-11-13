@@ -25,6 +25,8 @@ class Environments:
         self.neo_database = os.environ.get("NEO_DATABASE")
         self.jwt_secret: str = os.environ.get("JWT_SECRET", '')
 
+        self.frontend_origin = os.environ.get('FRONTEND_ORIGINS', 'http://localhost:3000, http://localhost')
+
         if not self.jwt_secret:
             raise RuntimeError('Missing JWT_SECRET in enviroments')
         

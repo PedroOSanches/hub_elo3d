@@ -1,5 +1,7 @@
 const parceiro = {};
-const API_BASE_URL = window.ENV?.API_BASE_URL || 'http://localhost:8000/api';
+const API_BASE_URL =
+    window.ENV?.API_BASE_URL ||
+    `${window.location.protocol}//${window.location.hostname}:8000/api`;
 
 
 const api = {
@@ -18,7 +20,7 @@ const api = {
   },
 
   async getUser() {
-    const resposta = await window.apiFetch(`${API_BASE_URL}/user/get_user`);
+    const resposta = await window.apiFetch(`${API_BASE_URL}/auth/me`);
 
     return parseApiResponse(resposta, 'Usuário carregado com sucesso.');
   },

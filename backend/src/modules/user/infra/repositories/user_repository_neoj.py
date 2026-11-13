@@ -128,8 +128,8 @@ class UserRepositoyNeoJ(IUserRepository):
     def update_user(self, updated_user: User) -> User:
         query = """
             MATCH (u:User {user_id: $user_id})-[:HAS_ADDRESS]->(a)
-            SET u = $user
-            SET a = $address
+            SET u += $user
+            SET a += $address
 
             return u AS user, a AS address;
         """

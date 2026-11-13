@@ -8,9 +8,6 @@ from uuid import UUID
 from src.app.app import app
 from src.shared.environments.environments import env
 
-from src.modules.project.application.controllers.create_project_controller import CreateProjectController
-from src.modules.project.application.usecases.create_project_usecase import CreateProjectUsecase
-from src.modules.project.application.web.routes.create_project import get_create_project_dependencies
 from src.modules.project.infra.repositories.project_repository_mock import ProjectRepositoryMock
 from src.modules.project.application.web.dependencies import get_repo_project
 from src.modules.project.infra.repositories.project_repository_mock import ProjectRepositoryMock
@@ -26,26 +23,14 @@ def access_token():
     return jwt.encode(payload, env.jwt_secret, algorithm="HS256")
 
 @fixture
-def repo():
-    return ProjectRepositoryMock()
+def client(access_token):
 
-@fixture
-def client(repo, access_token):
-    usecase = CreateProjectUsecase(repo)
-    controller = CreateProjectController(usecase)
+    client = TestClient(app=app)
+    client.cookies.set('access_token', access_token)
 
-    previous_overrides = app.dependency_overrides.copy()
+    return client
 
-    app.dependency_overrides[get_create_project_dependencies] = lambda: controller
-
-    try:
-        with TestClient(app) as test_client:
-            test_client.cookies.set("access_token", access_token)
-            yield test_client
-    finally:
-        app.dependency_overrides = previous_overrides
-
-def test_create_project_in_real_app(client, repo):
+def test_create_project_in_real_app(client):
 
     request_data = {
         "title": "Prótese de mão",
@@ -71,7 +56,6 @@ def test_create_project_in_real_app(client, repo):
 
     assert data["title"] == "Prótese de mão"
     assert "waiting_for_partner" in data["order_status"]
-    assert len(repo.projects) == 1
 
 def test_create_project_with_real_dependencies(access_token):
     repo = get_repo_project()

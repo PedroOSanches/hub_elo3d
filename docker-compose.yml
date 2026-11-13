@@ -5,9 +5,12 @@ services:
       dockerfile: iac/Dockerfile
     container_name: hub_frontend
     ports:
-      - "3000:3000"
+      - "80:3000"
     depends_on:
       - backend
+    
+    env_file:
+      - ./.env
 
   backend:
     build:

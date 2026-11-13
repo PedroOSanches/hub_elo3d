@@ -9,6 +9,7 @@ from typing import cast
 from src.shared.errors.base_error import BaseError
 from src.shared.web.error_handlers import base_error_handler
 from src.modules.printers.application.web.routes.index import router as printers_router
+from src.modules.filaments.application.web.routes.index import router as filaments_router
 from src.modules.user.application.web.routes.index import user_router
 from src.modules.auth.application.web.routes.index import auth_router
 from src.modules.auth.infra.middlewares.auth_middleware import AuthenticationMiddleware
@@ -49,5 +50,6 @@ api_router = APIRouter(prefix='/api')
 api_router.include_router(user_router, prefix='/user', tags=['User'])
 api_router.include_router(auth_router, prefix='/auth', tags=['Auth'])
 api_router.include_router(printers_router, prefix='/printer', tags=['Printer'])
+api_router.include_router(filaments_router, prefix='/filament', tags=['Filament'])
 
 app.include_router(api_router)

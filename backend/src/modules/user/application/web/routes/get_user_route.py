@@ -18,20 +18,6 @@ def get_dependencies_get_user() -> GetUserController:
     return GetUserController(usecase)
 
 
-@get_user_router.get('/get_user', status_code=status.HTTP_200_OK)
-async def get_authenticated_user(
-    request: Request,
-):
-    current_user = getattr(request.state, "current_user", None)
-    if not current_user or not current_user.get("user_id"):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Authenticated user was not found",
-        )
-
-    return {"role": current_user.get("role")}
-
-
 @get_user_router.get('/get_user/{user_id}', status_code=status.HTTP_200_OK)
 async def get_user(
     user_id: str,

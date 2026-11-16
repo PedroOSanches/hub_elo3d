@@ -1,5 +1,6 @@
-from datetime import datetime, date, UTC
+from datetime import UTC, date, datetime
 from uuid import uuid7
+
 from pytest import fixture
 
 from src.modules.project.domain.entities.project import Project
@@ -66,3 +67,52 @@ def test_serializes_order_status_in_order(project):
     assert statuses_data[1]["status"] == "received"
     assert statuses_data[1]["position"] == 1
     assert statuses_data[1]["timestamp"] == "2026-11-16T00:00:00+00:00"
+
+def test_deserializes_project_properties(project):
+    project_data, files_data, statuses_data = (
+        ProjectDTO.entity_to_dict(project)
+    )
+
+    deserialized_project = ProjectDTO.dict_to_entity(
+        project_data,
+        files_data,
+        statuses_data
+    )
+
+    assert deserialized_project == project
+    assert deserialized_project.id.version == 7
+
+def test_deserializes_files_in_order(project):
+    project_data, files_data, statuses_data = (
+        ProjectDTO.entity_to_dict(project)
+    )
+
+    files_data.reverse()
+
+    deserialized_project = ProjectDTO.dict_to_entity(
+        project_data,
+        files_data,
+        statuses_data
+    )
+
+    assert deserialized_project.files[0].title == "Modelo 3D"
+    assert deserialized_project.files[1].title == "Referência"
+
+def test_deserializes_order_status_in_order(project):
+    project_data, files_data, statuses_data = (
+        ProjectDTO.entity_to_dict(project)
+    )
+
+    statuses_data.reverse()
+
+    deserialized_project = ProjectDTO.dict_to_entity(
+        project_data,
+        files_data,
+        statuses_data
+    )
+
+    assert list(deserialized_project.order_status) == [
+        OrderStatus.WAITING_FOR_PARTNER,
+        OrderStatus.RECEIVED
+    ]
+    assert deserialized_project.current_order_status == OrderStatus.RECEIVED

@@ -66,6 +66,23 @@ class UserRepositoryMock(IUserRepository):
                         role="user",
                         password_hash=gerar_hash_senha('Maua123#')
                         ),
+                        User(
+                        user_id = "01a1e5e5-0f34-71dc-92b2-fc87929257ae",
+                        name="User AACD",
+                        email="user_hospital@aacd.br",
+                        phone="+5511999999999",
+                        address=Address(
+                            street="Rua Teste",
+                            neighborhood="Ibirapuera",
+                            cep="00000-000",
+                            city="São Paulo",
+                            number="S/N",
+                            address_details=None,
+                            state="SP"
+                        ),
+                        role="user_hospital",
+                        password_hash=gerar_hash_senha('Maua123#')
+                        ),
         ]
 
     def get_user(self, user_id: UUID) -> User:

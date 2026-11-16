@@ -1,11 +1,15 @@
 from datetime import date, datetime
 from uuid import uuid4
+
 from pytest import fixture
 
+from src.modules.project.application.web.schemas.get_all_projects_schema import (
+    GetAllProjectsResponseSchema,
+)
 from src.modules.project.domain.entities.project import Project
 from src.modules.project.domain.entities.project_file import ProjectFile
-from src.modules.project.application.web.schemas.get_all_projects_schema import GetAllProjectsResponseSchema
 from src.modules.project.domain.enums.order_status_enum import OrderStatus
+
 
 @fixture
 def valid_project():

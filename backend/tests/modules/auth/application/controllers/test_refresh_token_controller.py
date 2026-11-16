@@ -1,11 +1,17 @@
 import pytest
-from src.modules.auth.application.controllers.refresh_token_controller import RefreshTokenController
-from src.modules.auth.application.usecases.refresh_token_usecase import RefreshTokenUsecase
+
+from src.modules.auth.application.controllers.refresh_token_controller import (
+    RefreshTokenController,
+)
+from src.modules.auth.application.usecases.refresh_token_usecase import (
+    RefreshTokenUsecase,
+)
+from src.modules.auth.domain.errors.auth_error_usecase import AuthUnathorizedAction
 from src.modules.auth.infra.external.gateways.gateway_user import GatewayUser
 from src.modules.auth.infra.security.jwt_service import JWTService
 from src.modules.user.infra.repositories.user_repository_mock import UserRepositoryMock
-from src.modules.auth.domain.errors.auth_error_usecase import AuthUnathorizedAction
 from src.shared.environments.environments import env
+
 
 @pytest.fixture
 def jwt_service():

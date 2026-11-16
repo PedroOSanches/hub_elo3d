@@ -1,5 +1,6 @@
-import pytest
 from uuid import UUID
+
+import pytest
 
 from src.modules.user.application.usecases.delete_user_usecase import DeleteUserUsecase
 from src.modules.user.domain.errors.user_usecase_errors import NoUsersFound

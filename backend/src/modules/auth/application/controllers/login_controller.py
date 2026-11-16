@@ -1,9 +1,13 @@
-from typing import Any
 
-from src.modules.auth.application.usecases.login_usecase import LoginUsecase, AuthTokensDTO
+from src.modules.auth.application.usecases.login_usecase import (
+    AuthTokensDTO,
+    LoginUsecase,
+)
 from src.modules.auth.application.web.schemas.login_schema import LoginRequestSchema
 from src.modules.auth.domain.errors.auth_error_usecase import InvalidCredentials
 from src.shared.errors.usecase_error import NotFoundError
+
+
 class LoginController:
 
     def __init__(self, usecase: LoginUsecase) -> None:
@@ -15,5 +19,5 @@ class LoginController:
                 email=request.email,
                 password=request.password
             )
-        except NotFoundError:
-            raise InvalidCredentials()
+        except NotFoundError as err:
+            raise InvalidCredentials() from err

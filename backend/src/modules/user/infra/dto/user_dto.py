@@ -2,6 +2,7 @@ from typing import Any
 
 from src.modules.user.domain.entities.user import User
 
+
 class UserDTO:
 
     @classmethod

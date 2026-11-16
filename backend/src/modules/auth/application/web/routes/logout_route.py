@@ -1,6 +1,5 @@
 from fastapi import APIRouter, Response, status
 
-
 logout_router = APIRouter()
 
 

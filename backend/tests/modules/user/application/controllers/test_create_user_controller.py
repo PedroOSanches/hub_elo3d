@@ -1,11 +1,14 @@
-import pytest
 
 
-from src.modules.user.application.controllers.create_user_controller import CreateUserController, CreateUserRequestSchema, CreateUserUsecase
+from src.modules.user.application.controllers.create_user_controller import (
+    CreateUserController,
+    CreateUserRequestSchema,
+    CreateUserUsecase,
+)
 from src.modules.user.infra.repositories.user_repository_mock import UserRepositoryMock
 
 
-class Test_CreateUserController():
+class Test_CreateUserController:
 
     def test_create_user_controller(self):
         repo = UserRepositoryMock()

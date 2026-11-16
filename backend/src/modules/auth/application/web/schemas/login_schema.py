@@ -1,7 +1,8 @@
-from pydantic import BaseModel, EmailStr, model_validator, ValidationError, Field
-from src.shared.errors.controller_error import WrongTypeParameter
 from typing import Any
 
+from pydantic import BaseModel, EmailStr, Field, ValidationError, model_validator
+
+from src.shared.errors.controller_error import WrongTypeParameter
 
 
 class LoginRequestSchema(BaseModel):

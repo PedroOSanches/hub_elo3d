@@ -1,7 +1,11 @@
 from inspect import isabstract
+
 from pytest import raises
 
-from src.modules.project.domain.repositories.project_repository_interface import IProjectRepository
+from src.modules.project.domain.repositories.project_repository_interface import (
+    IProjectRepository,
+)
+
 
 class TestProjectRepositoryInterface:
 

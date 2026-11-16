@@ -3,8 +3,13 @@ from uuid import uuid4
 
 from src.modules.project.domain.entities.project import Project
 from src.modules.project.domain.entities.project_file import ProjectFile
-from src.modules.project.domain.repositories.project_repository_interface import IProjectRepository
-from src.modules.project.infra.repositories.project_repository_mock import ProjectRepositoryMock
+from src.modules.project.domain.repositories.project_repository_interface import (
+    IProjectRepository,
+)
+from src.modules.project.infra.repositories.project_repository_mock import (
+    ProjectRepositoryMock,
+)
+
 
 def valid_project():
     return Project(

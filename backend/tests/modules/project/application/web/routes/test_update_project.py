@@ -1,20 +1,30 @@
-from datetime import datetime, date
+from datetime import date, datetime
 from uuid import uuid7
+
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 from pytest import fixture
 
+from src.modules.project.application.controllers.update_project_controller import (
+    UpdateProjectController,
+)
+from src.modules.project.application.usecases.update_project_usecase import (
+    UpdateProjectUsecase,
+)
+from src.modules.project.application.web.routes.index import project_router
+from src.modules.project.application.web.routes.update_project import (
+    get_current_user,
+    get_update_project_dependencies,
+)
+from src.modules.project.domain.entities.project import Project
+from src.modules.project.domain.entities.project_file import ProjectFile
+from src.modules.project.infra.repositories.project_repository_mock import (
+    ProjectRepositoryMock,
+)
+from src.modules.user.domain.enums.role_enum import ROLE
 from src.shared.errors.base_error import BaseError
 from src.shared.web.error_handlers import base_error_handler
 
-from src.modules.project.application.controllers.update_project_controller import UpdateProjectController
-from src.modules.project.application.usecases.update_project_usecase import UpdateProjectUsecase
-from src.modules.project.application.web.routes.update_project import get_update_project_dependencies, get_current_user
-from src.modules.project.application.web.routes.index import project_router
-from src.modules.project.domain.entities.project import Project
-from src.modules.project.domain.entities.project_file import ProjectFile
-from src.modules.project.infra.repositories.project_repository_mock import ProjectRepositoryMock
-from src.modules.user.domain.enums.role_enum import ROLE
 
 @fixture
 def valid_project():
@@ -108,7 +118,7 @@ class TestUpdateProjectRoute:
     def test_invalid_project_id(self, client_and_repo):
         client, _ = client_and_repo
 
-        response = client.patch(f"/projects/update/invalid-uuid", json={"title": "Novo título"})
+        response = client.patch("/projects/update/invalid-uuid", json={"title": "Novo título"})
 
         assert response.status_code == 422
 

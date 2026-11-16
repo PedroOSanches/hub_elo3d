@@ -1,12 +1,21 @@
-from pytest import fixture
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
+from pytest import fixture
 
-from src.modules.project.application.controllers.create_project_controller import CreateProjectController
-from src.modules.project.application.usecases.create_project_usecase import CreateProjectUsecase
-from src.modules.project.application.web.routes.create_project import get_create_project_dependencies
+from src.modules.project.application.controllers.create_project_controller import (
+    CreateProjectController,
+)
+from src.modules.project.application.usecases.create_project_usecase import (
+    CreateProjectUsecase,
+)
+from src.modules.project.application.web.routes.create_project import (
+    get_create_project_dependencies,
+)
 from src.modules.project.application.web.routes.index import project_router
-from src.modules.project.infra.repositories.project_repository_mock import ProjectRepositoryMock
+from src.modules.project.infra.repositories.project_repository_mock import (
+    ProjectRepositoryMock,
+)
+
 
 def valid_request_data(**overrides):
     data = {

@@ -3,9 +3,12 @@ from uuid import UUID
 
 from src.modules.project.domain.entities.project import Project
 from src.modules.project.domain.entities.project_file import ProjectFile
-from src.modules.project.domain.enums.urgency_enum import Urgency
 from src.modules.project.domain.enums.category_enum import Category
-from src.modules.project.domain.repositories.project_repository_interface import IProjectRepository
+from src.modules.project.domain.enums.urgency_enum import Urgency
+from src.modules.project.domain.repositories.project_repository_interface import (
+    IProjectRepository,
+)
+
 
 class CreateProjectUsecase:
     def __init__(self, repo: IProjectRepository):

@@ -1,10 +1,17 @@
-from fastapi import APIRouter, status, Depends
-from src.modules.user.application.web.dependencies import get_repo_user
-from src.modules.user.application.web.schemas.user_response_schema import UserResponseSchema
+from fastapi import APIRouter, Depends, status
 
-from src.modules.user.application.controllers.update_user_controller import UpdateUserController
+from src.modules.user.application.controllers.update_user_controller import (
+    UpdateUserController,
+)
 from src.modules.user.application.usecases.update_user_usecase import UpdateUserUsecase
-from src.modules.user.application.web.schemas.update_user_request_schema import UpdateUserRequestSchema
+from src.modules.user.application.web.dependencies import get_repo_user
+from src.modules.user.application.web.schemas.update_user_request_schema import (
+    UpdateUserRequestSchema,
+)
+from src.modules.user.application.web.schemas.user_response_schema import (
+    UserResponseSchema,
+)
+
 update_user_router = APIRouter()
 
 def get_update_user_dependencies():

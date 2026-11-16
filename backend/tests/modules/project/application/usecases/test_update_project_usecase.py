@@ -1,14 +1,20 @@
 from datetime import date
 from unittest.mock import Mock
 from uuid import uuid7
-from pytest import fixture, raises
-from pydantic import ValidationError
 
-from src.modules.project.application.usecases.update_project_usecase import UpdateProjectUsecase
+from pydantic import ValidationError
+from pytest import fixture, raises
+
+from src.modules.project.application.usecases.update_project_usecase import (
+    UpdateProjectUsecase,
+)
 from src.modules.project.domain.entities.project import Project
 from src.modules.project.domain.entities.project_file import ProjectFile
 from src.modules.project.domain.enums.order_status_enum import OrderStatus
-from src.modules.project.domain.repositories.project_repository_interface import IProjectRepository
+from src.modules.project.domain.repositories.project_repository_interface import (
+    IProjectRepository,
+)
+
 
 @fixture
 def valid_project():

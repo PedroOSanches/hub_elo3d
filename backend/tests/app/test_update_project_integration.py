@@ -1,22 +1,26 @@
-from datetime import datetime, date, timedelta, timezone
+from datetime import UTC, date, datetime, timedelta
 from uuid import uuid7
+
 import jwt
 from fastapi.testclient import TestClient
 from pytest import fixture
 
 from src.app.app import app
-from src.shared.environments.environments import env
 from src.modules.project.application.web import dependencies as project_dependencies
 from src.modules.project.domain.entities.project import Project
 from src.modules.project.domain.entities.project_file import ProjectFile
-from src.modules.project.infra.repositories.project_repository_mock import ProjectRepositoryMock
+from src.modules.project.infra.repositories.project_repository_mock import (
+    ProjectRepositoryMock,
+)
+from src.shared.environments.environments import env
+
 
 def make_access_token(role: str) -> str:
     payload = {
         "sub": str(uuid7()),
         "type": "access",
         "role": role,
-        "exp": datetime.now(timezone.utc) + timedelta(minutes=30)
+        "exp": datetime.now(UTC) + timedelta(minutes=30)
     }
 
     return jwt.encode(payload, env.jwt_secret, algorithm="HS256")

@@ -1,6 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
-class Urgency(str, Enum):
+
+class Urgency(StrEnum):
     LOW = "low"
     MEDIUM = "medium"
     HIGH = "high"

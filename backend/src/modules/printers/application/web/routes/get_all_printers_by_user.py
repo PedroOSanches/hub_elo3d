@@ -1,11 +1,18 @@
 import uuid
 
-from fastapi import APIRouter, status, Depends
+from fastapi import APIRouter, Depends, status
 
-from src.modules.printers.application.web.schemas.printer_schema import PrinterResponseSchema
+from src.modules.printers.application.usecases.get_all_printers_by_user_usecase import (
+    GetAllPrintersByUserUsecase,
+)
 from src.modules.printers.application.web.dependencies import get_repo_printer
-from src.modules.printers.application.controllers.get_all_printers_by_user_controller import GetAllPrintersByUserController
-from src.modules.printers.application.usecases.get_all_printers_by_user_usecase import GetAllPrintersByUserUsecase
+from src.modules.printers.application.web.schemas.printer_schema import (
+    PrinterResponseSchema,
+)
+
+from ...controllers.get_all_printers_by_user_controller import (
+    GetAllPrintersByUserController,
+)
 
 get_all_by_user_router = APIRouter()
 
@@ -24,7 +31,9 @@ def get_all_printers_by_user_dependencies() -> GetAllPrintersByUserController:
 )
 async def get_all_printers_by_user(
     user_id: uuid.UUID,
-    controller: GetAllPrintersByUserController = Depends(get_all_printers_by_user_dependencies),
+    controller: GetAllPrintersByUserController = Depends(
+        get_all_printers_by_user_dependencies
+        ),
 ):
 
     return controller(user_id)

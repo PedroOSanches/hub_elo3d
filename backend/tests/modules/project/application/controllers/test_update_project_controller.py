@@ -1,16 +1,26 @@
 import json
-from datetime import datetime, date
+from datetime import date, datetime
 from uuid import uuid7
+
 from pytest import fixture, raises
 
-from src.modules.project.application.controllers.update_project_controller import UpdateProjectController
-from src.modules.project.application.usecases.update_project_usecase import UpdateProjectUsecase
-from src.modules.project.application.web.schemas.update_project_schema import UpdateProjectRequestSchema
+from src.modules.project.application.controllers.update_project_controller import (
+    UpdateProjectController,
+)
+from src.modules.project.application.usecases.update_project_usecase import (
+    UpdateProjectUsecase,
+)
+from src.modules.project.application.web.schemas.update_project_schema import (
+    UpdateProjectRequestSchema,
+)
 from src.modules.project.domain.entities.project import Project
 from src.modules.project.domain.entities.project_file import ProjectFile
 from src.modules.project.domain.enums.order_status_enum import OrderStatus
 from src.modules.project.domain.errors.project_errors import ProjectNotFoundError
-from src.modules.project.infra.repositories.project_repository_mock import ProjectRepositoryMock
+from src.modules.project.infra.repositories.project_repository_mock import (
+    ProjectRepositoryMock,
+)
+
 
 @fixture
 def valid_project():

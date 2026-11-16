@@ -1,7 +1,8 @@
-from pytest import raises
 from pydantic import ValidationError
+from pytest import raises
 
 from src.modules.project.domain.entities.project_file import ProjectFile
+
 
 class TestProjectFile:
     def test_create_project_file(self):

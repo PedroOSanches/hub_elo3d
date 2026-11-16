@@ -7,7 +7,6 @@ from src.modules.printers.infra.repositories.printer_repository_mock import (
     PrinterRepositoryMock,
 )
 
-# Instância única: o repositório em memória guarda os dados dentro dele, precisa ser o mesmo obj em todas as requisições
 _repo_printer = PrinterRepositoryMock()
 
 

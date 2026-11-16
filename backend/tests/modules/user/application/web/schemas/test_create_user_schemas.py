@@ -1,12 +1,10 @@
 import pytest
-from src.modules.user.application.web.schemas.create_user_schema import (
-    CreateUserRequestSchema, 
-    Address, 
-    MissingParameters, 
-    WrongTypeParameter
-)
 
-from src.modules.user.application.web.schemas.user_response_schema import UserResponseSchema
+from src.modules.user.application.web.schemas.create_user_schema import (
+    CreateUserRequestSchema,
+    MissingParameters,
+    WrongTypeParameter,
+)
 
 
 class Test_CreateUserRequestSchema:

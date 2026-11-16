@@ -1,7 +1,12 @@
 from uuid import UUID
 
-from src.modules.project.application.usecases.get_project_usecase import GetProjectUsecase
-from src.modules.project.application.web.schemas.get_project_schema import GetProjectResponseSchema
+from src.modules.project.application.usecases.get_project_usecase import (
+    GetProjectUsecase,
+)
+from src.modules.project.application.web.schemas.get_project_schema import (
+    GetProjectResponseSchema,
+)
+
 
 class GetProjectController:
     def __init__(self, usecase: GetProjectUsecase):

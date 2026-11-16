@@ -1,5 +1,7 @@
-from src.shared.environments.environments import env
 from neo4j import GraphDatabase
+
+from src.shared.environments.environments import env
+
 
 class Neo4JConnectionFactory:
     

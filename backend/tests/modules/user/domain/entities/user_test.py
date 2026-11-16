@@ -1,6 +1,8 @@
+
 import pytest
-from src.modules.user.domain.entities.user import User, EntitieError, Address
-from uuid import UUID
+
+from src.modules.user.domain.entities.user import Address, EntitieError, User
+
 
 class TestUser:
 

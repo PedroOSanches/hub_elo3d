@@ -3,6 +3,7 @@ import pytest
 from src.modules.project.domain.enums.order_status_enum import OrderStatus
 from src.modules.project.domain.enums.urgency_enum import Urgency
 
+
 class TestProjectEnums:
 
     def test_order_status_values(self):

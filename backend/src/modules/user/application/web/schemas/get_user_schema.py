@@ -1,7 +1,10 @@
 from typing import Any
-from pydantic import BaseModel, Field, ValidationError, model_validator
-from src.shared.errors.controller_error import MissingParameters, WrongTypeParameter
 from uuid import UUID
+
+from pydantic import BaseModel, Field, ValidationError, model_validator
+
+from src.shared.errors.controller_error import MissingParameters, WrongTypeParameter
+
 
 class GetUserRequestSchema(BaseModel):
 

@@ -3,9 +3,14 @@ from uuid import UUID
 from neo4j.exceptions import ConstraintError
 
 from src.modules.user.domain.entities.user import User
+from src.modules.user.domain.errors.user_usecase_errors import (
+    DuplicatedUser,
+    NoUsersFound,
+)
+from src.modules.user.domain.repositories.user_repository_interface import (
+    IUserRepository,
+)
 from src.modules.user.infra.dto.user_dto import UserDTO
-from src.modules.user.domain.repositories.user_repository_interface import IUserRepository
-from src.modules.user.domain.errors.user_usecase_errors import NoUsersFound, DuplicatedUser
 from src.shared.environments.neo4j_connection_factory import Neo4JConnectionFactory
 from src.shared.errors.database_error import DatabaseError
 
@@ -45,11 +50,11 @@ class UserRepositoyNeoJ(IUserRepository):
         except ConstraintError as err:
 
             if 'user_id_unique' in err.message:
-                raise DuplicatedUser('user_id')
+                raise DuplicatedUser('user_id') from err
             if "user_email_is_unique" in err.message:
-                raise DuplicatedUser('email')
+                raise DuplicatedUser('email') from err
 
-            raise DatabaseError()
+            raise DatabaseError() from err
         
         return UserDTO.dict_to_entitie(result.data())
 
@@ -73,8 +78,8 @@ class UserRepositoyNeoJ(IUserRepository):
                 raise NoUsersFound('id')
         except NoUsersFound:
             raise
-        except Exception:
-            raise DatabaseError()
+        except Exception as err:
+            raise DatabaseError() from err
             
         return UserDTO.dict_to_entitie(result.data())
 
@@ -97,8 +102,8 @@ class UserRepositoyNeoJ(IUserRepository):
             return result
         except NoUsersFound:
             raise
-        except Exception:
-            raise DatabaseError()
+        except Exception as err:
+            raise DatabaseError() from err
 
     def get_user_by_email(self, email: str) -> User:
         query = """
@@ -120,8 +125,8 @@ class UserRepositoyNeoJ(IUserRepository):
         
         except NoUsersFound:
             raise
-        except Exception:
-            raise DatabaseError()
+        except Exception as err:
+            raise DatabaseError() from err
         
         return UserDTO.dict_to_entitie(result.data())
 
@@ -150,8 +155,8 @@ class UserRepositoyNeoJ(IUserRepository):
                 raise NoUsersFound('user_id')
         except NoUsersFound:
             raise
-        except Exception:
-            raise DatabaseError()
+        except Exception as err:
+            raise DatabaseError() from err
 
 
         return UserDTO.dict_to_entitie(result.data())
@@ -185,8 +190,8 @@ class UserRepositoyNeoJ(IUserRepository):
                 raise NoUsersFound('user_id')
         except NoUsersFound:
             raise
-        except:
-            raise DatabaseError()
+        except Exception as err:
+            raise DatabaseError() from err
 
 
         return UserDTO.dict_to_entitie(result.data())

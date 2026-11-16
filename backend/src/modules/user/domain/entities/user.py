@@ -1,20 +1,22 @@
 import uuid
 from typing import Any
-from pydantic import (
-    BaseModel, 
-    EmailStr, 
-    Field, 
-    ConfigDict, 
-    ValidationError, 
-    model_validator, 
-    ModelWrapValidatorHandler
-    )
 
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    EmailStr,
+    Field,
+    ModelWrapValidatorHandler,
+    ValidationError,
+    model_validator,
+)
 from pydantic_extra_types.phone_numbers import PhoneNumber
 
-from .address import Address
-from src.shared.errors.domain_error import EntitieError
 from src.modules.user.domain.enums.role_enum import ROLE
+from src.shared.errors.domain_error import EntitieError
+
+from .address import Address
+
 
 class User(BaseModel):
     user_id: uuid.UUID = Field(

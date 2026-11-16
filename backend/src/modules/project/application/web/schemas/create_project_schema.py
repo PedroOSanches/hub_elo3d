@@ -4,9 +4,10 @@ from uuid import UUID
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from src.modules.project.domain.entities.project_file import ProjectFile
-from src.modules.project.domain.enums.urgency_enum import Urgency
-from src.modules.project.domain.enums.order_status_enum import OrderStatus
 from src.modules.project.domain.enums.category_enum import Category
+from src.modules.project.domain.enums.order_status_enum import OrderStatus
+from src.modules.project.domain.enums.urgency_enum import Urgency
+
 
 class CreateProjectRequestSchema(BaseModel):
     title: str = Field(

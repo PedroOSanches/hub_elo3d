@@ -1,8 +1,9 @@
 from fastapi import APIRouter
+
 from src.modules.auth.application.web.routes.login_route import login_router
 from src.modules.auth.application.web.routes.logout_route import logout_router
-from src.modules.auth.application.web.routes.refresh_route import refresh_router
 from src.modules.auth.application.web.routes.me_route import route_me
+from src.modules.auth.application.web.routes.refresh_route import refresh_router
 
 auth_router = APIRouter()
 

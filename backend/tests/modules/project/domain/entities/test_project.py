@@ -1,15 +1,16 @@
+from datetime import UTC, date, datetime
 from uuid import UUID, uuid4
-from datetime import date, datetime, timezone
 
 import pytest
 from pydantic import ValidationError
 
 from src.modules.project.domain.entities.project import Project
+from src.modules.project.domain.entities.project_file import ProjectFile
+from src.modules.project.domain.enums.category_enum import Category
 from src.modules.project.domain.enums.order_status_enum import OrderStatus
 from src.modules.project.domain.enums.urgency_enum import Urgency
-from src.modules.project.domain.enums.category_enum import Category
-from src.modules.project.domain.entities.project_file import ProjectFile
 from src.modules.project.domain.errors.project_errors import ProjectStatusConflictError
+
 
 def valid_project_data(**overrides):
     data = {
@@ -82,7 +83,7 @@ class TestProject:
             Project(**data)
 
     def test_custom_order_status(self):
-        timestamp = datetime.now(timezone.utc)
+        timestamp = datetime.now(UTC)
 
         project = Project(**valid_project_data(order_status = {OrderStatus.RECEIVED: timestamp}))
 
@@ -94,7 +95,7 @@ class TestProject:
 
     def test_invalid_order_status(self):
         with pytest.raises(ValidationError):
-            Project(**valid_project_data(order_status = {"invalid_status": datetime.now(timezone.utc)}))
+            Project(**valid_project_data(order_status = {"invalid_status": datetime.now(UTC)}))
 
     def test_required_pieces_quantity(self):
         data = valid_project_data()
@@ -256,7 +257,7 @@ class TestProject:
         ],
     )
     def test_valid_order_status(self, status):
-        timestamp = datetime.now(timezone.utc)
+        timestamp = datetime.now(UTC)
 
         project = Project(**valid_project_data(order_status={status: timestamp}))
 

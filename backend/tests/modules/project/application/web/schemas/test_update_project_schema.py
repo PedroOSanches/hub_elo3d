@@ -1,12 +1,17 @@
-from datetime import datetime, date
+from datetime import date, datetime
 from uuid import uuid7
-from pytest import mark, raises
-from pydantic import ValidationError
 
-from src.modules.project.application.web.schemas.update_project_schema import UpdateProjectRequestSchema, UpdateProjectResponseSchema
+from pydantic import ValidationError
+from pytest import mark, raises
+
+from src.modules.project.application.web.schemas.update_project_schema import (
+    UpdateProjectRequestSchema,
+    UpdateProjectResponseSchema,
+)
 from src.modules.project.domain.entities.project import Project
 from src.modules.project.domain.entities.project_file import ProjectFile
 from src.modules.project.domain.enums.order_status_enum import OrderStatus
+
 
 class TestUpdateProjectRequestSchema:
     def test_partial_update(self):

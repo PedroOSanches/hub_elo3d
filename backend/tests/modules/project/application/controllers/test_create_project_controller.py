@@ -1,15 +1,24 @@
 import json
-from datetime import date
 from unittest.mock import Mock
 from uuid import UUID, uuid4
+
 from pytest import fixture
 
-from src.modules.project.application.controllers.create_project_controller import CreateProjectController
-from src.modules.project.application.usecases.create_project_usecase import CreateProjectUsecase
-from src.modules.project.application.web.schemas.create_project_schema import CreateProjectRequestSchema
+from src.modules.project.application.controllers.create_project_controller import (
+    CreateProjectController,
+)
+from src.modules.project.application.usecases.create_project_usecase import (
+    CreateProjectUsecase,
+)
+from src.modules.project.application.web.schemas.create_project_schema import (
+    CreateProjectRequestSchema,
+)
 from src.modules.project.domain.entities.project import Project
-from src.modules.project.domain.repositories.project_repository_interface import IProjectRepository
 from src.modules.project.domain.enums.order_status_enum import OrderStatus
+from src.modules.project.domain.repositories.project_repository_interface import (
+    IProjectRepository,
+)
+
 
 @fixture
 def valid_request_data(**overrides):

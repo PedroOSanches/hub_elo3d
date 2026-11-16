@@ -1,10 +1,17 @@
 from uuid import UUID
+
 from fastapi import APIRouter, Depends, status
 
-from src.modules.project.application.controllers.get_project_controller import GetProjectController
-from src.modules.project.application.usecases.get_project_usecase import GetProjectUsecase
+from src.modules.project.application.controllers.get_project_controller import (
+    GetProjectController,
+)
+from src.modules.project.application.usecases.get_project_usecase import (
+    GetProjectUsecase,
+)
 from src.modules.project.application.web.dependencies import get_repo_project
-from src.modules.project.application.web.schemas.get_project_schema import GetProjectResponseSchema
+from src.modules.project.application.web.schemas.get_project_schema import (
+    GetProjectResponseSchema,
+)
 
 get_project_router = APIRouter()
 

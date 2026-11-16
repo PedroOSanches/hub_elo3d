@@ -1,11 +1,15 @@
 from fastapi import APIRouter, Cookie, Depends, Response
 
-from src.modules.auth.application.web.schemas.refresh_token_response_schema import RefreshTokenResponseSchema
-from src.modules.auth.application.controllers.refresh_token_controller import RefreshTokenController
-from src.modules.auth.application.usecases.refresh_token_usecase import RefreshTokenUsecase
+from src.modules.auth.application.controllers.refresh_token_controller import (
+    RefreshTokenController,
+)
+from src.modules.auth.application.usecases.refresh_token_usecase import (
+    RefreshTokenUsecase,
+)
 from src.modules.auth.infra.external.gateways.gateway_user import GatewayUser
 from src.modules.auth.infra.security.jwt_service import JWTService
 from src.shared.environments.environments import env
+
 
 def get_refresh_token_controller():
     gateway = GatewayUser(GatewayUser.get_repo_user())

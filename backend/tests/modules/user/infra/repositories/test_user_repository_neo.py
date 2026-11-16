@@ -1,11 +1,18 @@
-from uuid import UUID, uuid7
+from uuid import UUID
 
 import pytest
+
 from src.modules.user.domain.entities.address import Address
 from src.modules.user.domain.entities.user import User
-from src.modules.user.infra.repositories.user_repository_neoj import UserRepositoyNeoJ, DuplicatedUser, NoUsersFound
+from src.modules.user.infra.repositories.user_repository_neoj import (
+    DuplicatedUser,
+    NoUsersFound,
+    UserRepositoyNeoJ,
+)
 from src.shared.environments.neo4j_connection_factory import Neo4JConnectionFactory
 from src.shared.utils.password_hasher import gerar_hash_senha
+
+
 def get_connection():
     return Neo4JConnectionFactory()
 

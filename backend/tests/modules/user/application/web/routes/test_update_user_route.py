@@ -1,14 +1,16 @@
-import pytest
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
-from fastapi.testclient import TestClient
 import jwt
+import pytest
+from fastapi.testclient import TestClient
+
 from src.app.app import app
 from src.shared.environments.environments import env
 
+
 @pytest.fixture
 def get_access_token():
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     
     payload = {
         "sub": "b189d11a-25d1-430e-b5a1-c53db528337e",

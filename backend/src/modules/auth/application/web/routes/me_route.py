@@ -1,15 +1,17 @@
-from fastapi import APIRouter, Depends, Response
+from fastapi import APIRouter, Depends
 from fastapi.requests import Request
+
 from src.modules.auth.application.controllers.me_controller import MeController
 from src.modules.auth.application.usecases.me_usecase import MeUsecase
+from src.modules.auth.application.web.schemas.me_responses import MeResponseSchema
 from src.modules.auth.infra.security.jwt_service import JWTService
 from src.shared.environments.environments import env
-from src.modules.auth.application.web.schemas.me_responses import MeResponseSchema
+
 route_me = APIRouter()
 
 def get_me_depends():
     jwt = JWTService(jwt_secret=env.jwt_secret)
-    usecase = MeUsecase(jwt_service=JWTService(jwt_secret=env.jwt_secret))
+    usecase = MeUsecase(jwt_service=jwt)
     return MeController(usecase)
 
 @route_me.get('/me', response_model=MeResponseSchema)

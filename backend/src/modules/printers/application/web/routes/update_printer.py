@@ -1,12 +1,20 @@
 import uuid
 
-from fastapi import APIRouter, status, Depends
+from fastapi import APIRouter, Depends, status
 
-from src.modules.printers.application.web.schemas.update_printer_schema import UpdatePrinterRequestSchema
-from src.modules.printers.application.web.schemas.printer_schema import PrinterResponseSchema
+from src.modules.printers.application.controllers.update_printer_controller import (
+    UpdatePrinterController,
+)
+from src.modules.printers.application.usecases.update_printer_usecase import (
+    UpdatePrinterUsecase,
+)
 from src.modules.printers.application.web.dependencies import get_repo_printer
-from src.modules.printers.application.controllers.update_printer_controller import UpdatePrinterController
-from src.modules.printers.application.usecases.update_printer_usecase import UpdatePrinterUsecase
+from src.modules.printers.application.web.schemas.printer_schema import (
+    PrinterResponseSchema,
+)
+from src.modules.printers.application.web.schemas.update_printer_schema import (
+    UpdatePrinterRequestSchema,
+)
 
 update_router = APIRouter()
 

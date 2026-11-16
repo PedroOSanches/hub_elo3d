@@ -1,5 +1,6 @@
 import bcrypt
 
+
 def gerar_hash_senha(senha: str):
     senha_bytes = senha.encode('utf-8')
 

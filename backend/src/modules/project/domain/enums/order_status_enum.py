@@ -1,6 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
-class OrderStatus(str, Enum):
+
+class OrderStatus(StrEnum):
     WAITING_FOR_PARTNER = "waiting_for_partner"
     RECEIVED = "received"
     IN_PROGRESS = "in_progress"

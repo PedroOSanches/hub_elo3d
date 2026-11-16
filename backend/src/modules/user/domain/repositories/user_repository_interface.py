@@ -4,6 +4,7 @@ from uuid import UUID
 
 from src.modules.user.domain.entities.user import User
 
+
 class IUserRepository(abc.ABC):
     
     @abstractmethod
@@ -33,7 +34,7 @@ class IUserRepository(abc.ABC):
 
         Em caso de sucesso retorna o usuario criado
 
-        Caso encontre um usuário já existente com as mesmas credencias retorna DuplicatedUser
+        Caso encontre um usuário já existente retorna DuplicatedUser
         """
         pass
 
@@ -65,4 +66,8 @@ class IUserRepository(abc.ABC):
 
     @abstractmethod
     def get_user_by_email(self, email: str) -> User:
-        """Retorna um usuario buscando-o pelo E-Mail\n Caso o usuario não seja encontrado retorna NoUsersFound"""
+        """
+        Retorna um usuario buscando-o pelo E-Mail
+
+        Caso o usuario não seja encontrado retorna NoUsersFound
+        """

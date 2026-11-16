@@ -1,14 +1,22 @@
 from datetime import date, datetime
-from uuid import uuid7
 from unittest.mock import Mock
+from uuid import uuid7
+
 from pytest import fixture, raises
 
-from src.modules.project.application.controllers.delete_project_controller import DeleteProjectController
-from src.modules.project.application.usecases.delete_project_usecase import DeleteProjectUsecase
+from src.modules.project.application.controllers.delete_project_controller import (
+    DeleteProjectController,
+)
+from src.modules.project.application.usecases.delete_project_usecase import (
+    DeleteProjectUsecase,
+)
 from src.modules.project.domain.entities.project import Project
 from src.modules.project.domain.entities.project_file import ProjectFile
-from src.modules.project.domain.repositories.project_repository_interface import IProjectRepository
 from src.modules.project.domain.errors.project_errors import ProjectNotFoundError
+from src.modules.project.domain.repositories.project_repository_interface import (
+    IProjectRepository,
+)
+
 
 @fixture
 def repo():

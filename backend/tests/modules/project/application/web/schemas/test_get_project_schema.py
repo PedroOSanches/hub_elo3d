@@ -1,12 +1,16 @@
 from datetime import date, datetime
 from uuid import uuid4
-from pytest import fixture, raises
-from pydantic import ValidationError
 
+from pydantic import ValidationError
+from pytest import fixture, raises
+
+from src.modules.project.application.web.schemas.get_project_schema import (
+    GetProjectResponseSchema,
+)
 from src.modules.project.domain.entities.project import Project
 from src.modules.project.domain.entities.project_file import ProjectFile
-from src.modules.project.application.web.schemas.get_project_schema import GetProjectResponseSchema
 from src.modules.project.domain.enums.order_status_enum import OrderStatus
+
 
 @fixture
 def valid_project():

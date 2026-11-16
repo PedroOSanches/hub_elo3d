@@ -1,4 +1,5 @@
 import pytest
+
 from src.modules.user.domain.entities.address import Address, EntitieError
 
 

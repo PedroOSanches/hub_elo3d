@@ -1,12 +1,16 @@
 from datetime import date
 from uuid import uuid4
+
 from pytest import fixture, raises
 
 from src.modules.project.domain.entities.project import Project
 from src.modules.project.domain.entities.project_file import ProjectFile
-from src.modules.project.infra.repositories.project_repository_mock import ProjectRepositoryMock
 from src.modules.project.domain.errors.project_errors import ProjectNotFoundError
+from src.modules.project.infra.repositories.project_repository_mock import (
+    ProjectRepositoryMock,
+)
 from src.shared.web.error_mapping import get_status_code
+
 
 @fixture
 def repo():

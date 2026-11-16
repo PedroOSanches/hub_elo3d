@@ -1,11 +1,17 @@
 from unittest.mock import Mock
 from uuid import uuid4
+
 from pytest import fixture, raises
 
-from src.modules.project.application.usecases.get_project_usecase import GetProjectUsecase
+from src.modules.project.application.usecases.get_project_usecase import (
+    GetProjectUsecase,
+)
 from src.modules.project.domain.entities.project import Project
-from src.modules.project.domain.repositories.project_repository_interface import IProjectRepository
 from src.modules.project.domain.errors.project_errors import ProjectNotFoundError
+from src.modules.project.domain.repositories.project_repository_interface import (
+    IProjectRepository,
+)
+
 
 @fixture
 def repo():

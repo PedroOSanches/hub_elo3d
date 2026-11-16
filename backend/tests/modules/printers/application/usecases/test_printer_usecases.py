@@ -8,6 +8,9 @@ from src.modules.printers.application.usecases.create_printer_usecase import (
 from src.modules.printers.application.usecases.delete_printer_usecase import (
     DeletePrinterUsecase,
 )
+from src.modules.printers.application.usecases.get_all_printers_by_user_usecase import (
+    GetAllPrintersByUserUsecase,
+)
 from src.modules.printers.application.usecases.get_printer_usecase import (
     GetPrinterUsecase,
 )
@@ -25,10 +28,6 @@ from src.modules.printers.domain.errors.printer_errors import (
 from src.modules.printers.domain.gateways.i_user_gateway import IUserGateway
 from src.modules.printers.infra.repositories.printer_repository_mock import (
     PrinterRepositoryMock,
-)
-
-from src.modules.printers.application.usecases.get_all_printers_by_user_usecase import (
-    GetAllPrintersByUserUsecase,
 )
 
 

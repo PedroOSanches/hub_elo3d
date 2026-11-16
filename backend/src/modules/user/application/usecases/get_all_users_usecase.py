@@ -1,4 +1,7 @@
-from src.modules.user.domain.repositories.user_repository_interface import IUserRepository, User
+from src.modules.user.domain.repositories.user_repository_interface import (
+    IUserRepository,
+    User,
+)
 
 
 class GetAllUsersUsecase:

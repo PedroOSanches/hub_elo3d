@@ -1,6 +1,7 @@
-import pydantic
 
-from src.modules.user.application.web.schemas.user_response_schema import UserResponseSchema
+from src.modules.user.application.web.schemas.user_response_schema import (
+    UserResponseSchema,
+)
 from src.modules.user.domain.entities.address import Address
 
 

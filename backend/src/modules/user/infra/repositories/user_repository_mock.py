@@ -1,10 +1,16 @@
 from uuid import UUID
 
-from src.modules.user.domain.repositories.user_repository_interface import IUserRepository 
-from  src.modules.user.domain.entities.user import User
-from  src.modules.user.domain.entities.address import Address
-from  src.modules.user.domain.errors.user_usecase_errors import NoUsersFound, DuplicatedUser
+from src.modules.user.domain.entities.address import Address
+from src.modules.user.domain.entities.user import User
+from src.modules.user.domain.errors.user_usecase_errors import (
+    DuplicatedUser,
+    NoUsersFound,
+)
+from src.modules.user.domain.repositories.user_repository_interface import (
+    IUserRepository,
+)
 from src.shared.utils.password_hasher import gerar_hash_senha
+
 
 class UserRepositoryMock(IUserRepository):
     def __init__(self):

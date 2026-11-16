@@ -9,6 +9,7 @@ from src.modules.auth.infra.external.gateways.gateway_user import GatewayUser
 from src.modules.auth.infra.security.jwt_service import JWTService
 from src.shared.environments.environments import env
 
+
 @pytest.fixture
 def controller():
     jwt_service = JWTService(jwt_secret=env.jwt_secret)

@@ -1,10 +1,9 @@
 import jwt
-
 from fastapi import Request, status
 from jwt import InvalidTokenError
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.responses import JSONResponse, Response
-from src.modules.auth.domain.errors.auth_error_usecase import AuthUnathorizedAction
+
 
 class AuthenticationMiddleware(BaseHTTPMiddleware):
 
@@ -70,7 +69,7 @@ class AuthenticationMiddleware(BaseHTTPMiddleware):
                     content={"message": "Authentication is failed"}
                 )
 
-        except InvalidTokenError as error:
+        except InvalidTokenError:
             return JSONResponse(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 content={"message": "Authentication is failed"}

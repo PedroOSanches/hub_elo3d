@@ -1,9 +1,12 @@
-from typing import Any
 
-from src.modules.user.application.web.schemas.user_response_schema import UserResponseSchema
-from src.modules.user.domain.repositories.user_repository_interface import IUserRepository
 from src.modules.user.application.usecases.update_user_usecase import UpdateUserUsecase
-from src.modules.user.application.web.schemas.update_user_request_schema import UpdateUserRequestSchema
+from src.modules.user.application.web.schemas.update_user_request_schema import (
+    UpdateUserRequestSchema,
+)
+from src.modules.user.application.web.schemas.user_response_schema import (
+    UserResponseSchema,
+)
+
 
 class UpdateUserController:
 

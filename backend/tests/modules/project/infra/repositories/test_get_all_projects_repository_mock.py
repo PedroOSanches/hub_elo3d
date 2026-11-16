@@ -1,10 +1,14 @@
 from datetime import date
 from uuid import uuid4
+
 from pytest import fixture
 
 from src.modules.project.domain.entities.project import Project
 from src.modules.project.domain.entities.project_file import ProjectFile
-from src.modules.project.infra.repositories.project_repository_mock import ProjectRepositoryMock
+from src.modules.project.infra.repositories.project_repository_mock import (
+    ProjectRepositoryMock,
+)
+
 
 @fixture
 def repo():

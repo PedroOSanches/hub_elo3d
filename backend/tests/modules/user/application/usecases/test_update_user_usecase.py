@@ -1,5 +1,7 @@
-import pytest
 from uuid import UUID
+
+import pytest
+
 from src.modules.user.application.usecases.update_user_usecase import UpdateUserUsecase
 from src.modules.user.domain.errors.user_usecase_errors import NoUsersFound
 from src.modules.user.infra.repositories.user_repository_mock import UserRepositoryMock

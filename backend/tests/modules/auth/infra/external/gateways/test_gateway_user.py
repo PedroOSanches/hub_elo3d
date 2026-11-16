@@ -1,8 +1,11 @@
+from uuid import UUID, uuid4
+
 import pytest
 
-from src.modules.auth.infra.external.gateways.gateway_user import GatewayUser, NoUsersFound
+from src.modules.auth.infra.external.gateways.gateway_user import GatewayUser
+from src.modules.user.domain.errors.user_usecase_errors import NoUsersFound
 from src.modules.user.infra.repositories.user_repository_mock import UserRepositoryMock
-from uuid import UUID, uuid4
+
 
 @pytest.fixture()
 def gateway():

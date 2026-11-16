@@ -1,11 +1,16 @@
 import pytest
-from src.modules.auth.application.controllers.login_controller import LoginController, InvalidCredentials
+
+from src.modules.auth.application.controllers.login_controller import (
+    InvalidCredentials,
+    LoginController,
+)
 from src.modules.auth.application.usecases.login_usecase import LoginUsecase
+from src.modules.auth.application.web.schemas.login_schema import LoginRequestSchema
 from src.modules.auth.infra.external.gateways.gateway_user import GatewayUser
 from src.modules.auth.infra.security.jwt_service import JWTService
-from src.modules.auth.application.web.schemas.login_schema import LoginRequestSchema
-
 from src.shared.environments.environments import env
+
+
 @pytest.fixture
 def controller():
     gateway = GatewayUser(GatewayUser.get_repo_user())

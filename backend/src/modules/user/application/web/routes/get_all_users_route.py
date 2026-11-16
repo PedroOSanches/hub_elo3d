@@ -1,8 +1,13 @@
 from fastapi import APIRouter, Depends, status
 
-from src.modules.user.application.controllers.get_all_users_controller import GetAllUsersController
-from src.modules.user.application.usecases.get_all_users_usecase import GetAllUsersUsecase
+from src.modules.user.application.controllers.get_all_users_controller import (
+    GetAllUsersController,
+)
+from src.modules.user.application.usecases.get_all_users_usecase import (
+    GetAllUsersUsecase,
+)
 from src.modules.user.application.web.dependencies import get_repo_user
+
 
 def get_dependencies_get_all_user() -> GetAllUsersController:
     repo = get_repo_user()

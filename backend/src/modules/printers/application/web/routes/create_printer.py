@@ -1,10 +1,21 @@
-from fastapi import APIRouter, status, Depends
+from fastapi import APIRouter, Depends, status
 
-from src.modules.printers.application.web.schemas.create_printer_schema import CreatePrinterRequestSchema
-from src.modules.printers.application.web.schemas.printer_schema import PrinterResponseSchema
-from src.modules.printers.application.web.dependencies import get_repo_printer, get_user_gateway
-from src.modules.printers.application.controllers.create_printer_controller import CreatePrinterController
-from src.modules.printers.application.usecases.create_printer_usecase import CreatePrinterUsecase
+from src.modules.printers.application.controllers.create_printer_controller import (
+    CreatePrinterController,
+)
+from src.modules.printers.application.usecases.create_printer_usecase import (
+    CreatePrinterUsecase,
+)
+from src.modules.printers.application.web.dependencies import (
+    get_repo_printer,
+    get_user_gateway,
+)
+from src.modules.printers.application.web.schemas.create_printer_schema import (
+    CreatePrinterRequestSchema,
+)
+from src.modules.printers.application.web.schemas.printer_schema import (
+    PrinterResponseSchema,
+)
 
 create_router = APIRouter()
 

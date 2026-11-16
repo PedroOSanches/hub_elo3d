@@ -1,7 +1,9 @@
+from datetime import UTC, datetime, timedelta
 from typing import Any
+
 import jwt
 from jwt import InvalidTokenError
-from datetime import datetime, timedelta, timezone
+
 from src.modules.auth.domain.entities.auth_user import AuthUser
 from src.modules.auth.domain.errors.auth_error_usecase import AuthUnathorizedAction
 
@@ -24,7 +26,7 @@ class JWTService:
 
 
     def get_access_token(self, user: AuthUser) -> str:
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
 
         payload = {
             'type': 'access',
@@ -41,7 +43,7 @@ class JWTService:
         )
 
     def get_refresh_token(self, user: AuthUser) -> str:
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
 
         payload = {
             'sub': str(user.user_id),
@@ -71,7 +73,7 @@ class JWTService:
 
             return user_id
         except (InvalidTokenError, ValueError) as err:
-            raise AuthUnathorizedAction()
+            raise AuthUnathorizedAction() from err
 
     def decode_token(self, *, token: str) -> dict[str, Any]:
         return jwt.decode(

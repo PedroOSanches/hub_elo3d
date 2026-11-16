@@ -1,9 +1,13 @@
 import json
-from datetime import date, datetime
-from uuid import UUID, uuid4
+from datetime import datetime
+from uuid import uuid4
 
-from src.modules.project.application.web.schemas.create_project_schema import (CreateProjectRequestSchema, CreateProjectResponseSchema)
+from src.modules.project.application.web.schemas.create_project_schema import (
+    CreateProjectRequestSchema,
+    CreateProjectResponseSchema,
+)
 from src.modules.project.domain.entities.project import Project
+
 
 def valid_project():
     request = CreateProjectRequestSchema(

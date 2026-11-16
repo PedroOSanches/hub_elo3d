@@ -1,10 +1,12 @@
-import jwt
 from dataclasses import dataclass
-from datetime import datetime, timedelta, timezone
-from src.modules.auth.domain.gateways.gateway_user_interface import IGatewayUser, AuthUser
+
 from src.modules.auth.domain.errors.auth_error_usecase import InvalidCredentials
-from src.shared.utils.password_hasher import verificar_senha
+from src.modules.auth.domain.gateways.gateway_user_interface import (
+    IGatewayUser,
+)
 from src.modules.auth.infra.security.jwt_service import JWTService
+from src.shared.utils.password_hasher import verificar_senha
+
 
 @dataclass
 class AuthTokensDTO:

@@ -1,4 +1,3 @@
-import pytest
 
 
 class Test_GetUserSchema:

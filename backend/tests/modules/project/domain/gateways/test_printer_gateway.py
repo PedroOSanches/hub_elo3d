@@ -1,7 +1,9 @@
 from uuid import UUID, uuid4
+
 from pytest import raises
 
 from src.modules.project.domain.gateways.printer_gateway import IPrinterGateway
+
 
 class FakePrinterGateway(IPrinterGateway):
     def __init__(self, printer_ids: set[UUID]):

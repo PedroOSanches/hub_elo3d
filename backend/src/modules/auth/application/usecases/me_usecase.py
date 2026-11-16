@@ -1,7 +1,8 @@
-from pydantic import BaseModel
-from src.modules.auth.infra.security.jwt_service import JWTService
+from jwt import InvalidSignatureError, InvalidTokenError
+from pydantic import ValidationError
+
 from src.modules.auth.application.web.schemas.me_responses import MeResponseSchema
-from src.modules.auth.infra.external.gateways.gateway_user import GatewayUser
+from src.modules.auth.infra.security.jwt_service import JWTService
 from src.shared.errors.usecase_error import ForbiddenAction
 
 
@@ -27,5 +28,9 @@ class MeUsecase:
                 user_id=payload.get('sub'), # type: ignore
                 role=payload.get('role') # type: ignore
             )
-        except:
-            raise ForbiddenAction('because token is invalid')
+        except(
+            InvalidSignatureError,
+            InvalidTokenError,
+            ValidationError
+        ) as err:
+            raise ForbiddenAction('because token is invalid') from err

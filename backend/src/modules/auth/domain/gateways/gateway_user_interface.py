@@ -1,6 +1,9 @@
-from abc import abstractmethod, ABC
-from src.modules.auth.domain.entities.auth_user import AuthUser
+from abc import ABC, abstractmethod
 from uuid import UUID
+
+from src.modules.auth.domain.entities.auth_user import AuthUser
+
+
 class IGatewayUser(ABC):
 
     @classmethod

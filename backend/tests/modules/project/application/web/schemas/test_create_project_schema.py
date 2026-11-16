@@ -1,10 +1,13 @@
 from datetime import date
 from uuid import UUID
 
-from pytest import raises
 from pydantic import ValidationError
+from pytest import raises
 
-from src.modules.project.application.web.schemas.create_project_schema import CreateProjectRequestSchema
+from src.modules.project.application.web.schemas.create_project_schema import (
+    CreateProjectRequestSchema,
+)
+
 
 def valid_request_data(**overrides):
     data = {

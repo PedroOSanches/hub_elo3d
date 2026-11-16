@@ -1,10 +1,12 @@
 from uuid import UUID
 
-from src.modules.auth.domain.gateways.gateway_user_interface import IGatewayUser
 from src.modules.auth.domain.entities.auth_user import AuthUser
-from src.modules.user.domain.errors.user_usecase_errors import NoUsersFound
-from src.modules.user.domain.repositories.user_repository_interface import IUserRepository
+from src.modules.auth.domain.gateways.gateway_user_interface import IGatewayUser
 from src.modules.user.application.web.dependencies import get_repo_user
+from src.modules.user.domain.repositories.user_repository_interface import (
+    IUserRepository,
+)
+
 
 class GatewayUser(IGatewayUser):
 
@@ -15,7 +17,10 @@ class GatewayUser(IGatewayUser):
             return AuthUser(
                 user_id=user.user_id,
                 email=user.email,
-                password_hash=user.password_hash if user.password_hash is not None else "Error",
+                password_hash=(
+                    user.password_hash if user.password_hash is not None 
+                    else "Error"
+                    ),
                 role=user.role
             )
 
@@ -25,7 +30,10 @@ class GatewayUser(IGatewayUser):
         return AuthUser(
             user_id=user.user_id,
             email=user.email,
-            password_hash=user.password_hash if user.password_hash is not None else "Error",
+            password_hash=(
+                user.password_hash if user.password_hash is not None 
+                else "Error"
+                ),
             role=user.role
         )
 

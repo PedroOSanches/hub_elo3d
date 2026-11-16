@@ -1,7 +1,12 @@
 from typing import Any
 
-from src.modules.project.application.usecases.get_all_projects_usecase import GetAllProjectsUsecase
-from src.modules.project.application.web.schemas.get_all_projects_schema import GetAllProjectsResponseSchema
+from src.modules.project.application.usecases.get_all_projects_usecase import (
+    GetAllProjectsUsecase,
+)
+from src.modules.project.application.web.schemas.get_all_projects_schema import (
+    GetAllProjectsResponseSchema,
+)
+
 
 class GetAllProjectsController:
     def __init__(self, usecase: GetAllProjectsUsecase):

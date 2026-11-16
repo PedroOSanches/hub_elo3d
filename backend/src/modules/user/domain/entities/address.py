@@ -1,6 +1,16 @@
 from typing import Any
+
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    ModelWrapValidatorHandler,
+    ValidationError,
+    model_validator,
+)
+
 from src.shared.errors.domain_error import EntitieError
-from pydantic import BaseModel, Field, ConfigDict, model_validator, ModelWrapValidatorHandler, ValidationError
+
 
 class Address(BaseModel):
 

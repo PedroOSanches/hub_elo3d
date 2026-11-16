@@ -1,19 +1,28 @@
 from datetime import date
 from uuid import uuid4
+
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 from pytest import fixture
 
+from src.modules.project.application.controllers.get_project_controller import (
+    GetProjectController,
+)
+from src.modules.project.application.usecases.get_project_usecase import (
+    GetProjectUsecase,
+)
+from src.modules.project.application.web.routes.get_project import (
+    get_get_project_dependencies,
+)
+from src.modules.project.application.web.routes.index import project_router
+from src.modules.project.domain.entities.project import Project
+from src.modules.project.domain.entities.project_file import ProjectFile
+from src.modules.project.infra.repositories.project_repository_mock import (
+    ProjectRepositoryMock,
+)
 from src.shared.errors.base_error import BaseError
 from src.shared.web.error_handlers import base_error_handler
 
-from src.modules.project.domain.entities.project import Project
-from src.modules.project.domain.entities.project_file import ProjectFile
-from src.modules.project.application.controllers.get_project_controller import GetProjectController
-from src.modules.project.application.usecases.get_project_usecase import GetProjectUsecase
-from src.modules.project.application.web.routes.get_project import get_get_project_dependencies
-from src.modules.project.application.web.routes.index import project_router
-from src.modules.project.infra.repositories.project_repository_mock import ProjectRepositoryMock
 
 @fixture
 def valid_project():

@@ -1,13 +1,15 @@
 import pytest
 
 from src.modules.user.application.controllers.update_user_controller import (
-    UpdateUserController, 
-    UpdateUserUsecase, 
-    UpdateUserRequestSchema
+    UpdateUserController,
+    UpdateUserRequestSchema,
+    UpdateUserUsecase,
 )
-
+from src.modules.user.infra.repositories.user_repository_mock import (
+    NoUsersFound,
+    UserRepositoryMock,
+)
 from src.shared.errors.controller_error import WrongTypeParameter
-from src.modules.user.infra.repositories.user_repository_mock import UserRepositoryMock, NoUsersFound
 
 
 class Test_UpdateUserController:

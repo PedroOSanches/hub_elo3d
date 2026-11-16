@@ -2,8 +2,11 @@
 from uuid import UUID
 
 from src.modules.project.domain.entities.project import Project
-from src.modules.project.domain.repositories.project_repository_interface import IProjectRepository
 from src.modules.project.domain.errors.project_errors import ProjectNotFoundError
+from src.modules.project.domain.repositories.project_repository_interface import (
+    IProjectRepository,
+)
+
 
 class ProjectRepositoryMock(IProjectRepository):
 

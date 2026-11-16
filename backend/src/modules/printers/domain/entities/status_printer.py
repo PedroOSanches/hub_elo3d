@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class StatusPrinter(str, Enum):
+class StatusPrinter(StrEnum):
     DISPONIVEL = "disponivel"
     EM_USO = "em uso"
     INATIVA = "inativa"

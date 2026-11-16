@@ -1,6 +1,12 @@
 
-from src.modules.project.application.usecases.create_project_usecase import CreateProjectUsecase
-from src.modules.project.application.web.schemas.create_project_schema import (CreateProjectRequestSchema, CreateProjectResponseSchema)
+from src.modules.project.application.usecases.create_project_usecase import (
+    CreateProjectUsecase,
+)
+from src.modules.project.application.web.schemas.create_project_schema import (
+    CreateProjectRequestSchema,
+    CreateProjectResponseSchema,
+)
+
 
 class CreateProjectController:
     def __init__(self, usecase: CreateProjectUsecase):
@@ -19,4 +25,6 @@ class CreateProjectController:
             technical_info=request.technical_info,
         )
 
-        return CreateProjectResponseSchema.model_validate(project).model_dump(mode="json")
+        return CreateProjectResponseSchema.model_validate(project).model_dump(
+            mode="json"
+            )

@@ -1,6 +1,6 @@
-from src.modules.auth.domain.errors.auth_error_usecase import AuthUnathorizedAction
 from src.modules.auth.application.usecases.me_usecase import MeUsecase
 from src.modules.auth.application.web.schemas.me_responses import MeResponseSchema
+from src.modules.auth.domain.errors.auth_error_usecase import AuthUnathorizedAction
 
 
 class MeController:

@@ -1,6 +1,9 @@
 from uuid import UUID
+
 from src.modules.user.domain.entities.user import User
-from src.modules.user.domain.repositories.user_repository_interface import IUserRepository
+from src.modules.user.domain.repositories.user_repository_interface import (
+    IUserRepository,
+)
 
 
 class DeleteUserUsecase:

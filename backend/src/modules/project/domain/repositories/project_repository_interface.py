@@ -3,6 +3,7 @@ from uuid import UUID
 
 from src.modules.project.domain.entities.project import Project
 
+
 class IProjectRepository(ABC):
     @abstractmethod
     def get_project(self, project_id: UUID) -> Project:

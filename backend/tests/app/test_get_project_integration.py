@@ -1,16 +1,19 @@
-from datetime import date, datetime, timedelta, timezone
+from datetime import UTC, date, datetime, timedelta
 from uuid import uuid4
+
+import jwt
 from fastapi.testclient import TestClient
 from pytest import fixture
-import jwt
 
 from src.app.app import app
-from src.shared.environments.environments import env
 from src.modules.project.application.web import dependencies as project_dependencies
-
 from src.modules.project.domain.entities.project import Project
 from src.modules.project.domain.entities.project_file import ProjectFile
-from src.modules.project.infra.repositories.project_repository_mock import ProjectRepositoryMock
+from src.modules.project.infra.repositories.project_repository_mock import (
+    ProjectRepositoryMock,
+)
+from src.shared.environments.environments import env
+
 
 @fixture
 def valid_project():
@@ -37,7 +40,7 @@ def access_token():
     payload = {
         "sub": str(uuid4()),
         "type": "access",
-        "exp": datetime.now(timezone.utc) + timedelta(minutes=30),
+        "exp": datetime.now(UTC) + timedelta(minutes=30),
     }
     
     return jwt.encode(payload, env.jwt_secret, algorithm="HS256")
@@ -81,7 +84,7 @@ class TestGetProjectIntegration:
     def test_get_project_invalid_id(self, client_and_repo):
         client, repo = client_and_repo
         
-        response = client.get(f"/api/projects/get/invalid-uuid")
+        response = client.get("/api/projects/get/invalid-uuid")
 
         assert response.status_code == 422
         assert len(repo.projects) == 0

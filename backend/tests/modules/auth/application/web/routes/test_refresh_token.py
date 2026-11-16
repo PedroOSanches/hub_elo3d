@@ -1,12 +1,13 @@
+from uuid import UUID
+
 import pytest
 from fastapi.testclient import TestClient
 
-import jwt
-from uuid import UUID
 from src.app.app import app
-from src.shared.environments.environments import env
-from src.modules.auth.infra.security.jwt_service import JWTService
 from src.modules.auth.domain.entities.auth_user import AuthUser
+from src.modules.auth.infra.security.jwt_service import JWTService
+from src.shared.environments.environments import env
+
 
 @pytest.fixture
 def get_refresh_token():

@@ -1,13 +1,21 @@
 from unittest.mock import Mock
 from uuid import uuid7
-from pytest import fixture, raises, mark
 
-from src.modules.project.application.usecases.delete_project_usecase import DeleteProjectUsecase
+from pytest import fixture, mark, raises
+
+from src.modules.project.application.usecases.delete_project_usecase import (
+    DeleteProjectUsecase,
+)
 from src.modules.project.domain.entities.project import Project
-from src.modules.project.domain.repositories.project_repository_interface import IProjectRepository
-from src.modules.project.domain.errors.project_errors import ProjectNotFoundError
 from src.modules.project.domain.enums.order_status_enum import OrderStatus
-from src.modules.project.domain.errors.project_errors import ProjectDeletionConflictError
+from src.modules.project.domain.errors.project_errors import (
+    ProjectDeletionConflictError,
+    ProjectNotFoundError,
+)
+from src.modules.project.domain.repositories.project_repository_interface import (
+    IProjectRepository,
+)
+
 
 @fixture
 def repo():

@@ -1,7 +1,7 @@
-from uuid import UUID, uuid7
+from uuid import uuid7
 
-from fastapi.testclient import TestClient
 import pytest
+from fastapi.testclient import TestClient
 
 from src.app.app import app
 from src.modules.auth.domain.entities.auth_user import AuthUser

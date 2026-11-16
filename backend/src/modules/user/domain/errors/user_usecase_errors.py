@@ -1,4 +1,5 @@
-from src.shared.errors.usecase_error import NotFoundError, DuplicatedError
+from src.shared.errors.usecase_error import DuplicatedError, NotFoundError
+
 
 class NoUsersFound(NotFoundError):
     def __init__(self, message: str):

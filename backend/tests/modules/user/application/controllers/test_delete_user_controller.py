@@ -1,7 +1,11 @@
-from src.modules.user.application.controllers.delete_user_controller import DeleteUserController
-from src.modules.user.infra.repositories.user_repository_mock import UserRepositoryMock
+from src.modules.user.application.controllers.delete_user_controller import (
+    DeleteUserController,
+)
 from src.modules.user.application.usecases.delete_user_usecase import DeleteUserUsecase
-from src.modules.user.application.web.schemas.delete_user_schema import DeleteUserRequestSchema
+from src.modules.user.application.web.schemas.delete_user_schema import (
+    DeleteUserRequestSchema,
+)
+from src.modules.user.infra.repositories.user_repository_mock import UserRepositoryMock
 
 
 class Test_DeleteUserController:

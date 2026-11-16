@@ -1,9 +1,15 @@
 from unittest.mock import Mock
+
 from pytest import fixture
 
-from src.modules.project.application.usecases.get_all_projects_usecase import GetAllProjectsUsecase
+from src.modules.project.application.usecases.get_all_projects_usecase import (
+    GetAllProjectsUsecase,
+)
 from src.modules.project.domain.entities.project import Project
-from src.modules.project.domain.repositories.project_repository_interface import IProjectRepository
+from src.modules.project.domain.repositories.project_repository_interface import (
+    IProjectRepository,
+)
+
 
 @fixture
 def repo():

@@ -1,6 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
-class Category(str, Enum):
+
+class Category(StrEnum):
     ORTHOSIS = "orthosis"
     PROSTHESIS = "prosthesis"
     ACCESSORY = "accessory"

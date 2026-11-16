@@ -2,8 +2,11 @@ from typing import Any
 from uuid import UUID
 
 from src.modules.project.domain.entities.project import Project
-from src.modules.project.domain.repositories.project_repository_interface import IProjectRepository
 from src.modules.project.domain.enums.order_status_enum import OrderStatus
+from src.modules.project.domain.repositories.project_repository_interface import (
+    IProjectRepository,
+)
+
 
 class UpdateProjectUsecase:
     EDITABLE_FIELDS = {

@@ -1,5 +1,11 @@
 import pytest
-from src.modules.user.application.web.schemas.update_user_request_schema import UpdateUserRequestSchema, UpdateAddressRequestSchema, WrongTypeParameter, MissingParameters
+
+from src.modules.user.application.web.schemas.update_user_request_schema import (
+    MissingParameters,
+    UpdateAddressRequestSchema,
+    UpdateUserRequestSchema,
+    WrongTypeParameter,
+)
 
 
 class Test_UpdateUserRequestSchema:

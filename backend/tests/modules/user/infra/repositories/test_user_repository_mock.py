@@ -1,7 +1,14 @@
+from uuid import UUID
+
 import pytest
 
-from uuid import UUID
-from src.modules.user.infra.repositories.user_repository_mock import UserRepositoryMock, User, Address, NoUsersFound, DuplicatedUser
+from src.modules.user.infra.repositories.user_repository_mock import (
+    Address,
+    DuplicatedUser,
+    NoUsersFound,
+    User,
+    UserRepositoryMock,
+)
 
 
 class Test_UserRepositoryMock:

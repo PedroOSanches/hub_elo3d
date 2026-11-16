@@ -1,13 +1,14 @@
-from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, Request, status
+from fastapi import APIRouter, Depends, status
 
-from src.modules.user.application.web.dependencies import get_repo_user
-
-from src.modules.user.application.web.schemas.get_user_schema import GetUserRequestSchema
-from src.modules.user.application.controllers.get_user_controller import GetUserController
+from src.modules.user.application.controllers.get_user_controller import (
+    GetUserController,
+)
 from src.modules.user.application.usecases.get_user_usecase import GetUserUsecase
-
+from src.modules.user.application.web.dependencies import get_repo_user
+from src.modules.user.application.web.schemas.get_user_schema import (
+    GetUserRequestSchema,
+)
 
 get_user_router = APIRouter()
 

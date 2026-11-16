@@ -7,6 +7,7 @@ from src.modules.user.infra.repositories.user_repository_mock import UserReposit
 from src.shared.environments.environments import env
 from src.shared.errors.usecase_error import NotFoundError
 
+
 @pytest.fixture
 def usecase():
     jwt_service = JWTService(jwt_secret=env.jwt_secret)

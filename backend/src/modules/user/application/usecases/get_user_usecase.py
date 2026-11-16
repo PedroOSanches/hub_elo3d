@@ -1,6 +1,10 @@
-from src.modules.user.domain.entities.user import User
-from src.modules.user.domain.repositories.user_repository_interface import IUserRepository
 from uuid import UUID
+
+from src.modules.user.domain.entities.user import User
+from src.modules.user.domain.repositories.user_repository_interface import (
+    IUserRepository,
+)
+
 
 class GetUserUsecase:
 

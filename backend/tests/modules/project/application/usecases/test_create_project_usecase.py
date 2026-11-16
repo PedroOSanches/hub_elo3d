@@ -2,16 +2,21 @@ from datetime import date
 from unittest.mock import Mock
 from uuid import uuid4
 
-from pytest import raises
 from pydantic import ValidationError
+from pytest import raises
 
-from src.modules.project.application.usecases.create_project_usecase import CreateProjectUsecase
+from src.modules.project.application.usecases.create_project_usecase import (
+    CreateProjectUsecase,
+)
 from src.modules.project.domain.entities.project import Project
 from src.modules.project.domain.entities.project_file import ProjectFile
+from src.modules.project.domain.enums.category_enum import Category
 from src.modules.project.domain.enums.order_status_enum import OrderStatus
 from src.modules.project.domain.enums.urgency_enum import Urgency
-from src.modules.project.domain.enums.category_enum import Category
-from src.modules.project.domain.repositories.project_repository_interface import IProjectRepository
+from src.modules.project.domain.repositories.project_repository_interface import (
+    IProjectRepository,
+)
+
 
 def valid_create_data(**overrides):
     data = {

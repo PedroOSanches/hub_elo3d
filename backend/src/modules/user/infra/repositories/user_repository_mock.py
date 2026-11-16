@@ -66,7 +66,7 @@ class UserRepositoryMock(IUserRepository):
                         role="user",
                         password_hash=gerar_hash_senha('Maua123#')
                         ),
-                    User(
+                        User(
                         user_id = "01a1e5e5-0f34-71dc-92b2-fc87929257ae",
                         name="User AACD",
                         email="user_hospital@aacd.br",

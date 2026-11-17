@@ -5,7 +5,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from src.app.app import app
-from src.shared.environments import env
+from src.shared.environments.environments import env
 
 ABS_ID = "9f1c2a10-6b1e-4d3a-8c55-0a1b2c3d4e02"
 

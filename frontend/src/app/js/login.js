@@ -1,7 +1,5 @@
 const parceiro = {};
-const API_BASE_URL =
-    window.ENV?.API_BASE_URL ||
-    `${window.location.protocol}//${window.location.hostname}:8000/api`;
+const API_BASE_URL = window.ENV.API_BASE_URL;
 
 
 const api = {
@@ -121,7 +119,12 @@ function initLoginPage() {
       return await callback();
     } catch (error) {
       console.error(error);
-      mensagem(form, 'Não foi possível concluir. Tente novamente.');
+      mensagem(
+        form,
+        error instanceof Error && error.message
+          ? error.message
+          : 'Não foi possível concluir. Tente novamente.'
+      );
       return null;
     } finally {
       botao.disabled = false;

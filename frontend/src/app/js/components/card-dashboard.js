@@ -11,7 +11,9 @@ class CardDashboard extends HTMLElement {
     const linkUrl = this.getAttribute('link-url') || '#';
 
     try {
-      const response = await fetch('style/components/card-dashboard.css');
+      const response = await fetch('style/components/card-dashboard.css?v=4', {
+        cache: 'no-store',
+      });
       const cssText = await response.text();
 
       this.shadowRoot.innerHTML = `

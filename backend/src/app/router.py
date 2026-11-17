@@ -2,10 +2,11 @@ from fastapi import APIRouter
 
 from src.app.easter_egg import teapot
 from src.modules.auth.application.web.routes.index import auth_router
+from src.modules.filaments.application.web.routes.index import router as filament_router
 from src.modules.printers.application.web.routes.index import router as printers_router
 from src.modules.project.application.web.routes.index import project_router
 from src.modules.user.application.web.routes.index import user_router
-from src.modules.filaments.application.web.routes.index import router as filament_router
+
 api_router = APIRouter(prefix="/api")
 
 api_router.include_router(user_router, prefix='/user', tags=['User'])

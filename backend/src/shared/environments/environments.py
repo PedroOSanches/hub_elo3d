@@ -26,6 +26,12 @@ class Environments:
         self.neo_user = os.environ.get("NEO_USER", '')
         self.neo_pass = os.environ.get("NEO_PASS", '')
         self.neo_database = os.environ.get("NEO_DATABASE")
+
+        self.aws_access_key_id = os.environ.get("AWS_ACCESS_KEY_ID", "")
+        self.aws_secret_access_key = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
+        self.aws_default_region = os.environ.get("AWS_DEFAULT_REGION", "us-east-1")
+        self.aws_s3_bucket_name = os.environ.get("AWS_S3_BUCKET_NAME", "")
+
         self.jwt_secret: str = os.environ.get("JWT_SECRET", '')
 
         self.frontend_origin = [
@@ -36,7 +42,9 @@ class Environments:
                 ).split(',')
                 if origin.strip()
                 ]
-
+        if not self.aws_s3_bucket_name:
+            raise RuntimeError("Missing AWS_S3_BUCKET_NAME in environments")
+        
         if not self.jwt_secret:
             raise RuntimeError('Missing JWT_SECRET in enviroments')
         

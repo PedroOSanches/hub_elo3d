@@ -16,7 +16,7 @@ class TestFilamentRepositoryMock:
         filaments = self.repo.get_all_filaments()
 
         assert len(filaments) == 4
-        assert [f.nome for f in filaments] == ["PLA", "ABS", "PETG", "TPU"]
+        assert [f.tipo for f in filaments] == ["PLA", "ABS", "PETG", "TPU"]
 
     def test_get_filament(self):
         existing = self.repo.get_all_filaments()[0]

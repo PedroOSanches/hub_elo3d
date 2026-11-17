@@ -34,7 +34,7 @@ class TestGetFilamentRoute:
         response = client.get(f"/api/filament/get/{ABS_ID}")
 
         assert response.status_code == 200
-        assert response.json() == {"id": ABS_ID, "nome": "ABS", "tipo": "ABS"}
+        assert response.json() == {"filament_id": ABS_ID, "nome": "ABS", "tipo": "ABS"}
 
     def test_get_filament_not_found(self, client):
         response = client.get("/api/filament/get/3fa85f64-5717-4562-b3fc-2c963f66afa6")

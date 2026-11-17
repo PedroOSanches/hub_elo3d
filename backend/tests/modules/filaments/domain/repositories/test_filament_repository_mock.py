@@ -21,7 +21,7 @@ class TestFilamentRepositoryMock:
     def test_get_filament(self):
         existing = self.repo.get_all_filaments()[0]
 
-        assert self.repo.get_filament(existing.id) == existing
+        assert self.repo.get_filament(existing.filament_id) == existing
 
     def test_get_filament_not_found(self):
         with pytest.raises(FilamentNotFoundError):

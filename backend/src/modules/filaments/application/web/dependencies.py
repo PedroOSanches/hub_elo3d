@@ -5,7 +5,6 @@ from src.modules.filaments.infra.repositories.filament_repository_mock import (
     FilamentRepositoryMock,
 )
 
-
 _repo_filament = FilamentRepositoryMock()
 
 

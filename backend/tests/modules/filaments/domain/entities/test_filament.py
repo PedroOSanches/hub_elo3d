@@ -14,12 +14,12 @@ class TestFilament:
         assert filament.tipo == "PLA"
 
     def test_each_filament_gets_its_own_id(self):
-        assert Filament(nome="A", tipo="PLA").id != Filament(nome="A", tipo="PLA").id
+        assert Filament(nome="A", tipo="PLA").filament_id != Filament(nome="A", tipo="PLA").filament_id
 
     def test_use_given_id(self):
         filament_id = uuid4()
 
-        assert Filament(id=filament_id, nome="A", tipo="PLA").id == filament_id
+        assert Filament(filament_id=filament_id, nome="A", tipo="PLA").filament_id == filament_id
 
     def test_strip_whitespace(self):
         assert Filament(nome="  PLA  ", tipo=" PLA ").nome == "PLA"

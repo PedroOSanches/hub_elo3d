@@ -12,25 +12,25 @@ class FilamentRepositoryMock(IFilamentRepository):
 
     def __init__(self) -> None:
         self.filaments: dict[UUID, Filament] = {
-            f.id: f
+            f.filament_id: f
             for f in [
                 Filament(
-                    id=UUID("9f1c2a10-6b1e-4d3a-8c55-0a1b2c3d4e01"),
+                    filament_id=UUID("9f1c2a10-6b1e-4d3a-8c55-0a1b2c3d4e01"),
                     nome="PLA",
                     tipo="PLA",
                 ),
                 Filament(
-                    id=UUID("9f1c2a10-6b1e-4d3a-8c55-0a1b2c3d4e02"),
+                    filament_id=UUID("9f1c2a10-6b1e-4d3a-8c55-0a1b2c3d4e02"),
                     nome="ABS",
                     tipo="ABS",
                 ),
                 Filament(
-                    id=UUID("9f1c2a10-6b1e-4d3a-8c55-0a1b2c3d4e03"),
+                    filament_id=UUID("9f1c2a10-6b1e-4d3a-8c55-0a1b2c3d4e03"),
                     nome="PETG",
                     tipo="PETG",
                 ),
                 Filament(
-                    id=UUID("9f1c2a10-6b1e-4d3a-8c55-0a1b2c3d4e04"),
+                    filament_id=UUID("9f1c2a10-6b1e-4d3a-8c55-0a1b2c3d4e04"),
                     nome="TPU",
                     tipo="TPU",
                 ),

@@ -19,7 +19,7 @@ class TestGetFilamentUsecase:
         repo = FilamentRepositoryMock()
         existing = repo.get_all_filaments()[1]
 
-        assert GetFilamentUsecase(repo)(existing.id) == existing
+        assert GetFilamentUsecase(repo)(existing.filament_id) == existing
 
     def test_get_filament_not_found(self):
         with pytest.raises(FilamentNotFoundError):

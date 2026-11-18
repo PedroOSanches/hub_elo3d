@@ -74,6 +74,13 @@
     outline-offset: 2px;
 }
 
+.member-modal__message {
+    width: min(100%, 640px);
+    margin: -12px auto 0;
+    color: #a10029;
+    font-size: 14px;
+}
+
 .member-modal__actions {
     display: flex;
     justify-content: space-between;

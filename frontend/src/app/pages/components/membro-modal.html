@@ -8,7 +8,7 @@
     <h2 id="member-modal-title">Adicionar membro</h2>
 
     <form id="member-form">
-        <div class="member-modal__field" id="member-password-field">
+        <div class="member-modal__field">
             <label for="member-name">Nome do membro:</label>
             <input id="member-name" name="name" type="text" required>
         </div>
@@ -23,10 +23,12 @@
             <input id="member-phone" name="phone" type="tel" required>
         </div>
 
-        <div class="member-modal__field">
+        <div class="member-modal__field" id="member-password-field">
             <label for="member-password">Senha do primeiro acesso:</label>
             <input id="member-password" name="password" type="password" required>
         </div>
+
+        <p id="member-form-message" class="member-modal__message" role="alert" hidden></p>
 
         <div class="member-modal__actions">
             <app-button

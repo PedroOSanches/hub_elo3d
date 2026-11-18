@@ -1,6 +1,9 @@
-from uuid import uuid7, UUID
+from uuid import UUID, uuid7
+
 from pydantic import BaseModel, ConfigDict, Field, field_validator
+
 from src.shared.errors.domain_error import EntitieError
+
 ALLOWED_CONTENT_TYPES = {
     "model/stl",
     "model/obj",

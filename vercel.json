@@ -1,28 +1,27 @@
 {
-    "$schema": "https://openapi.vercel.sh/vercel.json",
-    "services": {
-        "frontend": {
-            "root": "frontend",
-            "entrypoint": "iac/Dockerfile"
-        },
-        "backend": {
-            "root": "backend",
-            "framework": "fastapi",
-            "entrypoint": "src.app.app:app"
-        }
-},
-"rewrites": [
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "services": {
+    "frontend": {
+      "root": "frontend",
+      "entrypoint": "iac/Dockerfile"
+    },
+    "backend": {
+      "root": "backend",
+      "entrypoint": "iac/Dockerfile"
+    }
+  },
+  "rewrites": [
     {
-        "source": "/api/(.*)",
-        "destination": {
+      "source": "/api/(.*)",
+      "destination": {
         "service": "backend"
-        }
+      }
     },
     {
-        "source": "/(.*)",
-        "destination": {
+      "source": "/(.*)",
+      "destination": {
         "service": "frontend"
-        }
+      }
     }
-]
+  ]
 }

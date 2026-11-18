@@ -7,6 +7,7 @@ from src.modules.printers.application.web.routes.index import router as printers
 from src.modules.project.application.web.routes.index import project_router
 from src.modules.storage.application.web.routes import upload_route
 from src.modules.user.application.web.routes.index import user_router
+from src.modules.storage.application.web.routes import upload_route
 
 api_router = APIRouter(prefix="/api")
 
@@ -19,4 +20,4 @@ api_router.include_router(upload_route, prefix='/projects/upload', tags=[
     'Uploads'
     ])
 api_router.include_router(filament_router, prefix='/filament', tags=['Filament'])
-api_router.include_router(teapot)
+api_router.include_router(teapot, )

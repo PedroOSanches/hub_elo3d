@@ -24,8 +24,7 @@ class ProjectDTO:
 
         files_data = [
             {
-                "title": file.title,
-                "file_url": file.file_url,
+                **file.model_dump(mode="json"),
                 "position": index
             }
             for index, file in enumerate(project.files)
@@ -53,7 +52,9 @@ class ProjectDTO:
         files = [
             {
                 "title": file["title"],
-                "file_url": file["file_url"]
+                "object_key": file["object_key"],
+                "size": file["size"],
+                "content_type": file["content_type"]
             }
             for file in sorted(
                 files_data,

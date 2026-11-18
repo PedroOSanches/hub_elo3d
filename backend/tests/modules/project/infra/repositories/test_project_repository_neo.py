@@ -25,7 +25,9 @@ def project():
         files=[
             ProjectFile(
                 title="Modelo 3D",
-                file_url="https://example.com/model.stl"
+                object_key=uuid7(),
+                size=2048,
+                content_type="model/stl"
             )
         ]
     )

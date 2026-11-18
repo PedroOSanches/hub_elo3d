@@ -23,11 +23,15 @@ def project():
         files=[
             ProjectFile(
                 title="Modelo 3D",
-                file_url="https://example.com/a.stl"
+                object_key=uuid7(),
+                size=2048,
+                content_type="model/stl"
             ),
             ProjectFile(
                 title="Referência",
-                file_url="https://example.com/b.pdf"
+                object_key=uuid7(),
+                size=1024,
+                content_type="application/pdf"
             )
         ],
         order_status={
@@ -54,9 +58,9 @@ def test_serializes_files_in_order(project):
     _, files_data, _ = ProjectDTO.entity_to_dict(project)
 
     assert len(files_data) == 2
-    assert files_data[0]["title"] == "Modelo 3D"
-    assert files_data[0]["position"] == 0
-    assert files_data[1]["position"] == 1
+    assert files_data[0]["object_key"] == str(project.files[0].object_key)
+    assert files_data[0]["size"] == 2048
+    assert files_data[0]["content_type"] == "model/stl"
 
 def test_serializes_order_status_in_order(project):
     _, _, statuses_data = ProjectDTO.entity_to_dict(project)

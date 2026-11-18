@@ -4,7 +4,7 @@ class TeamMember extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ['name', 'email', 'phone', 'initials'];
+    return ['name', 'email', 'phone', 'initials', 'readonly'];
   }
 
   attributeChangedCallback() {
@@ -16,6 +16,7 @@ class TeamMember extends HTMLElement {
     const email = this.getAttribute('email') || '';
     const phone = this.getAttribute('phone') || '';
     const initials = this.getAttribute('initials') || this.getInitials(name);
+    const readonly = this.hasAttribute('readonly');
 
     this.innerHTML = `
       <article class="member-card">
@@ -30,14 +31,14 @@ class TeamMember extends HTMLElement {
             ${this.escape(phone)}
           </div>
         </div>
-        <div class="member-card__actions">
+        ${readonly ? '' : `<div class="member-card__actions">
           <button type="button" class="member-card__action" data-action="edit" aria-label="Editar ${this.escape(name)}">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 16.5-.8 3.8 3.8-.8L18.7 7.8a2.1 2.1 0 0 0-3-3L4 16.5Z"/><path d="m14.5 6.5 3 3"/></svg>
           </button>
           <button type="button" class="member-card__action" data-action="delete" aria-label="Excluir ${this.escape(name)}">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7l1-3h4l1 3"/></svg>
           </button>
-        </div>
+        </div>`}
       </article>
     `;
 

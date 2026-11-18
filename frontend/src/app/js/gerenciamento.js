@@ -1,4 +1,14 @@
 async function initGerenciamento() {
+  const sessionResponse = await window.apiFetch(
+    `${window.ENV.API_BASE_URL}/auth/me`
+  );
+  if (!sessionResponse.ok) {
+    throw new Error('Não foi possível validar a permissão do usuário.');
+  }
+
+  const sessionUser = await sessionResponse.json();
+  const role = sessionUser.role || window.getUserRole?.() || '';
+  const isHospitalUser = role.toLowerCase() === 'user_hospital';
   const members = [
     {
       name: 'Ana Carolina da Silva',
@@ -15,6 +25,9 @@ async function initGerenciamento() {
   const list = document.getElementById('member-list');
   const search = document.getElementById('member-search');
   const addButton = document.querySelector('.team-page__add');
+  if (isHospitalUser) {
+    addButton?.remove();
+  }
 
   const modalResponse = await fetch('pages/components/membro-modal.html');
   if (!modalResponse.ok) {
@@ -73,6 +86,7 @@ async function initGerenciamento() {
         element.setAttribute('name', member.name);
         element.setAttribute('email', member.email);
         element.setAttribute('phone', member.phone);
+        if (isHospitalUser) element.setAttribute('readonly', '');
         return element;
       }));
   }

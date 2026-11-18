@@ -14,12 +14,12 @@ class ProjectRow extends HTMLElement {
 
     this.dataset.project = `${name} ${printer}`.toLowerCase();
     this.shadowRoot.innerHTML = `
-      <link rel="stylesheet" href="style/components/project_row.css">
+      <link rel="stylesheet" href="style/components/project_row.css?v=2">
       <div class="row${compact ? ' row--compact' : ''}" role="row">
         <div role="cell">${name}</div>
         <div role="cell">${printer}</div>
-        ${compact ? '' : `<div role="cell"><span class="status-dot status-dot--${status}" aria-label="${statusLabel}"></span></div>`}
         <div role="cell">${dueDate}</div>
+        ${compact ? '' : `<div role="cell"><span class="status-label status-label--${status}">${statusLabel}</span></div>`}
         ${compact ? '' : `<div role="cell">
           <button class="project-detail-link" type="button" aria-label="Ver ${name}">›</button>
         </div>`}

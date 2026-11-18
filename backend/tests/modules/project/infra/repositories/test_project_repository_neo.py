@@ -9,6 +9,8 @@ from src.modules.project.domain.entities.project_file import ProjectFile
 from src.modules.project.domain.repositories.project_repository_interface import IProjectRepository
 from src.modules.project.infra.repositories.project_repository_neo import ProjectRepositoryNeo
 from src.shared.errors.database_error import DatabaseError
+from src.modules.project.domain.errors.project_errors import ProjectNotFoundError
+from src.modules.project.infra.dto.project_dto import ProjectDTO
 
 
 @fixture
@@ -44,6 +46,7 @@ def transaction():
 def connection_factory(transaction):
     conn = Mock()
     conn.execute_write.side_effect = lambda callback: callback(transaction)
+    conn.execute_read.side_effect = lambda callback: callback(transaction)
     return conn
 
 
@@ -88,3 +91,43 @@ def test_create_project_database_error(repo, project, connection_factory):
 
     with raises(DatabaseError):
         repo.create_project(project)
+
+def test_get_project(repo, project, transaction, connection_factory):
+    project_data, files_data, statuses_data = (
+        ProjectDTO.entity_to_dict(project)
+    )
+
+    record = Mock()
+    record.data.return_value = {
+        "project": project_data,
+        "files": files_data,
+        "statuses": statuses_data
+    }
+
+    transaction.run.return_value.single.return_value = record
+
+    result = repo.get_project(project.id)
+
+    assert result == project
+    assert result.id.version == 7
+
+    connection_factory.execute_read.assert_called_once()
+
+    args, kwargs = transaction.run.call_args
+
+    assert "MATCH (p:Project" in args[0]
+    assert kwargs["project_id"] == str(project.id)
+
+def test_get_project_not_found(repo, project, transaction):
+    transaction.run.return_value.single.return_value = None
+
+    with raises(ProjectNotFoundError):
+        repo.get_project(project.id)
+
+def test_get_project_database_error(repo, project, connection_factory):
+    connection_factory.execute_read.side_effect = RuntimeError(
+        "Database connection error"
+    )
+
+    with raises(DatabaseError):
+        repo.get_project(project.id)

@@ -1,6 +1,7 @@
 from uuid import UUID
 
 from src.modules.project.domain.entities.project import Project
+from src.modules.project.domain.errors.project_errors import ProjectNotFoundError
 from src.modules.project.domain.repositories.project_repository_interface import (
     IProjectRepository,
 )
@@ -14,7 +15,10 @@ class ProjectRepositoryNeo(IProjectRepository):
     def __init__(self, connection_factory: Neo4JConnectionFactory):
         self.connection_factory = connection_factory
 
-    def create_project(self, project: Project) -> Project:
+    def create_project(
+            self,
+            project: Project
+    ) -> Project:
         query = """
             CREATE (p:Project)
             SET p = $project
@@ -59,7 +63,40 @@ class ProjectRepositoryNeo(IProjectRepository):
         self,
         project_id: UUID
     ) -> Project:
-        raise NotImplementedError
+        query = """
+            MATCH (p:Project {id: $project_id})
+
+            OPTIONAL MATCH (p)-[:HAS_FILE]->(f:ProjectFile)
+            WITH p, collect(properties(f)) AS files
+
+            OPTIONAL MATCH (p)-[:HAS_STATUS]->(s:ProjectStatus)
+
+            RETURN
+                properties(p) AS project,
+                files,
+                collect(properties(s)) AS statuses
+        """
+
+        try:
+            result = self.connection_factory.execute_read(
+                lambda tx: tx.run(
+                    query,
+                    project_id=str(project_id)
+                ).single()
+            )
+        except Exception as e:
+            raise DatabaseError() from e
+
+        if result is None:
+            raise ProjectNotFoundError(project_id)
+
+        data = result.data()
+
+        return ProjectDTO.dict_to_entity(
+            project_data=data["project"],
+            files_data=data["files"],
+            statuses_data=data["statuses"]
+        )
 
     def get_all_projects(
         self

@@ -14,7 +14,7 @@ class GetUserRequestSchema(BaseModel):
 
     @model_validator(mode='wrap')
     @classmethod
-    def validar_schema(cls, value: Any, handler: Any) -> "GetUserRequestSchema":
+    def validar_schema(cls, value: Any, handler: Any) -> GetUserRequestSchema:
         if not value.get('user_id'):
             raise MissingParameters('user_id')
 

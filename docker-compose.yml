@@ -18,7 +18,7 @@ services:
       dockerfile: iac/Dockerfile
     container_name: hub_backend
     ports:
-      - "8000:8000"
+      - "8000:80"
     
     env_file:
     - ./.env

@@ -69,7 +69,7 @@ class User(BaseModel):
 
     @model_validator(mode='wrap')
     @classmethod
-    def validar_modelo(cls, data: Any, handler: ModelWrapValidatorHandler) -> "User":
+    def validar_modelo(cls, data: Any, handler: ModelWrapValidatorHandler) -> User:
         try:
             return handler(data)
         except ValidationError as err:

@@ -18,7 +18,7 @@ class PrinterModel(BaseModel):
     status: str
 
     @classmethod
-    def from_entity(cls, entity: Printer) -> "PrinterModel":
+    def from_entity(cls, entity: Printer) -> PrinterModel:
         return cls(
             id=entity.id,
             apelido=entity.apelido,

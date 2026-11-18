@@ -16,7 +16,7 @@ class LoginRequestSchema(BaseModel):
 
     @model_validator(mode='wrap')
     @classmethod
-    def valida_chamada(cls, value: Any, handler: Any) -> "LoginRequestSchema":
+    def valida_chamada(cls, value: Any, handler: Any) -> LoginRequestSchema:
         try:
             return handler(value)
         except ValidationError as err:

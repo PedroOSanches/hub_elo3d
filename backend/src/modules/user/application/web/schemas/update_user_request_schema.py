@@ -32,7 +32,7 @@ class UpdateAddressRequestSchema(BaseModel):
 
     @model_validator(mode='wrap')
     @classmethod
-    def validar_model(cls, value: Any, handler: Any) -> "UpdateAddressRequestSchema":
+    def validar_model(cls, value: Any, handler: Any) -> UpdateAddressRequestSchema:
         try:
             if (
                 value.get('new_street') is None
@@ -81,7 +81,7 @@ class UpdateUserRequestSchema(BaseModel):
 
     @model_validator(mode='wrap')
     @classmethod
-    def validar_request(cls, value: Any, handler: Any) -> "UpdateUserRequestSchema":
+    def validar_request(cls, value: Any, handler: Any) -> UpdateUserRequestSchema:
         try:
             if value.get('user_id') is None:
                 raise MissingParameters('user_id')

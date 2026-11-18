@@ -46,7 +46,7 @@ class Environments:
             self.neo_uri = f'neo4j://{self.neo_host}:{self.neo_port}'
 
     @staticmethod
-    def get_envs() -> "Environments":
+    def get_envs() -> Environments:
         envs = Environments()
         envs.load_envs()
         return envs

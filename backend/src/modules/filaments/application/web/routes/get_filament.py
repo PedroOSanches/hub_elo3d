@@ -27,6 +27,7 @@ def get_filament_dependencies() -> GetFilamentController:
     "/get/{filament_id}",
     status_code=status.HTTP_200_OK,
     response_model=FilamentResponseSchema,
+    
 )
 async def get_filament(
     filament_id: str,

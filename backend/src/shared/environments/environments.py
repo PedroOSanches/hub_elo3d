@@ -3,6 +3,8 @@ from enum import Enum
 
 from dotenv import load_dotenv
 
+from .errors.environments_error import EnvironmentError
+
 
 class STAGE(Enum):
     DOTENV = 'DOTENV'
@@ -43,10 +45,10 @@ class Environments:
                 if origin.strip()
                 ]
         if not self.aws_s3_bucket_name:
-            raise RuntimeError("Missing AWS_S3_BUCKET_NAME in environments")
+            raise EnvironmentError('AWS_S3_BUCKET')
         
         if not self.jwt_secret:
-            raise RuntimeError('Missing JWT_SECRET in enviroments')
+            raise EnvironmentError('JWT_SECRET')
         
         if self.stage == STAGE.PROD:
             self.neo_uri = f'neo4j+s://{self.neo_host}.databases.neo4j.io'

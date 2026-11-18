@@ -4,7 +4,7 @@ class TeamMember extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ['name', 'email', 'phone', 'initials', 'readonly'];
+    return ['user-id', 'name', 'email', 'phone', 'initials', 'readonly'];
   }
 
   attributeChangedCallback() {
@@ -13,6 +13,7 @@ class TeamMember extends HTMLElement {
 
   render() {
     const name = this.getAttribute('name') || '';
+    const userId = this.getAttribute('user-id') || '';
     const email = this.getAttribute('email') || '';
     const phone = this.getAttribute('phone') || '';
     const initials = this.getAttribute('initials') || this.getInitials(name);
@@ -46,7 +47,7 @@ class TeamMember extends HTMLElement {
       button.addEventListener('click', () => {
         this.dispatchEvent(new CustomEvent(`member-${button.dataset.action}`, {
           bubbles: true,
-          detail: { name, email, phone, initials },
+          detail: { userId, name, email, phone, initials },
         }));
       });
     });

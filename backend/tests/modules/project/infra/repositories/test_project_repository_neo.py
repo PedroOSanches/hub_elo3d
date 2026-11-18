@@ -11,6 +11,7 @@ from src.modules.project.infra.repositories.project_repository_neo import Projec
 from src.shared.errors.database_error import DatabaseError
 from src.modules.project.domain.errors.project_errors import ProjectNotFoundError
 from src.modules.project.infra.dto.project_dto import ProjectDTO
+from src.modules.project.domain.enums.order_status_enum import OrderStatus
 
 
 @fixture
@@ -59,9 +60,7 @@ def test_implements_repository_interface(repo):
     assert isinstance(repo, IProjectRepository)
 
 def test_create_project(
-    repo,
-    project,
-    connection_factory
+    repo, project, connection_factory
 ):
     result = repo.create_project(project)
 
@@ -70,7 +69,9 @@ def test_create_project(
 
     connection_factory.execute_write.assert_called_once()
 
-def test_create_project_sends_correct_data(repo, project, transaction):
+def test_create_project_sends_correct_data(
+    repo, project, transaction
+):
     repo.create_project(project)
 
     args, kwargs = transaction.run.call_args
@@ -84,23 +85,24 @@ def test_create_project_sends_correct_data(repo, project, transaction):
     assert kwargs["files"][0]["title"] == "Modelo 3D"
     assert kwargs["statuses"][0]["status"] == "waiting_for_partner"
 
-def test_create_project_without_result(repo, project, transaction):
+def test_create_project_without_result(
+    repo, project, transaction
+):
     transaction.run.return_value.single.return_value = None
 
     with raises(DatabaseError):
         repo.create_project(project)
 
-def test_create_project_database_error(repo, project, connection_factory):
+def test_create_project_database_error(
+    repo, project, connection_factory
+):
     connection_factory.execute_write.side_effect = RuntimeError("Database connection error")
 
     with raises(DatabaseError):
         repo.create_project(project)
 
 def test_get_project(
-    repo,
-    project,
-    transaction,
-    connection_factory
+    repo, project, transaction, connection_factory
 ):
     project_data, files_data, statuses_data = (
         ProjectDTO.entity_to_dict(project)
@@ -127,13 +129,17 @@ def test_get_project(
     assert "MATCH (p:Project" in args[0]
     assert kwargs["project_id"] == str(project.id)
 
-def test_get_project_not_found(repo, project, transaction):
+def test_get_project_not_found(
+    repo, project, transaction
+):
     transaction.run.return_value.single.return_value = None
 
     with raises(ProjectNotFoundError):
         repo.get_project(project.id)
 
-def test_get_project_database_error(repo, project, connection_factory):
+def test_get_project_database_error(
+    repo, project, connection_factory
+):
     connection_factory.execute_read.side_effect = RuntimeError(
         "Database connection error"
     )
@@ -142,10 +148,7 @@ def test_get_project_database_error(repo, project, connection_factory):
         repo.get_project(project.id)
 
 def test_get_all_projects(
-    repo,
-    project,
-    transaction,
-    connection_factory
+    repo, project, transaction, connection_factory
 ):
     second_project = project.model_copy(
         update={
@@ -179,17 +182,92 @@ def test_get_all_projects(
 
     connection_factory.execute_read.assert_called_once()
 
-def test_get_all_projects_empty(repo, transaction):
+def test_get_all_projects_empty(
+    repo, transaction
+):
     transaction.run.return_value = []
 
     result = repo.get_all_projects()
 
     assert result == []
 
-def test_get_all_projects_database_error(repo, connection_factory):
+def test_get_all_projects_database_error(
+    repo, connection_factory
+):
     connection_factory.execute_read.side_effect = RuntimeError(
         "Database connection error"
     )
 
     with raises(DatabaseError):
         repo.get_all_projects()
+
+def test_update_project(
+    repo, project, connection_factory
+):
+    updated = project.model_copy(
+        update={"title": "Prótese de mão atualizada"},
+        deep=True
+    )
+
+    result = repo.update_project(project.id, updated)
+
+    assert result == updated
+    assert result.id == project.id
+
+    connection_factory.execute_write.assert_called_once()
+
+def test_update_project_sends_correct_data(
+    repo, project, transaction
+):
+    updated = project.model_copy(deep=True)
+    updated.register_order_status(OrderStatus.RECEIVED)
+
+    repo.update_project(project.id, updated)
+
+    args, kwargs = transaction.run.call_args
+    query = args[0]
+
+    assert "MATCH (p:Project" in query
+    assert "DETACH DELETE old" in query
+    assert "HAS_FILE" in query
+    assert "HAS_STATUS" in query
+
+    assert kwargs["project_id"] == str(project.id)
+    assert kwargs["project"]["id"] == str(project.id)
+    assert kwargs["files"][0]["object_key"] == str(
+        project.files[0].object_key
+    )
+
+    assert len(kwargs["statuses"]) == 2
+    assert kwargs["statuses"][1]["status"] == "received"
+
+def test_update_project_not_found(
+    repo, project, transaction
+):
+    transaction.run.return_value.single.return_value = None
+
+    with raises(ProjectNotFoundError):
+        repo.update_project(project.id, project)
+
+def test_update_project_different_id(
+    repo, project, connection_factory
+):
+    updated = project.model_copy(
+        update={"id": uuid7()},
+        deep=True
+    )
+
+    with raises(ValueError, match="Project ID mismatch"):
+        repo.update_project(project.id, updated)
+
+    connection_factory.execute_write.assert_not_called()
+
+def test_update_project_database_error(
+    repo, project, connection_factory
+):
+    connection_factory.execute_write.side_effect = RuntimeError(
+        "Database connection error"
+    )
+
+    with raises(DatabaseError):
+        repo.update_project(project.id, project)

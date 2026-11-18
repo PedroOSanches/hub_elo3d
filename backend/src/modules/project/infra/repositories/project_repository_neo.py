@@ -140,7 +140,58 @@ class ProjectRepositoryNeo(IProjectRepository):
         project_id: UUID,
         updated_project: Project
     ) -> Project:
-        raise NotImplementedError
+        
+        if updated_project.id != project_id:
+            raise ValueError("Project ID mismatch")
+
+        query = """
+            MATCH (p:Project {id: $project_id})
+
+            OPTIONAL MATCH (p)-[:HAS_FILE|HAS_STATUS]->(old)
+            WITH p, collect(DISTINCT old) AS old_nodes
+
+            FOREACH (old IN old_nodes |
+                DETACH DELETE old
+            )
+
+            SET p = $project
+
+            FOREACH (file IN $files |
+                CREATE (f:ProjectFile)
+                SET f = file
+                CREATE (p)-[:HAS_FILE]->(f)
+            )
+
+            FOREACH (status IN $statuses |
+                CREATE (s:ProjectStatus)
+                SET s = status
+                CREATE (p)-[:HAS_STATUS]->(s)
+            )
+
+            RETURN p
+        """
+
+        project_data, files_data, statuses_data = (
+            ProjectDTO.entity_to_dict(updated_project)
+        )
+
+        try:
+            result = self.connection_factory.execute_write(
+                lambda tx: tx.run(
+                    query,
+                    project_id=str(project_id),
+                    project=project_data,
+                    files=files_data,
+                    statuses=statuses_data,
+                ).single()
+            )
+        except Exception as e:
+            raise DatabaseError() from e
+
+        if result is None:
+            raise ProjectNotFoundError(project_id)
+
+        return updated_project
 
     def delete_project(
         self,

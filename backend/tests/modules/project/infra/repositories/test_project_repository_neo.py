@@ -58,7 +58,11 @@ def repo(connection_factory):
 def test_implements_repository_interface(repo):
     assert isinstance(repo, IProjectRepository)
 
-def test_create_project(repo, project, connection_factory):
+def test_create_project(
+    repo,
+    project,
+    connection_factory
+):
     result = repo.create_project(project)
 
     assert result == project
@@ -92,7 +96,12 @@ def test_create_project_database_error(repo, project, connection_factory):
     with raises(DatabaseError):
         repo.create_project(project)
 
-def test_get_project(repo, project, transaction, connection_factory):
+def test_get_project(
+    repo,
+    project,
+    transaction,
+    connection_factory
+):
     project_data, files_data, statuses_data = (
         ProjectDTO.entity_to_dict(project)
     )
@@ -131,3 +140,56 @@ def test_get_project_database_error(repo, project, connection_factory):
 
     with raises(DatabaseError):
         repo.get_project(project.id)
+
+def test_get_all_projects(
+    repo,
+    project,
+    transaction,
+    connection_factory
+):
+    second_project = project.model_copy(
+        update={
+            "id": uuid7(),
+            "title": "Prótese de perna"
+        },
+        deep=True
+    )
+
+    results = []
+
+    for item in [project, second_project]:
+        project_data, files_data, statuses_data = (
+            ProjectDTO.entity_to_dict(item)
+        )
+
+        result = Mock()
+        result.data.return_value = {
+            "project": project_data,
+            "files": files_data,
+            "statuses": statuses_data
+        }
+        results.append(result)
+
+    transaction.run.return_value = results
+
+    result = repo.get_all_projects()
+
+    assert result == [project, second_project]
+    assert len(result) == 2
+
+    connection_factory.execute_read.assert_called_once()
+
+def test_get_all_projects_empty(repo, transaction):
+    transaction.run.return_value = []
+
+    result = repo.get_all_projects()
+
+    assert result == []
+
+def test_get_all_projects_database_error(repo, connection_factory):
+    connection_factory.execute_read.side_effect = RuntimeError(
+        "Database connection error"
+    )
+
+    with raises(DatabaseError):
+        repo.get_all_projects()

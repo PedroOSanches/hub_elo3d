@@ -101,7 +101,39 @@ class ProjectRepositoryNeo(IProjectRepository):
     def get_all_projects(
         self
     ) -> list[Project]:
-        raise NotImplementedError
+        query = """
+            MATCH (p:Project)
+
+            OPTIONAL MATCH (p)-[:HAS_FILE]->(f:ProjectFile)
+            WITH p, collect(properties(f)) AS files
+
+            OPTIONAL MATCH (p)-[:HAS_STATUS]->(s:ProjectStatus)
+
+            RETURN
+                properties(p) AS project,
+                files,
+                collect(properties(s)) AS statuses
+            ORDER BY p.id
+        """
+
+        try:
+            results = self.connection_factory.execute_read(
+                lambda tx: [
+                    result.data()
+                    for result in tx.run(query)
+                ]
+            )
+        except Exception as e:
+            raise DatabaseError() from e
+
+        return [
+            ProjectDTO.dict_to_entity(
+                project_data=data["project"],
+                files_data=data["files"],
+                statuses_data=data["statuses"]
+            )
+            for data in results
+        ]
 
     def update_project(
         self,

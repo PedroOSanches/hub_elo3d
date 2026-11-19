@@ -59,7 +59,9 @@ class UploadFileRequest(BaseModel):
                 ) from err
 
 class GenerateUrlRequestSchema(BaseModel):
-    
+    project_name: str = Field(
+        ...
+    )
     files: list[UploadFileRequest] = Field(
         ..., 
         min_length=1
@@ -68,3 +70,26 @@ class GenerateUrlRequestSchema(BaseModel):
     model_config = ConfigDict(
         extra='forbid'
     )
+
+    @model_validator(mode='wrap')
+    @classmethod
+    def validar_modelo(
+        cls, 
+        data: Any, 
+        handler: ModelWrapValidatorHandler
+        ) -> GenerateUrlRequestSchema:
+        try:
+            if not data.get('project_name'):
+                raise MissingParameters('project_name')
+            if not data.get('files'):
+                raise MissingParameters('files')
+    
+            return handler(data)
+    
+        except ValidationError as err:
+            field_name = str(err.errors()[0]["loc"][0])
+            raise WrongTypeParameter(
+                field_name=field_name, 
+                field_type_received=type(err.errors()[0]["input"]).__name__, 
+                field_type_expected=str(cls.model_fields[field_name].annotation),
+                ) from err

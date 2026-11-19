@@ -20,6 +20,8 @@ class UploadUrlController:
             request: GenerateUrlRequestSchema
             ) -> list[UploadUrlResponseSchema]:
 
+        project_name = "_".join(request.project_name.lower().split())
         return self.usecase(
+            path=project_name,
             files=request.files
         )

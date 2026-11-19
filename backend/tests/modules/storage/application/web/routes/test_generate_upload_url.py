@@ -31,11 +31,12 @@ def test_generate_upload_url(client: TestClient):
     response = client.post(
         '/api/projects/upload/generate_upload_url',
         json={
+            'project_name': 'teste ortese',
             "files": [
                 {
-                    "file_name": "test_model",
-                    "size": 1500,
-                    "content_type": "application/pdf",
+                    "file_name": "test_model.slg",
+                    "size": 1500000,
+                    "content_type": "model/stl",
                     }
                 ]
             }
@@ -50,9 +51,10 @@ def test_generate_upload_url_mime_type_invalid(client: TestClient):
     response = client.post(
         '/api/projects/upload/generate_upload_url',
         json={
+            'project_name': 'Teste clear',
             "files": [
                 {
-                    "file_name": "test_model",
+                    "file_name": "test_model.obj",
                     "size": 1500,
                     "content_type": "a/a",
                     }

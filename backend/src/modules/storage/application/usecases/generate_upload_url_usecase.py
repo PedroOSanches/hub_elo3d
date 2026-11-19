@@ -10,6 +10,8 @@ from src.modules.storage.domain.gateways.gateway_storage_interface import (
     IGatewayStorage,
 )
 
+from pathlib import Path
+
 
 class UploadUrlUsecase:
 
@@ -18,13 +20,19 @@ class UploadUrlUsecase:
 
     def __call__(
             self,
+            path: str,
             files: list[UploadFileRequest]
             ) -> list[UploadUrlResponseSchema]:
 
         urls_generated: list[UploadUrlResponseSchema]  = []
         
         for file in files:
-            object_key = str(uuid7())
+            extension = Path(file.file_name).suffix
+            object_key = f'projects/{path}/{str(uuid7())}{extension}'
+
+            if not extension:
+                raise ValueError('File must have an extension')
+
             url = self.gateway.generate_upload_url(
                 object_key=object_key,
                 content_type=file.content_type

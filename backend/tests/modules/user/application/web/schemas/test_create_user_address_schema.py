@@ -99,7 +99,7 @@ class Test_CreateUserAddressSchema:
                 'cep': '00000-000',
                 "address_details": ""
                 }
-            create_user_address_schema = CreateUserAddressSchema(**request)
+            CreateUserAddressSchema(**request)
 
     def test_number_type_invalid(self):
         with pytest.raises(WrongTypeParameter):
@@ -113,7 +113,7 @@ class Test_CreateUserAddressSchema:
                 "address_details": ""
                 }
                 
-            create_user_address_schema = CreateUserAddressSchema(**request)
+            CreateUserAddressSchema(**request)
 
     def test_neighborhood_type_invalid(self):
         with pytest.raises(WrongTypeParameter):
@@ -127,7 +127,7 @@ class Test_CreateUserAddressSchema:
                 "address_details": ""
                 }
                 
-            create_user_address_schema = CreateUserAddressSchema(**request)
+            CreateUserAddressSchema(**request)
 
     def test_city_type_invalid(self):
 
@@ -142,7 +142,7 @@ class Test_CreateUserAddressSchema:
                 "address_details": ""
                 }
                 
-            create_user_address_schema = CreateUserAddressSchema(**request)
+            CreateUserAddressSchema(**request)
 
     def test_state_type_invalid(self):
         with pytest.raises(WrongTypeParameter):
@@ -156,7 +156,7 @@ class Test_CreateUserAddressSchema:
                 "address_details": ""
                 }
                 
-            create_user_address_schema = CreateUserAddressSchema(**request)
+            CreateUserAddressSchema(**request)
 
     def test_cep_type_invalid(self):
         with pytest.raises(WrongTypeParameter):
@@ -170,7 +170,7 @@ class Test_CreateUserAddressSchema:
                 "address_details": ""
             }
                 
-            create_user_address_schema = CreateUserAddressSchema(**request)
+            CreateUserAddressSchema(**request)
 
     def test_address_details_type_invalid(self):
         with pytest.raises(WrongTypeParameter):
@@ -183,4 +183,4 @@ class Test_CreateUserAddressSchema:
                 'cep': '00000-000',
                 "address_details": [0, 1, 0, 0]
                 }
-            create_user_address_schema = CreateUserAddressSchema(**request)
+            CreateUserAddressSchema(**request)

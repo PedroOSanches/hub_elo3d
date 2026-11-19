@@ -3,6 +3,9 @@ name: Automated Tests Backend
 
 on:
   workflow_call:
+    secrets:
+      JWT_SECRET:
+        required: true
 
 jobs:
   test:

@@ -3,6 +3,11 @@ name: Backend CI
 on:
     push:
     pull_request:
+        types:
+            - opened
+            - reopened
+            - ready_for_review
+
     workflow_call:
         secrets:
             JWT_SECRET:

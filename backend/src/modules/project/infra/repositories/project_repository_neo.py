@@ -113,7 +113,7 @@ class ProjectRepositoryNeo(IProjectRepository):
                 properties(p) AS project,
                 files,
                 collect(properties(s)) AS statuses
-            ORDER BY p.id
+            ORDER BY project.id
         """
 
         try:

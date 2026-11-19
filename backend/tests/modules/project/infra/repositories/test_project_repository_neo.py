@@ -182,6 +182,10 @@ def test_get_all_projects(
 
     connection_factory.execute_read.assert_called_once()
 
+    args, kwargs = transaction.run.call_args
+
+    assert "ORDER BY project.id" in args[0]
+
 def test_get_all_projects_empty(
     repo, transaction
 ):

@@ -14,6 +14,8 @@ from src.modules.storage.domain.gateways.gateway_storage_interface import (
     IGatewayStorage,
 )
 
+from pathlib import Path
+
 
 class UploadUrlUsecase:
 

@@ -21,7 +21,7 @@ class GatewayS3Storage(IGatewayStorage):
             Params={
                 "Bucket":self.bucket_name,
                 "Key": object_key,
-                "ContentType": content_type
+                "ContentType": content_type,
             },
             ExpiresIn=3600,
         )

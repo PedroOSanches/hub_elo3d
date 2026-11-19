@@ -15,8 +15,19 @@
         </div>
 
         <div class="campo">
-            <label class="campo_rotulo" for="f-email">E-mail:</label>
-            <input class="campo_input" type="email" id="f-email" name="email" required>
+            <label class="campo_rotulo" for="f-email" data-email-bloqueado>
+                E-mail:
+            </label>
+            <input
+                class="campo_input"
+                type="email"
+                id="f-email"
+                name="email"
+                readonly
+                disabled
+                aria-describedby="email-bloqueado"
+                required>
+            <small id="email-bloqueado">O e-mail não pode ser alterado.</small>
         </div>
 
         <div class="campo">

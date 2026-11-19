@@ -1,7 +1,74 @@
 async function initPerfilParceiro() {
+    const userResponse = await window.apiFetch(
+        `${window.ENV.API_BASE_URL}/auth/me`
+    );
+    if (!userResponse.ok) {
+        throw new Error('Não foi possível identificar o usuário autenticado.');
+    }
+
+    const sessionUser = await userResponse.json();
+    const response = await window.apiFetch(
+        `${window.ENV.API_BASE_URL}/user/get_user/${encodeURIComponent(sessionUser.user_id)}`
+    );
+    if (!response.ok) {
+        throw new Error('Não foi possível carregar os dados do usuário.');
+    }
+
+    const user = await response.json();
+    const userId = user.user_id;
+    const originalEmail = user.email || '';
+    const address = user.address || {};
+    const values = {
+        address: [address.street, address.number].filter(Boolean).join(', '),
+        neighborhood: address.neighborhood || '',
+        'city-state': [address.city, address.state].filter(Boolean).join(' - '),
+        cep: address.cep || '',
+        name: user.name || '',
+        email: originalEmail,
+        phone: user.phone || '',
+    };
+
+    document.querySelectorAll('[data-profile-field]').forEach((element) => {
+        const field = element.dataset.profileField;
+        element.textContent = values[field] || 'Não informado';
+    });
+
     const valoresContato = document
         .querySelector('section[aria-labelledby="titulo-contato"]')
         .querySelectorAll('dd');
+
+    const updateUser = async (payload) => {
+        const updateResponse = await window.apiFetch(
+            `${window.ENV.API_BASE_URL}/user/update_user`,
+            {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user_id: userId, ...payload }),
+            }
+        );
+
+        const body = await updateResponse.json().catch(() => ({}));
+        if (!updateResponse.ok) {
+            const detail = Array.isArray(body.detail)
+                ? body.detail.map((item) => item.msg).join(' ')
+                : body.detail || body.message;
+            throw new Error(detail || 'Não foi possível atualizar o perfil.');
+        }
+
+        return body;
+    };
+
+    const normalizePhone = (value) => {
+        const digits = value.replace(/\D/g, '');
+        return digits.startsWith('55') ? `+${digits}` : `+55${digits}`;
+    };
+
+    const showUpdateError = (error) => {
+        console.error(error);
+        window.alert(error instanceof Error
+            ? error.message
+            : 'Não foi possível atualizar o perfil.');
+    };
 
     const contactResponse = await fetch('pages/components/contato-modal.html');
     if (!contactResponse.ok) {
@@ -23,6 +90,11 @@ async function initPerfilParceiro() {
 
     const modalContato = document.getElementById('modal-contato');
     const formContato = document.getElementById('form-contato');
+    formContato.email.disabled = true;
+    modalContato.querySelector('[data-email-bloqueado]').addEventListener(
+        'click',
+        () => window.alert('O e-mail não pode ser alterado.')
+    );
 
     document.querySelector('[data-open-contato]').addEventListener('click', () => {
         formContato.nome.value = valoresContato[0].textContent.trim();
@@ -31,12 +103,20 @@ async function initPerfilParceiro() {
         modalContato.showModal();
     });
 
-    formContato.addEventListener('submit', (event) => {
+    formContato.addEventListener('submit', async (event) => {
         event.preventDefault();
-        valoresContato[0].textContent = formContato.nome.value;
-        valoresContato[1].textContent = formContato.email.value;
-        valoresContato[2].textContent = formContato.telefone.value;
-        modalContato.close();
+        try {
+            const updatedUser = await updateUser({
+                new_name: formContato.nome.value.trim(),
+                new_phone: normalizePhone(formContato.telefone.value),
+            });
+            valoresContato[0].textContent = updatedUser.name;
+            valoresContato[1].textContent = originalEmail;
+            valoresContato[2].textContent = updatedUser.phone;
+            modalContato.close();
+        } catch (error) {
+            showUpdateError(error);
+        }
     });
 
     modalContato.querySelectorAll('[data-fechar-contato]').forEach((button) => {
@@ -93,13 +173,34 @@ async function initPerfilParceiro() {
         () => formEndereco.requestSubmit()
     );
 
-    formEndereco.addEventListener('submit', (event) => {
+    formEndereco.addEventListener('submit', async (event) => {
         event.preventDefault();
-        valoresEndereco[3].textContent = formEndereco.cep.value;
-        valoresEndereco[0].textContent = formEndereco.endereco.value;
-        valoresEndereco[1].textContent = formEndereco.bairro.value;
-        valoresEndereco[2].textContent = formEndereco.cidade.value;
-        modalEndereco.close();
+        const [city, state = ''] = formEndereco.cidade.value
+            .split(/\s*-\s*/, 2)
+            .map((value) => value.trim());
+
+        try {
+            const updatedUser = await updateUser({
+                address: {
+                    new_street: formEndereco.endereco.value.trim(),
+                    new_number: address.number || '',
+                    new_neighborhood: formEndereco.bairro.value.trim(),
+                    new_city: city,
+                    new_state: state,
+                    new_cep: formEndereco.cep.value.trim(),
+                },
+            });
+            const updatedAddress = updatedUser.address;
+            valoresEndereco[3].textContent = updatedAddress.cep;
+            valoresEndereco[0].textContent =
+                `${updatedAddress.street}, ${updatedAddress.number}`;
+            valoresEndereco[1].textContent = updatedAddress.neighborhood;
+            valoresEndereco[2].textContent =
+                `${updatedAddress.city} - ${updatedAddress.state}`;
+            modalEndereco.close();
+        } catch (error) {
+            showUpdateError(error);
+        }
     });
 
     modalEndereco.addEventListener('click', (event) => {

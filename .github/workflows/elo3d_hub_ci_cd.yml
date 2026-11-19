@@ -1,0 +1,21 @@
+name: Elo3D Hub CI/CD
+on:
+    push:
+        branches: ['main']
+
+jobs:
+    
+    backend_ci:
+        name: Elo3D Hub CI
+        uses: ./.github/workflows/backend-ci.yml
+        secrets:
+            JWT_SECRET: ${{ secrets.JWT_SECRET }}
+    
+    vercel_deploy:
+        name: Elo3D Hub CD
+        uses: ./.github/workflows/vercel_deploy.yml
+        needs: backend_ci
+        secrets:
+            VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+            VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+            VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}

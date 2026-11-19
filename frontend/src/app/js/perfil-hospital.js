@@ -1,5 +1,42 @@
 async function initPerfilHospital() {
   const $ = (sel) => document.querySelector(sel);
+  const sessionResponse = await window.apiFetch(
+    `${window.ENV.API_BASE_URL}/auth/me`
+  );
+  if (!sessionResponse.ok) {
+    throw new Error('Não foi possível validar a permissão do usuário.');
+  }
+
+  const sessionUser = await sessionResponse.json();
+  const role = sessionUser.role || window.getUserRole?.() || '';
+  const isHospitalUser = role.toLowerCase() === 'user_hospital';
+
+  const userResponse = await window.apiFetch(
+    `${window.ENV.API_BASE_URL}/user/get_user/${encodeURIComponent(sessionUser.user_id)}`
+  );
+  if (!userResponse.ok) {
+    throw new Error('Não foi possível carregar as informações do usuário.');
+  }
+
+  const user = await userResponse.json();
+  const address = user.address || {};
+  const formInfo = $('#form-info');
+  if (formInfo) {
+    formInfo.elements.nome.value = user.name || '';
+    formInfo.elements.email.value = user.email || '';
+    formInfo.elements.telefone.value = user.phone || '';
+    formInfo.elements.endereco.value = [
+      [address.street, address.number].filter(Boolean).join(', '),
+      address.neighborhood,
+      [address.city, address.state].filter(Boolean).join('/'),
+      address.cep,
+    ].filter(Boolean).join(' - ');
+  }
+
+  if (isHospitalUser) {
+    $('#card-identidade-institucional')?.remove();
+    $('#card-gerenciamento-membros')?.remove();
+  }
 
   const modalResponse = await fetch('pages/components/senha-modal.html');
   if (!modalResponse.ok) {

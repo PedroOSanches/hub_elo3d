@@ -43,6 +43,15 @@
 .status-dot--progress { background: #bd951e; }
 .status-dot--waiting { background: #b9003c; }
 
+.status-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.status-label--done { color: #387c24; }
+.status-label--progress { color: #bf8a00; }
+.status-label--waiting { color: #b9003c; }
+
 .project-detail-link {
   display: inline-block;
   padding: 0;

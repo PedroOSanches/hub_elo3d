@@ -14,7 +14,7 @@ class DeleteUserRequestSchema(BaseModel):
 
     @model_validator(mode='wrap')
     @classmethod
-    def validar_schema(cls, value: Any, handler: Any) -> "DeleteUserRequestSchema":
+    def validar_schema(cls, value: Any, handler: Any) -> DeleteUserRequestSchema:
         if not value.get('user_id'):
             raise MissingParameters('user_id')
 

@@ -2,16 +2,17 @@
   height: 65px;
 }
 .partner-dashboard {
-  min-height: calc(100vh - 65px);
-  padding: 42px;
+  height: calc(100vh - 65px);
+  padding: 24px 40px 18px;
   box-sizing: border-box;
   background: #f4f0e5;
   color: #141414;
   font-family: "Sora", sans-serif;
+  overflow: hidden;
 }
 
 .partner-welcome {
-  margin-bottom: 18px;
+  margin-bottom: 12px;
 }
 
 .partner-welcome p {
@@ -22,7 +23,7 @@
 
 .partner-welcome h1 {
   margin: 2px 0 0;
-  font-size: 2.25rem;
+  font-size: 2rem;
   line-height: 1.1;
 }
 
@@ -33,8 +34,8 @@
 .partner-indicators {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  margin-bottom: 16px;
-  padding: 14px 20px;
+  margin-bottom: 12px;
+  padding: 10px 20px;
   border-radius: 7px;
   background: #fffdfa;
   box-shadow: 0 2px 2px #aaa;
@@ -79,8 +80,10 @@
 
 .partner-content {
   display: grid;
-  grid-template-columns: 1.45fr 1fr;
-  gap: 16px;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+  gap: 12px;
+  height: auto;
 }
 
 .partner-panel {
@@ -117,14 +120,15 @@
 .partner-panel.partner-projects {
   display: flex;
   flex-direction: column;
-  min-height: 100%;
-  height: 100%;
+  min-height: 0;
+  height: 350px;
 }
 
 .partner-project-table {
   width: 100%;
-  height: 380px;
-  overflow-y: auto;
+  height: 300px;
+  flex: none;
+  overflow: hidden;
   overflow-x: hidden;
   border: 1px solid #b9003c;
   border-radius: 5px;
@@ -133,7 +137,7 @@
 
 .partner-project-head {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 22% 22% 16% 17% 23%;
   align-items: center;
   min-height: 36px;
   padding: 0 12px;
@@ -143,8 +147,20 @@
   box-sizing: border-box;
 }
 .partner-projects #partner-project-list {
+  height: 264px;
   overflow-y: auto;
-  max-height: 320px;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #b9003c transparent;
+}
+
+.partner-projects #partner-project-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.partner-projects #partner-project-list::-webkit-scrollbar-thumb {
+  background: #b9003c;
+  border-radius: 999px;
 }
 .partner-projects #partner-project-list .row {
   width: 100%;
@@ -169,7 +185,12 @@
 
 .partner-side {
   display: grid;
-  gap: 16px;
+  gap: 12px;
+  min-height: 0;
+}
+
+.partner-side card-dashboard {
+  width: 100%;
 }
 
 .printer-list,
@@ -260,5 +281,23 @@
   }
   .partner-indicators article:last-child {
     border-bottom: 0;
+  }
+
+  .partner-dashboard {
+    height: auto;
+    min-height: calc(100vh - 65px);
+    overflow: visible;
+  }
+
+  .partner-panel.partner-projects {
+    height: 300px;
+  }
+
+  .partner-project-table {
+    height: 250px;
+  }
+
+  .partner-projects #partner-project-list {
+    height: 214px;
   }
 }

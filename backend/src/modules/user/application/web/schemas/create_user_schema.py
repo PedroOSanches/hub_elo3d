@@ -28,7 +28,7 @@ class CreateUserAddressSchema(BaseModel):
 
     @model_validator(mode="wrap")
     @classmethod
-    def validar_schema(cls, value: Any, handler: Any) -> "CreateUserAddressSchema":
+    def validar_schema(cls, value: Any, handler: Any) -> CreateUserAddressSchema:
         if not isinstance(value, dict):
             raise WrongTypeParameter(
                 field_name="address",
@@ -110,7 +110,7 @@ class CreateUserRequestSchema(BaseModel):
 
     @model_validator(mode='wrap')
     @classmethod
-    def validar_modelo(cls, value: Any, handler: Any) -> "CreateUserRequestSchema":
+    def validar_modelo(cls, value: Any, handler: Any) -> CreateUserRequestSchema:
         if not value.get("name"): 
             raise MissingParameters('name')
         if not value.get('email'):

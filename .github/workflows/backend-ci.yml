@@ -1,0 +1,24 @@
+name: Backend CI
+
+on:
+    push:
+    pull_request:
+        types:
+            - opened
+            - reopened
+            - ready_for_review
+
+    workflow_call:
+        secrets:
+            JWT_SECRET:
+                required: true
+jobs:
+    code-quality:
+        name: Code Quality
+        uses: ./.github/workflows/code-quality.yml
+
+    automated-test:
+        name: Automated Tests
+        uses: ./.github/workflows/automated-tests-backend.yml
+        secrets:
+            JWT_SECRET: ${{ secrets.JWT_SECRET }}

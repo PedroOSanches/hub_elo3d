@@ -1,0 +1,36 @@
+
+name: Automated Tests Backend
+
+on:
+  workflow_call:
+    secrets:
+      JWT_SECRET:
+        required: true
+
+jobs:
+  test:
+    name: Automated Tests
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: backend
+
+    env:
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      - name: Run Pytest
+        run: python -m pytest

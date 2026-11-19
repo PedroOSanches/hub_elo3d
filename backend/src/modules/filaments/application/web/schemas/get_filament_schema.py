@@ -14,7 +14,7 @@ class GetFilamentRequestSchema(BaseModel):
 
     @model_validator(mode='wrap')
     @classmethod
-    def validar_schema(cls, value: Any, handler: Any) -> "GetFilamentRequestSchema":
+    def validar_schema(cls, value: Any, handler: Any) -> GetFilamentRequestSchema:
         if not value.get('filament_id'):
             raise MissingParameters('filament_id')
 

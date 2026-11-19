@@ -1,7 +1,5 @@
 const app = document.getElementById("app");
-const ROUTER_API_BASE_URL =
-    window.ENV?.API_BASE_URL ||
-    `${window.location.protocol}//${window.location.hostname}:8000/api`;
+const ROUTER_API_BASE_URL = window.ENV.API_BASE_URL;
 let refreshPromise = null;
 let sessionRedirectInProgress = false;
 
@@ -72,7 +70,7 @@ const routes = {
   "/dashboard-parceiro": {
     page: "pages/dashboard-parceiro.html",
     title: "Dashboard - Elo3D Hub",
-    style: "style/dashboard-parceiro.css",
+    style: "style/dashboard-parceiro.css?v=3",
     background: "#F4F0E5",
   },
   "/perfil": {
@@ -122,6 +120,10 @@ const publicRoutes = new Set([
   "/cadastro",
   "/cadastro/instituicao",
 ]);
+const protectedRoutes = new Set(
+  Object.keys(routes).filter((route) => !publicRoutes.has(route))
+);
+protectedRoutes.add("/dashboard");
 
 function getUserRole() {
   const savedUser = localStorage.getItem("elo3d-user");
@@ -144,6 +146,8 @@ function getDashboardRoute() {
     ? "/dashboard-parceiro"
     : "/dashboard-aacd";
 }
+
+window.getUserRole = getUserRole;
 
 function getCurrentRoute() {
   return window.location.pathname.replace(/\/+$/, "") || "/";
@@ -275,6 +279,26 @@ async function apiFetch(url, options = {}) {
 
 window.apiFetch = apiFetch;
 
+async function ensureAuthenticated() {
+  const response = await apiFetch(`${ROUTER_API_BASE_URL}/auth/me`);
+
+  if (!response.ok) {
+    if (response.status !== 401) {
+      console.error(
+        `Não foi possível validar a sessão. Status: ${response.status}`
+      );
+    }
+    return false;
+  }
+
+  const user = await response.json().catch(() => null);
+  if (user?.role) {
+    localStorage.setItem("elo3d-role", user.role);
+  }
+
+  return true;
+}
+
 function showLoginRequiredMessage() {
   showAuthMessage(
     "Acesso restrito",
@@ -322,13 +346,17 @@ window.initDashboardParceiro = async function () {
 async function renderRoute() {
   const currentRoute = getCurrentRoute();
 
+  if (protectedRoutes.has(currentRoute) && !(await ensureAuthenticated())) {
+    return;
+  }
+
   const route =
     currentRoute === "/dashboard" || currentRoute === "/dashboard-aacd"
       ? routes[getDashboardRoute()]
       : routes[currentRoute] || routes["/"];
 
   try {
-    const response = await fetch(route.page);
+    const response = await fetch(route.page, { cache: "no-store" });
 
     if (!response.ok) {
       throw new Error(`Não foi possível carregar a página: ${route.page}`);
@@ -368,7 +396,7 @@ async function renderRoute() {
       }
 
       await customElements.whenDefined("team-member");
-      window.initGerenciamento?.();
+      await window.initGerenciamento?.();
     }
 
     if (route.page === "pages/meus-projetos.html") {

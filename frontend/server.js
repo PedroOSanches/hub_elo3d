@@ -4,6 +4,12 @@ const path = require('node:path');
 
 const root = path.join(__dirname, 'src', 'app');
 const port = Number(process.env.PORT) || 3000;
+const configuredApiBaseUrl =
+  process.env.API_BASE_URL ||
+  `http://${process.env.HOSTNAME || 'localhost'}:8000`;
+const apiBaseUrl = configuredApiBaseUrl.replace(/\/+$/, '').endsWith('/api')
+  ? configuredApiBaseUrl.replace(/\/+$/, '')
+  : `${configuredApiBaseUrl.replace(/\/+$/, '')}/api`;
 
 const mimeTypes = {
   '.css': 'text/css; charset=utf-8',
@@ -31,6 +37,18 @@ function sendFile(response, filePath) {
 
 const server = http.createServer((request, response) => {
   const requestPath = decodeURIComponent(new URL(request.url, `http://${request.headers.host}`).pathname);
+
+  if (requestPath === '/config.js') {
+    response.writeHead(200, {
+      'Content-Type': 'text/javascript; charset=utf-8',
+      'Cache-Control': 'no-store',
+    });
+    response.end(`window.ENV = Object.freeze(${JSON.stringify({
+      API_BASE_URL: apiBaseUrl,
+    })});`);
+    return;
+  }
+
   const relativePath = requestPath === '/' ? 'index.html' : requestPath.slice(1);
   const filePath = path.resolve(root, relativePath);
 

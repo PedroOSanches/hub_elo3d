@@ -12,7 +12,7 @@ class BaseRequestSchema(BaseModel):
 
     @model_validator(mode="wrap")
     @classmethod
-    def validar_modelo(cls, value: Any, handler: Any) -> "BaseRequestSchema":
+    def validar_modelo(cls, value: Any, handler: Any) -> BaseRequestSchema:
         if isinstance(value, dict):
             for campo in cls.campos_obrigatorios:
                 valor = value.get(campo)

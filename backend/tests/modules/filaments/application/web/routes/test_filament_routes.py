@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import jwt
 import pytest
@@ -12,7 +12,7 @@ ABS_ID = "9f1c2a10-6b1e-4d3a-8c55-0a1b2c3d4e02"
 
 @pytest.fixture
 def client():
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     token = jwt.encode(
         {
             "sub": "b189d11a-25d1-430e-b5a1-c53db528337e",

@@ -23,7 +23,7 @@ class Test_GatewayUser:
 
     def test_gateway_user_get_by_email_not_found(self, gateway):
         with pytest.raises(NoUsersFound):
-            user = gateway.get_user_by_email('notfound@user.com')
+            gateway.get_user_by_email('notfound@user.com')
 
     def test_gateway_user_get_by_id(self, gateway):
         user = gateway.get_user_by_id(UUID('20ba02d0-d00f-474b-ad43-10b76abba8ee'))

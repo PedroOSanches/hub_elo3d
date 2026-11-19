@@ -18,7 +18,7 @@ class Test_UpdateUserRequestSchema:
         }
 
         with pytest.raises(WrongTypeParameter):
-            user = UpdateUserRequestSchema(**request)
+            UpdateUserRequestSchema(**request)
     
     def test_update_user_request_schema_missing_parameters(self):
 
@@ -27,7 +27,7 @@ class Test_UpdateUserRequestSchema:
         }
 
         with pytest.raises(MissingParameters):
-            user = UpdateUserRequestSchema(**request)
+            UpdateUserRequestSchema(**request)
 
 
 class Test_UpdateUserAddressRequestSchema:

@@ -6,7 +6,7 @@ from src.modules.user.domain.entities.address import Address, EntitieError
 class Test_Address:
 
     def test_address(self):
-        address = Address(
+        Address(
             street="Teste",
             number="45",
             neighborhood="Santo Teste",
@@ -18,7 +18,7 @@ class Test_Address:
 
     def test_logragrouro_invalid(self):
         with pytest.raises(EntitieError):
-            address = Address(
+            Address(
                         street="T",
                         number="45",
                         city="Teste",
@@ -30,7 +30,7 @@ class Test_Address:
 
     def test_number_invalid(self):
         with pytest.raises(EntitieError):
-            address = Address(
+            Address(
                         street="T",
                         number=4,
                         neighborhood="Santo Teste",
@@ -42,7 +42,7 @@ class Test_Address:
             
     def test_neighborhood_invalid(self):
         with pytest.raises(EntitieError):
-            address = Address(
+            Address(
                         street="T",
                         number="345",
                         city="Teste",
@@ -55,7 +55,7 @@ class Test_Address:
 
     def test_city_invalid(self):
         with pytest.raises(EntitieError):
-            address = Address(
+            Address(
                         street="T",
                         number="345",
                         neighborhood="Sé",
@@ -67,7 +67,7 @@ class Test_Address:
     
     def test_cep_invalid(self):
         with pytest.raises(EntitieError):
-            address = Address(
+            Address(
                         street="T",
                         number="345",
                         neighborhood="Sé",
@@ -79,7 +79,7 @@ class Test_Address:
 
     def test_address_details_invalid_type(self):
         with pytest.raises(EntitieError):
-            address = Address(
+            Address(
                         street="T",
                         number="345",
                         neighborhood="Sé",

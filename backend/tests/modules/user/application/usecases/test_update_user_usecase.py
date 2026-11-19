@@ -12,7 +12,7 @@ class Test_UpdateUserUsecase:
 
     def test_update_user_usecase(self):
         repo = UserRepositoryMock()
-        usecase = UpdateUserUsecase(repo=repo)(
+        UpdateUserUsecase(repo=repo)(
             user_id=UUID('b189d11a-25d1-430e-b5a1-c53db528337e'),
             new_name='Giulia',
             new_address=None,
@@ -25,7 +25,7 @@ class Test_UpdateUserUsecase:
         def test_update_user_usecase(self):
             repo = UserRepositoryMock()
             with pytest.raises(NoUsersFound):
-                usecase = UpdateUserUsecase(repo=repo)(
+                UpdateUserUsecase(repo=repo)(
                     user_id=UUID('b189d11a-25d1-430e-b5a1-c53db528337e'),
                     new_name='Giulia',
                     new_address=None,

@@ -72,5 +72,9 @@ class Test_GetUserRouter:
 
         assert get_user.status_code == 400
         assert get_user.json() == {
-            'message': "The field 'user_id' has the wrong type. Received: str. Expected: UUID"
+            'message': (
+                "The field 'user_id' has the wrong type. "
+                "Received: str. "
+                "Expected: UUID"
+            )
         }

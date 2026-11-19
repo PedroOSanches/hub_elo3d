@@ -46,7 +46,7 @@ class UploadFileRequest(BaseModel):
             if not data.get('size'):
                 raise MissingParameters('size')
             if not data.get('content_type'):
-                raise MissingParameters('content_type')
+                raise MissingParameters('size')
 
             return handler(data)
         

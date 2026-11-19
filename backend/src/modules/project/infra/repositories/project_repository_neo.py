@@ -197,4 +197,56 @@ class ProjectRepositoryNeo(IProjectRepository):
         self,
         project_id: UUID
     ) -> Project:
-        raise NotImplementedError
+        query = """
+            MATCH (p:Project {id: $project_id})
+
+            OPTIONAL MATCH (p)-[:HAS_FILE]->(f:ProjectFile)
+            WITH
+                p,
+                collect(f) AS file_nodes,
+                collect(properties(f)) AS files
+
+            OPTIONAL MATCH (p)-[:HAS_STATUS]->(s:ProjectStatus)
+            WITH
+                p,
+                file_nodes,
+                files,
+                collect(s) AS status_nodes,
+                collect(properties(s)) AS statuses
+
+            WITH
+                p,
+                file_nodes + status_nodes AS nodes,
+                properties(p) AS project,
+                files,
+                statuses
+
+            FOREACH (node IN nodes |
+                DETACH DELETE node
+            )
+
+            DETACH DELETE p
+
+            RETURN project, files, statuses
+        """
+
+        try:
+            result = self.connection_factory.execute_write(
+                lambda tx: tx.run(
+                    query,
+                    project_id=str(project_id)
+                ).single()
+            )
+        except Exception as e:
+            raise DatabaseError() from e
+
+        if result is None:
+            raise ProjectNotFoundError(project_id)
+
+        data = result.data()
+
+        return ProjectDTO.dict_to_entity(
+            project_data=data["project"],
+            files_data=data["files"],
+            statuses_data=data["statuses"]
+        )

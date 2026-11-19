@@ -271,3 +271,43 @@ def test_update_project_database_error(
 
     with raises(DatabaseError):
         repo.update_project(project.id, project)
+
+def test_delete_project(
+    repo, project, transaction, connection_factory
+):
+    project_data, files_data, statuses_data = (
+        ProjectDTO.entity_to_dict(project)
+    )
+
+    record = Mock()
+    record.data.return_value = {
+        "project": project_data,
+        "files": files_data,
+        "statuses": statuses_data
+    }
+
+    transaction.run.return_value.single.return_value = record
+
+    result = repo.delete_project(project.id)
+
+    assert result == project
+
+    connection_factory.execute_write.assert_called_once()
+
+def test_delete_project_not_found(
+    repo, project, transaction
+):
+    transaction.run.return_value.single.return_value = None
+
+    with raises(ProjectNotFoundError):
+        repo.delete_project(project.id)
+
+def test_delete_project_database_error(
+    repo, project, connection_factory
+):
+    connection_factory.execute_write.side_effect = RuntimeError(
+        "Database connection error"
+    )
+
+    with raises(DatabaseError):
+        repo.delete_project(project.id)

@@ -10,19 +10,20 @@ class TestProjectFile:
     def test_create_project_file(self):
         project_file = ProjectFile(
             title = "Modelo de prótese",
-            object_key = UUID("01a1eb3e-d77e-738b-97ef-cb486c7ad4ab"),
+            object_key = "projects/mock_ortese/01a1fa0d-0959-741e-a966-dfb9ad976800.obj",
             size=123,
             content_type="model/stl",
         )
 
         assert project_file.title == "Modelo de prótese"
-        assert project_file.object_key == UUID("01a1eb3e-d77e-738b-97ef-cb486c7ad4ab")
+        assert project_file.object_key == "projects/mock_ortese/01a1fa0d-0959-741e-a966-dfb9ad976800.obj"
 
     def test_required_title(self):
         with raises(ValidationError):
             ProjectFile(
                 title = "",
-                object_key = UUID("01a1eb3e-d77e-738b-97ef-cb486c7ad4ab"),
+                size=200,
+                object_key = "projects/mock_ortese/01a1fa0d-0959-741e-a966-dfb9ad976800.obj",
                 content_type="model/stl",
             )
 
@@ -31,6 +32,7 @@ class TestProjectFile:
             ProjectFile(
                 title = "Modelo de prótese",
                 object_key = "",
+                size=100,
                 content_type="model/stl",
             )
 
@@ -38,7 +40,8 @@ class TestProjectFile:
         with raises(ValidationError):
             ProjectFile(
                 title = "",
-                object_key = UUID("01a1eb3e-d77e-738b-97ef-cb486c7ad4ab"),
+                size=100,
+                object_key = "projects/mock_ortese/01a1fa0d-0959-741e-a966-dfb9ad976800.obj",
                 content_type="model/stl",
             )
 
@@ -47,6 +50,7 @@ class TestProjectFile:
             ProjectFile(
                 title = "Modelo de prótese",
                 object_key = "",
+                size=100,
                 content_type="model/stl",
             )
 
@@ -56,5 +60,6 @@ class TestProjectFile:
                 title = "Modelo de prótese",
                 object_key = UUID("01a1eb3e-d77e-738b-97ef-cb486c7ad4ab"),
                 content_type="model/stl",
+                size=123,
                 unknown_field = "value"
             )

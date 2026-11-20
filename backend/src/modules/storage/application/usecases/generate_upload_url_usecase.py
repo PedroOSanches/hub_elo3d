@@ -1,3 +1,4 @@
+from pathlib import Path
 from uuid import uuid7
 
 from src.modules.storage.application.web.schemas.generate_upload_urls_request import (
@@ -9,8 +10,6 @@ from src.modules.storage.application.web.schemas.upload_urls_response import (
 from src.modules.storage.domain.gateways.gateway_storage_interface import (
     IGatewayStorage,
 )
-
-from pathlib import Path
 
 
 class UploadUrlUsecase:

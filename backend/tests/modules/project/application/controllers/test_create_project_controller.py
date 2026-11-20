@@ -18,6 +18,7 @@ from src.modules.project.domain.enums.order_status_enum import OrderStatus
 from src.modules.project.domain.repositories.project_repository_interface import (
     IProjectRepository,
 )
+from src.modules.project.infra.external.gateways.gateway_storage_mock import GatewayStorageMock
 
 
 @fixture
@@ -33,7 +34,7 @@ def valid_request_data(**overrides):
         "files": [
             {
                 "title": "Modelo 3D",
-                "object_key": "01a1eb3e-d77e-738b-97ef-cb486c7ad4ab",
+                "object_key": "projects/mock_ortese/01a1fa0d-0959-741e-a966-dfb9ad976800.obj",
                 "size": 123,
                 "content_type": "model/stl",
             }
@@ -47,11 +48,13 @@ class TestCreateProjectController:
     def test_create_project_controller(self, valid_request_data):
         repo = Mock(spec=IProjectRepository)
         repo.create_project.side_effect = lambda project: project
+        gateway = GatewayStorageMock()
+        usecase = CreateProjectUsecase(repo, gateway)
 
-        usecase = CreateProjectUsecase(repo)
         controller = CreateProjectController(usecase)
 
         request = CreateProjectRequestSchema(**valid_request_data)
+
         response = controller(request)
 
         assert isinstance(response, dict)
@@ -72,7 +75,9 @@ class TestCreateProjectController:
         repo = Mock(spec=IProjectRepository)
         repo.create_project.side_effect = lambda project: project
 
-        controller = CreateProjectController(CreateProjectUsecase(repo))
+        gateway = GatewayStorageMock()
+
+        controller = CreateProjectController(CreateProjectUsecase(repo, gateway))
         request = CreateProjectRequestSchema(**valid_request_data)
         controller(request)
 
@@ -87,7 +92,9 @@ class TestCreateProjectController:
         repo = Mock(spec=IProjectRepository)
         repo.create_project.side_effect = lambda project: project
 
-        controller = CreateProjectController(CreateProjectUsecase(repo))
+        gateway = GatewayStorageMock()
+
+        controller = CreateProjectController(CreateProjectUsecase(repo, gateway))
 
         data = valid_request_data.copy()
         data["technical_info"] = "Preenchimento de 30%"

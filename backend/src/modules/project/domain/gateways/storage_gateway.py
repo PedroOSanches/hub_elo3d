@@ -4,12 +4,13 @@ from abc import ABC, abstractmethod
 class IGatewayStorage(ABC):
 
     @abstractmethod
-    def verify_uploads(
+    def verify_upload(
         self,
-        file_object_key: str
+        file_object_key: str,
+        file_name: str
     ) -> bool:
         """
-        Verifica se todos os arquivos associados ao upload_id
+        Verifica se o arquivos associado ao object_key
         foram enviados corretamente para o armazenamento.
 
         Raises:

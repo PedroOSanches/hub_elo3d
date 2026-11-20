@@ -1,3 +1,5 @@
+from typing import Any
+
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 from pytest import fixture
@@ -12,6 +14,7 @@ from src.modules.project.application.web.routes.create_project import (
     get_create_project_dependencies,
 )
 from src.modules.project.application.web.routes.index import project_router
+from src.modules.project.infra.external.gateways.gateway_storage_mock import GatewayStorageMock
 from src.modules.project.infra.repositories.project_repository_mock import (
     ProjectRepositoryMock,
 )
@@ -29,7 +32,7 @@ def valid_request_data(**overrides):
         "files": [
             {
                 "title": "Modelo 3D",
-                "object_key": "01a1eb3e-d77e-738b-97ef-cb486c7ad4ab",
+                "object_key": "projects/mock_ortese/01a1fa0d-0959-741e-a966-dfb9ad976800.obj",
                 "size": 123,
                 "content_type": "model/stl",
             }
@@ -47,7 +50,8 @@ def client_and_repo():
     )
 
     repo = ProjectRepositoryMock()
-    usecase = CreateProjectUsecase(repo)
+    gateway = GatewayStorageMock()
+    usecase = CreateProjectUsecase(repo, gateway)
     controller = CreateProjectController(usecase)
 
     app.dependency_overrides[get_create_project_dependencies] = lambda: controller
@@ -94,12 +98,11 @@ class TestCreateProjectRoute:
         assert response.status_code == 422
         assert len(repo.projects) == 0
 
-    def test_cannot_define_order_status(self, client_and_repo):
+    def test_cannot_define_order_status(self, client_and_repo: tuple[TestClient, Any]):
         client, repo = client_and_repo
         response = client.post(
             "/projects/create",
             json=valid_request_data(order_status="completed")
         )
-
         assert response.status_code == 422
         assert len(repo.projects) == 0

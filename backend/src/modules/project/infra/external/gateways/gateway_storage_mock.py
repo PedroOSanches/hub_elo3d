@@ -1,7 +1,6 @@
 from src.modules.project.domain.gateways.storage_gateway import IGatewayStorage
 from src.modules.storage.domain.errors.file_not_found_error import FileNotFound
 
-
 class GatewayStorageMock(IGatewayStorage):
 
     def __init__(self) -> None:

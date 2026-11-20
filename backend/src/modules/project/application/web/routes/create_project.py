@@ -6,7 +6,10 @@ from src.modules.project.application.controllers.create_project_controller impor
 from src.modules.project.application.usecases.create_project_usecase import (
     CreateProjectUsecase,
 )
-from src.modules.project.application.web.dependencies import get_gateway_storage, get_repo_project
+from src.modules.project.application.web.dependencies import (
+    get_gateway_storage,
+    get_repo_project,
+)
 from src.modules.project.application.web.schemas.create_project_schema import (
     CreateProjectRequestSchema,
     CreateProjectResponseSchema,

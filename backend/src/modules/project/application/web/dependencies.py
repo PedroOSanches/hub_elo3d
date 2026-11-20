@@ -12,6 +12,8 @@ from src.shared.environments.environments import env
 
 from src.shared.environments.environments import env
 
+from src.shared.environments.environments import env
+
 _project_repository = ProjectRepositoryMock()
 
 def get_repo_project() -> IProjectRepository:

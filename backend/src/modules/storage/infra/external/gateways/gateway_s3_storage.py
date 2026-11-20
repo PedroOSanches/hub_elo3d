@@ -23,20 +23,16 @@ class GatewayS3Storage(IGatewayStorage):
             ExpiresIn=3600,
         )
 
-    def verify_upload(self, object_keys: list[str]) -> bool:
-        for object_key in object_keys:
-            try:
-                self.client.head_object(
-                    Bucket=self.bucket_name,
-                    Key=object_key,
+    def verify_upload(self, object_key: str) -> bool:
+        try:
+            self.client.head_object(
+                Bucket=self.bucket_name,
+                Key=object_key,
                 )
 
-            except ClientError as error:
-                error_code = error.response["Error"]["Code"]
-
-                if error_code in ("404", "NoSuchKey", "NotFound"):
-                    return False
-
-                raise
+        except ClientError as error:
+            error_code = error.response["Error"]["Code"]
+            if error_code in ("404", "NoSuchKey", "NotFound"):
+                return False
 
         return True

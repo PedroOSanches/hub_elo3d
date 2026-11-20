@@ -24,7 +24,7 @@ def valid_project_data(**overrides):
         "files": [
             ProjectFile(
                 title = "Modelo de prótese",
-                object_key = UUID("01a1eb3e-d77e-738b-97ef-cb486c7ad4ab"),
+                object_key = "projects/mock_ortese/01a1fa0d-0959-741e-a966-dfb9ad976800.obj",
                 size=13,
                 content_type='model/stl'
             )

@@ -27,7 +27,14 @@ def valid_create_data(**overrides):
         "description": "Prótese de mão para paciente em recuperação",
         "urgency": Urgency.HIGH,
         "filament_id": uuid4(),
-        "files": [ProjectFile(title = "Modelo 3D", file_url = "https://example.com/model.stl")]
+        "files": [
+            ProjectFile(
+                title = "Modelo 3D", 
+                object_key = "01a1eb3e-d77e-738b-97ef-cb486c7ad4ab",
+                size=123,
+                content_type='model/stl'
+                )
+                ]
     }
     data.update(overrides)
     return data

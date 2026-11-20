@@ -4,8 +4,17 @@ from src.modules.project.domain.repositories.project_repository_interface import
 from src.modules.project.infra.repositories.project_repository_mock import (
     ProjectRepositoryMock,
 )
+from src.modules.project.infra.repositories.project_repository_neo import (
+    ProjectRepositoryNeo,
+)
+from src.shared.environments.environments import STAGE, env
+from src.shared.environments.neo4j_connection_factory import connection
 
 _project_repository = ProjectRepositoryMock()
 
+
 def get_repo_project() -> IProjectRepository:
+    if env.stage == STAGE.PROD:
+        return ProjectRepositoryNeo(connection_factory=connection)
+    
     return _project_repository

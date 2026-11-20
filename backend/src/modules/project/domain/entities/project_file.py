@@ -1,4 +1,3 @@
-from uuid import UUID, uuid7
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
@@ -27,9 +26,9 @@ class ProjectFile(BaseModel):
         description = "Título do arquivo do projeto"
     )
 
-    object_key: UUID = Field(
-        default_factory=uuid7,
-        description = "Chave do arquivo guardado na S3"
+    object_key: str = Field(
+        description = "Chave do arquivo guardado na S3",
+        min_length=5,
     )
 
     size: int = Field(
@@ -42,7 +41,8 @@ class ProjectFile(BaseModel):
     )
 
     model_config = ConfigDict(
-        extra = "forbid"
+        extra = "forbid",
+        use_enum_values=True
     )
 
     @field_validator("content_type", mode='before')

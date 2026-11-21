@@ -40,10 +40,10 @@ class CreateProjectUsecase:
             technical_info = technical_info
         )
         for file in files:
-            upload_validated = self.gateway_storage.verify_upload(
+            upload_file = self.gateway_storage.verify_upload(
                 file_name=file.title,
                 file_object_key=file.object_key,
                 )
-            if not upload_validated:
-                raise 
+            if upload_file:
+                continue
         return self.repo.create_project(project = project)

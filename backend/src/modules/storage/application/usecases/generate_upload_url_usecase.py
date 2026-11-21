@@ -1,6 +1,7 @@
 from pathlib import Path
 from uuid import uuid7
 
+from src.modules.storage.domain.errors.extension_unprocessable import ExtensionUnprocessableError
 from src.modules.storage.application.web.schemas.generate_upload_urls_request import (
     UploadFileRequest,
 )
@@ -30,11 +31,11 @@ class UploadUrlUsecase:
             object_key = f'projects/{path}/{str(uuid7())}{extension}'
 
             if not extension:
-                raise ValueError('File must have an extension')
+                raise ExtensionUnprocessableError('empty')
 
             url = self.gateway.generate_upload_url(
                 object_key=object_key,
-                content_type=file.content_type
+                content_type=file.content_type,
                 )
             urls_generated.append(
                 UploadUrlResponseSchema(

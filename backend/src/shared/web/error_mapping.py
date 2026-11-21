@@ -4,16 +4,18 @@ from src.shared.errors.usecase_error import (
     DuplicatedError,
     ForbiddenAction,
     NotFoundError,
+    UnprocessableEntity,
 )
 
 ERROR_STATUS_CODES = {
     WrongTypeParameter: 400,
     MissingParameters: 400,
+    UnauthorizedAction: 401,
+    ForbiddenAction: 403,
     NotFoundError: 404,
     EntitieError: 406,
     DuplicatedError: 409,
-    UnauthorizedAction: 401,
-    ForbiddenAction: 403
+    UnprocessableEntity: 422
 }
 
 

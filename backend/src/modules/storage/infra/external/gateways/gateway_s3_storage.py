@@ -3,6 +3,7 @@ from urllib.parse import quote
 from botocore.exceptions import ClientError
 
 from src.modules.storage.domain.errors.file_not_found_error import FileNotFound
+from src.modules.storage.domain.errors.storage_error import StorageError
 from src.modules.storage.domain.gateways.gateway_storage_interface import (
     IGatewayStorage,
 )
@@ -36,15 +37,17 @@ class GatewayS3Storage(IGatewayStorage):
 
         except ClientError as error:
             error_code = error.response["Error"]["Code"]
+
             if error_code in ("404", "NoSuchKey", "NotFound"):
                 return False
 
-        raise
+            raise
 
     def generate_download_url(
             self, 
             object_key:str, 
-            file_name: str
+            file_name: str,
+            expires_in: int = 3600
             ) -> str:
         try: 
             encoded_file_name = quote(file_name, safe="")
@@ -57,9 +60,9 @@ class GatewayS3Storage(IGatewayStorage):
                         f"attachment; filename*=UTF-8''{encoded_file_name}"
                     ),
                 },
-                ExpiresIn=3600,
+                ExpiresIn=expires_in,
                 )
-        except ClientError as err:
-            raise FileNotFound(file_name=file_name) from err
-        except ValueError as err:
-            raise FileNotFound(file_name=file_name) from err
+
+        
+        except (ClientError, ValueError) as err:
+            raise StorageError() from err   

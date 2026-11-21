@@ -44,7 +44,9 @@ def test_create_project_in_real_app(client):
         "files": [
             {
                 "title": "Modelo 3D",
-                "file_url": "https://example.com/model.stl"
+                "object_key": "projects/mock_ortese/01a1fa0d-0959-741e-a966-dfb9ad976800.obj",
+                "size": 123,
+                "content_type": "model/stl",
             }
         ]
     }
@@ -76,7 +78,9 @@ def test_create_project_with_real_dependencies(access_token):
         "files": [
             {
                 "title": "Modelo 3D",
-                "file_url": "https://example.com/model.stl"
+                "object_key": "projects/mock_ortese/01a1fa0d-0959-741e-a966-dfb9ad976800.obj",
+                "size": 123,
+                "content_type": "model/stl",
             }
         ]
     }
@@ -96,3 +100,41 @@ def test_create_project_with_real_dependencies(access_token):
     finally:
         for project_id in set(repo.projects) - original_ids:
             repo.projects.pop(project_id, None)
+
+def test_create_project_not_found_error(access_token):
+    repo = get_repo_project()
+
+    assert isinstance(repo, ProjectRepositoryMock)
+
+    original_ids = set(repo.projects.keys())
+
+    request_data = {
+        "title": "Prótese de mão",
+        "date_end": "2026-11-15",
+        "pieces_quantity": 1,
+        "category": "prosthesis",
+        "description": "Prótese para reabilitação",
+        "urgency": "high",
+        "filament_id": str(uuid4()),
+        "files": [
+            {
+                "title": "Modelo 3D",
+                "object_key": "01a1fa0d-0959-741e-a966-dfb9ad976800.obj",
+                "size": 123,
+                "content_type": "model/stl",
+            }
+        ]
+    }
+
+    try:
+        with TestClient(app) as client:
+            client.cookies.set("access_token", access_token)
+            response = client.post("/api/projects/create", json=request_data)
+
+        assert response.status_code == 404
+        assert response.json()['message'] == "The file 'Modelo 3D' could not be found."
+        
+    finally:
+        for project_id in set(repo.projects) - original_ids:
+            repo.projects.pop(project_id, None)
+            

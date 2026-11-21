@@ -44,4 +44,4 @@ class Test_LoginController:
         )
 
         with pytest.raises(InvalidCredentials):
-            tokens = controller(request=request)
+            controller(request=request)

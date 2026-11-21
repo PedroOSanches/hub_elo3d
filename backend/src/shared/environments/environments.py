@@ -3,6 +3,8 @@ from enum import Enum
 
 from dotenv import load_dotenv
 
+from .errors.environments_error import EnvironmentError
+
 
 class STAGE(Enum):
     DOTENV = 'DOTENV'
@@ -26,6 +28,12 @@ class Environments:
         self.neo_user = os.environ.get("NEO_USER", '')
         self.neo_pass = os.environ.get("NEO_PASS", '')
         self.neo_database = os.environ.get("NEO_DATABASE")
+
+        self.aws_access_key_id = os.environ.get("AWS_ACCESS_KEY_ID", "")
+        self.aws_secret_access_key = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
+        self.aws_default_region = os.environ.get("AWS_DEFAULT_REGION", "us-east-1")
+        self.aws_s3_bucket_name = os.environ.get("AWS_S3_BUCKET_NAME", "")
+
         self.jwt_secret: str = os.environ.get("JWT_SECRET", '')
 
         self.frontend_origin = [
@@ -36,9 +44,11 @@ class Environments:
                 ).split(',')
                 if origin.strip()
                 ]
-
+        if not self.aws_s3_bucket_name:
+            raise EnvironmentError('AWS_S3_BUCKET')
+        
         if not self.jwt_secret:
-            raise RuntimeError('Missing JWT_SECRET in enviroments')
+            raise EnvironmentError('JWT_SECRET')
         
         if self.stage == STAGE.PROD:
             self.neo_uri = f'neo4j+s://{self.neo_host}.databases.neo4j.io'

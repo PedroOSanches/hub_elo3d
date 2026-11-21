@@ -1,24 +1,37 @@
 name: Backend CI
 
 on:
-    push:
-    pull_request:
-        types:
-            - opened
-            - reopened
-            - ready_for_review
+  push:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - ready_for_review
 
-    workflow_call:
-        secrets:
-            JWT_SECRET:
-                required: true
+  workflow_call:
+    secrets:
+      JWT_SECRET:
+        required: true
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_DEFAULT_REGION:
+        required: true
+      AWS_S3_BUCKET_NAME:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+
 jobs:
-    code-quality:
-        name: Code Quality
-        uses: ./.github/workflows/code-quality.yml
+  code-quality:
+    name: Code Quality
+    uses: ./.github/workflows/code-quality.yml
 
-    automated-test:
-        name: Automated Tests
-        uses: ./.github/workflows/automated-tests-backend.yml
-        secrets:
-            JWT_SECRET: ${{ secrets.JWT_SECRET }}
+  automated-test:
+    name: Automated Tests
+    uses: ./.github/workflows/automated-tests-backend.yml
+    secrets:
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+      AWS_S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

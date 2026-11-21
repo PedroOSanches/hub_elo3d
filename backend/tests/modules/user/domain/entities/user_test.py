@@ -7,7 +7,7 @@ from src.modules.user.domain.entities.user import Address, EntitieError, User
 class TestUser:
 
     def test_user(self):
-        user = User(
+        User(
             name="User",
             email="user@example.com",
             phone="+5511999999999",
@@ -26,7 +26,7 @@ class TestUser:
         )
 
     def test_institucional_user(self):
-        user = User(
+        User(
             name="User",
             email="user@institution.com",
             phone="+5599999999999",
@@ -46,7 +46,7 @@ class TestUser:
     
     def test_institucional_user_id_invalid(self):
         with pytest.raises(EntitieError):
-            user = User(
+            User(
                 name="User",
                 email="user@institution.com",
                 phone="+5599999999999",
@@ -66,7 +66,7 @@ class TestUser:
 
     def test_email_invalid(self):
         with pytest.raises(EntitieError):
-            user = User(
+            User(
                 name="User",
                 email="userinstitution.com",
                 phone="+5599999999999",
@@ -84,7 +84,7 @@ class TestUser:
             )
     def test_phone_invalid(self):
         with pytest.raises(EntitieError):
-            user = User(
+            User(
                 name="User",
                 email="user@institution.com",
                 phone="11999999999",
@@ -103,7 +103,7 @@ class TestUser:
 
     def test_name_invalid(self):
         with pytest.raises(EntitieError):
-            user = User(
+            User(
                 name="u",
                 email="user@institution.com",
                 phone="+5511999999999",
@@ -121,7 +121,7 @@ class TestUser:
             )
     def test_password_hash_invalid(self):
         with pytest.raises(EntitieError):
-            user = User(
+            User(
                 name="User",
                 email="user@institution.com",
                 phone="+5511999999999",
@@ -140,7 +140,7 @@ class TestUser:
 
     def test_id_invalid(self):
             with pytest.raises(EntitieError):
-                user = User(
+                User(
                     user_id="u",
                     name="User",
                     email="user@institution.com",
@@ -160,7 +160,7 @@ class TestUser:
 
     def test_role_invalid(self):
             with pytest.raises(EntitieError):
-                user = User(
+                User(
                     user_id="u",
                     name="User",
                     email="user@institution.com",

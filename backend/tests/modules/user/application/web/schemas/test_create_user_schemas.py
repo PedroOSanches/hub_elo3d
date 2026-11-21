@@ -29,7 +29,7 @@ class Test_CreateUserRequestSchema:
             'role': 'hospital'
         }
 
-        create_user_request_schema = CreateUserRequestSchema(**request)
+        CreateUserRequestSchema(**request)
 
     def test_name_missing(self):
         with pytest.raises(MissingParameters):
@@ -98,7 +98,7 @@ class Test_CreateUserRequestSchema:
                 'role': 'hospital'
                 }
                 
-            create_user_request_schema = CreateUserRequestSchema(**request)
+            CreateUserRequestSchema(**request)
     def test_email_type_invalid(self):
 
         with pytest.raises(WrongTypeParameter):
@@ -119,7 +119,7 @@ class Test_CreateUserRequestSchema:
                 'role': 'hospital'
                 }
                 
-            create_user_request_schema = CreateUserRequestSchema(**request)
+            CreateUserRequestSchema(**request)
 
     def test_phone_type_invalid(self):
 
@@ -141,7 +141,7 @@ class Test_CreateUserRequestSchema:
                 'role': 'hospital'
                 }
                 
-            create_user_request_schema = CreateUserRequestSchema(**request)
+            CreateUserRequestSchema(**request)
 
     def test_password_type_invalid(self):
 
@@ -163,7 +163,7 @@ class Test_CreateUserRequestSchema:
                 'role': 'hospital'
                 }
                 
-            create_user_request_schema = CreateUserRequestSchema(**request)
+            CreateUserRequestSchema(**request)
 
     def test_address_type_invalid(self):
         with pytest.raises(WrongTypeParameter):
@@ -176,7 +176,7 @@ class Test_CreateUserRequestSchema:
                 'role': 'hospital'
                     }
                     
-            create_user_request_schema = CreateUserRequestSchema(**request)
+            CreateUserRequestSchema(**request)
 
     def test_role_type_invalid(self):
 
@@ -198,4 +198,4 @@ class Test_CreateUserRequestSchema:
                 'role': 'felipe'
                 }
                 
-            create_user_request_schema = CreateUserRequestSchema(**request)
+            CreateUserRequestSchema(**request)

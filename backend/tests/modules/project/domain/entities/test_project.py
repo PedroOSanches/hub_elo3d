@@ -24,7 +24,9 @@ def valid_project_data(**overrides):
         "files": [
             ProjectFile(
                 title = "Modelo de prótese",
-                file_url = "https://example.com/protese.stl"
+                object_key = "projects/mock_ortese/01a1fa0d-0959-741e-a966-dfb9ad976800.obj",
+                size=13,
+                content_type='model/stl'
             )
         ]
     }
@@ -197,8 +199,18 @@ class TestProject:
 
     def test_project_with_multiple_files(self):
         files = [
-            ProjectFile(title = "Modelo de prótese", file_url = "https://example.com/protese.stl"),
-            ProjectFile(title = "Manual do usuário", file_url = "https://example.com/manual.pdf")
+            ProjectFile(
+                title = "Modelo de prótese", 
+                object_key = '01a1eb3e-d77e-738b-97ef-cb486c7ad4ab',
+                size=123,
+                content_type="model/stl",
+                ),
+            ProjectFile(
+                title="Manual do usuário", 
+                object_key="01a1eb3e-d77e-738b-97ef-cb486c7ad4ab",
+                size=123,
+                content_type="model/stl",
+                )
         ]
         project = Project(**valid_project_data(files = files))
 

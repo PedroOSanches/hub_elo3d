@@ -6,7 +6,10 @@ from src.modules.project.application.controllers.create_project_controller impor
 from src.modules.project.application.usecases.create_project_usecase import (
     CreateProjectUsecase,
 )
-from src.modules.project.application.web.dependencies import get_repo_project
+from src.modules.project.application.web.dependencies import (
+    get_gateway_storage,
+    get_repo_project,
+)
 from src.modules.project.application.web.schemas.create_project_schema import (
     CreateProjectRequestSchema,
     CreateProjectResponseSchema,
@@ -16,7 +19,11 @@ create_project_router = APIRouter()
 
 def get_create_project_dependencies() -> CreateProjectController:
     repo = get_repo_project()
-    usecase = CreateProjectUsecase(repo)
+    gateway = get_gateway_storage()
+    usecase = CreateProjectUsecase(
+        repo=repo,
+        gateway_storage=gateway
+        )
     controller = CreateProjectController(usecase)
 
     return controller

@@ -1,7 +1,6 @@
 from pathlib import Path
 from uuid import uuid7
 
-from src.modules.storage.domain.errors.extension_unprocessable import ExtensionUnprocessableError
 from src.modules.storage.application.web.schemas.generate_upload_urls_request import (
     UploadFileRequest,
 )

@@ -8,7 +8,6 @@ from src.modules.storage.domain.gateways.gateway_storage_interface import (
 )
 from src.shared.environments.aws_client_factory import AWSClientFactory
 
-
 class GatewayS3Storage(IGatewayStorage):
 
     def __init__(self, aws_client: AWSClientFactory, bucket_name: str) -> None:
@@ -21,7 +20,7 @@ class GatewayS3Storage(IGatewayStorage):
             Params={
                 "Bucket":self.bucket_name,
                 "Key": object_key,
-                "ContentType": content_type,
+                "ContentType": content_type
             },
             ExpiresIn=3600,
         )

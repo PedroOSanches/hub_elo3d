@@ -21,4 +21,4 @@ api_router.include_router(upload_route, prefix='/projects/upload', tags=[
     'Uploads'
     ])
 api_router.include_router(filament_router, prefix='/filament', tags=['Filament'])
-api_router.include_router(teapot, )
+api_router.include_router(teapot)

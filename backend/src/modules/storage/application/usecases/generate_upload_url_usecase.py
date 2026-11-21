@@ -1,12 +1,14 @@
 from pathlib import Path
 from uuid import uuid7
 
-from src.modules.storage.domain.errors.extension_unprocessable import ExtensionUnprocessableError
 from src.modules.storage.application.web.schemas.generate_upload_urls_request import (
     UploadFileRequest,
 )
 from src.modules.storage.application.web.schemas.upload_urls_response import (
     UploadUrlResponseSchema,
+)
+from src.modules.storage.domain.errors.extension_unprocessable import (
+    ExtensionUnprocessableError,
 )
 from src.modules.storage.domain.gateways.gateway_storage_interface import (
     IGatewayStorage,

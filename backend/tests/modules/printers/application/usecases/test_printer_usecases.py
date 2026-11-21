@@ -105,9 +105,6 @@ class TestListPrintersUsecase:
     def test_list_empty(self):
         assert ListPrintersUsecase(PrinterRepositoryMock())(uuid4(), "user") == []
 
-    def test_list_empty(self):
-        assert ListPrintersUsecase(PrinterRepositoryMock())() == []
-
 
 class TestUpdatePrinterUsecase:
     def test_update_only_given_fields(self):

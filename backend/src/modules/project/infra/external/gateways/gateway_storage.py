@@ -17,3 +17,9 @@ class GatewayStorage(IGatewayStorage):
                 file_name=file_name
                 )
         return True 
+
+    def generate_download_url(self, file_name: str, object_key: str) -> str:
+        return self.gateway_s3.generate_download_url(
+            file_name=file_name,
+            object_key=object_key
+            )

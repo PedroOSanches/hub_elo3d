@@ -1,5 +1,8 @@
+from urllib.parse import quote
+
 from botocore.exceptions import ClientError
 
+from src.modules.storage.domain.errors.file_not_found_error import FileNotFound
 from src.modules.storage.domain.gateways.gateway_storage_interface import (
     IGatewayStorage,
 )
@@ -38,16 +41,25 @@ class GatewayS3Storage(IGatewayStorage):
 
         raise
 
-
-    def generate_download_url(self, object_key:str, file_name: str) -> str:
-        return self.client.generate_presigned_url(
-                    ClientMethod='get_object',
-                    Params={
-                        "Bucket":self.bucket_name,
-                        "Key": object_key,
-                        "ResponseContentDisposition":(
-                            f'attachment; filename"{file_name}"'
-                        )
-                    },
-                    ExpiresIn=3600,
+    def generate_download_url(
+            self, 
+            object_key:str, 
+            file_name: str
+            ) -> str:
+        try: 
+            encoded_file_name = quote(file_name, safe="")
+            return self.client.generate_presigned_url(
+                ClientMethod="get_object",
+                Params={
+                    "Bucket": self.bucket_name,
+                    "Key": object_key,
+                    "ResponseContentDisposition": (
+                        f"attachment; filename*=UTF-8''{encoded_file_name}"
+                    ),
+                },
+                ExpiresIn=3600,
                 )
+        except ClientError as err:
+            raise FileNotFound(file_name=file_name) from err
+        except ValueError as err:
+            raise FileNotFound(file_name=file_name) from err

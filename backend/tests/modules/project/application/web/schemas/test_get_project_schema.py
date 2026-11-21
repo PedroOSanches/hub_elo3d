@@ -5,6 +5,7 @@ from pydantic import ValidationError
 from pytest import fixture, raises
 
 from src.modules.project.application.web.schemas.get_project_schema import (
+    GetProjectFilesResponseSchema,
     GetProjectResponseSchema,
 )
 from src.modules.project.domain.entities.project import Project
@@ -15,28 +16,42 @@ from src.modules.project.domain.enums.order_status_enum import OrderStatus
 @fixture
 def valid_project():
     return Project(
-        id=uuid4(),
         title="Prótese de mão",
         date_end=date(2026, 11, 15),
         pieces_quantity=1,
         category="prosthesis",
         description="Projeto para reabilitação",
-        technical_info=None,
         urgency="high",
         filament_id=uuid4(),
         files=[
             ProjectFile(
                 title="Modelo 3D",
                 object_key="01a1eb3e-d77e-738b-97ef-cb486c7ad4ab",
-                size=123,
+                size=12000000,
                 content_type="model/stl",
             )
-        ]
+        ],
     )
+
+
+def get_project_response_data(project: Project) -> dict:
+    data = project.model_dump(mode="python")
+    data["files"] = [
+        GetProjectFilesResponseSchema(
+            title=file.title,
+            download_url=f"https://elo3dhubbucket/projects/{file.object_key}/{file.title}",
+            size=file.size,
+            content_type=file.content_type,
+        )
+        for file in project.files
+    ]
+    return data
 
 class TestGetProjectResponseSchema:
     def test_create_response_from_valid_project(self, valid_project):
-        response = GetProjectResponseSchema.model_validate(valid_project)
+        response = GetProjectResponseSchema.model_validate(
+            get_project_response_data(valid_project)
+        )
         
         assert response.id == valid_project.id
         assert response.title == valid_project.title
@@ -44,7 +59,9 @@ class TestGetProjectResponseSchema:
         assert len(response.files) == 1
 
     def test_serialize_response_to_json(self, valid_project):
-        response = GetProjectResponseSchema.model_validate(valid_project)
+        response = GetProjectResponseSchema.model_validate(
+            get_project_response_data(valid_project)
+        )
         data = response.model_dump(mode="json")
         timestamp = data["order_status"]["waiting_for_partner"]
 
@@ -56,13 +73,14 @@ class TestGetProjectResponseSchema:
         assert data["files"][0]["title"] == "Modelo 3D"
 
     def test_response_requires_title(self, valid_project):
-        valid_project.title = None
+        data = get_project_response_data(valid_project)
+        data["title"] = None
 
         with raises(ValidationError):
-            GetProjectResponseSchema.model_validate(valid_project)
+            GetProjectResponseSchema.model_validate(data)
 
     def test_response_rejects_invalid_category(self, valid_project):
-        data = valid_project.model_dump()
+        data = get_project_response_data(valid_project)
         data["category"] = "invalid_category"
 
         with raises(ValidationError):
@@ -72,7 +90,9 @@ class TestGetProjectResponseSchema:
         valid_project.register_order_status(OrderStatus.RECEIVED)
         valid_project.register_order_status(OrderStatus.IN_PROGRESS)
 
-        response = GetProjectResponseSchema.model_validate(valid_project)
+        response = GetProjectResponseSchema.model_validate(
+            get_project_response_data(valid_project)
+        )
         data = response.model_dump(mode="json")
         history = data["order_status"]
 

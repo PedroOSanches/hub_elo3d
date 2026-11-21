@@ -17,3 +17,11 @@ class IGatewayStorage(ABC):
             FileNotFound: Caso algum arquivo não seja encontrado.
         """
         raise NotImplementedError
+
+    @abstractmethod
+    def generate_download_url(self, file_name: str, object_key: str) -> str:
+        """
+        Gera URL pré-assinada para download de arquivos
+        ## Raises:
+        - FileNotFound
+        """

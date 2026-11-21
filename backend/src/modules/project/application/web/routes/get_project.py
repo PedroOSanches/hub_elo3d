@@ -8,7 +8,10 @@ from src.modules.project.application.controllers.get_project_controller import (
 from src.modules.project.application.usecases.get_project_usecase import (
     GetProjectUsecase,
 )
-from src.modules.project.application.web.dependencies import get_repo_project
+from src.modules.project.application.web.dependencies import (
+    get_gateway_storage,
+    get_repo_project,
+)
 from src.modules.project.application.web.schemas.get_project_schema import (
     GetProjectResponseSchema,
 )
@@ -17,8 +20,9 @@ get_project_router = APIRouter()
 
 def get_get_project_dependencies() -> GetProjectController:
     repo = get_repo_project()
+    gateway_storage = get_gateway_storage()
     usecase = GetProjectUsecase(repo)
-    controller = GetProjectController(usecase)
+    controller = GetProjectController(usecase, gateway_storage=gateway_storage)
 
     return controller
 

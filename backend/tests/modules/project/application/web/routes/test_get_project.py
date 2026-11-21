@@ -17,6 +17,7 @@ from src.modules.project.application.web.routes.get_project import (
 from src.modules.project.application.web.routes.index import project_router
 from src.modules.project.domain.entities.project import Project
 from src.modules.project.domain.entities.project_file import ProjectFile
+from src.modules.project.infra.external.gateways.gateway_storage_mock import GatewayStorageMock
 from src.modules.project.infra.repositories.project_repository_mock import (
     ProjectRepositoryMock,
 )
@@ -39,7 +40,7 @@ def valid_project():
         files=[
             ProjectFile(
                 title="Modelo 3D",
-                object_key="01a1eb3e-d77e-738b-97ef-cb486c7ad4ab",
+                object_key="projects/mock_ortese_craniana/01a1fa0d-bcb1-73ab-8108-733b38b4bad2.stl",
                 size=13,
                 content_type="model/stl",
             )
@@ -54,7 +55,8 @@ def client_and_repo():
 
     repo = ProjectRepositoryMock()
     usecase = GetProjectUsecase(repo)
-    controller = GetProjectController(usecase)
+    gateway = GatewayStorageMock()
+    controller = GetProjectController(usecase, gateway)
 
     app.dependency_overrides[get_get_project_dependencies] = lambda: controller
 

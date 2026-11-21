@@ -8,7 +8,7 @@ class IGatewayStorage(ABC):
     def generate_upload_url(
         self,
         object_key: str,
-        content_type: str
+        content_type: str,
         ) -> str:
         """
         Gera a URL pré-assinada de upload 

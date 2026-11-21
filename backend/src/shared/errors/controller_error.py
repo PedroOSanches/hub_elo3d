@@ -20,4 +20,3 @@ class WrongTypeParameter(BaseError):
             f"Received: {field_type_received}. "
             f"Expected: {field_type_expected}"
         )
-    

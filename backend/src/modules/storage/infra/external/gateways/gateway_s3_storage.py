@@ -2,7 +2,6 @@ from urllib.parse import quote
 
 from botocore.exceptions import ClientError
 
-from src.modules.storage.domain.errors.file_not_found_error import FileNotFound
 from src.modules.storage.domain.errors.storage_error import StorageError
 from src.modules.storage.domain.gateways.gateway_storage_interface import (
     IGatewayStorage,

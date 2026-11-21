@@ -29,7 +29,6 @@ from src.modules.printers.domain.gateways.i_user_gateway import IUserGateway
 from src.modules.printers.infra.repositories.printer_repository_mock import (
     PrinterRepositoryMock,
 )
-from src.modules.user.domain.enums.role_enum import ROLE
 
 class UserGatewayFake(IUserGateway):
     def __init__(self, exists: bool = True) -> None:
@@ -87,7 +86,7 @@ class TestGetPrinterUsecase:
 
 
 class TestListPrintersUsecase:
-    @pytest.mark.parametrize("role", [ROLE.HOSPITAL, ROLE.USER_HOSPITAL])
+    @pytest.mark.parametrize("role", ["hospital", "user_hospital"])
     def test_aacd_lists_all(self, role):
         repo = PrinterRepositoryMock()
         create_printer(repo)
@@ -101,10 +100,10 @@ class TestListPrintersUsecase:
         mine = create_printer(repo, user_id=user_id)
         create_printer(repo)
 
-        assert ListPrintersUsecase(repo)(user_id, ROLE.USER) == [mine]
+        assert ListPrintersUsecase(repo)(user_id, "user") == [mine]
 
     def test_list_empty(self):
-        assert ListPrintersUsecase(PrinterRepositoryMock())(uuid4(), ROLE.USER) == []
+        assert ListPrintersUsecase(PrinterRepositoryMock())(uuid4(), "user") == []
 
     def test_list_empty(self):
         assert ListPrintersUsecase(PrinterRepositoryMock())() == []

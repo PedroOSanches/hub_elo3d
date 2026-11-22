@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from starlette.types import ExceptionHandler
 
 from src.app.router import api_router
-from src.modules.auth.infra.middlewares.auth_middleware import AuthenticationMiddleware
+from src.app.auth_middleware import AuthenticationMiddleware
 from src.shared.environments.environments import env
 from src.shared.environments.neo4j_connection_factory import connection
 from src.shared.errors.base_error import BaseError

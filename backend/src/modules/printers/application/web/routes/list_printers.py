@@ -1,6 +1,6 @@
-import uuid
+from uuid import UUID
 
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 
 from src.modules.printers.application.controllers.list_printers_controller import (
     ListPrintersController,
@@ -23,14 +23,28 @@ def get_list_printers_dependencies() -> ListPrintersController:
     return controller
 
 
+def get_current_user(request: Request) -> tuple[UUID, str]:
+    current_user = getattr(request.state, "current_user", None)
+
+    if not isinstance(current_user, dict):
+        raise HTTPException(status_code=401, detail="Usuário não autenticado")
+
+    try:
+        return UUID(current_user["user_id"]), str(current_user["role"])
+    except (KeyError, ValueError, TypeError):
+        raise HTTPException(
+            status_code=401, detail="Usuário não autenticado"
+        ) from None
+
+
 @list_router.get(
     "/list",
     status_code=status.HTTP_200_OK,
     response_model=list[PrinterResponseSchema],
 )
 async def list_printers(
-    usuario_id: uuid.UUID | None = None,
     controller: ListPrintersController = Depends(get_list_printers_dependencies),
+    current_user: tuple[UUID, str] = Depends(get_current_user),
 ):
-
-    return controller(usuario_id)
+    user_id, role = current_user
+    return controller(user_id, role)

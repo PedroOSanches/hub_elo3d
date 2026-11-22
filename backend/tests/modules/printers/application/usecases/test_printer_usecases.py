@@ -30,7 +30,6 @@ from src.modules.printers.infra.repositories.printer_repository_mock import (
     PrinterRepositoryMock,
 )
 
-
 class UserGatewayFake(IUserGateway):
     def __init__(self, exists: bool = True) -> None:
         self._exists = exists
@@ -87,23 +86,24 @@ class TestGetPrinterUsecase:
 
 
 class TestListPrintersUsecase:
-    def test_list_all(self):
+    @pytest.mark.parametrize("role", ["hospital", "user_hospital"])
+    def test_aacd_lists_all(self, role):
         repo = PrinterRepositoryMock()
         create_printer(repo)
         create_printer(repo)
 
-        assert len(ListPrintersUsecase(repo)()) == 2
+        assert len(ListPrintersUsecase(repo)(uuid4(), role)) == 2
 
-    def test_list_by_user(self):
+    def test_common_user_lists_only_own(self):
         repo = PrinterRepositoryMock()
         user_id = uuid4()
         mine = create_printer(repo, user_id=user_id)
         create_printer(repo)
 
-        assert ListPrintersUsecase(repo)(user_id) == [mine]
+        assert ListPrintersUsecase(repo)(user_id, "user") == [mine]
 
     def test_list_empty(self):
-        assert ListPrintersUsecase(PrinterRepositoryMock())() == []
+        assert ListPrintersUsecase(PrinterRepositoryMock())(uuid4(), "user") == []
 
 
 class TestUpdatePrinterUsecase:

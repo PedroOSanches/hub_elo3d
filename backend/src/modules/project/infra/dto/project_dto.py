@@ -46,7 +46,8 @@ class ProjectDTO:
     def dict_to_entity(
         project_data: dict[str, Any],
         files_data: list[dict[str, Any]],
-        statuses_data: list[dict[str, Any]]
+        statuses_data: list[dict[str, Any]],
+        filament_data: dict[str, Any] | None = None
     ) -> Project:
 
         files = [
@@ -74,6 +75,11 @@ class ProjectDTO:
 
         return Project.model_validate({
             **project_data,
+            "filament_id": (
+                filament_data["filament_id"]
+                if filament_data
+                else project_data.get("filament_id")
+            ),
             "files": files,
             "order_status": statuses
         })

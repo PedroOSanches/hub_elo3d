@@ -23,10 +23,13 @@ class ProjectRepositoryNeo(IProjectRepository):
             CREATE (p:Project)
             SET p = $project
 
+            MERGE (filament:Filament {filament_id: $filament_id})
+            CREATE (p)-[:USES_FILAMENT]->(filament)
+
             FOREACH (file IN $files |
-                CREATE (f:ProjectFile)
-                SET f = file
-                CREATE (p)-[:HAS_FILE]->(f)
+                CREATE (file_node:ProjectFile)
+                SET file_node = file
+                CREATE (p)-[:HAS_FILE]->(file_node)
             )
 
             FOREACH (status IN $statuses |
@@ -42,6 +45,8 @@ class ProjectRepositoryNeo(IProjectRepository):
             ProjectDTO.entity_to_dict(project)
         )
 
+        filament_id = project_data.pop("filament_id")
+
         try:
             result = self.connection_factory.execute_write(
                 lambda tx: tx.run(
@@ -49,6 +54,7 @@ class ProjectRepositoryNeo(IProjectRepository):
                     project=project_data,
                     files=files_data,
                     statuses=statuses_data,
+                    filament_id=str(filament_id)
                 ).single()
             )
         except Exception as e:
@@ -66,13 +72,17 @@ class ProjectRepositoryNeo(IProjectRepository):
         query = """
             MATCH (p:Project {id: $project_id})
 
+            OPTIONAL MATCH (p)-[:USES_FILAMENT]->(filament:Filament)
+            WITH p, filament
+
             OPTIONAL MATCH (p)-[:HAS_FILE]->(f:ProjectFile)
-            WITH p, collect(properties(f)) AS files
+            WITH p, filament, collect(properties(f)) AS files
 
             OPTIONAL MATCH (p)-[:HAS_STATUS]->(s:ProjectStatus)
 
             RETURN
                 properties(p) AS project,
+                properties(filament) AS filament,
                 files,
                 collect(properties(s)) AS statuses
         """
@@ -95,7 +105,8 @@ class ProjectRepositoryNeo(IProjectRepository):
         return ProjectDTO.dict_to_entity(
             project_data=data["project"],
             files_data=data["files"],
-            statuses_data=data["statuses"]
+            statuses_data=data["statuses"],
+            filament_data=data["filament"]
         )
 
     def get_all_projects(
@@ -104,13 +115,17 @@ class ProjectRepositoryNeo(IProjectRepository):
         query = """
             MATCH (p:Project)
 
+            OPTIONAL MATCH (p)-[:USES_FILAMENT]->(filament:Filament)
+            WITH p, filament
+
             OPTIONAL MATCH (p)-[:HAS_FILE]->(f:ProjectFile)
-            WITH p, collect(properties(f)) AS files
+            WITH p, filament, collect(properties(f)) AS files
 
             OPTIONAL MATCH (p)-[:HAS_STATUS]->(s:ProjectStatus)
 
             RETURN
                 properties(p) AS project,
+                properties(filament) AS filament,
                 files,
                 collect(properties(s)) AS statuses
             ORDER BY project.id
@@ -130,7 +145,8 @@ class ProjectRepositoryNeo(IProjectRepository):
             ProjectDTO.dict_to_entity(
                 project_data=data["project"],
                 files_data=data["files"],
-                statuses_data=data["statuses"]
+                statuses_data=data["statuses"],
+                filament_data=data["filament"]
             )
             for data in results
         ]
@@ -154,7 +170,13 @@ class ProjectRepositoryNeo(IProjectRepository):
                 DETACH DELETE old
             )
 
+            OPTIONAL MATCH (p)-[old_filament:USES_FILAMENT]->()
+            DELETE old_filament
+
             SET p = $project
+
+            MERGE (filament:Filament {filament_id: $filament_id})
+            CREATE (p)-[:USES_FILAMENT]->(filament)
 
             FOREACH (file IN $files |
                 CREATE (f:ProjectFile)
@@ -175,6 +197,8 @@ class ProjectRepositoryNeo(IProjectRepository):
             ProjectDTO.entity_to_dict(updated_project)
         )
 
+        filament_id = project_data.pop("filament_id")
+
         try:
             result = self.connection_factory.execute_write(
                 lambda tx: tx.run(
@@ -183,6 +207,7 @@ class ProjectRepositoryNeo(IProjectRepository):
                     project=project_data,
                     files=files_data,
                     statuses=statuses_data,
+                    filament_id=str(filament_id)
                 ).single()
             )
         except Exception as e:
@@ -214,10 +239,20 @@ class ProjectRepositoryNeo(IProjectRepository):
                 collect(s) AS status_nodes,
                 collect(properties(s)) AS statuses
 
+            OPTIONAL MATCH (p)-[:USES_FILAMENT]->(filament:Filament)
+            WITH
+                p,
+                file_nodes,
+                files,
+                status_nodes,
+                statuses,
+                properties(filament) AS filament
+
             WITH
                 p,
                 file_nodes + status_nodes AS nodes,
                 properties(p) AS project,
+                filament,
                 files,
                 statuses
 
@@ -227,7 +262,7 @@ class ProjectRepositoryNeo(IProjectRepository):
 
             DETACH DELETE p
 
-            RETURN project, files, statuses
+            RETURN project, filament, files, statuses
         """
 
         try:
@@ -248,5 +283,6 @@ class ProjectRepositoryNeo(IProjectRepository):
         return ProjectDTO.dict_to_entity(
             project_data=data["project"],
             files_data=data["files"],
-            statuses_data=data["statuses"]
+            statuses_data=data["statuses"],
+            filament_data=data["filament"]
         )

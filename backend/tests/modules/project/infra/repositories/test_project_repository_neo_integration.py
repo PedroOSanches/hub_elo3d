@@ -78,8 +78,9 @@ def test_create_and_get_project_real_db(repo, project):
             lambda tx: tx.run(
                 """
                 MATCH (p:Project {id: $project_id})
-                OPTIONAL MATCH
-                    (p)-[:HAS_FILE|HAS_STATUS]->(child)
+
+                OPTIONAL MATCH (p)-[:HAS_FILE|HAS_STATUS]->(child)
+
                 WITH p, collect(DISTINCT child) AS children
 
                 FOREACH (child IN children |

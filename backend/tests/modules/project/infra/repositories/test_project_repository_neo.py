@@ -85,6 +85,19 @@ def test_create_project_sends_correct_data(
     assert kwargs["files"][0]["title"] == "Modelo 3D"
     assert kwargs["statuses"][0]["status"] == "waiting_for_partner"
 
+def test_create_project_creates_filament_relationship(
+    repo, project, transaction
+):
+    repo.create_project(project)
+
+    args, kwargs = transaction.run.call_args
+    query = args[0]
+
+    assert "MERGE (filament:Filament" in query
+    assert "USES_FILAMENT" in query
+    assert "filament_id" not in kwargs["project"]
+    assert kwargs["filament_id"] == str(project.filament_id)
+
 def test_create_project_without_result(
     repo, project, transaction
 ):
@@ -111,6 +124,9 @@ def test_get_project(
     record = Mock()
     record.data.return_value = {
         "project": project_data,
+        "filament": {
+            "filament_id": str(project.filament_id)
+        },
         "files": files_data,
         "statuses": statuses_data
     }
@@ -127,6 +143,38 @@ def test_get_project(
     args, kwargs = transaction.run.call_args
 
     assert "MATCH (p:Project" in args[0]
+    assert kwargs["project_id"] == str(project.id)
+
+def test_get_project_recovers_filament_relationship(
+    repo, project, transaction
+):
+    project_data, files_data, statuses_data = (
+        ProjectDTO.entity_to_dict(project)
+    )
+
+    project_data.pop("filament_id")
+
+    record = Mock()
+    record.data.return_value = {
+        "project": project_data,
+        "filament": {
+            "filament_id": str(project.filament_id)
+        },
+        "files": files_data,
+        "statuses": statuses_data
+    }
+
+    transaction.run.return_value.single.return_value = record
+
+    result = repo.get_project(project.id)
+
+    assert result.filament_id == project.filament_id
+
+    args, kwargs = transaction.run.call_args
+    query = args[0]
+
+    assert "USES_FILAMENT" in query
+    assert "filament" in query
     assert kwargs["project_id"] == str(project.id)
 
 def test_get_project_not_found(
@@ -168,6 +216,9 @@ def test_get_all_projects(
         result = Mock()
         result.data.return_value = {
             "project": project_data,
+            "filament": {
+                "filament_id": str(item.filament_id)
+            },
             "files": files_data,
             "statuses": statuses_data
         }
@@ -185,6 +236,38 @@ def test_get_all_projects(
     args, kwargs = transaction.run.call_args
 
     assert "ORDER BY project.id" in args[0]
+
+def test_get_all_projects_recovers_filament_relationship(
+    repo, project, transaction
+):
+    project_data, files_data, statuses_data = (
+        ProjectDTO.entity_to_dict(project)
+    )
+
+    project_data.pop("filament_id")
+
+    record = Mock()
+    record.data.return_value = {
+        "project": project_data,
+        "filament": {
+            "filament_id": str(project.filament_id)
+        },
+        "files": files_data,
+        "statuses": statuses_data
+    }
+
+    transaction.run.return_value = [record]
+
+    result = repo.get_all_projects()
+
+    assert len(result) == 1
+    assert result[0].filament_id == project.filament_id
+
+    args, kwargs = transaction.run.call_args
+    query = args[0]
+
+    assert "USES_FILAMENT" in query
+    assert "filament" in query
 
 def test_get_all_projects_empty(
     repo, transaction
@@ -219,6 +302,32 @@ def test_update_project(
     assert result.id == project.id
 
     connection_factory.execute_write.assert_called_once()
+
+def test_update_project_updates_filament_relationship(
+    repo, project, transaction
+):
+    updated_project = project.model_copy(
+        update={"filament_id": uuid7()}
+    )
+
+    record = Mock()
+    record.data.return_value = {
+        "project": {},
+        "filament": {
+            "filament_id": str(updated_project.filament_id)
+        }
+    }
+    transaction.run.return_value.single.return_value = record
+
+    repo.update_project(project.id, updated_project)
+
+    args, kwargs = transaction.run.call_args
+    query = args[0]
+
+    assert "USES_FILAMENT" in query
+    assert "MERGE (filament:Filament" in query
+    assert "filament_id" not in kwargs["project"]
+    assert kwargs["filament_id"] == str(updated_project.filament_id)
 
 def test_update_project_sends_correct_data(
     repo, project, transaction
@@ -286,6 +395,9 @@ def test_delete_project(
     record = Mock()
     record.data.return_value = {
         "project": project_data,
+        "filament": {
+            "filament_id": str(project.filament_id)
+        },
         "files": files_data,
         "statuses": statuses_data
     }
@@ -297,6 +409,38 @@ def test_delete_project(
     assert result == project
 
     connection_factory.execute_write.assert_called_once()
+
+def test_delete_project_recovers_filament_relationship(
+    repo, project, transaction
+):
+    project_data, files_data, statuses_data = (
+        ProjectDTO.entity_to_dict(project)
+    )
+
+    project_data.pop("filament_id")
+
+    record = Mock()
+    record.data.return_value = {
+        "project": project_data,
+        "filament": {
+            "filament_id": str(project.filament_id)
+        },
+        "files": files_data,
+        "statuses": statuses_data
+    }
+
+    transaction.run.return_value.single.return_value = record
+
+    result = repo.delete_project(project.id)
+
+    assert result.filament_id == project.filament_id
+
+    args, kwargs = transaction.run.call_args
+    query = args[0]
+
+    assert "USES_FILAMENT" in query
+    assert "filament" in query
+    assert "DETACH DELETE filament" not in query
 
 def test_delete_project_not_found(
     repo, project, transaction

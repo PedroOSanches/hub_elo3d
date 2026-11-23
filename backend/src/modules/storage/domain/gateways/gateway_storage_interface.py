@@ -14,8 +14,20 @@ class IGatewayStorage(ABC):
         Gera a URL pré-assinada de upload 
         """
 
-        raise NotImplementedError
+        pass
+    @abstractmethod
+    def generate_download_url(
+        self,
+        object_key: str,
+        file_name: str
+        ) -> str:
 
+        """
+        Gera URL pré-assinada de download
+        """
+
+        pass
+        
     @abstractmethod
     def verify_upload(
         self,
@@ -27,4 +39,4 @@ class IGatewayStorage(ABC):
         - False caso ocorra alguma falha
         """
         
-        raise NotImplementedError
+        pass

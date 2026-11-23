@@ -16,3 +16,11 @@ class GatewayStorageMock(IGatewayStorage):
             return True
         else:
             raise FileNotFound(file_name=file_name)
+
+    def generate_download_url(self, file_name: str, object_key: str) -> str:
+        for key in self.storage:
+            if object_key == key:
+                return f'https://elo3hub/{key}'
+        raise FileNotFound(
+            file_name=file_name
+            )

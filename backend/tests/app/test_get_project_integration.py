@@ -30,7 +30,7 @@ def valid_project():
         files=[
             ProjectFile(
                 title="Modelo 3D",
-                object_key="01a1eb3e-d77e-738b-97ef-cb486c7ad4ab",
+                object_key="projects/mock_ortese_craniana/01a1fa0d-bcb1-73ab-8108-733b38b4bad2.stl",
                 size=123,
                 content_type='model/stl'
             )

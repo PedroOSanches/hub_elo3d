@@ -3,7 +3,6 @@ from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict
 
-from src.modules.project.domain.entities.project_file import ProjectFile
 from src.modules.project.domain.enums.category_enum import Category
 from src.modules.project.domain.enums.order_status_enum import OrderStatus
 from src.modules.project.domain.enums.urgency_enum import Urgency
@@ -23,4 +22,11 @@ class GetProjectResponseSchema(BaseModel):
     order_status: dict[OrderStatus, datetime]
     printer_id: UUID | None
     filament_id: UUID
-    files: list[ProjectFile]
+    files: list[GetProjectFilesResponseSchema]
+
+
+class GetProjectFilesResponseSchema(BaseModel):
+    title: str
+    download_url: str
+    size: int
+    content_type: str

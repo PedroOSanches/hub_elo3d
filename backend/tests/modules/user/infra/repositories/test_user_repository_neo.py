@@ -68,7 +68,7 @@ class Test_UserRepositoryNeoJ:
     def test_get_user_no_users_found(self, user):
         with pytest.raises(NoUsersFound):
             repo = UserRepositoyNeoJ(connection=get_connection())
-            user_stored = repo.get_user(user_id=UUID('01a1bc0c-e700-7522-92dd-e54d15712d3b'))
+            repo.get_user(user_id=UUID('01a1bc0c-e700-7522-92dd-e54d15712d3b'))
     
     @pytest.mark.skip('Needs Neo4J')
     def test_get_user_all(self):
@@ -91,7 +91,7 @@ class Test_UserRepositoryNeoJ:
     def test_get_user_by_email_no_user_found(self, user):
         with pytest.raises(NoUsersFound):
             repo = UserRepositoyNeoJ(connection=get_connection())
-            user_stored = repo.get_user_by_email('no_user@example.com')
+            repo.get_user_by_email('no_user@example.com')
 
     @pytest.mark.skip('Needs Neo4J')
     def test_update(self, user):
@@ -142,7 +142,7 @@ class Test_UserRepositoryNeoJ:
             )
         
         with pytest.raises(NoUsersFound):
-            updated_user = repo.update_user(user)
+            repo.update_user(user)
 
     @pytest.mark.skip('Needs Neo4J')
     def test_delete(self, user):
@@ -159,4 +159,4 @@ class Test_UserRepositoryNeoJ:
         repo = UserRepositoyNeoJ(get_connection())
 
         with pytest.raises(NoUsersFound):
-            user_deleted = repo.delete_user(UUID('01a1bc0c-e700-7522-92dd-e54d15712d3b'))
+            repo.delete_user(UUID('01a1bc0c-e700-7522-92dd-e54d15712d3b'))

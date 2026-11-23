@@ -13,7 +13,7 @@ from src.shared.environments.environments import env
 @pytest.fixture
 def controller():
     jwt_service = JWTService(jwt_secret=env.jwt_secret)
-    gateway_user = GatewayUser(GatewayUser.get_repo_user())
+    GatewayUser(GatewayUser.get_repo_user())
     usecase = MeUsecase(jwt_service=jwt_service)
     return MeController(usecase=usecase)
 
@@ -34,4 +34,4 @@ class Test_MeController:
             )
         )
 
-        user = controller(access_token=access_token)
+        controller(access_token=access_token)

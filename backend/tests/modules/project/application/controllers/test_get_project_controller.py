@@ -16,6 +16,7 @@ from src.modules.project.domain.errors.project_errors import ProjectNotFoundErro
 from src.modules.project.domain.repositories.project_repository_interface import (
     IProjectRepository,
 )
+from src.modules.project.infra.external.gateways.gateway_storage_mock import GatewayStorageMock
 
 
 @fixture
@@ -37,7 +38,7 @@ def valid_project():
         files=[
             ProjectFile(
                 title="Modelo 3D",
-                object_key="01a1eb3e-d77e-738b-97ef-cb486c7ad4ab",
+                object_key="projects/mock_ortese_craniana/01a1fa0d-bcb1-73ab-8108-733b38b4bad2.stl",
                 size=123,
                 content_type='model/stl'
             )
@@ -48,7 +49,8 @@ class TestGetProjectController:
     def test_get_project_controller(self, repo, valid_project):
         repo.get_project.return_value = valid_project
         usecase = GetProjectUsecase(repo)
-        controller = GetProjectController(usecase)
+        gateway = GatewayStorageMock()
+        controller = GetProjectController(usecase, gateway)
 
         response = controller(valid_project.id).model_dump(mode="json")
 
@@ -62,7 +64,8 @@ class TestGetProjectController:
     def test_controller_serializes_project(self, repo, valid_project):
         repo.get_project.return_value = valid_project
         usecase = GetProjectUsecase(repo)
-        controller = GetProjectController(usecase)
+        gateway = GatewayStorageMock()
+        controller = GetProjectController(usecase, gateway)
 
         response = controller(valid_project.id).model_dump(mode="json")
 
@@ -75,7 +78,8 @@ class TestGetProjectController:
         project_id = uuid4()
         repo.get_project.side_effect = ProjectNotFoundError(project_id)
         usecase = GetProjectUsecase(repo)
-        controller = GetProjectController(usecase)
+        gateway = GatewayStorageMock()
+        controller = GetProjectController(usecase, gateway)
 
         with raises(ProjectNotFoundError, match=f"Project {project_id} not found"):
             controller(project_id)

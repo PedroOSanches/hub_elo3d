@@ -16,6 +16,6 @@ class ListPrintersController:
     def __init__(self, usecase: ListPrintersUsecase):
         self.usecase = usecase
 
-    def __call__(self, usuario_id: UUID | None = None) -> list[PrinterResponseSchema]:
-        printers = self.usecase(usuario_id)
+    def __call__(self, user_id: UUID, role: str) -> list[PrinterResponseSchema]:
+        printers = self.usecase(user_id, role)
         return PrinterViewModel.from_entities(printers)

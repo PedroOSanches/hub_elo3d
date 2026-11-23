@@ -9,8 +9,8 @@ from src.modules.project.application.usecases.delete_project_usecase import (
     DeleteProjectUsecase,
 )
 from src.modules.project.application.web.dependencies import get_repo_project
-from src.modules.project.application.web.schemas.get_project_schema import (
-    GetProjectResponseSchema,
+from src.modules.project.application.web.schemas.delete_project_schema import (
+    DeleteProjectResponseSchema,
 )
 from src.modules.project.domain.errors.project_errors import (
     ProjectDeletionConflictError,
@@ -43,7 +43,7 @@ def get_delete_project_role(request: Request) -> ROLE:
 @delete_project_router.delete(
     "/delete/{project_id}",
     status_code=status.HTTP_200_OK,
-    response_model=GetProjectResponseSchema
+    response_model=DeleteProjectResponseSchema
 )
 async def delete_project(
     project_id: UUID,

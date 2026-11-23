@@ -1,6 +1,10 @@
 from src.modules.project.domain.repositories.project_repository_interface import (
     IProjectRepository,
 )
+from src.modules.project.infra.external.gateways.gateway_storage import GatewayStorage
+from src.modules.project.infra.external.gateways.gateway_storage_mock import (
+    GatewayStorageMock,
+)
 from src.modules.project.infra.repositories.project_repository_mock import (
     ProjectRepositoryMock,
 )

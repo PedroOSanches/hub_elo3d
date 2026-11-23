@@ -23,13 +23,13 @@ def project():
         files=[
             ProjectFile(
                 title="Modelo 3D",
-                object_key=uuid7(),
+                object_key='project/project_name/uuid.stl',
                 size=2048,
                 content_type="model/stl"
             ),
             ProjectFile(
                 title="Referência",
-                object_key=uuid7(),
+                object_key='project/project_name/uuid.stl',
                 size=1024,
                 content_type="application/pdf"
             )

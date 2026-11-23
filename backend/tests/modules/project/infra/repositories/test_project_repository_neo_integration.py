@@ -101,7 +101,7 @@ def test_get_all_projects_real_db(repo, project):
             "files": [
                 ProjectFile(
                     title="Segundo modelo",
-                    object_key=uuid7(),
+                    object_key='project/project_name/uuid.stl',
                     size=1024,
                     content_type="model/stl"
                 )
@@ -162,7 +162,7 @@ def test_update_project_real_db(repo, project):
             "files": [
                 ProjectFile(
                     title="Modelo atualizado",
-                    object_key=uuid7(),
+                    object_key='project/project_name/uuid.stl',
                     size=4096,
                     content_type="model/stl"
                 )

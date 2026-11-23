@@ -11,5 +11,5 @@ class Test_GetUserController:
     def test_get_user_controller(self):
 
         usecase = GetUserUsecase(UserRepositoryMock())
-        controller = GetUserController(usecase)
+        GetUserController(usecase)
 

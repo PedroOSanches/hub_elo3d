@@ -16,6 +16,7 @@ from src.modules.project.domain.enums.urgency_enum import Urgency
 from src.modules.project.domain.repositories.project_repository_interface import (
     IProjectRepository,
 )
+from src.modules.project.infra.external.gateways.gateway_storage_mock import GatewayStorageMock
 
 
 def valid_create_data(**overrides):
@@ -27,7 +28,14 @@ def valid_create_data(**overrides):
         "description": "Prótese de mão para paciente em recuperação",
         "urgency": Urgency.HIGH,
         "filament_id": uuid4(),
-        "files": [ProjectFile(title = "Modelo 3D", file_url = "https://example.com/model.stl")]
+        "files": [
+            ProjectFile(
+                title = "Modelo 3D", 
+                object_key = "projects/mock_ortese/01a1fa0d-0959-741e-a966-dfb9ad976800.obj",
+                size=123,
+                content_type='model/stl'
+                )
+                ]
     }
     data.update(overrides)
     return data
@@ -36,8 +44,9 @@ class TestCreateProjectUsecase:
     def test_create_project(self):
         repo = Mock(spec=IProjectRepository)
         repo.create_project.side_effect = lambda project: project
+        gateway = GatewayStorageMock()
 
-        usecase = CreateProjectUsecase(repo)
+        usecase = CreateProjectUsecase(repo, gateway)
         
         project = usecase(**valid_create_data())
 
@@ -51,7 +60,8 @@ class TestCreateProjectUsecase:
 
     def test_invalid_quantity_does_not_save(self):
         repo = Mock(spec=IProjectRepository)
-        usecase = CreateProjectUsecase(repo)
+        gateway = GatewayStorageMock()
+        usecase = CreateProjectUsecase(repo, gateway)
 
         with raises(ValidationError):
             usecase(**valid_create_data(pieces_quantity = 0))
@@ -61,8 +71,9 @@ class TestCreateProjectUsecase:
     def test_description_is_normalized(self):
         repo = Mock(spec=IProjectRepository)
         repo.create_project.side_effect = lambda project: project
-
-        usecase = CreateProjectUsecase(repo)
+        gateway = GatewayStorageMock()
+        
+        usecase = CreateProjectUsecase(repo, gateway)
         
         project = usecase(**valid_create_data(description = "   Prótese de mão para paciente em recuperação   "))
 

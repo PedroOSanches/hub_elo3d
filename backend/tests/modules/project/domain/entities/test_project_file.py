@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from pydantic import ValidationError
 from pytest import raises
 
@@ -8,44 +10,56 @@ class TestProjectFile:
     def test_create_project_file(self):
         project_file = ProjectFile(
             title = "Modelo de prótese",
-            file_url = "https://example.com/protese.pdf"
+            object_key = "projects/mock_ortese/01a1fa0d-0959-741e-a966-dfb9ad976800.obj",
+            size=123,
+            content_type="model/stl",
         )
 
         assert project_file.title == "Modelo de prótese"
-        assert project_file.file_url == "https://example.com/protese.pdf"
+        assert project_file.object_key == "projects/mock_ortese/01a1fa0d-0959-741e-a966-dfb9ad976800.obj"
 
     def test_required_title(self):
         with raises(ValidationError):
             ProjectFile(
                 title = "",
-                file_url = "https://example.com/protese.pdf"
+                size=200,
+                object_key = "projects/mock_ortese/01a1fa0d-0959-741e-a966-dfb9ad976800.obj",
+                content_type="model/stl",
             )
 
-    def test_required_file_url(self):
+    def test_required_object_key(self):
         with raises(ValidationError):
             ProjectFile(
                 title = "Modelo de prótese",
-                file_url = ""
+                object_key = "",
+                size=100,
+                content_type="model/stl",
             )
 
     def test_empty_title(self):
         with raises(ValidationError):
             ProjectFile(
                 title = "",
-                file_url = "https://example.com/protese.pdf"
+                size=100,
+                object_key = "projects/mock_ortese/01a1fa0d-0959-741e-a966-dfb9ad976800.obj",
+                content_type="model/stl",
             )
 
-    def test_empty_file_url(self):
+    def test_empty_object_key(self):
         with raises(ValidationError):
             ProjectFile(
                 title = "Modelo de prótese",
-                file_url = ""
+                object_key = "",
+                size=100,
+                content_type="model/stl",
             )
 
     def test_unknown_field(self):
         with raises(ValidationError):
             ProjectFile(
                 title = "Modelo de prótese",
-                file_url = "https://example.com/protese.pdf",
+                object_key = UUID("01a1eb3e-d77e-738b-97ef-cb486c7ad4ab"),
+                content_type="model/stl",
+                size=123,
                 unknown_field = "value"
             )

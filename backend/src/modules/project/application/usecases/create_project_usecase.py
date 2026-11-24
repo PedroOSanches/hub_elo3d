@@ -28,6 +28,14 @@ class CreateProjectUsecase:
         files: list[ProjectFile],
         technical_info: str | None = None,
     ) -> Project:
+        
+        for file in files:
+            print(file.object_key)
+            upload_file = self.gateway_storage.verify_upload(
+                file_name=file.title,
+                file_object_key=file.object_key,
+                )
+
         project = Project(
             title = title,
             date_end = date_end,
@@ -39,11 +47,4 @@ class CreateProjectUsecase:
             files = files,
             technical_info = technical_info
         )
-        for file in files:
-            upload_file = self.gateway_storage.verify_upload(
-                file_name=file.title,
-                file_object_key=file.object_key,
-                )
-            if upload_file:
-                continue
         return self.repo.create_project(project = project)

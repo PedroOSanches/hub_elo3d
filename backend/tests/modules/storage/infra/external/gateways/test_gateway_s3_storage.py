@@ -5,13 +5,18 @@ from src.shared.environments.environments import env
 from src.shared.environments.aws_client_factory import AWSClientFactory
 
 @fixture
-def client_s3():
+def client_s3() -> GatewayS3Storage:
     return  GatewayS3Storage(
         aws_client=AWSClientFactory(),
         bucket_name=env.aws_s3_bucket_name,
     )
 
 class Test_GatewayS3Storage:
+
+    def test_verify_upload(self, client_s3: GatewayS3Storage):
+        assert client_s3.verify_upload(
+            'teste.txt'
+        )
 
     def test_generate_download_url(self, client_s3):
 

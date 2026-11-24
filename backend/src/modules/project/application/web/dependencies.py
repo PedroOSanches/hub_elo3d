@@ -20,7 +20,7 @@ _project_repository = ProjectRepositoryMock()
 _gateway_storage = GatewayStorageMock()
 
 def get_gateway_storage():
-    if env.stage == 'PROD':
+    if env.stage == STAGE.PROD:
         return GatewayStorage()
     else:
         return _gateway_storage

@@ -35,6 +35,8 @@ class CreateProjectUsecase:
                 file_name=file.title,
                 file_object_key=file.object_key,
                 )
+            if upload_file:
+                continue
 
         project = Project(
             title = title,

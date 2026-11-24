@@ -39,7 +39,7 @@ class PrinterRepositoryNeo(IPrinterRepository):
             MATCH (u:User {user_id: $user_id})
             CREATE (p:Printer)
             SET p = $printer
-            CREATE (p)-[:HAS_PRINTER]->(u)
+            CREATE (p)<-[:HAS_PRINTER]-(u)
 
             WITH p
             OPTIONAL MATCH (f:Filament)
@@ -67,7 +67,7 @@ class PrinterRepositoryNeo(IPrinterRepository):
 
     def get_printer(self, printer_id: UUID) -> Printer:
         query = """
-            MATCH (p:Printer {id: $printer_id})-[:HAS_PRINTER]->(u:User)
+            MATCH (p:Printer {id: $printer_id})<-[:HAS_PRINTER]-(u:User)
             OPTIONAL MATCH (p)-[:HAS_FILAMENT]->(f:Filament)
             RETURN
                 properties(p) AS printer,
@@ -87,7 +87,7 @@ class PrinterRepositoryNeo(IPrinterRepository):
 
     def get_all_printers(self, user_id: UUID | None = None) -> list[Printer]:
         query = """
-            MATCH (p:Printer)-[:HAS_PRINTER]->(u:User)
+            MATCH (p:Printer)<-[:HAS_PRINTER]-(u:User)
             WHERE $user_id IS NULL OR u.user_id = $user_id
             OPTIONAL MATCH (p)-[:HAS_FILAMENT]->(f:Filament)
             RETURN
@@ -108,7 +108,7 @@ class PrinterRepositoryNeo(IPrinterRepository):
 
     def update_printer(self, printer_id: UUID, updated_printer: Printer) -> Printer:
         query = """
-            MATCH (p:Printer {id: $printer_id})-[:HAS_PRINTER]->(u:User)
+            MATCH (p:Printer {id: $printer_id})<-[:HAS_PRINTER]-(u:User)
             SET p += $printer
 
             WITH p, u

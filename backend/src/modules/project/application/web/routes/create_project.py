@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, Request, status
 
 from src.modules.project.application.controllers.create_project_controller import (
     CreateProjectController,
@@ -14,6 +14,7 @@ from src.modules.project.application.web.schemas.create_project_schema import (
     CreateProjectRequestSchema,
     CreateProjectResponseSchema,
 )
+from src.shared.errors.usecase_error import ForbiddenAction
 
 create_project_router = APIRouter()
 
@@ -34,7 +35,13 @@ def get_create_project_dependencies() -> CreateProjectController:
     response_model=CreateProjectResponseSchema,
 )
 async def create_project(
-    request: CreateProjectRequestSchema,
+    request: Request,
+    body: CreateProjectRequestSchema,
     controller: CreateProjectController = Depends(get_create_project_dependencies),
 ):
-    return controller(request)
+    current_user = request.state.current_user
+
+    if current_user['role'] not in ['hospital', 'user_hospital']:
+        raise ForbiddenAction("You don't have permission to create projects.")
+    
+    return controller(body)

@@ -11,7 +11,10 @@ from src.modules.project.infra.repositories.project_repository_neo import Projec
 from src.shared.environments.environments import env
 from src.shared.environments.neo4j_connection_factory import Neo4JConnectionFactory
 from src.modules.project.domain.enums.order_status_enum import OrderStatus
-from src.modules.project.domain.errors.project_errors import ProjectNotFoundError
+from src.modules.project.domain.errors.project_errors import (
+    NoProjectsAvailable,
+    ProjectNotFoundError,
+)
 
 
 @fixture
@@ -151,6 +154,77 @@ def test_get_all_projects_real_db(repo, project):
                 projects_ids=projects_ids
             ).consume()
         )
+
+def test_available_projects_real_db(repo, project):
+    user_id = uuid7()
+    printer_id = uuid7()
+
+    try:
+        repo.create_project(project)
+
+        repo.connection_factory.execute_write(
+            lambda tx: tx.run(
+                """
+                MATCH (f:Filament {filament_id: $filament_id})
+                MERGE (u:User {user_id: $user_id})
+                CREATE (u)-[:HAS_PRINTER]->(
+                    printer:Printer {
+                        id: $printer_id,
+                        status: 'disponivel'
+                    }
+                )
+                CREATE (printer)-[:HAS_FILAMENT]->(f)
+                """,
+                filament_id=str(project.filament_id),
+                user_id=str(user_id),
+                printer_id=str(printer_id)
+            ).consume()
+        )
+
+        result = repo.available_projects(user_id)
+
+        assert len(result) == 1
+        assert result[0] == project
+
+    finally:
+        repo.connection_factory.execute_write(
+            lambda tx: tx.run(
+                """
+                MATCH (p:Project {id: $project_id})
+                OPTIONAL MATCH
+                    (p)-[:HAS_FILE|HAS_STATUS|USES_FILAMENT]->(child)
+
+                WITH p, collect(DISTINCT child) AS children
+
+                FOREACH (child IN children |
+                    DETACH DELETE child
+                )
+
+                DETACH DELETE p
+                """,
+                project_id=str(project.id)
+            ).consume()
+        )
+
+        repo.connection_factory.execute_write(
+            lambda tx: tx.run(
+                """
+                MATCH (u:User {user_id: $user_id})
+                OPTIONAL MATCH (u)-[:HAS_PRINTER]->(printer:Printer)
+                WHERE printer.id = $printer_id
+
+                OPTIONAL MATCH (printer)-[:HAS_FILAMENT]->(filament:Filament)
+
+                DETACH DELETE u, printer, filament
+                """,
+                user_id=str(user_id),
+                printer_id=str(printer_id)
+            ).consume()
+        )
+
+def test_available_projects_empty_real_db(repo):
+    with raises(NoProjectsAvailable):
+        repo.available_projects(uuid7())
 
 def test_update_project_real_db(repo, project):
     original_file_key = str(project.files[0].object_key)

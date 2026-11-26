@@ -4,3 +4,6 @@
 *.pyc
 __pycache__/
 .vscode/
+
+.vercel
+.env*

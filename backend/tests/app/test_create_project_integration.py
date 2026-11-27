@@ -19,7 +19,7 @@ def access_token():
         "sub": str(uuid4()),
         "type": "access",
         "exp": datetime.now(UTC) + timedelta(minutes=30),
-        'role': 'user_hospital'
+        'role': 'hospital'
     }
     
     return jwt.encode(payload, env.jwt_secret, algorithm="HS256")

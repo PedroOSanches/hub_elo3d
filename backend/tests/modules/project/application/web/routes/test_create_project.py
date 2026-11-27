@@ -1,6 +1,6 @@
 from typing import Any
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.testclient import TestClient
 from pytest import fixture
 
@@ -48,6 +48,15 @@ def client_and_repo():
         project_router,
         prefix="/projects"
     )
+    
+    @app.middleware('http')
+    async def mock_middleware(request: Request, call_next):
+        request.state.current_user = {
+            'user_id': 'test_user_id',
+            'role': 'user_hospital'
+        }
+
+        return await call_next(request)
 
     repo = ProjectRepositoryMock()
     gateway = GatewayStorageMock()

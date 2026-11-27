@@ -1,7 +1,10 @@
 from uuid import UUID
 
 from src.modules.project.domain.entities.project import Project
-from src.modules.project.domain.errors.project_errors import ProjectNotFoundError
+from src.modules.project.domain.errors.project_errors import (
+    NoProjectsAvailable,
+    ProjectNotFoundError,
+)
 from src.modules.project.domain.repositories.project_repository_interface import (
     IProjectRepository,
 )
@@ -286,3 +289,55 @@ class ProjectRepositoryNeo(IProjectRepository):
             statuses_data=data["statuses"],
             filament_data=data["filament"]
         )
+
+    def available_projects(self, user_id: UUID) -> list[Project]:
+        query = """
+        MATCH (u:User)-[:HAS_PRINTER]->(p:Printer {status: 'disponivel'})
+            -[:HAS_FILAMENT]->(f:Filament)
+            <-[:USES_FILAMENT]-(pr:Project)
+            -[:HAS_STATUS]->(st:ProjectStatus)
+
+        WHERE u.user_id = $user_id
+            AND st.status = 'waiting_for_partner'
+
+        WITH DISTINCT pr, p, f
+
+        MATCH (pr)-[:HAS_STATUS]->(all_status:ProjectStatus)
+
+        WITH pr, f, count(all_status) AS status_count,
+            collect(all_status) AS statuses
+
+        WHERE status_count = 1
+            AND statuses[0].status = 'waiting_for_partner'
+
+        MATCH (pr)-[:HAS_FILE]->(pf:ProjectFile)
+
+        RETURN
+            properties(pr) AS project,
+            properties(f) AS filament,
+            [s IN statuses | properties(s)] AS status,
+            collect(DISTINCT properties(pf)) AS files
+        """
+
+        try:
+            result = self.connection_factory.execute_read(
+                lambda tx: tx.run(
+                    query,
+                    user_id=str(user_id)
+                ).data()
+            )
+        except Exception as err:
+            raise DatabaseError() from err
+
+        if not result:
+            raise NoProjectsAvailable()
+
+        return [
+            ProjectDTO.dict_to_entity(
+                project_data=data.get('project'),
+                filament_data=data.get('filament'),
+                statuses_data=data.get('status'),
+                files_data=data.get('files')
+            )
+            for data in result
+        ]

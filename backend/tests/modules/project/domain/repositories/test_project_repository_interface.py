@@ -22,7 +22,8 @@ class TestProjectRepositoryInterface:
             "get_all_projects",
             "create_project",
             "update_project",
-            "delete_project"
+            "delete_project",
+            "available_projects",
         }
         
         assert expected_methods == IProjectRepository.__abstractmethods__

@@ -28,3 +28,10 @@ class IProjectRepository(ABC):
     @abstractmethod
     def delete_project(self, project_id: UUID) -> Project:
         pass
+
+    @abstractmethod
+    def available_projects(self, user_id: UUID) -> list[Project]:
+        """
+        Retorna projetos que o usuário tem capacidade de produzir
+        """
+        pass

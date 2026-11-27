@@ -1,7 +1,11 @@
 
+from datetime import date
 from uuid import UUID
 
 from src.modules.project.domain.entities.project import Project
+from src.modules.project.domain.entities.project_file import ProjectFile
+from src.modules.project.domain.enums.category_enum import Category
+from src.modules.project.domain.enums.urgency_enum import Urgency
 from src.modules.project.domain.errors.project_errors import ProjectNotFoundError
 from src.modules.project.domain.repositories.project_repository_interface import (
     IProjectRepository,
@@ -50,3 +54,24 @@ class ProjectRepositoryMock(IProjectRepository):
         deleted_project = self.projects.pop(project_id)
 
         return deleted_project
+    
+    def available_projects(self, user_id: UUID) -> list[Project]:
+        return [
+            Project(
+                title='Teste',
+                date_end=date(2026, 12, 24),
+                pieces_quantity=1,
+                category=Category('prosthesis'),
+                description='Teste',
+                urgency=Urgency('low'),
+                filament_id=UUID('01a2147b-0a56-773c-9462-412976ac7b86'),
+                files=[
+                    ProjectFile(
+                        title='test.txt',
+                        object_key='projects/teste/test.txt',
+                        size=1000,
+                        content_type='text/plain'
+                    )
+                ]
+            )
+        ]

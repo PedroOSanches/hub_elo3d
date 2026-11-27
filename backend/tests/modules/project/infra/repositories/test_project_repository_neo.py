@@ -9,7 +9,10 @@ from src.modules.project.domain.entities.project_file import ProjectFile
 from src.modules.project.domain.repositories.project_repository_interface import IProjectRepository
 from src.modules.project.infra.repositories.project_repository_neo import ProjectRepositoryNeo
 from src.shared.errors.database_error import DatabaseError
-from src.modules.project.domain.errors.project_errors import ProjectNotFoundError
+from src.modules.project.domain.errors.project_errors import (
+    NoProjectsAvailable,
+    ProjectNotFoundError,
+)
 from src.modules.project.infra.dto.project_dto import ProjectDTO
 from src.modules.project.domain.enums.order_status_enum import OrderStatus
 
@@ -459,3 +462,66 @@ def test_delete_project_database_error(
 
     with raises(DatabaseError):
         repo.delete_project(project.id)
+
+def test_available_projects(
+    repo, project, transaction, connection_factory
+):
+    second_project = project.model_copy(
+        update={
+            "id": uuid7(),
+            "title": "Prótese de perna"
+        },
+        deep=True
+    )
+
+    results = []
+
+    for item in [project, second_project]:
+        project_data, files_data, statuses_data = (
+            ProjectDTO.entity_to_dict(item)
+        )
+
+        result = {
+            "project": project_data,
+            "filament": {
+                "filament_id": str(item.filament_id)
+            },
+            "status": statuses_data,
+            "files": files_data
+        }
+        results.append(result)
+
+    transaction.run.return_value.data.return_value = results
+
+    result = repo.available_projects(project.id)
+
+    assert result == [project, second_project]
+    assert len(result) == 2
+
+    connection_factory.execute_read.assert_called_once()
+
+    args, kwargs = transaction.run.call_args
+    query = args[0]
+
+    assert "HAS_PRINTER" in query
+    assert "HAS_FILAMENT" in query
+    assert "waiting_for_partner" in query
+    assert kwargs["user_id"] == str(project.id)
+
+def test_available_projects_empty(
+    repo, project, transaction
+):
+    transaction.run.return_value.data.return_value = []
+
+    with raises(NoProjectsAvailable):
+        repo.available_projects(project.id)
+
+def test_available_projects_database_error(
+    repo, project, connection_factory
+):
+    connection_factory.execute_read.side_effect = RuntimeError(
+        "Database connection error"
+    )
+
+    with raises(DatabaseError):
+        repo.available_projects(project.id)

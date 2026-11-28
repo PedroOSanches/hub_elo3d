@@ -16,6 +16,7 @@ for (const modalFile of modalFiles) {
 const modalDetalhes = document.getElementById('modal-detalhes');
 const modalForm = document.getElementById('modal-form');
 const form = document.getElementById('form-impressora');
+await carregarFilamentos()
 
 const ESTADOS = {
     online:   { texto: 'Online',      ponto: 'ponto--disponivel' },
